@@ -1,0 +1,217 @@
+<div class="slider position-absolute" style="z-index: -1">
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+</div>
+<div>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="col-md-6 justify-content-center align-items-center">
+      <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
+        <div class="container card register">
+          <div class="mt-4"><p>REGISTRO</p></div>
+          <div>
+            <div class="form-group">
+              <label class="label">Pais</label>
+              <select
+                class="form-control d-flex"
+                id="country"
+                required
+                ngModel
+                name="country"
+                #country="ngModel"
+                [ngClass]="'select'"
+              >
+                <option value="" selected disabled>Seleccione un pais</option>
+                <option value="64307ffca6453f5787abf340">Ecuador</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="label">Fecha de nacimiento</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder=""
+                id="dateBirth"
+                required
+                ngModel
+                name="dateBirth"
+                #dateBirth="ngModel"
+                [ngClass]="'input'"
+                (ngModelChange)="onValidateDateBirth($event)"
+              />
+              <div
+                *ngIf="
+                  dateBirth.invalid &&
+                  (dateBirth.dirty || dateBirth.touched || errordate)
+                "
+                class="text-danger"
+              >
+                <small *ngIf="dateBirth.errors?.['required']">
+                  Seleccione una fecha.
+                </small>
+              </div>
+              <small class="text-danger" *ngIf="errordate !== ''">
+                {{ errordate }}
+              </small>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="label">Nombre de usuario</label>
+              <input
+                id="userName"
+                type="text"
+                class="form-control"
+                placeholder="Nombre usuario"
+                required
+                ngModel
+                name="userName"
+                pattern="[A-Za-z0-9]+"
+                #userName="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+                class="text-danger"
+              >
+                <small *ngIf="userName.errors?.['required']">
+                  Ingrese el username.
+                </small>
+                <small *ngIf="userName.errors?.['pattern']">
+                  Username no válido.
+                </small>
+              </div>
+              <!-- <div *ngIf="authService.statusUserName" class="text-danger">
+                username no disponible.
+              </div> -->
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="label">Correo electrónico</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                placeholder="Email"
+                required
+                email
+                ngModel
+                name="email"
+                #email="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="text-danger"
+              >
+                <small *ngIf="email.errors?.['required']"
+                  >Ingrese el email.</small
+                >
+                <small *ngIf="email.errors?.['email']">
+                  Ingrese un email válido.
+                </small>
+              </div>
+              <!-- <div *ngIf="authService.statusEmail" class="text-danger">
+                email ya registrado.
+              </div> -->
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Contraseña"
+                id="password"
+                required
+                ngModel
+                minlength="8"
+                name="password"
+                #password="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="text-danger form-group"
+              >
+                <small class="form-group" *ngIf="password.errors?.['required']">
+                  Ingrese el password.
+                </small>
+                <small
+                  class="form-group"
+                  *ngIf="password.errors?.['minlength']"
+                >
+                  Debe tener mínino 8 caracteres.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                ngModel
+                name="terms"
+                #terms="ngModel"
+              />
+              Acepto los
+              <a href="#">Términos y Condiciones</a>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="form-group">
+              <re-captcha
+                id="recaptcha"
+                name="recaptcha"
+                #recaptcha="ngModel"
+                [(ngModel)]="token"
+                required
+                [class.is-invalid]="
+                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                "
+              ></re-captcha>
+              <div
+                *ngIf="
+                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="recaptcha.errors?.['required']">
+                  Captcha requerido.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                value="Registrarse"
+                [disabled]="!frmREgister.valid || errordate !== ''"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 justify-content-center align-items-center banner">
+      <a href="/inicio">
+        <img src="assets/img/logo7.png" class="rounded" alt="kenyoume" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Alerts -->
+<!-- <app-alert [classAlert]="classA" [message]="message"></app-alert> -->

@@ -1,0 +1,90 @@
+<div
+  class="modal fade"
+  id="modalLogin"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #frmLogin="ngForm" (ngSubmit)="onLogin(frmLogin)">
+          <div class="form-group">
+            <label class="label">Nombre de usuario</label>
+            <input
+              id="userNameL"
+              type="text"
+              class="form-control mb-3"
+              placeholder="Nombre usuario"
+              required
+              ngModel
+              name="userNameL"
+              #userNameL="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                userNameL.invalid && (userNameL.dirty || userNameL.touched)
+              "
+              class="text-danger"
+            >
+              <small *ngIf="userNameL.errors?.['required']">
+                Ingrese el username.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control mb-3"
+              placeholder="Contraseña"
+              id="passwordL"
+              required
+              ngModel
+              name="passwordL"
+              #passwordL="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                passwordL.invalid && (passwordL.dirty || passwordL.touched)
+              "
+              class="text-danger form-group"
+            >
+              <small class="form-group" *ngIf="passwordL.errors?.['required']">
+                Ingrese la contraseña.
+              </small>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center d-flex border-0">
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#modalOtp"
+                value="Iniciar Sesión"
+                [disabled]="!frmLogin.valid"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-alert [classAlert]="classA" [message]="message"></app-alert>
+<app-otp [showModal]="status"></app-otp>

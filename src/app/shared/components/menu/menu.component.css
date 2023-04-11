@@ -1,0 +1,67 @@
+.text-danger {
+  margin-top: -1vw;
+}
+
+@media only screen and (min-width: 1001px) {
+  .icon {
+    padding-inline-start: 10%;
+  }
+
+  .menu {
+    padding-inline-end: 10%;
+    align-items: center;
+  }
+
+  img {
+    width: 4vw;
+    min-height: 4vw;
+  }
+
+  .input-btn {
+    width: 15vw;
+    min-height: 2vw;
+    border: 1px solid #737373;
+    border-radius: 20px;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    background: #f9a21e;
+  }
+}
+
+/*PHONE*/
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  img {
+    width: 10vw;
+    min-height: 10vw;
+    margin-inline-start: 5vw;
+  }
+
+  .input-btn {
+    width: 60vw;
+    min-height: 8vw;
+    border: 1px solid #737373;
+    border-radius: 20px;
+    margin-top: 2.5vw;
+    margin-bottom: 4vw;
+    background: #f9a21e;
+  }
+}
+
+/*TABLET*/
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+  img {
+    width: 5vw;
+    min-height: 5vw;
+    margin-inline-start: 5vw;
+  }
+
+  .input-btn {
+    width: 30vw;
+    min-height: 5vw;
+    border: 1px solid #737373;
+    border-radius: 20px;
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
+    background: #f9a21e;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand align-items-center icon" href="/inicio">
+      <img class="rounded" src="../../assets/img/logo7.png" alt="Ken You Me" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end align-items-center"
+      id="navbarNavAltMarkup"
+    >
+      <div class="navbar-nav menu mx-4">
+        <form role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Buscar"
+          />
+        </form>
+
+        <a class="nav-item nav-link" href="">Matches</a>
+        <a class="nav-item nav-link" href="">Estilo</a>
+        <a class="nav-item nav-link" href="">Hotel</a>
+        <a class="nav-item nav-link" href="">Restaurant</a>
+        <a class="nav-item nav-link" href="">Flores</a>
+        <a
+          class="nav-item nav-link"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#modalLogin"
+        >
+          <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Modal -->
+<app-login></app-login>

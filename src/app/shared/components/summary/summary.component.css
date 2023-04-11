@@ -1,0 +1,36 @@
+@media only screen and (min-width: 1301px) {
+}
+
+/*PHONE*/
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .container {
+    position: relative;
+    top: 150vw;
+  }
+
+  .icon {
+    width: 10vw;
+    min-height: 10vw;
+  }
+
+  h4 {
+    font-size: 10px;
+  }
+}
+
+/*TABLET*/
+@media only screen and (min-width: 601px) and (max-width: 1300px) {
+  .container {
+    position: relative;
+    top: 5vw;
+  }
+
+  .icon {
+    width: 5vw;
+    min-height: 5vw;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+}

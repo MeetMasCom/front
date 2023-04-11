@@ -1,0 +1,41 @@
+<div
+  class="modal fade"
+  id="modalOtp"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body justify-content-center d-flex">
+        <form #frmOtp="ngForm" (ngSubmit)="validateOtp(frmOtp)">
+          <div class="form-group">
+            <label class="label">Ingrese el OTP</label>
+            <ng-otp-input id="otpU" [config]="{ length: 5 }"></ng-otp-input>
+          </div>
+          <div class="modal-footer justify-content-center d-flex border-0">
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                value="Validar OTP"
+                [disabled]="!frmOtp.valid"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

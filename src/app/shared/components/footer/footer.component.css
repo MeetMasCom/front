@@ -1,0 +1,96 @@
+@media only screen and (min-width: 1301px) {
+  .sticky-bottom {
+    display: flex;
+  }
+
+  .copy {
+    display: flex;
+    min-height: 4vw;
+    background: #f9a21e;
+    align-items: center;
+    padding-inline-start: 6vw;
+    padding-top: 1vw;
+  }
+
+  .social {
+    display: flex;
+    min-height: 4vw;
+    background: #000000;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffffff;
+    padding-inline-start: 10vw;
+  }
+
+  a {
+    color: #ffffff;
+  }
+}
+
+/*PHONE*/
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .sticky-bottom {
+    display: flex;
+    position: relative;
+    top: 150vw;
+  }
+
+  .copy {
+    display: flex;
+    min-height: 2vw;
+    background: #f9a21e;
+    align-items: center;
+    padding-top: 1vw;
+    text-align: center;
+  }
+
+  .social {
+    display: flex;
+    min-height: 2vw;
+    background: #000000;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffffff;
+  }
+
+  h5 {
+    font-size: 10px;
+  }
+
+  a {
+    color: #ffffff;
+  }
+}
+
+/*TABLET*/
+@media only screen and (min-width: 601px) and (max-width: 1300px) {
+  .sticky-bottom {
+    display: flex;
+  }
+
+  .copy {
+    display: flex;
+    min-height: 4vw;
+    background: #f9a21e;
+    align-items: center;
+    padding-top: 1vw;
+    text-align: center;
+  }
+
+  .social {
+    display: flex;
+    min-height: 4vw;
+    background: #000000;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffffff;
+  }
+
+  h5 {
+    font-size: 12px;
+  }
+
+  a {
+    color: #ffffff;
+  }
+}

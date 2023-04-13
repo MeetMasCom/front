@@ -14,9 +14,11 @@ import { NgOtpInputModule } from 'ng-otp-input';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
+import { SharedserviceService } from './shared/services/sharedservice.service';
 
 //interceptors
 import { AuthInterceptorInterceptor } from './auth/services/interceptors/auth-interceptor.interceptor';
+import { SharedInterceptorInterceptor } from './shared/services/interceptors/shared-interceptor.interceptor';
 
 //modules
 import { AppRoutingModule } from './app-routing.module';
@@ -56,9 +58,15 @@ import { AlertComponent } from './shared/components/alert/alert.component';
   ],
   providers: [
     AuthServiceService,
+    SharedserviceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SharedInterceptorInterceptor,
       multi: true,
     },
     {

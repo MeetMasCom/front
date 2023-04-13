@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
   sponsorCode: string = '';
   errormsg: string = '';
   errordate: string = '';
+  message: string = '';
+  classA: string = '';
 
   constructor(
     private router: Router,
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
 
   addRecaptchaScript() {
     (function (d, s, id, obj) {
-      var js,
+      let js,
         fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         obj.renderReCaptch();
@@ -59,10 +61,14 @@ export class RegisterComponent implements OnInit {
     if (response !== '') {
       try {
         const resp = await lastValueFrom(this.userService.register(form.value));
-
-        console.log('resp', resp);
-      } catch (error) {
-        console.log(error);
+        sessionStorage.setItem('user', JSON.stringify(resp.data));
+        this.classA = 'alert-success';
+        this.message = resp.message;
+        location.reload();
+      } catch (error: any) {
+        this.classA = 'alert-danger';
+        this.message = error.error.message;
+        location.reload();
       }
     }
   }

@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-otp',
@@ -6,15 +9,40 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent implements OnInit {
-  @Input() showModal!: boolean;
+  @Input() userN!: string;
+  @ViewChild('otp') otp: any;
+  classA: string = '';
+  message: string = '';
 
-  constructor() {}
+  constructor(public userService: AuthServiceService, private router: Router) {}
 
-  ngOnInit(): void {
-    console.log('otp', this.showModal);
+  ngOnInit(): void {}
+
+  onOtpChange(otp: any) {
+    this.otp = otp;
   }
 
-  validateOtp(form: any) {
-    console.log('otp', form.value);
+  setVal(val: any) {
+    this.otp.setValue(val);
+  }
+
+  async validateOtp() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateOtp(parseInt(this.otp), this.userN)
+      );
+      sessionStorage.setItem('data', JSON.stringify(response.data.user));
+      sessionStorage.setItem('user', response.data.user.userName);
+      sessionStorage.setItem('id', response.data.user._id);
+      sessionStorage.setItem('token', JSON.stringify(response.data.token));
+      this.classA = 'alert-success';
+      this.message = response.message;
+      //this.router.navigate(['/inicio']);
+      location.reload();
+    } catch (error: any) {
+      this.classA = 'alert-danger';
+      this.message = error.error.message;
+      location.reload();
+    }
   }
 }

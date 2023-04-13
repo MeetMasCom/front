@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user';
+import { LoginUser, User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,20 @@ export class AuthServiceService {
       password: user.password,
       terms: user.terms,
       country: user.country,
+    });
+  }
+
+  login(user: LoginUser): Observable<any> {
+    return this.httpCLient.post(`${this.AUTH_SERVER}/user/login`, {
+      userName: user.userNameL,
+      password: user.passwordL,
+    });
+  }
+
+  validateOtp(otp: any, userName: string): Observable<any> {
+    return this.httpCLient.post(`${this.AUTH_SERVER}/user/valid-login`, {
+      userName: userName,
+      otp: otp,
     });
   }
 }

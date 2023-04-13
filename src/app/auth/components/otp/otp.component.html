@@ -7,7 +7,7 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header border-0">
         <button
@@ -18,10 +18,14 @@
         ></button>
       </div>
       <div class="modal-body justify-content-center d-flex">
-        <form #frmOtp="ngForm" (ngSubmit)="validateOtp(frmOtp)">
+        <form #frmOtp="ngForm" (ngSubmit)="validateOtp()">
           <div class="form-group">
             <label class="label">Ingrese el OTP</label>
-            <ng-otp-input id="otpU" [config]="{ length: 5 }"></ng-otp-input>
+            <ng-otp-input
+              #otp
+              (onInputChange)="onOtpChange($event)"
+              [config]="{ length: 6, allowNumbersOnly: true }"
+            ></ng-otp-input>
           </div>
           <div class="modal-footer justify-content-center d-flex border-0">
             <div class="form-group text-center">
@@ -39,3 +43,5 @@
     </div>
   </div>
 </div>
+
+<app-alert [classAlert]="classA" [message]="message"></app-alert>

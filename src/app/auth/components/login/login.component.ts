@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -6,23 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  status: boolean;
   classA: string;
   message: string;
+  nameUser: string = '';
 
-  constructor() {
-    this.status = false;
+  constructor(public userService: AuthServiceService) {
     this.classA = '';
     this.message = '';
   }
 
   ngOnInit(): void {}
 
-  onLogin(form: any): void {
-    console.log('form', form.value);
-    //llamar servicio login
-    this.classA = 'alert-success';
-    this.message = 'OTP enviado';
-    this.status = true;
+  async onLogin(form: any) {
+    try {
+      this.nameUser = form.value.userNameL;
+      const response = await lastValueFrom(this.userService.login(form.value));
+      this.classA = 'alert-success';
+      this.message = response.data;
+    } catch (error: any) {
+      this.classA = 'alert-danger';
+      this.message = error.error.message;
+    }
   }
 }

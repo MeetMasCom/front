@@ -33,14 +33,35 @@
         <a class="nav-item nav-link" href="">Hotel</a>
         <a class="nav-item nav-link" href="">Restaurant</a>
         <a class="nav-item nav-link" href="">Flores</a>
-        <a
-          class="nav-item nav-link"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#modalLogin"
-        >
-          <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
-        </a>
+        <div *ngIf="token === '' || token === null">
+          <a
+            class="nav-item nav-link"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#modalLogin"
+          >
+            <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
+          </a>
+        </div>
+        <div class="dropdown" *ngIf="token !== '' && token !== null">
+          <a
+            class="btn dropdown-toggle border-0 nav-item nav-link"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Mis Datos</a></li>
+            <li>
+              <a class="dropdown-item btn" (click)="onLogout()">Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
@@ -48,3 +69,6 @@
 
 <!-- Modal -->
 <app-login></app-login>
+
+<!--Alert-->
+<app-alert [classAlert]="classA" [message]="msj"></app-alert>

@@ -11,6 +11,7 @@ import {
 import { environment } from '../enviroments/environment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -32,6 +33,8 @@ import { OtpComponent } from './auth/components/otp/otp.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { SummaryComponent } from './shared/components/summary/summary.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
+import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
+import { UserDataComponent } from './user/components/user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { AlertComponent } from './shared/components/alert/alert.component';
     RegisterComponent,
     SummaryComponent,
     AlertComponent,
+    MultiSelectComponent,
+    UserDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +60,7 @@ import { AlertComponent } from './shared/components/alert/alert.component';
     RecaptchaFormsModule,
     FontAwesomeModule,
     NgOtpInputModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   providers: [
     AuthServiceService,

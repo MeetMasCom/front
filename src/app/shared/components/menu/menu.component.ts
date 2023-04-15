@@ -48,14 +48,12 @@ export class MenuComponent implements OnInit {
         token: this.token,
       };
       const response = await lastValueFrom(this.sharedService.logout(body));
-      console.log(response);
       if (response.data !== null) {
         sessionStorage.removeItem('data');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('id');
         sessionStorage.removeItem('token');
-        location.reload();
-        //this.router.navigate(['/inicio']);
+        this.router.navigate(['inicio']);
       }
     } catch (error: any) {
       this.classA = 'alert-danger';

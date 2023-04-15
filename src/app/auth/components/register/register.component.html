@@ -24,7 +24,9 @@
                 [ngClass]="'select'"
               >
                 <option value="" selected disabled>Seleccione un pais</option>
-                <option value="64307ffca6453f5787abf340">Ecuador</option>
+                <option *ngFor="let item of countries" [value]="item._id">
+                  {{ item.name }}
+                </option>
               </select>
             </div>
           </div>
@@ -73,6 +75,7 @@
                 pattern="[A-Za-z0-9]+"
                 #userName="ngModel"
                 [ngClass]="'input'"
+                (ngModelChange)="onValidateUserName($event)"
               />
               <div
                 *ngIf="userName.invalid && (userName.dirty || userName.touched)"
@@ -85,9 +88,9 @@
                   Username no válido.
                 </small>
               </div>
-              <!-- <div *ngIf="authService.statusUserName" class="text-danger">
+              <div *ngIf="statusUserName" class="text-danger">
                 username no disponible.
-              </div> -->
+              </div>
             </div>
           </div>
           <div>
@@ -105,6 +108,7 @@
                 name="email"
                 #email="ngModel"
                 [ngClass]="'input'"
+                (ngModelChange)="onValidateEmail($event)"
               />
               <div
                 *ngIf="email.invalid && (email.dirty || email.touched)"
@@ -117,9 +121,9 @@
                   Ingrese un email válido.
                 </small>
               </div>
-              <!-- <div *ngIf="authService.statusEmail" class="text-danger">
+              <div *ngIf="statusEmail" class="text-danger">
                 email ya registrado.
-              </div> -->
+              </div>
             </div>
           </div>
           <div>

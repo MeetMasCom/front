@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
   errordate: string = '';
   message: string = '';
   classA: string = '';
+  countries: any;
+  statusUserName: boolean = false;
+  statusEmail: boolean = false;
 
   constructor(
     private router: Router,
@@ -31,6 +34,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.addRecaptchaScript();
+    this.onGetCountry();
   }
 
   renderReCaptch() {
@@ -83,6 +87,45 @@ export class RegisterComponent implements OnInit {
     }
     if (years >= 13) {
       this.errordate = '';
+    }
+  }
+
+  async onGetCountry() {
+    try {
+      const response = await lastValueFrom(this.userService.getCountries());
+      this.countries = response.data;
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  async onValidateEmail(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusEmail = true;
+      } else {
+        this.statusEmail = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  async onValidateUserName(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusUserName = true;
+      } else {
+        this.statusUserName = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 }

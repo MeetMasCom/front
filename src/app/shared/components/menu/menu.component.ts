@@ -48,7 +48,6 @@ export class MenuComponent implements OnInit {
         token: this.token,
       };
       const response = await lastValueFrom(this.sharedService.logout(body));
-      console.log(response);
       if (response.data !== null) {
         sessionStorage.removeItem('data');
         sessionStorage.removeItem('user');

@@ -35,4 +35,12 @@ export class AuthServiceService {
       otp: otp,
     });
   }
+
+  getCountries(): Observable<any> {
+    return this.httpCLient.get(`${this.AUTH_SERVER}/country`);
+  }
+
+  validateUserEmail(param: string): Observable<any> {
+    return this.httpCLient.get(`${this.AUTH_SERVER}/user/validate/${param}`);
+  }
 }

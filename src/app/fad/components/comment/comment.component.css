@@ -51,3 +51,9 @@
 .cuadro{
   max-height: 80vh;
 }
+
+.box {
+  width: 100%;
+  max-height: 700px;
+  overflow-y: scroll;
+}

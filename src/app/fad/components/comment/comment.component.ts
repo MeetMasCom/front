@@ -48,13 +48,13 @@ export class CommentComponent {
       if (sessionStorage.getItem('id')!) {
         this.id_user = sessionStorage.getItem('id')!;
       }
-      this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
+      /*this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
         if (res != null) {
           console.log("estrellas", res.data[0].qualification);
           this.setRating(res.data[0].qualification);
         }
 
-      });
+      });*/
 
 
     })

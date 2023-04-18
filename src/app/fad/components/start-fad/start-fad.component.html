@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div class="container">
     <div class="col-md-11 d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-warning" style="width: 10%;" (click)="modal.showModal()">Publicar</button>
+        <button class="btn btn-primary btn-warning"  style="width: 10%;background-color: #f9a21e !important;" (click)="modal.showModal()">Publicar</button>
         <app-mmodal [title]="'Nueva Publicacion'" #modal>
 
             <form #frmRegister="ngForm" class="form form-horizontal" (ngSubmit)="onRegister(frmRegister)">

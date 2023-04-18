@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { UserServiceService } from '../../services/user-service.service';
+import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-data',
@@ -7,52 +9,221 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   styleUrls: ['./user-data.component.css'],
 })
 export class UserDataComponent implements OnInit {
-  dropdownList: any = [];
-  dropdownList1: any = [];
-  selectedItems: any = [];
-  selectedItems1: any = [];
-  dropdownSettings: IDropdownSettings = {};
+  stateCivil: any = [];
+  policies: any = [];
+  drinks: any = [];
+  smokes: any = [];
+  childrens: any = [];
+  studiesU: any = [];
+  bodysF: any = [];
+  zodiacal: any = [];
+  job: any = [];
+  generos: any = [];
+  token = '';
+  id = '';
 
-  ngOnInit() {
-    this.dropdownList = [
-      { id: 1, text: 'Comunista' },
-      { id: 2, text: 'Socialista' },
-      { id: 3, text: 'Liberal' },
-      { id: 4, text: 'Conservador' },
-      { id: 5, text: 'Monárquico' },
-      { id: 6, text: 'Indiferente' },
-      { id: 7, text: 'Libertario' },
-      { id: 8, text: 'Anarquista' },
-      { id: 9, text: 'Nacionalista' },
-      { id: 10, text: 'Religioso' },
-    ];
-    this.dropdownList1 = [
-      { id: 1, text: 'Soltero' },
-      { id: 2, text: 'Casado' },
-      { id: 3, text: 'Divorciado' },
-      { id: 4, text: 'Viudo' },
-    ];
-    this.selectedItems = [];
-    this.selectedItems1 = [];
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'id',
-      textField: 'text',
-      allowSearchFilter: true,
-      clearSearchFilter: true,
-      searchPlaceholderText: 'Buscar',
-    };
+  constructor(public userService: UserServiceService, private router: Router) {}
+
+  async ngOnInit() {
+    await this.getStateCivil();
+    await this.getPolicies();
+    await this.getDrinks();
+    await this.getSmokes();
+    await this.getChildrens();
+    await this.getStudies();
+    await this.getBodyForm();
+    await this.getZodiacal();
+    await this.getJobs();
+    await this.getGenero();
+    if (sessionStorage.getItem('token')!) {
+      this.token = sessionStorage.getItem('token')!;
+      const aux = this.token.split('"');
+      this.token = aux[1];
+    }
+    if (sessionStorage.getItem('id')!) {
+      this.id = sessionStorage.getItem('id')!;
+    }
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-
-  onItemSelect1(item: any) {
-    console.log(item);
-  }
-
-  onUpdate(form: any) {
+  async onUpdate(form: any) {
     console.log('form', form.value);
+    try {
+      const response = await lastValueFrom(
+        this.userService.updateUser(form, this.id, this.token)
+      );
+      if (response.data !== null) {
+        this.router.navigate(['inicio']);
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getStateCivil() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('ESTADO_CIVIL')
+      );
+
+      response.data.map((x: any) => {
+        this.stateCivil.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getPolicies() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('POLITICA')
+      );
+
+      response.data.map((x: any) => {
+        this.policies.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getDrinks() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('BEBIDA')
+      );
+
+      response.data.map((x: any) => {
+        this.drinks.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getSmokes() {
+    try {
+      const response = await lastValueFrom(this.userService.getCatalog('FUMA'));
+
+      response.data.map((x: any) => {
+        this.smokes.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getChildrens() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('HIJOS')
+      );
+
+      response.data.map((x: any) => {
+        this.childrens.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getStudies() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('ESTUDIOS')
+      );
+
+      response.data.map((x: any) => {
+        this.studiesU.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getBodyForm() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('TIPO_CUERPO')
+      );
+
+      response.data.map((x: any) => {
+        this.bodysF.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getZodiacal() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('ZODIACAL')
+      );
+
+      response.data.map((x: any) => {
+        this.zodiacal.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getJobs() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('PROFESION')
+      );
+
+      response.data.map((x: any) => {
+        this.job.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getGenero() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('GENERO')
+      );
+
+      response.data.map((x: any) => {
+        this.generos.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
   }
 }

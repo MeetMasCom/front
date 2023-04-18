@@ -17,7 +17,7 @@
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .input-btn {
-    width: 30vw;
+    width: 50vw;
   }
 
   .containerInput {
@@ -30,4 +30,7 @@
 
 /*TABLET*/
 @media only screen and (min-width: 601px) and (max-width: 1300px) {
+  .input-btn {
+    width: 20vw;
+  }
 }

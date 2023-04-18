@@ -4,7 +4,7 @@
     <h3>INGRESA TUS DATOS</h3>
   </div>
   <div class="container">
-    <form #fmrUpdate (ngSubmit)="onUpdate(fmrUpdate)">
+    <form #fmrUpdate="ngForm" (ngSubmit)="onUpdate(fmrUpdate)">
       <div class="col-12 containerInput mt-2 mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Nombres</label>
@@ -13,12 +13,20 @@
             class="form-control"
             placeholder="Nombres Completos"
             id="firstname"
+            name="firstname"
             required
             ngModel
-            name="firstname"
             #firstname="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="firstname.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Apellidos</label>
@@ -33,6 +41,14 @@
             #lastname="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="lastname.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
@@ -49,7 +65,48 @@
             #identification="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="
+              identification.invalid &&
+              (identification.dirty || identification.touched)
+            "
+            class="text-danger form-group position-absolute"
+          >
+            <small
+              class="form-group"
+              *ngIf="identification.errors?.['required']"
+            >
+              Campo requerido.
+            </small>
+          </div>
         </div>
+        <div class="form-group col-md-6 col-sm-12 p-2">
+          <label class="mb-1">Género</label>
+          <select
+            class="form-control"
+            id="genero"
+            required
+            ngModel
+            name="genero"
+            #genero="ngModel"
+            [ngClass]="'select'"
+          >
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of generos" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="genero.invalid && (genero.dirty || genero.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="genero.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Peso</label>
           <input
@@ -63,9 +120,15 @@
             #weight="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="weight.invalid && (weight.dirty || weight.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="weight.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Talla</label>
           <input
@@ -79,7 +142,17 @@
             #talla="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="talla.invalid && (talla.dirty || talla.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="talla.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
+      </div>
+      <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Color de ojos</label>
           <input
@@ -93,9 +166,15 @@
             #ojoscolor="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="ojoscolor.invalid && (ojoscolor.dirty || ojoscolor.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="ojoscolor.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Residencia actual</label>
           <input
@@ -109,140 +188,282 @@
             #residencia="ngModel"
             [ngClass]="'input'"
           />
-        </div>
-        <div class="form-group col-md-6 col-sm-12 p-2">
-          <label class="mb-1">Estado Civil</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione un estado civil'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList1"
-            [(ngModel)]="selectedItems1"
-            (onSelect)="onItemSelect1($event)"
+          <div
+            *ngIf="
+              residencia.invalid && (residencia.dirty || residencia.touched)
+            "
+            class="text-danger form-group position-absolute"
           >
-          </ng-multiselect-dropdown>
+            <small class="form-group" *ngIf="residencia.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
-          <label class="mb-1">Religión</label>
-          <input
-            type="text"
+          <label class="mb-1">Estado Civil</label>
+          <select
             class="form-control"
-            placeholder="Religión"
-            id="religion"
+            id="statecivil"
             required
             ngModel
-            name="religion"
-            #religion="ngModel"
-            [ngClass]="'input'"
-          />
+            name="statecivil"
+            #statecivil="ngModel"
+            [ngClass]="'select'"
+          >
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of stateCivil" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              statecivil.invalid && (statecivil.dirty || statecivil.touched)
+            "
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="statecivil.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Política</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione de acuerdo a su idelogía'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="policy"
+            required
+            ngModel
+            name="policy"
+            #policy="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of policies" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="policy.invalid && (policy.dirty || policy.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="policy.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Bebida</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="drink"
+            required
+            ngModel
+            name="drink"
+            #drink="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of drinks" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="drink.invalid && (drink.dirty || drink.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="drink.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Fuma</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="smoke"
+            required
+            ngModel
+            name="smoke"
+            #smoke="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of smokes" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="smoke.invalid && (smoke.dirty || smoke.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="smoke.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Hijos</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="children"
+            required
+            ngModel
+            name="children"
+            #children="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of childrens" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="children.invalid && (children.dirty || children.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="children.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Estudios</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="studies"
+            required
+            ngModel
+            name="studies"
+            #studies="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of studiesU" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="studies.invalid && (studies.dirty || studies.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="studies.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Tipo de cuerpo</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="bodyform"
+            required
+            ngModel
+            name="bodyform"
+            #bodyform="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of bodysF" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="bodyform.invalid && (bodyform.dirty || bodyform.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="bodyform.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Signo zodiacal</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="signz"
+            required
+            ngModel
+            name="signz"
+            #signz="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of zodiacal" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="signz.invalid && (signz.dirty || signz.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="signz.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Profesión</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="profesion"
+            required
+            ngModel
+            name="profesion"
+            #profesion="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let item of job" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="profesion.invalid && (profesion.dirty || profesion.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="profesion.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Deporte</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'Seleccione una opción'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
+          <select
+            class="form-control"
+            id="sport"
+            required
+            ngModel
+            name="sport"
+            #sport="ngModel"
+            [ngClass]="'select'"
           >
-          </ng-multiselect-dropdown>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <!-- <option *ngFor="let state of stateCivil" value="state.id">
+              {{ state.name }}
+            </option> -->
+            <option value="SI">Si</option>
+            <option value="NO">No</option>
+            <option value="RARA VEZ">Rara Vez</option>
+            <option value="DIARIAMENTE">Diariamente</option>
+          </select>
+          <div
+            *ngIf="sport.invalid && (sport.dirty || sport.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="sport.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-12 containerInput mb-3">
@@ -259,6 +480,14 @@
             #inativo="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="inativo.invalid && (inativo.dirty || inativo.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="inativo.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
         <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Idioma 1</label>
@@ -388,6 +617,28 @@
       </div>
       <div class="col-12 containerInput mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
+          <label class="mb-1">Religión</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Religión"
+            id="religion"
+            required
+            ngModel
+            name="religion"
+            #religion="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="religion.invalid && (religion.dirty || religion.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="religion.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Etnia</label>
           <input
             type="text"
@@ -400,6 +651,14 @@
             #etnia="ngModel"
             [ngClass]="'input'"
           />
+          <div
+            *ngIf="etnia.invalid && (etnia.dirty || etnia.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="etnia.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-sm-12">
@@ -407,7 +666,8 @@
           <input
             type="submit"
             class="btn"
-            value="Registrarse"
+            value="Actualizar Datos"
+            [disabled]="!fmrUpdate['valid']"
             [ngClass]="'input-btn'"
           />
         </div>

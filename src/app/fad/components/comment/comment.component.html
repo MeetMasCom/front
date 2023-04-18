@@ -7,18 +7,17 @@
   <div class="container">
     <div class="row justify-content-center flex align-items-center">
       <div class="col-md-6">
-        <div class="row">
-          <div class="card">
-            <img class="img-fluid"
-              [src]="'http://localhost:8000/' + fad[0].picture"
-              class="img-fluid"
-            />
+        <div class="card" style="width: 100%">
+          <img
+            [src]="'http://localhost:8000/' + fad[0].picture"
+            class="card-img-top img-fluid"
+            alt="..."
+          />
+          <div class="card-body">
+            <app-rating-star
+              (eventSetRating)="setRating($event)"
+            ></app-rating-star>
           </div>
-        </div>
-        <div class="row">
-          <app-rating-star
-            (eventSetRating)="setRating($event)"
-          ></app-rating-star>
         </div>
       </div>
       <div class="col-md-5">
@@ -35,7 +34,7 @@
               }}</textarea>
             </div>
           </div>
-          <div class="p-4 " style="max-height: 750px; overflow-y: scroll;">
+          <div class="p-4" style="max-height: 750px; overflow-y: scroll">
             <div class="col-md-12 p-2" *ngFor="let c of comment">
               <div class="row form-group border-bottom">
                 <div class="row data">
@@ -85,15 +84,16 @@
                   ngModel="{{ fad[0].user_id }}"
                 />
               </div>
-               <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
-                <button              
-                class="btn btn-warning"
-                style="background-color: #f9a21e !important"
+              <div
+                class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end"
               >
-                Comentar
-              </button>
+                <button
+                  class="btn btn-warning"
+                  style="background-color: #f9a21e !important"
+                >
+                  Comentar
+                </button>
               </div>
-              
             </form>
           </div>
         </div>

@@ -4,9 +4,3 @@
   font-size: 12px;
   font-weight: bold;
 }
-
-.box {
-  width: 100%;
-  max-height: 350vh;
-  overflow-y: scroll;
-}

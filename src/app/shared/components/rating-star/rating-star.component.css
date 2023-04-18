@@ -1,0 +1,25 @@
+h3{
+    text-align: center;
+  }
+  .rating{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 20px;
+  }
+  
+  fa-icon{
+    color: #8080806b;
+    cursor: pointer;
+    
+  }
+  
+  fa-icon:hover{
+      color: orange;
+      width: 60px;
+      height: 60px;
+  }
+  
+  .active{
+    color: orange;
+  }

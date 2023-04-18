@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {NgOptimizedImage} from '@angular/common';
 import {
   RECAPTCHA_SETTINGS,
   RecaptchaFormsModule,
@@ -33,6 +34,12 @@ import { OtpComponent } from './auth/components/otp/otp.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { SummaryComponent } from './shared/components/summary/summary.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
+import { CommentComponent } from './fad/components/comment/comment.component';
+import { RegisterFadComponent } from './fad/components/register-fad/register-fad.component';
+import { StartFadComponent } from './fad/components/start-fad/start-fad.component';
+import { StarsComponent } from './fad/components/stars/stars.component';
+import {MmodalComponent} from './shared/components/mmodal/mmodal.component';
+import { RatingStarComponent } from './shared/components/rating-star/rating-star.component';
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
 
@@ -48,6 +55,12 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
     RegisterComponent,
     SummaryComponent,
     AlertComponent,
+    CommentComponent,
+    RegisterFadComponent,
+    StartFadComponent,
+    StarsComponent,
+    MmodalComponent,
+    RatingStarComponent
     MultiSelectComponent,
     UserDataComponent,
   ],
@@ -60,6 +73,7 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
     RecaptchaFormsModule,
     FontAwesomeModule,
     NgOtpInputModule,
+    NgOptimizedImage
     NgMultiSelectDropDownModule.forRoot(),
   ],
   providers: [

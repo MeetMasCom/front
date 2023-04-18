@@ -99,18 +99,9 @@ getImageType(signature: string){
   async onRegister(form: any) {
       try {       
                
-                this.description=form.value.description;
-                this.name=form.value.name;
-                const fd=new FormData;
-                const resp = await lastValueFrom(this.fadService.register(this.id,form.value.name,form.value.description,this.file));
-                console.log('resp', resp);     
-                this.classA = 'alert-success';
-                this.message = resp.message;  
-                this.router.navigate(['/fad']);       
+                
       } catch (error: any) {
-        this.classA = 'alert-danger';
-        this.message = error.error.message;
-        location.reload();
+       
       }
   }
  

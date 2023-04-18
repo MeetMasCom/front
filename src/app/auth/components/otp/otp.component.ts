@@ -36,8 +36,17 @@ export class OtpComponent implements OnInit {
       sessionStorage.setItem('id', response.data.user._id);
       sessionStorage.setItem('token', JSON.stringify(response.data.token));
       this.classA = 'alert-success';
-      this.message = response.message;
-      this.router.navigate(['/fad']);
+      this.message = response.message;        
+
+      setTimeout(() => {
+        this.router.navigate(['/fad']);
+        let backDrop=document.querySelector('.modal-backdrop') as HTMLDivElement;
+        if(backDrop!==null){
+            backDrop.remove();
+        }
+      }, 1500);
+
+      
       //location.reload();
     } catch (error: any) {
       this.classA = 'alert-danger';

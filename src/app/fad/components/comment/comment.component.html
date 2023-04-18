@@ -1,71 +1,104 @@
 <app-menu></app-menu>
 <div class="row" *ngIf="!fad; else main_content">
-    <h1>Loading...</h1>
+  <h1>Loading...</h1>
 </div>
-<br>
+<br />
 <ng-template #main_content>
-    <div class="container">
-        <div class="row col-md-12 abs-center contenido">
-            <div class="col-md-5  ">
-                <div class="row">
-                    <div class="card">
-                        <img [src]="'http://localhost:8000/' + fad[0].picture" class="img-fluid">
-                    </div>
-                </div>
-                <div class="row">
-                    <app-rating-star (eventSetRating)="setRating($event)"></app-rating-star>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5 " >
-                <div class="card box img-fluid">
-                    <div class="card-body">
-                        <div class="none">
-                            <span class="form-control"
-                                style="font-weight: bold; border: 0px !important;">{{fad[0].name}}</span>
-                        </div>
-                        <div class="form-group">
-                            <textarea rows="2" class="form-control" disabled>{{fad[0].description}}</textarea>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col-md-12 gcomentario" *ngFor="let c of comment">
-                            <div class="row form-group comentario" >
-                                <div class="row " >
-                                    <div  class="col-md-7 data">
-                                        <span>{{c.user[0].userName}}</span>
-                                    </div>
-                                    <div class="col-md-5 dataf justify-content-end">
-                                        <span>{{c.created_at | date: 'dd/MM/yyyy'}}</span>
-                                        <span>  {{c.created_at | date: 'h:mm a' }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span>{{c.comment}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div><br>
-                    <div style="padding: 30px;" >
-                        <form form #frmRegister="ngForm" class="form form-horizontal"
-                            (ngSubmit)="onRegister(frmRegister)">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="comment" placeholder="comentt" ngModel
-                                    required>
-                                <input type="hidden" class="form-control" name="fad_id" ngModel={{fad[0]._id}} required>
-                                <input type="hidden" class="form-control" name="user_id" ngModel={{fad[0].user_id}}>
-
-                            </div>
-                            <br>
-                            <button class="btn btn-primary btn-warning" style="background-color: #f9a21e !important;">
-                                Comentar
-                            </button>
-                            <hr>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row justify-content-center flex align-items-center">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="card">
+            <img class="img-fluid"
+              [src]="'http://localhost:8000/' + fad[0].picture"
+              class="img-fluid"
+            />
+          </div>
         </div>
+        <div class="row">
+          <app-rating-star
+            (eventSetRating)="setRating($event)"
+          ></app-rating-star>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <div class="none p-2">
+              <span style="font-weight: bold; border: 0px !important">{{
+                fad[0].name
+              }}</span>
+            </div>
+            <div class="form-group">
+              <textarea rows="2" class="form-control" disabled>{{
+                fad[0].description
+              }}</textarea>
+            </div>
+          </div>
+          <div class="p-4 " style="max-height: 750px; overflow-y: scroll;">
+            <div class="col-md-12 p-2" *ngFor="let c of comment">
+              <div class="row form-group border-bottom">
+                <div class="row data">
+                  <div class="col-md-6">
+                    <span>{{ c.user[0].userName }}</span>
+                  </div>
+                  <div class="col-md-6 d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                      <span>{{ c.created_at | date : "dd/MM/yyyy" }}</span>
+                      <span> {{ c.created_at | date : "h:mm a" }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <span>{{ c.comment }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-2">
+            <form
+              form
+              #frmRegister="ngForm"
+              class="form form-horizontal"
+              (ngSubmit)="onRegister(frmRegister)"
+            >
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="comment"
+                  placeholder="comentt"
+                  ngModel
+                  required
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="fad_id"
+                  ngModel="{{ fad[0]._id }}"
+                  required
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="user_id"
+                  ngModel="{{ fad[0].user_id }}"
+                />
+              </div>
+               <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
+                <button              
+                class="btn btn-warning"
+                style="background-color: #f9a21e !important"
+              >
+                Comentar
+              </button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 <app-footer></app-footer>

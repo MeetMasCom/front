@@ -37,8 +37,8 @@ export class OtpComponent implements OnInit {
       sessionStorage.setItem('token', JSON.stringify(response.data.token));
       this.classA = 'alert-success';
       this.message = response.message;
-      //this.router.navigate(['/inicio']);
-      location.reload();
+      this.router.navigate(['/fad']);
+      //location.reload();
     } catch (error: any) {
       this.classA = 'alert-danger';
       this.message = error.error.message;

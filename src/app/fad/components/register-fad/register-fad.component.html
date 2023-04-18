@@ -1,0 +1,53 @@
+<app-menu></app-menu>
+<app-alert [classAlert]="classA" [message]="message"></app-alert>
+<div class="container abs-center">
+  <div class="row col-md-8 card">
+
+ 
+<form #frmRegister="ngForm" class="form form-horizontal" (ngSubmit)="onRegister(frmRegister)">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>
+            Nombre:
+          </label>
+        </div>
+        <div class="col-md-8 form-group">
+          <div class="position-relative has-icon-left">
+            <input class="form-control" type="text" name="name" placeholder="name" ngModel required>
+          </div>                          
+        </div>
+        <div class="col-md-4">
+          <label>
+            Descripcion:
+          </label>
+        </div>
+        <div class="col-md-8 form-group">
+          <div class="position-relative has-icon-left">
+            <textarea class="form-control" type="text" name="description"  ngModel required></textarea>
+          </div>                          
+        </div>   
+        <div class="col-md-4">
+          <label>
+            Foto:
+          </label>
+        </div>
+        <div class="col-md-8 form-group">
+          <div class="position-relative has-icon-left">                             
+
+              <input type="file" class="d-none" (change)="onChange($event)" accept="image/png" #photoInput>
+                <img [src]="photoSelected || '../../../../assets/image.jpg'" class="img-fluid" width="100%" height="80%" (click)="photoInput.click()">
+                                  
+          </div>                          
+        </div>                                   
+        <div class="col-12 d-flex justify-content-end">
+          
+          <input class="btn float-right login_btn btn-dark" type="submit" value="Registrar">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+<app-alert [classAlert]="classA" [message]="message"></app-alert>
+  <app-footer></app-footer>

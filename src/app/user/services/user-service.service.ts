@@ -55,6 +55,8 @@ export class UserServiceService {
         body: form.value.bodyform,
         zodiac_sign: form.value.signz,
         career: form.value.profesion,
+        sport: form.value.sport,
+        image: form.value.imagen,
       },
       {
         headers: headers,

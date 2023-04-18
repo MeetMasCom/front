@@ -7,6 +7,29 @@
     <form #fmrUpdate="ngForm" (ngSubmit)="onUpdate(fmrUpdate)">
       <div class="col-12 containerInput mt-2 mb-3">
         <div class="form-group col-md-6 col-sm-12 p-2">
+          <label class="mb-1">Imagen</label>
+          <input
+            type="file"
+            class="form-control"
+            id="imagen"
+            name="imagen"
+            required
+            ngModel
+            #imagen="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="imagen.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-6 col-sm-12 p-2">
           <label class="mb-1">Nombres</label>
           <input
             type="text"

@@ -1,69 +1,104 @@
 <app-menu></app-menu>
 <div class="container">
-    <div class="col-md-11 d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary btn-warning" style="width: 10%;" (click)="modal.showModal()">Publicar</button>
-        <app-mmodal [title]="'Nueva Publicacion'" #modal>
-
-            <form #frmRegister="ngForm" class="form form-horizontal" (ngSubmit)="onRegister(frmRegister)">
-                <div class="form-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>
-                        Nombre:
-                      </label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                      <div class="position-relative has-icon-left">
-                        <input class="form-control" type="text" name="name" placeholder="name" ngModel required>
-                      </div>                          
-                    </div>
-                    <div class="col-md-4">
-                      <label>
-                        Descripcion:
-                      </label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                      <div class="position-relative has-icon-left">
-                        <textarea class="form-control" type="text" name="description"  ngModel required></textarea>
-                      </div>                          
-                    </div>   
-                    <div class="col-md-4">
-                      <label>
-                        Foto:
-                      </label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                      <div class="position-relative has-icon-left">                             
-            
-                          <input type="file" class="d-none" (change)="onChange($event)" accept="image/png" #photoInput>
-                            <img [src]="photoSelected || '../../../../assets/image.jpg'" class="img-fluid" style="max-width: 300px !important;" (click)="photoInput.click()">
-                                              
-                      </div>                          
-                    </div>  <br><br>                                 
-                    <div class="col-12 d-flex justify-content-end">
-                      
-                      <input class="btn float-right login_btn btn-dark" type="submit" value="Registrar">
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-        </app-mmodal>
-    </div><br><br>
-    <div class="row">
-        <div class="galery">            
-                <div  *ngFor="let f of fad" (click)="selectedFad(f._id)" >
-                    <div >
-                        <img class="card borde" [src]="'http://localhost:8000/' + f.picture" class="w-100" style="border-radius: 10px !important;">
-                    </div >                   
-                    <div class="estilo">
-                        <p >{{f.name}}</p>
-                    </div>
-                    
-                </div>
-
+  <div class="col-md-11 d-grid gap-2 d-md-flex justify-content-md-end">
+    <button
+      class="btn btn-primary btn-warning"
+      style="width: 10%"
+      (click)="modal.showModal()"
+    >
+      Publicar
+    </button>
+    <app-mmodal [title]="'Nueva Publicacion'" #modal>
+      <form
+        #frmRegister="ngForm"
+        class="form form-horizontal"
+        (ngSubmit)="onRegister(frmRegister)"
+      >
+        <div class="form-body">
+          <div class="row">
+            <div class="col-md-4">
+              <label> Nombre: </label>
+            </div>
+            <div class="col-md-8 form-group">
+              <div class="position-relative has-icon-left">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="name"
+                  placeholder="name"
+                  ngModel
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label> Descripcion: </label>
+            </div>
+            <div class="col-md-8 form-group">
+              <div class="position-relative has-icon-left">
+                <textarea
+                  class="form-control"
+                  type="text"
+                  name="description"
+                  ngModel
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label> Foto: </label>
+            </div>
+            <div class="col-md-8 form-group">
+              <div class="position-relative has-icon-left">
+                <input
+                  type="file"
+                  class="d-none"
+                  (change)="onChange($event)"
+                  accept="image/png"
+                  #photoInput
+                />
+                <img
+                  alt=""
+                  [src]="photoSelected || '../../../../assets/image.jpg'"
+                  class="img-fluid"
+                  style="max-width: 300px !important"
+                  (click)="photoInput.click()"
+                />
+              </div>
+            </div>
+            <br /><br />
+            <div class="col-12 d-flex justify-content-end">
+              <input
+                class="btn float-right login_btn btn-dark"
+                type="submit"
+                value="Registrar"
+              />
+            </div>
+          </div>
         </div>
-    </div><br>
+      </form>
+    </app-mmodal>
+  </div>
+  <br /><br />
+  <div class="row">
+    <div class="galery">
+      <div *ngFor="let f of fad" (click)="selectedFad(f._id)">
+        <div>
+          <img
+            alt=""
+            class="card borde"
+            [src]="'http://localhost:8000/' + f.picture"
+            class="w-100"
+            style="border-radius: 10px !important"
+          />
+        </div>
+        <div class="estilo">
+          <p>{{ f.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
 </div>
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
 

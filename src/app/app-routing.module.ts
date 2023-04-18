@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'inicio', component: StartLayoutComponent },
   { path: 'fad', component: StartFadComponent },
   { path: 'registerFad', component: RegisterFadComponent },
-  {path: 'commentFad/:id',component:CommentComponent}
+  { path: 'commentFad/:id', component: CommentComponent },
   { path: 'dataUser', component: UserDataComponent },
 ];
 

@@ -14,16 +14,14 @@
     <ng-container *ngIf="fad?.length > 0">
       <div class="galery" style="min-height: 73vh">
         <div *ngFor="let f of fad" (click)="selectedFad(f._id)" class="p-2">
-          <div class="card rounded-3">
+          <div class="rounded-3">
             <img
               alt=""
-              class="card borde card-img-top"
+             
               [src]="api + f.picture"
               class="w-100 rounded-3"
             />
-            <div class="card-body">
-              <p class="card-text">{{ f.name }}</p>
-            </div>
+            
           </div>
         </div>
       </div>

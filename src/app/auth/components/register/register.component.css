@@ -69,53 +69,49 @@
   }
 }
 
-@media only screen and (min-width: 1301px) {
-  .register {
-    width: 60%;
-    margin-top: 4%;
-    margin-bottom: 4%;
-  }
+.register {
+  width: 60%;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
 
-  .banner img {
-    width: 50%;
-  }
+.banner img {
+  width: 50%;
+}
 
-  .input {
-    width: 20vw;
-    min-height: 2vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
-    margin-bottom: 1vw;
-  }
+.input {
+  width: 20vw;
+  min-height: 2vw;
+  border: 1px solid #737373;
+  border-radius: 5px;
+  margin-bottom: 1vw;
+}
 
-  .input-btn {
-    width: 15vw;
-    min-height: 2vw;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    background: #f9a21e;
-  }
+.input-btn {
+  width: 15vw;
+  min-height: 2vw;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  background: #f9a21e;
+}
 
-  .select {
-    width: 20vw;
-    min-height: 2vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
-    margin-bottom: 1vw;
-  }
+.select {
+  width: 20vw;
+  min-height: 2vw;
+  border: 1px solid #737373;
+  border-radius: 5px;
+  margin-bottom: 1vw;
+}
 
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
 }
 
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .register {
-    margin-top: 4%;
-    margin-bottom: 4%;
     margin-inline-start: 5%;
     position: absolute;
     width: 90%;
@@ -136,26 +132,19 @@
   .input {
     width: 80vw;
     min-height: 8vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
     margin-bottom: 2.5vw;
   }
 
   .input-btn {
     width: 60vw;
     min-height: 8vw;
-    border: 1px solid #000000;
-    border-radius: 5px;
     margin-top: 2.5vw;
     margin-bottom: 4vw;
-    background: #f9a21e;
   }
 
   .select {
     width: 80vw;
     min-height: 8vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
     margin-bottom: 2.5vw;
   }
 }
@@ -179,26 +168,19 @@
   .input {
     width: 40vw;
     min-height: 5vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
     margin-bottom: 2.5vw;
   }
 
   .input-btn {
     width: 30vw;
     min-height: 5vw;
-    border: 1px solid #000000;
-    border-radius: 5px;
     margin-top: 2.5vw;
     margin-bottom: 2.5vw;
-    background: #f9a21e;
   }
 
   .select {
     width: 40vw;
     min-height: 5vw;
-    border: 1px solid #737373;
-    border-radius: 5px;
     margin-bottom: 2.5vw;
   }
 

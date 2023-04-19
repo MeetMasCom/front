@@ -17,6 +17,8 @@
             ngModel
             #imagen="ngModel"
             [ngClass]="'input'"
+            (change)="onChange($event)"
+            accept="image/png"
           />
           <div
             *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
@@ -471,13 +473,9 @@
             [ngClass]="'select'"
           >
             <option value="" disabled selected>Seleccione una opción</option>
-            <!-- <option *ngFor="let state of stateCivil" value="state.id">
-              {{ state.name }}
-            </option> -->
-            <option value="SI">Si</option>
-            <option value="NO">No</option>
-            <option value="RARA VEZ">Rara Vez</option>
-            <option value="DIARIAMENTE">Diariamente</option>
+            <option *ngFor="let item of deportes" [value]="item.id">
+              {{ item.name }}
+            </option>
           </select>
           <div
             *ngIf="sport.invalid && (sport.dirty || sport.touched)"

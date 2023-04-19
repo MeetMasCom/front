@@ -13,6 +13,7 @@ import { environment } from '../enviroments/environment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ConstantsSystem } from './utils/constants-system';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -79,6 +80,7 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
   providers: [
     AuthServiceService,
     SharedserviceService,
+    ConstantsSystem,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorInterceptor,

@@ -19,8 +19,11 @@ export class UserDataComponent implements OnInit {
   zodiacal: any = [];
   job: any = [];
   generos: any = [];
+  deportes: any = [];
   token = '';
   id = '';
+  img: any;
+  file!: File;
 
   constructor(public userService: UserServiceService, private router: Router) {}
 
@@ -35,6 +38,8 @@ export class UserDataComponent implements OnInit {
     await this.getZodiacal();
     await this.getJobs();
     await this.getGenero();
+    await this.getSport();
+
     if (sessionStorage.getItem('token')!) {
       this.token = sessionStorage.getItem('token')!;
       const aux = this.token.split('"');
@@ -46,17 +51,29 @@ export class UserDataComponent implements OnInit {
   }
 
   async onUpdate(form: any) {
-    console.log('form', form.value);
     try {
       const response = await lastValueFrom(
-        this.userService.updateUser(form, this.id, this.token)
+        this.userService.updateUser(form, this.id, this.token, this.img)
       );
       if (response.data !== null) {
-        this.router.navigate(['inicio']);
+        this.router.navigate(['fad']);
       }
     } catch (error: any) {
       console.log('error', error.error);
     }
+  }
+
+  onChange(event: any): void {
+    this.file = <File>event.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      const base64String = reader.result!.toString().split(',')[1];
+      const pureBase64 = base64String.replace(/[^a-zA-Z0-9+/]/g, '');
+
+      this.img = pureBase64;
+    };
   }
 
   async getStateCivil() {
@@ -218,6 +235,23 @@ export class UserDataComponent implements OnInit {
 
       response.data.map((x: any) => {
         this.generos.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getSport() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('PRACTICA_DEPORTE')
+      );
+
+      response.data.map((x: any) => {
+        this.deportes.push({
           id: x._id,
           name: x.name,
         });

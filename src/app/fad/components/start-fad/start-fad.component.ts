@@ -3,6 +3,7 @@ import { FadServiceService } from '../../services/fad-service.service';
 import { Router } from '@angular/router';
 import { Fad } from '../../interfaces/fad';
 import { lastValueFrom } from 'rxjs';
+import { ConstantsSystem } from '../../../utils/constants-system';
 
 @Component({
   selector: 'app-start-fad',
@@ -11,6 +12,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class StartFadComponent {
   fad: any;
+  api = '';
 
   classA: string = '';
   message: string = '';
@@ -22,13 +24,16 @@ export class StartFadComponent {
   description!: string;
   id: any;
 
-  constructor(private fadService: FadServiceService, private router: Router) {}
+  constructor(
+    private fadService: FadServiceService,
+    private router: Router,
+    public constante: ConstantsSystem
+  ) {}
 
   async ngOnInit() {
-
-    
+    this.api = this.constante.API_IMAGES;
     await this.getAllsFad();
-    
+
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
@@ -38,7 +43,6 @@ export class StartFadComponent {
     this.fadService.getFads().subscribe((res) => {
       if (res != null) {
         this.fad = res.data;
-        console.log('fads', this.fad);
       }
     });
   }
@@ -46,5 +50,4 @@ export class StartFadComponent {
   selectedFad(id: string) {
     this.router.navigate(['/commentFad', id]);
   }
- 
 }

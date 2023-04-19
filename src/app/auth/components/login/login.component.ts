@@ -23,8 +23,10 @@ export class LoginComponent implements OnInit {
     try {
       this.nameUser = form.value.userNameL;
       const response = await lastValueFrom(this.userService.login(form.value));
-      this.classA = 'alert-success';
-      this.message = response.data;
+      if (response.data !== null) {
+        this.classA = 'alert-success';
+        this.message = response.data;
+      }
     } catch (error: any) {
       this.classA = 'alert-danger';
       this.message = error.error.message;

@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConstantsSystem } from '../../utils/constants-system';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserServiceService {
-  AUTH_SERVER: string = 'http://localhost:8000/api';
-
-  constructor(private httpCLient: HttpClient) {}
+  constructor(
+    private httpCLient: HttpClient,
+    public constante: ConstantsSystem
+  ) {}
 
   getCatalog(param: string): Observable<any> {
     return this.httpCLient.get(
-      `${this.AUTH_SERVER}/catalogue/options?code=${param}`
+      `${this.constante.API_SERVER}/catalogue/options?code=${param}`
     );
   }
 
-  updateUser(form: any, id: string, token: string): Observable<any> {
+  updateUser(
+    form: any,
+    id: string,
+    token: string,
+    img: string
+  ): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
     return this.httpCLient.put(
-      `${this.AUTH_SERVER}/user/${id}`,
+      `${this.constante.API_SERVER}/user/${id}`,
       {
         firstname: form.value.firstname,
         lastname: form.value.lastname,
@@ -56,7 +63,7 @@ export class UserServiceService {
         zodiac_sign: form.value.signz,
         career: form.value.profesion,
         sport: form.value.sport,
-        image: form.value.imagen,
+        image: img,
       },
       {
         headers: headers,

@@ -10,28 +10,26 @@
       Publicar
     </button>
   </div>
-  <div class="row">
-    <ng-container *ngIf="fad?.length > 0">
-      <div class="galery" style="min-height: 73vh">
-        <div *ngFor="let f of fad" (click)="selectedFad(f._id)" class="p-2">
-          <div class="rounded-3">
-            <img
-              alt=""
-             
-              [src]="api + f.picture"
-              class="w-100 rounded-3"
-            />
-            
+  <ng-container *ngIf="fad?.length > 0" >
+    <div class="gallery">
+      <div *ngFor="let f of fad" (click)="selectedFad(f._id)" class="h-100 d-inline-block mt-3 card rounded">        
+          <img
+            class="rounded-top card-img"
+            [src]="'http://localhost:8000/' + f.picture"
+          />
+          <div class="card-body rounded-bottom estilo justify-content-center no-gutters" style="padding: 0% !important;">
+            <p class="class-text text-center">{{ f.name }}</p>
           </div>
-        </div>
+        
       </div>
-    </ng-container>
-    <ng-container *ngIf="fad.length === 0">
-      <div class="d-flex justify-content-center" style="min-height: 73vh">
-        <Span>No hay publicaciones disponibles</Span>
-      </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="fad.length === 0">
+    <div class="d-flex justify-content-center" style="min-height: 73vh">
+      <Span>No hay publicaciones disponibles</Span>
+    </div>
+  </ng-container>
+
   <br />
 </div>
 <app-mmodal [title]="'Nueva Publicación'"></app-mmodal>

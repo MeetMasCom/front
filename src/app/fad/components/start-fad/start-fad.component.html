@@ -10,6 +10,9 @@
       Publicar
     </button>
   </div>
+
+
+
   <ng-container *ngIf="fad?.length > 0">
     <div class="gallery">
       <div
@@ -17,7 +20,7 @@
         (click)="selectedFad(f._id)"
         class="h-100 d-inline-block mt-3 card rounded"
       >
-        <img alt="" class="rounded-top card-img" [src]="api + f.picture" />
+        <img class="rounded-top card-img" [src]="api + f.picture"/>
         <div
           class="card-body rounded-bottom estilo justify-content-center no-gutters"
           style="padding: 0% !important"

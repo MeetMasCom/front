@@ -1,10 +1,28 @@
 <div class="sticky-top">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand align-items-center icon" href="/fad">
-      <img class="rounded" src="../../assets/img/logo7.png" alt="Ken You Me" />
-      &nbsp;
-      <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
-    </a>
+    <ng-container *ngIf="token !== ''">
+      <a class="navbar-brand align-items-center icon" href="/fad">
+        <img
+          class="rounded"
+          src="../../assets/img/logo7.png"
+          alt="Ken You Me"
+        />
+        &nbsp;
+        <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
+      </a>
+    </ng-container>
+    <ng-container *ngIf="token === ''">
+      <a class="navbar-brand align-items-center icon" href="/inicio">
+        <img
+          class="rounded"
+          src="../../assets/img/logo7.png"
+          alt="Ken You Me"
+        />
+        &nbsp;
+        <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
+      </a>
+    </ng-container>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -30,12 +48,38 @@
           />
         </form>
 
-        <a class="nav-item nav-link">Matches</a>
-        <a class="nav-item nav-link" href="fad">Estilo</a>
-        <a class="nav-item nav-link">Hotel</a>
-        <a class="nav-item nav-link">Restaurant</a>
-        <a class="nav-item nav-link">Flores</a>
-        <div *ngIf="token === '' || token === null">
+        <ng-container *ngIf="token !== ''">
+          <a class="nav-item nav-link">Matches</a>
+          <a class="nav-item nav-link" href="fad">Estilo</a>
+          <a class="nav-item nav-link">Hotel</a>
+          <a class="nav-item nav-link">Restaurant</a>
+          <a class="nav-item nav-link">Flores</a>
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle border-0 nav-item nav-link"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
+              <li>
+                <a class="dropdown-item btn" (click)="onLogout()">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="token === ''">
+          <a class="nav-item nav-link">Matches</a>
+          <a class="nav-item nav-link" href="inicio">Estilo</a>
+          <a class="nav-item nav-link">Hotel</a>
+          <a class="nav-item nav-link">Restaurant</a>
+          <a class="nav-item nav-link">Flores</a>
           <a
             class="nav-item nav-link"
             type="button"
@@ -44,26 +88,7 @@
           >
             <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
           </a>
-        </div>
-        <div class="dropdown" *ngIf="token !== '' && token !== null">
-          <a
-            class="btn dropdown-toggle border-0 nav-item nav-link"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
-          </a>
-
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
-            <li>
-              <a class="dropdown-item btn" (click)="onLogout()">Logout</a>
-            </li>
-          </ul>
-        </div>
+        </ng-container>
       </div>
     </div>
   </nav>

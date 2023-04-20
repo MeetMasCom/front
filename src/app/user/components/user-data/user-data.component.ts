@@ -41,9 +41,7 @@ export class UserDataComponent implements OnInit {
     await this.getSport();
 
     if (sessionStorage.getItem('token')!) {
-      this.token = sessionStorage.getItem('token')!;
-      const aux = this.token.split('"');
-      this.token = aux[1];
+      this.token = JSON.parse(sessionStorage.getItem('token')!);
     }
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;

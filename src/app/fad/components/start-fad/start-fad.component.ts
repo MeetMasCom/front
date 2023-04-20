@@ -11,7 +11,7 @@ import { ConstantsSystem } from '../../../utils/constants-system';
   styleUrls: ['./start-fad.component.css'],
 })
 export class StartFadComponent {
-  fad: any;
+  fad: any=[];
   api = '';
 
   classA: string = '';
@@ -31,12 +31,17 @@ export class StartFadComponent {
   ) {}
 
   async ngOnInit() {
-    this.api = this.constante.API_IMAGES;
-    await this.getAllsFad();
 
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+    if(this.id!=null){
+      this.api = this.constante.API_IMAGES;
+      await this.getAllsFad();
+    }else{
+      this.router.navigate(['/inicio']);
+    }
+        
   }
 
   async getAllsFad() {

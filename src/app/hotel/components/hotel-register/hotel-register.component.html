@@ -1,0 +1,100 @@
+<app-menu></app-menu>
+<div class="d-flex flex-column align-items-center">
+  <div class="col-8 d-flex justify-content-center align-items-center mt-5">
+    <h3>DATOS DEL HOTEL</h3>
+  </div>
+  <div class="container">
+    <div>
+      <form>
+        <div class="justify-content-center">
+          <label class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del Hotel"
+            id="name"
+            name="name"
+            required
+            ngModel
+            #name="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dirección"
+            id="address"
+            required
+            ngModel
+            name="address"
+            #address="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Teléfono"
+            id="phone"
+            required
+            ngModel
+            name="phone"
+            #phone="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">País</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="País"
+            id="country"
+            required
+            ngModel
+            name="country"
+            #country="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ciudad</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ciudad"
+            id="city"
+            required
+            ngModel
+            name="city"
+            #city="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Gerente</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del Representante"
+            id="manager"
+            required
+            ngModel
+            name="manager"
+            #manager="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+        <div class="p-3 align-items-center">
+          <button type="submit" class="btn enviar">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

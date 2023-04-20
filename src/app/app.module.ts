@@ -43,6 +43,9 @@ import { MmodalComponent } from './shared/components/mmodal/mmodal.component';
 import { RatingStarComponent } from './shared/components/rating-star/rating-star.component';
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
+import { HotelRegisterComponent } from './hotel/components/hotel-register/hotel-register.component';
+import { VerifyHotelComponent } from './hotel/components/verify-hotel/verify-hotel.component';
+import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
     RatingStarComponent,
     MultiSelectComponent,
     UserDataComponent,
+    HotelRegisterComponent,
+    VerifyHotelComponent,
+    ListHotelComponent,
   ],
   imports: [
     BrowserModule,

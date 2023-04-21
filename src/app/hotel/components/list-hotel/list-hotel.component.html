@@ -1,5 +1,16 @@
 <app-menu></app-menu>
 <div class="container" style="min-height: 40vw;">
+    <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          
+          class="btn"
+          style="background-color: #f9a21e;"
+        >
+          Registrar
+        </button>
+      </div>
     <ng-container *ngIf="hotel?.length > 0">
         <div class="row p-3"  *ngFor="let h of hotel">
             <div class="card">

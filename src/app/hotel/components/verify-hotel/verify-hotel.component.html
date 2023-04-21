@@ -9,6 +9,7 @@
                 <th scope="col">Pais</th>
                 <th scope="col">Ciudad</th>
                 <th scope="col">Gerente</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -20,6 +21,9 @@
                 <td>{{h.country}}</td>
                 <td>{{h.city}}</td>
                 <td>{{h.manager}}</td>
+                <td>
+                  <button class="btn" style="background-color: #f9a21e;" (click)="validar(h._id)"> Validar </button>
+                </td>
               </tr>
                 </ng-container>
             </tbody>

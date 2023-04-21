@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsSystem } from 'src/app/utils/constants-system';
 import { HotelServiceService } from '../../services/hotel-service.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-verify-hotel',
@@ -43,5 +44,18 @@ export class VerifyHotelComponent {
         this.hotel = res.data;
       }
     });
+  }
+
+  async validar(_id:string){
+    /*try {
+      const response = await lastValueFrom(
+        this.hotelService.verifyHotel(_id)
+      );
+      if (response.data !== null) {
+        this.router.navigate(['hotel']);
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+    }*/
   }
 }

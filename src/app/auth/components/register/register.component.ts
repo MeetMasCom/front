@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { lastValueFrom } from 'rxjs';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +10,12 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  @ViewChild('exitoRModal')
+  exitoRModal!: ModalAlertsComponent;
+  @ViewChild('failRModal') failRModal!: ModalAlertsComponent;
   @ViewChild('recaptcha', { static: true })
   recaptchaElement!: ElementRef;
+
   response: boolean = false;
   token: string | undefined;
   nombres: string = '';
@@ -65,16 +70,24 @@ export class RegisterComponent implements OnInit {
     if (response !== '') {
       try {
         const resp = await lastValueFrom(this.userService.register(form.value));
-        sessionStorage.setItem('user', JSON.stringify(resp.data));
-        this.classA = 'alert-success';
-        this.message = resp.message;
-        location.reload();
+        if (resp.data !== null) {
+          sessionStorage.setItem('user', JSON.stringify(resp.data));
+          this.message = resp.message;
+          this.exitoRModal.abrir();
+        }
       } catch (error: any) {
-        this.classA = 'alert-danger';
         this.message = error.error.message;
-        location.reload();
+        this.failRModal.abrir();
       }
     }
+  }
+
+  onRedirigir() {
+    location.reload();
+  }
+
+  onFail() {
+    location.reload();
   }
 
   onValidateDateBirth(fecha: string) {

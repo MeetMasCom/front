@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-user-data',
@@ -9,6 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-data.component.css'],
 })
 export class UserDataComponent implements OnInit {
+  @ViewChild('successPModal') successPModal!: ModalAlertsComponent;
+  @ViewChild('failModal') failModal!: ModalAlertsComponent;
+
   stateCivil: any = [];
   policies: any = [];
   drinks: any = [];
@@ -24,6 +28,8 @@ export class UserDataComponent implements OnInit {
   id = '';
   img: any;
   file!: File;
+  dataUser: any = [];
+  errMsj = '';
 
   constructor(public userService: UserServiceService, private router: Router) {}
 
@@ -46,19 +52,57 @@ export class UserDataComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
   }
 
   async onUpdate(form: any) {
     try {
       const response = await lastValueFrom(
-        this.userService.updateUser(form, this.id, this.token, this.img)
+        this.userService.updateUser(form, this.id, this.token)
       );
       if (response.data !== null) {
-        this.router.navigate(['fad']);
+        this.successPModal.abrir();
       }
     } catch (error: any) {
       console.log('error', error.error);
+      this.errMsj = error.error.message;
+      this.failModal.abrir();
     }
+  }
+
+  async onUpdateBasic(form: any) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.updateUserBasic(form, this.id, this.token, this.img)
+      );
+      if (response.data !== null) {
+        this.successPModal.abrir();
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.errMsj = error.error.message;
+      this.failModal.abrir();
+    }
+  }
+
+  async onUpdateAddress(form: any) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.updateUserAddress(form, this.id, this.token)
+      );
+      if (response.data !== null) {
+        this.successPModal.abrir();
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.errMsj = error.error.message;
+      this.failModal.abrir();
+    }
+  }
+
+  onRedirigir() {
+    this.router.navigate(['/fad']);
   }
 
   onChange(event: any): void {

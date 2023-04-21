@@ -1,0 +1,45 @@
+<button
+  type="button"
+  class="hidden"
+  data-bs-toggle="modal"
+  [attr.data-bs-target]="'#' + idModal"
+  id="modalButton"
+  #modalButton
+>
+  Modal
+</button>
+
+<div
+  class="modal fade"
+  [id]="idModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="icon-confirm">
+          <img [src]="icono" alt="" />
+        </div>
+        <div class="descripcion">
+          <h3 *ngIf="titulo">{{ titulo }}</h3>
+          <p *ngIf="descripcion">{{ descripcion }}</p>
+        </div>
+        <div class="buttons">
+          <button
+            type="button"
+            class="btn btnS"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="onSuccess()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

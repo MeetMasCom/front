@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-otp',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
 export class OtpComponent implements OnInit {
   @Input() userN!: string;
   @ViewChild('otp') otp: any;
+  @ViewChild('exitoModal') exitoModal!: ModalAlertsComponent;
+  @ViewChild('failModal') failModal!: ModalAlertsComponent;
+
   classA: string = '';
   message: string = '';
 
@@ -31,27 +35,28 @@ export class OtpComponent implements OnInit {
       const response = await lastValueFrom(
         this.userService.validateOtp(parseInt(this.otp), this.userN)
       );
-      sessionStorage.setItem('data', JSON.stringify(response.data.user));
-      sessionStorage.setItem('user', response.data.user.userName);
-      sessionStorage.setItem('id', response.data.user._id);
-      sessionStorage.setItem('token', JSON.stringify(response.data.token));
-      this.classA = 'alert-success';
-      this.message = response.message;        
 
-      setTimeout(() => {
-        this.router.navigate(['/fad']);
-        let backDrop=document.querySelector('.modal-backdrop') as HTMLDivElement;
-        if(backDrop!==null){
-            backDrop.remove();
-        }
-      }, 1500);
+      if (response.data !== null) {
+        sessionStorage.setItem('data', JSON.stringify(response.data.user));
+        sessionStorage.setItem('user', response.data.user.userName);
+        sessionStorage.setItem('id', response.data.user._id);
+        sessionStorage.setItem('token', JSON.stringify(response.data.token));
 
-      
-      //location.reload();
+        this.message = response.message;
+        this.exitoModal.abrir();
+      }
     } catch (error: any) {
-      this.classA = 'alert-danger';
+      console.log('error', error.error);
       this.message = error.error.message;
-      location.reload();
+      this.failModal.abrir();
     }
+  }
+
+  onRedirigir() {
+    this.router.navigate(['/fad']);
+  }
+
+  onFail() {
+    location.reload();
   }
 }

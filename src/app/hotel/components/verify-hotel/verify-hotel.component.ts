@@ -47,7 +47,7 @@ export class VerifyHotelComponent {
   }
 
   async validar(_id:string){
-    /*try {
+    try {
       const response = await lastValueFrom(
         this.hotelService.verifyHotel(_id)
       );
@@ -56,6 +56,6 @@ export class VerifyHotelComponent {
       }
     } catch (error: any) {
       console.log('error', error.error);
-    }*/
+    }
   }
 }

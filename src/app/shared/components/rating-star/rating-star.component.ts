@@ -10,6 +10,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 })
 export class RatingStarComponent {
 
+  @Input() val=0;
   @Output() 
   eventSetRating=new EventEmitter<number>();
 constructor( library: FaIconLibrary,){  

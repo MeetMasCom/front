@@ -20,8 +20,11 @@ export class CommentComponent {
   id_fad: any;
   user: any;
   currentRate = 0;
-
+  usuario:any;
+  star=0;
   rating: number = 0;
+  id_star:string='';
+  band=0;
   constructor(
     private fadService: FadServiceService,
     private router: Router,
@@ -36,6 +39,8 @@ export class CommentComponent {
       this.fadService.getFadId(this.id_fad).subscribe((res) => {
         if (res != null) {
           this.fad = res.data;
+          this.usuario=res.data[0].user_id;
+         
           console.log('fad', this.fad);
         }
       });
@@ -49,14 +54,23 @@ export class CommentComponent {
       if (sessionStorage.getItem('id')!) {
         this.id_user = sessionStorage.getItem('id')!;
       }
-      /*this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
+      this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
         if (res != null) {
-          console.log("estrellas", res.data[0].qualification);
-          this.setRating(res.data[0].qualification);
+          this.dataStar=res;
+          console.log("estrellas",res);
+          this.star=res.data[0].qualification;
+          this.id_star=res.data[0]._id;
+          this.setRating(this.star);
+          this.band=1;
+          console.log("estrellas",res);
+        }else{
+          this.star=0;
         }
-
-      });*/
+          
+      })
+      
     });
+    
   }
 
   async onRegister(form: any) {
@@ -65,8 +79,30 @@ export class CommentComponent {
       const resp = await lastValueFrom(
         this.fadService.registerComment(form.value)
       );
-      console.log('resp', resp);
       location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  async onRegisterStar(dataStar:any) {
+    try {
+      const resp = await lastValueFrom(
+        this.fadService.registerRatingStar(dataStar)
+      );
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  async onUpdateStar(id:string,dataStar:any) {
+    try {
+      const resp = await lastValueFrom(
+        this.fadService.UpdateStar(id,dataStar)
+      );
+      //location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -74,17 +110,18 @@ export class CommentComponent {
 
   async setRating(val: number) {
     try {
-      this.rating = val;
-      const star = new FormData();
+      this.rating = val;      
       this.dataStar = {
         user_id: this.id_user,
         fad_id: this.id_fad,
         qualification: this.rating,
       };
-      const resp = await lastValueFrom(
-        this.fadService.registerRatingStar(this.dataStar)
-      );
-      console.log('resp', resp);
+      if(this.star===0){
+          this.onRegisterStar(this.dataStar)
+      }else{
+      this.onUpdateStar(this.id_star,this.dataStar);
+      }
+    
     } catch (error) {
       console.log(error);
     }

@@ -80,4 +80,10 @@ export class FadServiceService {
       `${this.constante.API_SERVER}/star/getStarUserFadId?user=${user}&fad=${fad}`
     );
   }
+
+  UpdateStar(id: string,datos:any): Observable<any> {
+    console.log("estrella",id);
+    return this.httpCLient.post<any>(`${this.constante.API_SERVER}/star/updateStar/${id}`,datos);
+}
+
 }

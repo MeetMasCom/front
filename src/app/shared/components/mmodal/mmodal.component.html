@@ -31,13 +31,24 @@
               <div class="col-md-8 form-group">
                 <div class="position-relative has-icon-left">
                   <input
-                    class="form-control"
                     type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                    id="name"
                     name="name"
-                    placeholder="name"
-                    ngModel
                     required
+                    ngModel
+                    #name="ngModel"
+                    [ngClass]="'input'"
                   />
+                  <div
+                    *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small class="form-group" *ngIf="name.errors?.['required']">
+                      Campo requerido.
+                    </small>
+                  </div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -46,11 +57,15 @@
               <div class="col-md-8 form-group">
                 <div class="position-relative has-icon-left">
                   <textarea
-                    class="form-control"
                     type="text"
+                    class="form-control"
+                    placeholder="Descripción"
+                    id="description"
                     name="description"
-                    ngModel
                     required
+                    ngModel
+                    #name="ngModel"
+                    [ngClass]="'input'"
                   ></textarea>
                 </div>
               </div>

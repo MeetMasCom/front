@@ -1,4 +1,5 @@
 export interface Hotel {
+    user_id: string;
     name: string;
     address:string;
     phone: string;
@@ -6,6 +7,5 @@ export interface Hotel {
     city:string;
     stars:number;
     manager:string,
-    state:number
   }
   

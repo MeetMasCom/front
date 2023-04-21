@@ -86,13 +86,6 @@ async onRegister(form: any) {
   try {
     this.description = form.value.description;
     this.name = form.value.name;
-    const fd = new FormData();
-      this.fadData = ({
-        user_id: this.id,
-        name:form.value.name,
-        description: form.value.description,
-        image: this.file
-      });
       const resp = await lastValueFrom(this.fadService.register(this.id,this.name,this.description,this.file));
       console.log('resp', resp);    
       //;  

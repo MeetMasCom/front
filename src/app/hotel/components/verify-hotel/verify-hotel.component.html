@@ -1,1 +1,36 @@
-<p>verify-hotel works!</p>
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw;">
+    <ng-container *ngIf="hotel?.length > 0">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Gerente</th>
+              </tr>
+            </thead>
+            <tbody>
+                <ng-container
+                *ngFor="let h of hotel ;index as i">
+              <tr >
+                <th scope="row">{{i+1}}</th>
+                <td>{{h.name}}</td>
+                <td>{{h.country}}</td>
+                <td>{{h.city}}</td>
+                <td>{{h.manager}}</td>
+              </tr>
+                </ng-container>
+            </tbody>
+          </table>
+            
+    </ng-container>
+    <ng-container *ngIf="hotel.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No existen hoteles por verificar</Span>
+        </div>
+      </ng-container>
+   
+</div>
+<app-footer></app-footer>

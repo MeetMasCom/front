@@ -1,1 +1,38 @@
-<p>list-hotel works!</p>
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw;">
+    <ng-container *ngIf="hotel?.length > 0">
+        <div class="row p-3"  *ngFor="let h of hotel">
+            <div class="card">
+                <h5 class="card-header">{{h.name}}</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="" alt="" style="width: 22fc0px; height: 220px;">
+                        </div>
+                        <div class="col-md-6 float-left">
+                            <h5 class="card-title">{{h.city}} -- {{h.country}}</h5>
+                            <span>Dirección:</span><p class="card-text float-left">{{h.address}}</p>
+                            <span>Teléfono:</span><p>{{h.phone}}</p>
+                            <span>Gerente:</span><p>{{h.manager}}</p>
+
+                        </div>
+                        <div class="col-md-2 float-left">
+                            <h5 class="card-title">Precio por noche</h5>
+                            <h1>$320</h1>
+                            <a href="#" class="btn" style="background-color: #f9a21e;">Ver detalles</a>
+                        </div>
+                      
+                    </div>
+                   
+                </div>
+              </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="hotel.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay hoteles disponibles</Span>
+        </div>
+      </ng-container>
+   
+</div>
+<app-footer></app-footer>

@@ -42,6 +42,12 @@ export class FadServiceService {
     );
   }
 
+  getFadIdUser(id: string) {
+    return this.httpCLient.get<Fad>(
+      `${this.constante.API_SERVER}/fad/getByIdUserFad/${id}`
+    );
+  }
+
   getCommentByIdFad(id: string) {
     console.log('id publicacion', id);
     return this.httpCLient.get<Fad>(

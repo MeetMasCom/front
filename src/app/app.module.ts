@@ -43,6 +43,7 @@ import { MmodalComponent } from './shared/components/mmodal/mmodal.component';
 import { RatingStarComponent } from './shared/components/rating-star/rating-star.component';
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
+import { ModalAlertsComponent } from './shared/components/modal-alerts/modal-alerts.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
     RatingStarComponent,
     MultiSelectComponent,
     UserDataComponent,
+    ModalAlertsComponent,
   ],
   imports: [
     BrowserModule,

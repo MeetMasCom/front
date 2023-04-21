@@ -18,7 +18,7 @@ export class UserServiceService {
     );
   }
 
-  updateUser(
+  updateUserBasic(
     form: any,
     id: string,
     token: string,
@@ -29,20 +29,54 @@ export class UserServiceService {
     });
 
     return this.httpCLient.put(
-      `${this.constante.API_SERVER}/user/${id}`,
+      `${this.constante.API_SERVER}/user/basic/${id}`,
       {
         firstname: form.value.firstname,
         lastname: form.value.lastname,
+        motherLanguague: form.value.inativo,
+        studies: form.value.studies,
+        image: img,
+      },
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  updateUserAddress(form: any, id: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpCLient.put(
+      `${this.constante.API_SERVER}/user/address/${id}`,
+      {
+        address: form.value.address,
+        primaryStreet: form.value.principal,
+        secondaryStreet: form.value.secundaria,
+        reference: form.value.referencia,
+      },
+      { headers: headers }
+    );
+  }
+
+  updateUser(form: any, id: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpCLient.put(
+      `${this.constante.API_SERVER}/user/${id}`,
+      {
         identification: form.value.identification,
         gender: form.value.genero,
         weight: parseInt(form.value.weight),
         height: parseInt(form.value.talla),
         eyeColor: form.value.ojoscolor,
-        currentResidence: form.value.residencia,
         ethnicity: form.value.etnia,
+        currentResidence: form.value.residencia,
         religion: form.value.religion,
         policy: form.value.policy,
-        motherLanguague: form.value.inativo,
         languages: [
           form.value.idioma1,
           form.value.idioma2,
@@ -63,7 +97,6 @@ export class UserServiceService {
         zodiac_sign: form.value.signz,
         career: form.value.profesion,
         sport: form.value.sport,
-        image: img,
       },
       {
         headers: headers,

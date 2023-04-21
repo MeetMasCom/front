@@ -1,12 +1,7 @@
 <app-menu></app-menu>
 <div class="container">
   <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
-    <button
-      type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#modalFad"
-      class="btn btn-warning nuevo"
-    >
+    <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
       Publicar
     </button>
   </div>
@@ -35,7 +30,22 @@
 
   <br />
 </div>
-<app-mmodal [title]="'Nueva Publicación'"></app-mmodal>
+
+<app-mmodal
+  [title]="'Nueva Publicación'"
+  [idModal]="'modalFad'"
+  #fadModal
+></app-mmodal>
+
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
+
+<app-modal-alerts
+  [idModal]="'warning'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Complete sus datos'"
+  [descripcion]="'Para continuar con la acción debe actualizar sus datos.'"
+  (successModal)="onRedirigir()"
+  #warningModal
+></app-modal-alerts>
 
 <app-footer></app-footer>

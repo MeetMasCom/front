@@ -1,3 +1,7 @@
+.hidden {
+  visibility: hidden;
+}
+
 .text-danger {
   margin-top: -1vw;
 }

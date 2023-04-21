@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FadServiceService } from 'src/app/fad/services/fad-service.service';
 import { lastValueFrom } from 'rxjs';
@@ -6,111 +12,121 @@ import { lastValueFrom } from 'rxjs';
 @Component({
   selector: 'app-mmodal',
   templateUrl: './mmodal.component.html',
-  styleUrls: ['./mmodal.component.css']
+  styleUrls: ['./mmodal.component.css'],
 })
 export class MmodalComponent {
-@Input() title='';
+  @Input() idModal: string = '';
+  @Input() title = '';
+  @ViewChild('modalPublicar') modalPublicar!: ElementRef;
 
-photoSelected: any;
-file!: File;
-classA: string = '';message: string = '';
-user_id!: string;
-name!: string;
-description!: string;
-id: any;
-fadData: any;
+  photoSelected: any;
+  file!: File;
+  classA: string = '';
+  message: string = '';
+  user_id!: string;
+  name!: string;
+  description!: string;
+  id: any;
+  fadData: any;
 
-constructor(private fadService: FadServiceService, private router: Router) {}
+  constructor(private fadService: FadServiceService, private router: Router) {}
 
-async ngOnInit() {
- 
-  if (sessionStorage.getItem('id')!) {
-    this.id = sessionStorage.getItem('id')!;
+  async ngOnInit() {
+    if (sessionStorage.getItem('id')!) {
+      this.id = sessionStorage.getItem('id')!;
+    }
   }
-}
 
-onChange(event: any): void {
-  if (event.target.files && event.target.files[0]) {
-    this.file = <File>event.target.files[0];
-
-    const allowFiles = ['images/png'];
-    const fi = event.target.files[0];
-    const re = new FileReader();
-    const readerBase64 = new FileReader();
-
-    re.readAsArrayBuffer(fi);
-    re.onload = (evt) => {
-      const result = evt.target?.result as ArrayBuffer;
-      const uInt = new Uint8Array(result.slice(0, 4));
-      const bytes: string[] = [];
-      uInt.forEach((val) => {
-        bytes.push(val.toString(16));
-      });
-      const hexa = bytes.join('').toUpperCase();
-      const filterFileTypes = allowFiles.filter(
-        (val) => val === this.getImageType(hexa)
-      );
-      console.log(filterFileTypes);
-
-      if (filterFileTypes.length > 0) {
-        const reader = new FileReader();
-        reader.onload = (e) => (this.photoSelected = reader.result);
-        reader.readAsDataURL(this.file);
-      } else {
-        this.classA = 'alert-danger';
-        this.message = 'Imagen no permitida';
-        event.target.value = '';
-        this.photoSelected = '';
-        setTimeout(() => {
-          location.reload();
-        }, 1500);
-      }
-    };
-
-    //image preview
-  } else {
-    console.log('seleccione una foto');
+  abrir() {
+    this.modalPublicar.nativeElement.click();
   }
-}
 
-getImageType(signature: string) {
-  switch (signature) {
-    case '89504E47':
-      return 'images/png';
-    default:
-      return 'Unknown filetype';
+  onChange(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+
+      const allowFiles = ['images/png'];
+      const fi = event.target.files[0];
+      const re = new FileReader();
+      const readerBase64 = new FileReader();
+
+      re.readAsArrayBuffer(fi);
+      re.onload = (evt) => {
+        const result = evt.target?.result as ArrayBuffer;
+        const uInt = new Uint8Array(result.slice(0, 4));
+        const bytes: string[] = [];
+        uInt.forEach((val) => {
+          bytes.push(val.toString(16));
+        });
+        const hexa = bytes.join('').toUpperCase();
+        const filterFileTypes = allowFiles.filter(
+          (val) => val === this.getImageType(hexa)
+        );
+        console.log(filterFileTypes);
+
+        if (filterFileTypes.length > 0) {
+          const reader = new FileReader();
+          reader.onload = (e) => (this.photoSelected = reader.result);
+          reader.readAsDataURL(this.file);
+        } else {
+          this.classA = 'alert-danger';
+          this.message = 'Imagen no permitida';
+          event.target.value = '';
+          this.photoSelected = '';
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        }
+      };
+
+      //image preview
+    } else {
+      console.log('seleccione una foto');
+    }
   }
-}
 
-async onRegister(form: any) {
-  try {
-    this.description = form.value.description;
-    this.name = form.value.name;
-    const fd = new FormData();
-      this.fadData = ({
+  getImageType(signature: string) {
+    switch (signature) {
+      case '89504E47':
+        return 'images/png';
+      default:
+        return 'Unknown filetype';
+    }
+  }
+
+  async onRegister(form: any) {
+    try {
+      this.description = form.value.description;
+      this.name = form.value.name;
+      const fd = new FormData();
+      this.fadData = {
         user_id: this.id,
-        name:form.value.name,
+        name: form.value.name,
         description: form.value.description,
-        image: this.file
-      });
-      const resp = await lastValueFrom(this.fadService.register(this.id,this.name,this.description,this.file));
-      console.log('resp', resp);    
-      //;  
+        image: this.file,
+      };
+      const resp = await lastValueFrom(
+        this.fadService.register(
+          this.id,
+          this.name,
+          this.description,
+          this.file
+        )
+      );
+      console.log('resp', resp);
+      //;
       this.classA = 'alert-success';
-      this.message = resp.message;  
-      //this.router.navigate(['/fad']); 
+      this.message = resp.message;
+      //this.router.navigate(['/fad']);
       setTimeout(() => {
         location.reload();
       }, 1500);
-      
-    
-  } catch (error: any) {
-    this.classA = 'alert-danger';
-    this.message = error.error.message;
-    setTimeout(() => {
-      location.reload();
-    }, 1500);
+    } catch (error: any) {
+      this.classA = 'alert-danger';
+      this.message = error.error.message;
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   }
-}
-
 }

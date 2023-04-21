@@ -44,4 +44,20 @@
   </div>
 </div>
 
-<app-alert [classAlert]="classA" [message]="message"></app-alert>
+<app-modal-alerts
+  [idModal]="'exito'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'OTP Correcto'"
+  [descripcion]="message"
+  (successModal)="onRedirigir()"
+  #exitoModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'fail'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'OTP Incorrecto'"
+  [descripcion]="message"
+  (successModal)="onFail()"
+  #failModal
+></app-modal-alerts>

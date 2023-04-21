@@ -75,7 +75,7 @@
                 pattern="[A-Za-z0-9]+"
                 #userName="ngModel"
                 [ngClass]="'input'"
-                (ngModelChange)="onValidateUserName($event)"
+                (change)="onValidateUserName(userName.value)"
               />
               <div
                 *ngIf="userName.invalid && (userName.dirty || userName.touched)"
@@ -108,7 +108,7 @@
                 name="email"
                 #email="ngModel"
                 [ngClass]="'input'"
-                (ngModelChange)="onValidateEmail($event)"
+                (change)="onValidateEmail(email.value)"
               />
               <div
                 *ngIf="email.invalid && (email.dirty || email.touched)"

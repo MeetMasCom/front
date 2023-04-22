@@ -11,7 +11,7 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 })
 export class UserDataComponent implements OnInit {
   @ViewChild('successPModal') successPModal!: ModalAlertsComponent;
-  @ViewChild('failModal') failModal!: ModalAlertsComponent;
+  @ViewChild('failPModal') failPModal!: ModalAlertsComponent;
 
   stateCivil: any = [];
   policies: any = [];
@@ -34,6 +34,7 @@ export class UserDataComponent implements OnInit {
   constructor(public userService: UserServiceService, private router: Router) {}
 
   async ngOnInit() {
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
     await this.getStateCivil();
     await this.getPolicies();
     await this.getDrinks();
@@ -52,8 +53,6 @@ export class UserDataComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
-
-    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
   }
 
   async onUpdate(form: any) {
@@ -67,7 +66,7 @@ export class UserDataComponent implements OnInit {
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 
@@ -82,7 +81,7 @@ export class UserDataComponent implements OnInit {
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 
@@ -97,7 +96,7 @@ export class UserDataComponent implements OnInit {
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 

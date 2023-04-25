@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotelServiceService } from 'src/app/hotel/services/hotel-service.service';
 import { lastValueFrom } from 'rxjs';
+import { MmodalComponent } from 'src/app/shared/components/mmodal/mmodal.component';
+import { ModalAlertsComponent } from 'src/app/shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-hotel-register',
@@ -10,10 +12,13 @@ import { lastValueFrom } from 'rxjs';
 })
 export class HotelRegisterComponent {
   constructor(private hotelService: HotelServiceService, private router: Router) {}
+  @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
+  @ViewChild('fadModal') fadModal!: MmodalComponent;
 id:any;
+user_data: any = [];
 classA: string = '';message: string = '';
   async ngOnInit() {
- 
+    this.user_data = JSON.parse(sessionStorage.getItem('data')!);
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
@@ -42,4 +47,22 @@ async onRegister(form: any) {
     }, 1500);
   }
 }
+
+onValidate() {
+  if (this.user_data.state === 0) {
+    this.warningModal.abrir();
+  }
+  if (
+    this.user_data.state === 1 ||
+    this.user_data.state === 2 ||
+    this.user_data.state === 3
+  ) {
+    this.fadModal.abrir();
+  }
+}
+
+onRedirigir() {
+  this.router.navigate(['/dataUser']);
+}
+
 }

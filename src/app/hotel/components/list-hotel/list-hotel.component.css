@@ -1,0 +1,26 @@
+.nuevo{
+    background-color: #f9a21e;
+}
+
+fa-icon:hover{
+    color: #f9a21e;
+    width: 20px;
+    height: 20px;
+}
+
+
+.fa-3x{
+    font-size: 1em !important;
+    padding: 0;
+}
+
+.nav-link:focus, .nav-link:hover,.nav-link.active{
+    background-color: #f9a21e;
+    color: #000;
+}
+
+
+.nav-link{
+    color: #000;
+}
+

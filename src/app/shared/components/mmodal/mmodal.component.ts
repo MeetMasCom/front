@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FadServiceService } from 'src/app/fad/services/fad-service.service';
+import { HotelServiceService } from 'src/app/hotel/services/hotel-service.service';
 import { lastValueFrom } from 'rxjs';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-mmodal',
@@ -17,7 +19,10 @@ import { lastValueFrom } from 'rxjs';
 export class MmodalComponent {
   @Input() idModal: string = '';
   @Input() title = '';
+  @Input() tipo = 0;
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
+  @ViewChild('exitoModal') exitoModal!: ModalAlertsComponent;
+  @ViewChild('failModal') failModal!: ModalAlertsComponent;
 
   photoSelected: any;
   file!: File;
@@ -29,7 +34,7 @@ export class MmodalComponent {
   id: any;
   fadData: any;
 
-  constructor(private fadService: FadServiceService, private router: Router) {}
+  constructor(private fadService: FadServiceService,private hotelService:HotelServiceService, private router: Router) {}
 
   async ngOnInit() {
     if (sessionStorage.getItem('id')!) {
@@ -62,7 +67,6 @@ export class MmodalComponent {
         const filterFileTypes = allowFiles.filter(
           (val) => val === this.getImageType(hexa)
         );
-        console.log(filterFileTypes);
 
         if (filterFileTypes.length > 0) {
           const reader = new FileReader();
@@ -118,15 +122,54 @@ export class MmodalComponent {
       this.classA = 'alert-success';
       this.message = resp.message;
       //this.router.navigate(['/fad']);
+      this.message = resp.message;
+        this.exitoModal.abrir();
+      /*setTimeout(() => {
+        location.reload();
+      }, 1500);*/
+    } catch (error: any) {
+      /*this.classA = 'alert-danger';
+      this.message = error.error.message;
       setTimeout(() => {
         location.reload();
-      }, 1500);
-    } catch (error: any) {
-      this.classA = 'alert-danger';
+      }, 1500);*/
+      console.log('error', error.error);
       this.message = error.error.message;
+      this.failModal.abrir();
       setTimeout(() => {
         location.reload();
       }, 1500);
     }
   }
+
+  async onRegisterHotel(form: any) {
+    try {
+      form.value.user_id=this.id;
+        const resp = await lastValueFrom(this.hotelService.registerHotel(form.value));
+        console.log('resp', resp);    
+        //;  
+       // this.classA = 'alert-success';
+        this.message = "Los datos ingresados serán validados";  
+        //this.router.navigate(['/fad']); 
+        //setTimeout(() => {
+         // location.reload();
+        //}, 1500);
+        this.message = resp.message;
+        this.exitoModal.abrir();
+      
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.message = error.error.message;
+      this.failModal.abrir();
+    }
+  }
+
+  onRedirigir() {
+    this.router.navigate(['/hotel']);
+  }
+
+  onFail() {
+    location.reload();
+  }
+
 }

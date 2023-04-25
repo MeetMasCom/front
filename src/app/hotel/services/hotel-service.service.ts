@@ -43,4 +43,13 @@ export class HotelServiceService {
   verifyHotel(id: string): Observable<any> {
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/verifyHotel/${id}`,id);
 }
+
+getHotelById(id: string): Observable<any> {
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdHotel/${id}`);
+}
+
+getHotelByIdUser(id: string): Observable<any> {
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdUserHotel/${id}`);
+}
+
 }

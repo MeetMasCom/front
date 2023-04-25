@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div class="container">
   <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
+    <button type="button" class="btn nuevo" (click)="onValidate()">
       Publicar
     </button>
   </div>
@@ -101,6 +101,7 @@
 
 <app-mmodal
   [title]="'Nueva Publicación'"
+  [tipo]="1"
   [idModal]="'modalFad'"
   #fadModal
 ></app-mmodal>

@@ -38,8 +38,8 @@ export class CommentComponent {
       this.id_fad = params['id'];
       this.fadService.getFadId(this.id_fad).subscribe((res) => {
         if (res != null) {
-          this.fad = res.data;
-          this.usuario=res.data[0].user_id;
+          this.fad = JSON.parse(res.data);
+          this.usuario=this.fad.user_id;
          
           console.log('fad', this.fad);
         }
@@ -56,10 +56,9 @@ export class CommentComponent {
       }
       this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
         if (res != null) {
-          this.dataStar=res;
-          console.log("estrellas",res);
-          this.star=res.data[0].qualification;
-          this.id_star=res.data[0]._id;
+          this.dataStar=JSON.parse(res.data);
+          this.star=this.dataStar.qualification;
+          this.id_star=this.dataStar._id;
           this.setRating(this.star);
           this.band=1;
           console.log("estrellas",res);

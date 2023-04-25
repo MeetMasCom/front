@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'registerHotel', component: HotelRegisterComponent },
   { path: 'hotelToVerify', component: VerifyHotelComponent },
   { path: 'hotel', component: ListHotelComponent },
+  { path: 'dataUser/:estado', component: UserDataComponent },
 ];
 
 @NgModule({

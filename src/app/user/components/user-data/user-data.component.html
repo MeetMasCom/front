@@ -3,33 +3,62 @@
   <div class="col-12 d-flex justify-content-center align-items-center mt-5">
     <h3>INGRESA TUS DATOS</h3>
   </div>
-  <ng-container *ngIf="dataUser.state === 0">
+  <ng-container *ngIf="estado === '0'">
     <div class="container">
       <form #fmrUpdateBasic="ngForm" (ngSubmit)="onUpdateBasic(fmrUpdateBasic)">
-        <div class="form-group col-md-6 col-sm-12 p-2">
-          <label class="mb-1">Imagen</label>
-          <input
-            type="file"
-            class="form-control"
-            id="imagen"
-            name="imagen"
-            required
-            ngModel
-            #imagen="ngModel"
-            [ngClass]="'input'"
-            (change)="onChange($event)"
-            accept="image/png"
-          />
-          <div
-            *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
-            class="text-danger form-group position-absolute"
-          >
-            <small class="form-group" *ngIf="imagen.errors?.['required']">
-              Campo requerido.
-            </small>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              id="imagen"
+              name="imagen"
+              required
+              ngModel
+              #imagen="ngModel"
+              [ngClass]="'input'"
+              (change)="onChange($event)"
+              accept="image/png"
+            />
+            <div
+              *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="imagen.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Descripción Breve"
+              id="description"
+              name="description"
+              required
+              ngModel
+              #description="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                description.invalid &&
+                (description.dirty || description.touched)
+              "
+              class="text-danger form-group position-absolute"
+            >
+              <small
+                class="form-group"
+                *ngIf="description.errors?.['required']"
+              >
+                Campo requerido.
+              </small>
+            </div>
           </div>
         </div>
-
         <div class="col-12 containerInput mt-2 mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Nombres</label>
@@ -143,7 +172,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="dataUser.state === 1">
+  <ng-container *ngIf="estado === '1'">
     <div class="container">
       <form
         #fmrUpdateAddres="ngForm"
@@ -197,7 +226,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-12 containerInput mt-2 mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Calle secundaria</label>
@@ -248,6 +276,36 @@
             </div>
           </div>
         </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Identificación</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Cédula / DNI / Pasaporte"
+              id="identification"
+              required
+              ngModel
+              name="identification"
+              #identification="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                identification.invalid &&
+                (identification.dirty || identification.touched)
+              "
+              class="text-danger form-group position-absolute"
+            >
+              <small
+                class="form-group"
+                *ngIf="identification.errors?.['required']"
+              >
+                Campo requerido.
+              </small>
+            </div>
+          </div>
+        </div>
         <div class="col-sm-12">
           <div class="form-group text-center">
             <input
@@ -263,82 +321,9 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="dataUser.state === 2">
+  <ng-container *ngIf="estado === '2'">
     <div class="container">
       <form #fmrUpdate="ngForm" (ngSubmit)="onUpdate(fmrUpdate)">
-        <div class="col-12 containerInput mt-2 mb-3">
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Imagen</label>
-            <input
-              type="file"
-              class="form-control"
-              id="imagen"
-              name="imagen"
-              required
-              ngModel
-              #imagen="ngModel"
-              [ngClass]="'input'"
-              (change)="onChange($event)"
-              accept="image/png"
-            />
-            <div
-              *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
-              class="text-danger form-group position-absolute"
-            >
-              <small class="form-group" *ngIf="imagen.errors?.['required']">
-                Campo requerido.
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 containerInput mt-2 mb-3">
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Nombres</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Nombres Completos"
-              id="firstname"
-              name="firstname"
-              required
-              ngModel
-              #firstname="ngModel"
-              [ngClass]="'input'"
-            />
-            <div
-              *ngIf="
-                firstname.invalid && (firstname.dirty || firstname.touched)
-              "
-              class="text-danger form-group position-absolute"
-            >
-              <small class="form-group" *ngIf="firstname.errors?.['required']">
-                Campo requerido.
-              </small>
-            </div>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Apellidos</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Apellidos Completos"
-              id="lastname"
-              required
-              ngModel
-              name="lastname"
-              #lastname="ngModel"
-              [ngClass]="'input'"
-            />
-            <div
-              *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
-              class="text-danger form-group position-absolute"
-            >
-              <small class="form-group" *ngIf="lastname.errors?.['required']">
-                Campo requerido.
-              </small>
-            </div>
-          </div>
-        </div>
         <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Identificación</label>
@@ -623,26 +608,23 @@
             </div>
           </div>
           <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Estudios</label>
-            <select
+            <label class="mb-1">Etnia</label>
+            <input
+              type="text"
               class="form-control"
-              id="studies"
+              placeholder="Etnia"
+              id="etnia"
               required
               ngModel
-              name="studies"
-              #studies="ngModel"
-              [ngClass]="'select'"
-            >
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option *ngFor="let item of studiesU" [value]="item.id">
-                {{ item.name }}
-              </option>
-            </select>
+              name="etnia"
+              #etnia="ngModel"
+              [ngClass]="'input'"
+            />
             <div
-              *ngIf="studies.invalid && (studies.dirty || studies.touched)"
+              *ngIf="etnia.invalid && (etnia.dirty || etnia.touched)"
               class="text-danger form-group position-absolute"
             >
-              <small class="form-group" *ngIf="studies.errors?.['required']">
+              <small class="form-group" *ngIf="etnia.errors?.['required']">
                 Campo requerido.
               </small>
             </div>
@@ -756,28 +738,6 @@
         </div>
         <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Idioma nativo</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Idioma nativo"
-              id="inativo"
-              required
-              ngModel
-              name="inativo"
-              #inativo="ngModel"
-              [ngClass]="'input'"
-            />
-            <div
-              *ngIf="inativo.invalid && (inativo.dirty || inativo.touched)"
-              class="text-danger form-group position-absolute"
-            >
-              <small class="form-group" *ngIf="inativo.errors?.['required']">
-                Campo requerido.
-              </small>
-            </div>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Idioma 1</label>
             <input
               type="text"
@@ -790,8 +750,6 @@
               [ngClass]="'input'"
             />
           </div>
-        </div>
-        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Idioma 2</label>
             <input
@@ -805,6 +763,8 @@
               [ngClass]="'input'"
             />
           </div>
+        </div>
+        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Idioma 3</label>
             <input
@@ -818,8 +778,6 @@
               [ngClass]="'input'"
             />
           </div>
-        </div>
-        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Idioma 4</label>
             <input
@@ -833,6 +791,8 @@
               [ngClass]="'input'"
             />
           </div>
+        </div>
+        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Idioma 5</label>
             <input
@@ -846,8 +806,6 @@
               [ngClass]="'input'"
             />
           </div>
-        </div>
-        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Pasatiempos</label>
             <input
@@ -860,7 +818,17 @@
               #hobies="ngModel"
               [ngClass]="'input'"
             />
+            <div
+              *ngIf="hobies.invalid && (hobies.dirty || hobies.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="hobies.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
           </div>
+        </div>
+        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Comida</label>
             <input
@@ -873,9 +841,15 @@
               #food="ngModel"
               [ngClass]="'input'"
             />
+            <div
+              *ngIf="food.invalid && (food.dirty || food.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="food.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
           </div>
-        </div>
-        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Deportes</label>
             <input
@@ -888,7 +862,17 @@
               #sports="ngModel"
               [ngClass]="'input'"
             />
+            <div
+              *ngIf="sports.invalid && (sports.dirty || sports.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="sports.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
           </div>
+        </div>
+        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Ropa</label>
             <input
@@ -901,9 +885,15 @@
               #clothes="ngModel"
               [ngClass]="'input'"
             />
+            <div
+              *ngIf="clothes.invalid && (clothes.dirty || clothes.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="clothes.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
           </div>
-        </div>
-        <div class="col-12 containerInput mb-3">
           <div class="form-group col-md-6 col-sm-12 p-2">
             <label class="mb-1">Religión</label>
             <input
@@ -922,28 +912,6 @@
               class="text-danger form-group position-absolute"
             >
               <small class="form-group" *ngIf="religion.errors?.['required']">
-                Campo requerido.
-              </small>
-            </div>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Etnia</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Etnia"
-              id="etnia"
-              required
-              ngModel
-              name="etnia"
-              #etnia="ngModel"
-              [ngClass]="'input'"
-            />
-            <div
-              *ngIf="etnia.invalid && (etnia.dirty || etnia.touched)"
-              class="text-danger form-group position-absolute"
-            >
-              <small class="form-group" *ngIf="etnia.errors?.['required']">
                 Campo requerido.
               </small>
             </div>
@@ -975,10 +943,10 @@
 ></app-modal-alerts>
 
 <app-modal-alerts
-  [idModal]="'fail'"
+  [idModal]="'failP'"
   [icono]="'./assets/img/fail.png'"
   [titulo]="'No se pudo actualizar los datos'"
   [descripcion]="errMsj"
-  #failModal
+  #failPModal
 ></app-modal-alerts>
 <app-footer></app-footer>

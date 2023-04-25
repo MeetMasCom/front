@@ -36,6 +36,7 @@ export class UserServiceService {
         motherLanguague: form.value.inativo,
         studies: form.value.studies,
         image: img,
+        description: form.value.description,
       },
       {
         headers: headers,
@@ -55,6 +56,7 @@ export class UserServiceService {
         primaryStreet: form.value.principal,
         secondaryStreet: form.value.secundaria,
         reference: form.value.referencia,
+        identification: form.value.identification,
       },
       { headers: headers }
     );
@@ -84,10 +86,10 @@ export class UserServiceService {
           form.value.idioma4,
           form.value.idioma5,
         ],
-        foods: [form.value.food],
-        hobbies: [form.value.hobies],
-        sports: [form.value.sports],
-        tasteOfClothes: [form.value.clothes],
+        foods: form.value.food.split(','),
+        hobbies: form.value.hobies.split(','),
+        sports: form.value.sports.split(','),
+        tasteOfClothes: form.value.clothes.split(','),
         civil_status: form.value.statecivil,
         drink: form.value.drink,
         smoke: form.value.smoke,

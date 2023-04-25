@@ -30,6 +30,7 @@ export class StartFadComponent {
   description!: string;
   id: any;
   user_data: any = [];
+  estado = -1;
 
   constructor(
     private fadService: FadServiceService,
@@ -76,19 +77,24 @@ export class StartFadComponent {
   }
 
   onValidate() {
-    if (this.user_data.state === 0) {
-      this.warningModal.abrir();
-    }
-    if (
-      this.user_data.state === 1 ||
-      this.user_data.state === 2 ||
-      this.user_data.state === 3
-    ) {
-      this.fadModal.abrir();
-    }
+    this.user_data.state.forEach((element: any, index: any) => {
+      if (
+        this.user_data.state[index] === 0 &&
+        this.user_data.state.length === 1
+      ) {
+        this.estado = 0;
+        this.warningModal.abrir();
+      }
+      if (
+        this.user_data.state[index] === 1 ||
+        this.user_data.state[index] !== 0
+      ) {
+        this.fadModal.abrir();
+      }
+    });
   }
 
   onRedirigir() {
-    this.router.navigate(['/dataUser']);
+    this.router.navigate(['/dataUser', this.estado]);
   }
 }

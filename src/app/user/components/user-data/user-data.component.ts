@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { lastValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 })
 export class UserDataComponent implements OnInit {
   @ViewChild('successPModal') successPModal!: ModalAlertsComponent;
-  @ViewChild('failModal') failModal!: ModalAlertsComponent;
+  @ViewChild('failPModal') failPModal!: ModalAlertsComponent;
 
   stateCivil: any = [];
   policies: any = [];
@@ -30,10 +30,20 @@ export class UserDataComponent implements OnInit {
   file!: File;
   dataUser: any = [];
   errMsj = '';
+  estado: any;
 
-  constructor(public userService: UserServiceService, private router: Router) {}
+  constructor(
+    public userService: UserServiceService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   async ngOnInit() {
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
+    this.activatedRoute.params.subscribe((params) => {
+      this.estado = params['estado'];
+    });
+
     await this.getStateCivil();
     await this.getPolicies();
     await this.getDrinks();
@@ -52,8 +62,6 @@ export class UserDataComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
-
-    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
   }
 
   async onUpdate(form: any) {
@@ -62,12 +70,13 @@ export class UserDataComponent implements OnInit {
         this.userService.updateUser(form, this.id, this.token)
       );
       if (response.data !== null) {
+        sessionStorage.setItem('data', JSON.stringify(response.data));
         this.successPModal.abrir();
       }
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 
@@ -77,12 +86,13 @@ export class UserDataComponent implements OnInit {
         this.userService.updateUserBasic(form, this.id, this.token, this.img)
       );
       if (response.data !== null) {
+        sessionStorage.setItem('data', JSON.stringify(response.data));
         this.successPModal.abrir();
       }
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 
@@ -92,12 +102,13 @@ export class UserDataComponent implements OnInit {
         this.userService.updateUserAddress(form, this.id, this.token)
       );
       if (response.data !== null) {
+        sessionStorage.setItem('data', JSON.stringify(response.data));
         this.successPModal.abrir();
       }
     } catch (error: any) {
       console.log('error', error.error);
       this.errMsj = error.error.message;
-      this.failModal.abrir();
+      this.failPModal.abrir();
     }
   }
 

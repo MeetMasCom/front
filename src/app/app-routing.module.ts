@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'fad', component: StartFadComponent },
   { path: 'registerFad', component: RegisterFadComponent },
   { path: 'commentFad/:id', component: CommentComponent },
-  { path: 'dataUser', component: UserDataComponent },
+  { path: 'dataUser/:estado', component: UserDataComponent },
 ];
 
 @NgModule({

@@ -36,6 +36,7 @@ export class UserServiceService {
         motherLanguague: form.value.inativo,
         studies: form.value.studies,
         image: img,
+        description: form.value.description,
       },
       {
         headers: headers,

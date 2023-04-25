@@ -3,30 +3,60 @@
   <div class="col-12 d-flex justify-content-center align-items-center mt-5">
     <h3>INGRESA TUS DATOS</h3>
   </div>
-  <ng-container *ngIf="dataUser.state === 0">
+  <ng-container *ngIf="estado === '0'">
     <div class="container">
       <form #fmrUpdateBasic="ngForm" (ngSubmit)="onUpdateBasic(fmrUpdateBasic)">
-        <div class="form-group col-md-6 col-sm-12 p-2">
-          <label class="mb-1">Imagen</label>
-          <input
-            type="file"
-            class="form-control"
-            id="imagen"
-            name="imagen"
-            required
-            ngModel
-            #imagen="ngModel"
-            [ngClass]="'input'"
-            (change)="onChange($event)"
-            accept="image/png"
-          />
-          <div
-            *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
-            class="text-danger form-group position-absolute"
-          >
-            <small class="form-group" *ngIf="imagen.errors?.['required']">
-              Campo requerido.
-            </small>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              id="imagen"
+              name="imagen"
+              required
+              ngModel
+              #imagen="ngModel"
+              [ngClass]="'input'"
+              (change)="onChange($event)"
+              accept="image/png"
+            />
+            <div
+              *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+              class="text-danger form-group position-absolute"
+            >
+              <small class="form-group" *ngIf="imagen.errors?.['required']">
+                Campo requerido.
+              </small>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Descripción Breve"
+              id="description"
+              name="description"
+              required
+              ngModel
+              #description="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                description.invalid &&
+                (description.dirty || description.touched)
+              "
+              class="text-danger form-group position-absolute"
+            >
+              <small
+                class="form-group"
+                *ngIf="description.errors?.['required']"
+              >
+                Campo requerido.
+              </small>
+            </div>
           </div>
         </div>
         <div class="col-12 containerInput mt-2 mb-3">
@@ -142,7 +172,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="dataUser.state === 1">
+  <ng-container *ngIf="estado === '1'">
     <div class="container">
       <form
         #fmrUpdateAddres="ngForm"
@@ -291,7 +321,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="dataUser.state === 2">
+  <ng-container *ngIf="estado === '2'">
     <div class="container">
       <form #fmrUpdate="ngForm" (ngSubmit)="onUpdate(fmrUpdate)">
         <div class="col-12 containerInput mb-3">

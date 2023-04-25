@@ -2,67 +2,39 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ng-container *ngIf="token !== ''">
       <a class="navbar-brand align-items-center icon" href="/fad">
-        <img
-          class="rounded"
-          src="../../assets/img/logo7.png"
-          alt="Ken You Me"
-        />
+        <img class="rounded" src="../../assets/img/logo7.png" alt="Ken You Me" />
         &nbsp;
         <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
       </a>
     </ng-container>
     <ng-container *ngIf="token === ''">
       <a class="navbar-brand align-items-center icon" href="/inicio">
-        <img
-          class="rounded"
-          src="../../assets/img/logo7.png"
-          alt="Ken You Me"
-        />
+        <img class="rounded" src="../../assets/img/logo7.png" alt="Ken You Me" />
         &nbsp;
         <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
       </a>
     </ng-container>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div
-      class="collapse navbar-collapse justify-content-end align-items-center"
-      id="navbarNavAltMarkup"
-    >
+    <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavAltMarkup">
       <div class="navbar-nav menu mx-4">
         <form role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Buscar"
-          />
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar" />
         </form>
 
+
         <ng-container *ngIf="token !== ''">
-          <a class="nav-item nav-link">Matches</a>
-          <a class="nav-item nav-link" href="fad">Moda</a>
-          <a class="nav-item nav-link">Hotel</a>
-          <a class="nav-item nav-link">Restaurant</a>
-          <a class="nav-item nav-link">Flores</a>
+          <a class="nav-item nav-link">{{'menu.matches' | translate}}</a>
+          <a class="nav-item nav-link" href="fad">{{'menu.fashion' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.hotels' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.restaurants' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.flowers' | translate}}</a>
           <div class="dropdown">
-            <a
-              class="btn dropdown-toggle border-0 nav-item nav-link"
-              href="#"
-              role="button"
-              id="dropdownMenuLink"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="btn dropdown-toggle border-0 nav-item nav-link" href="#" role="button" id="dropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
               <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
             </a>
 
@@ -75,20 +47,22 @@
           </div>
         </ng-container>
         <ng-container *ngIf="token === ''">
-          <a class="nav-item nav-link">Matches</a>
-          <a class="nav-item nav-link" href="inicio">Moda</a>
-          <a class="nav-item nav-link">Hotel</a>
-          <a class="nav-item nav-link">Restaurant</a>
-          <a class="nav-item nav-link">Flores</a>
-          <a
-            class="nav-item nav-link"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#modalLogin"
-          >
+          <a class="nav-item nav-link">{{'menu.matches' | translate}}</a>
+          <a class="nav-item nav-link" href="inicio">{{'menu.fashion' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.hotels' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.restaurants' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.flowers' | translate}}</a>
+          <a class="nav-item nav-link" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
             <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
           </a>
         </ng-container>
+
+        <div class="m-2">
+          <select class="form-control" [(ngModel)]="selectLang" name="selectLang" (change)="setTransLanguage()">
+            <option *ngFor="let lang of transLang" value="{{lang}}">
+              {{ lang }}</option>
+          </select>
+        </div>
       </div>
     </div>
   </nav>

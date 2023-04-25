@@ -1,0 +1,9 @@
+{
+  "menu": {
+    "matches": "Matches",
+    "fashion": "Fashion",
+    "hotels": "Hotels",
+    "restaurants": "Restaurants",
+    "flowers": "Flowers"
+  }
+}

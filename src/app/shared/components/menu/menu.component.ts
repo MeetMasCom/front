@@ -4,6 +4,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',
@@ -16,16 +17,20 @@ export class MenuComponent implements OnInit {
   id: string = '';
   classA: string = '';
   msj: string = '';
+  transLang: string[] = [];
+  selectLang: string = 'es';
 
   constructor(
     library: FaIconLibrary,
     public sharedService: SharedserviceService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     library.addIconPacks(fas);
   }
 
   ngOnInit(): void {
+    this.getTransLanguage();
     if (sessionStorage.getItem('token')!) {
       this.token = JSON.parse(sessionStorage.getItem('token')!);
     }
@@ -58,5 +63,13 @@ export class MenuComponent implements OnInit {
       this.classA = 'alert-danger';
       this.msj = error.error.message;
     }
+  }
+
+  setTransLanguage() {
+    this.translate.use(this.selectLang);
+  }
+
+  getTransLanguage() {
+    this.transLang = [...this.translate.getLangs()];
   }
 }

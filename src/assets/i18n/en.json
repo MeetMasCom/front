@@ -1,9 +1,10 @@
 {
   "menu": {
-    "matches": "Matches",
+    "search": "Search",
     "fashion": "Fashion",
     "hotels": "Hotels",
     "restaurants": "Restaurants",
-    "flowers": "Flowers"
+    "flowers": "Flowers",
+    "login": "Login"
   }
 }

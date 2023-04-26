@@ -5,6 +5,8 @@ import { SharedserviceService } from '../../services/sharedservice.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/enviroments/environment';
+import { LanguageI } from '../../interfaces/language.interface';
 
 @Component({
   selector: 'app-menu',
@@ -17,8 +19,8 @@ export class MenuComponent implements OnInit {
   id: string = '';
   classA: string = '';
   msj: string = '';
-  transLang: string[] = [];
-  selectLang: string = 'es';
+  langs: LanguageI[] = environment.languages;
+  selectLang!: LanguageI;
 
   constructor(
     library: FaIconLibrary,
@@ -27,10 +29,16 @@ export class MenuComponent implements OnInit {
     private translate: TranslateService
   ) {
     library.addIconPacks(fas);
+    this.selectLang = this.langs[0];
+    translate.setDefaultLang(this.selectLang.alias);
+    translate.addLangs(
+      this.langs.map((f) => {
+        return f.alias;
+      })
+    );
   }
 
   ngOnInit(): void {
-    this.getTransLanguage();
     if (sessionStorage.getItem('token')!) {
       this.token = JSON.parse(sessionStorage.getItem('token')!);
     }
@@ -40,6 +48,7 @@ export class MenuComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+    this.translate.use(this.langs[0].alias);
   }
 
   async onLogout() {
@@ -65,11 +74,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  setTransLanguage() {
-    this.translate.use(this.selectLang);
-  }
-
-  getTransLanguage() {
-    this.transLang = [...this.translate.getLangs()];
+  setTransLanguage(lang: LanguageI) {
+    this.selectLang = lang;
+    this.translate.use(lang.alias);
   }
 }

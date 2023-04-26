@@ -8,10 +8,4 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'MeetMas';
-
-  constructor(public translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.addLangs(['en', 'es']);
-    translate.use('en');
-  }
 }

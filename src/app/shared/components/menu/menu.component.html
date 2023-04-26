@@ -13,13 +13,14 @@
     </ng-container>
     <ng-container *ngIf="token === ''">
       <a class="navbar-brand align-items-center icon" href="/inicio">
+        <img class="rounded img-header img-fluid" src="../../assets/img/logo7.png" alt="Ken You Me" />
         <img
           class="rounded"
           src="../../assets/img/logo7.png"
           alt="Ken You Me"
         />
         &nbsp;
-        <img class="rounded" src="../../assets/img/demo.png" alt="Ken You Me" />
+        <img class="rounded img-header img-fluid" src="../../assets/img/demo.png" alt="Ken You Me" />
       </a>
     </ng-container>
 
@@ -38,6 +39,8 @@
       class="collapse navbar-collapse justify-content-end align-items-center"
       id="navbarNavAltMarkup"
     >
+
+    <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavAltMarkup">
       <div class="navbar-nav menu mx-4">
         <form role="search">
           <input
@@ -47,6 +50,12 @@
             aria-label="Buscar"
           />
         </form>
+        <div class="m-2">
+          <form role="search">
+            <input class="form-control me-2" type="search" [placeholder]="'menu.search' | translate"
+              aria-label="Buscar" />
+          </form>
+        </div>
 
         <ng-container *ngIf="token !== ''">
           <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
@@ -95,6 +104,13 @@
             data-bs-target="#modalLogin"
           >
             <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
+          <a class="nav-item nav-link">{{'menu.matches' | translate}}</a>
+          <a class="nav-item nav-link" href="inicio">{{'menu.fashion' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.hotels' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.restaurants' | translate}}</a>
+          <a class="nav-item nav-link">{{'menu.flowers' | translate}}</a>
+          <a class="nav-item nav-link" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
+            <fa-icon [icon]="['fas', 'key']"></fa-icon> {{'menu.login' | translate}}
           </a>
         </ng-container>
 
@@ -109,6 +125,17 @@
               {{ lang }}
             </option>
           </select>
+        <div data-bs-toggle="tooltip" data-bs-placement="right" [title]="selectLang.label" *ngIf="selectLang"
+          class="dropdown m-2 cursor-pointer">
+          <img id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="w-40 h-40 img-fluid"
+            [src]="'/assets/langs/'+selectLang.icon" alt="Meet-mas">
+          <div class="dropdown-menu w-50" aria-labelledby="dropdownMenuButton1">
+            <div data-bs-toggle="tooltip" data-bs-placement="right" [title]="lang.label" *ngFor="let lang of langs"
+              class=" p-1">
+              <img *ngIf="lang.alias !== selectLang.alias" (click)="setTransLanguage(lang)" class="w-40 h-40 img-fluid"
+                [src]="'/assets/langs/'+lang.icon" alt="Meet-mas">
+            </div>
+          </div>
         </div>
       </div>
     </div>

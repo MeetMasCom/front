@@ -17,6 +17,7 @@ export class StartFadComponent {
   @ViewChild('fadModal') fadModal!: MmodalComponent;
 
   fad: any = [];
+  fadM: any = [];
   api = '';
 
   classA: string = '';
@@ -45,12 +46,28 @@ export class StartFadComponent {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+    if(this.id!=null){
+      this.api = this.constante.API_IMAGES;
+      await this.getAllsFad();
+      await this.getMyFad();
+    }else{
+      this.router.navigate(['/inicio']);
+    }
+        
   }
 
   async getAllsFad() {
     this.fadService.getFads().subscribe((res) => {
       if (res != null) {
         this.fad = res.data;
+      }
+    });
+  }
+
+  async getMyFad() {
+    this.fadService.getFadIdUser(this.id).subscribe((res) => {
+      if (res != null) {
+        this.fadM = res.data;
       }
     });
   }
@@ -75,6 +92,10 @@ export class StartFadComponent {
         this.fadModal.abrir();
       }
     });
+  }
+
+  onRefresh(){
+    location.reload();
   }
 
   onRedirigir() {

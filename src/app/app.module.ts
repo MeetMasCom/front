@@ -49,7 +49,12 @@ import { MmodalComponent } from './shared/components/mmodal/mmodal.component';
 import { RatingStarComponent } from './shared/components/rating-star/rating-star.component';
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
-import { ModalAlertsComponent } from './shared/components/modal-alerts/modal-alerts.component';
+import { HotelRegisterComponent} from './hotel/components/hotel-register/hotel-register.component';
+import { ListHotelComponent} from './hotel/components/list-hotel/list-hotel.component';
+import { VerifyHotelComponent} from './hotel/components/verify-hotel/verify-hotel.component';
+import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-alerts.component';
+import { ColumnsComponent } from './shared/components/columns/columns.component';
+import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -76,6 +81,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MultiSelectComponent,
     UserDataComponent,
     ModalAlertsComponent,
+    HotelRegisterComponent,
+    VerifyHotelComponent,
+    ListHotelComponent,
+    ColumnsComponent,
+    HotelDetailComponent,
   ],
   imports: [
     TranslateModule.forRoot({

@@ -42,6 +42,12 @@ export class FadServiceService {
     );
   }
 
+  getFadIdUser(id: string) {
+    return this.httpCLient.get<Fad>(
+      `${this.constante.API_SERVER}/fad/getByIdUserFad/${id}`
+    );
+  }
+
   getCommentByIdFad(id: string) {
     console.log('id publicacion', id);
     return this.httpCLient.get<Fad>(
@@ -74,4 +80,10 @@ export class FadServiceService {
       `${this.constante.API_SERVER}/star/getStarUserFadId?user=${user}&fad=${fad}`
     );
   }
+
+  UpdateStar(id: string,datos:any): Observable<any> {
+    console.log("estrella",id);
+    return this.httpCLient.post<any>(`${this.constante.API_SERVER}/star/updateStar/${id}`,datos);
+}
+
 }

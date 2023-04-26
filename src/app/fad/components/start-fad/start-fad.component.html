@@ -1,43 +1,121 @@
 <app-menu></app-menu>
 <div class="container">
   <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
+    <button type="button" class="btn nuevo" (click)="onValidate()">
       Publicar
     </button>
   </div>
-  <ng-container *ngIf="fad?.length > 0">
-    <div class="gallery">
-      <div
-        *ngFor="let f of fad"
-        (click)="selectedFad(f._id)"
-        class="h-100 d-inline-block mt-3 card rounded"
-      >
-        <img alt="" class="rounded-top card-img" [src]="api + f.picture" />
-        <div
-          class="card-body rounded-bottom estilo justify-content-center no-gutters"
-          style="padding: 0% !important"
-        >
-          <p class="class-text text-center">{{ f.name }}</p>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="fad.length === 0">
-    <div class="d-flex justify-content-center" style="min-height: 73vh">
-      <Span>No hay publicaciones disponibles</Span>
-    </div>
-  </ng-container>
 
-  <br />
+  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="pills-home-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-home"
+        type="button"
+        role="tab"
+        aria-controls="pills-home"
+        aria-selected="true"
+      >
+        Todas
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-profile-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-profile"
+        type="button"
+        role="tab"
+        aria-controls="pills-profile"
+        aria-selected="false"
+      >
+        Mis Publicaciones
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <div
+      class="tab-pane fade show active"
+      id="pills-home"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <ng-container *ngIf="fad?.length > 0">
+        <div class="gallery" style="min-height: 29.5vw">
+          <div
+            *ngFor="let f of fad"
+            (click)="selectedFad(f._id)"
+            class="h-100 d-inline-block mt-3 card rounded"
+          >
+            <img class="rounded-top card-img" [src]="api + f.picture" />
+            <div
+              class="card-body rounded-bottom estilo justify-content-center no-gutters"
+              style="padding: 0% !important"
+            >
+              <p class="class-text text-center">{{ f.name }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="fad.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay publicaciones disponibles</Span>
+        </div>
+      </ng-container>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-profile-tab"
+    >
+      <ng-container *ngIf="fadM?.length > 0">
+        <div class="gallery" style="min-height: 29.5vw">
+          <div
+            *ngFor="let f of fadM"
+            (click)="selectedFad(f._id)"
+            class="h-100 d-inline-block mt-3 card rounded"
+          >
+            <img class="rounded-top card-img" [src]="api + f.picture" />
+            <div
+              class="card-body rounded-bottom estilo justify-content-center no-gutters"
+              style="padding: 0% !important"
+            >
+              <p class="class-text text-center">{{ f.name }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="fad.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay publicaciones disponibles</Span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
 
 <app-mmodal
   [title]="'Nueva Publicación'"
+  [tipo]="1"
   [idModal]="'modalFad'"
   #fadModal
 ></app-mmodal>
 
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
+
+<app-modal-alerts
+  [idModal]="'exito'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  #exitoModal
+></app-modal-alerts>
 
 <app-modal-alerts
   [idModal]="'warning'"

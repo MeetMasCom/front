@@ -59,9 +59,11 @@ export class CommentComponent {
         this.fadService.getStartUserFadId(this.id_user, this.id_fad)
       );
       if (response !== null) {
-        this.dataStar=JSON.parse(response.data);          
-          this.star=this.dataStar.qualification;
-          this.id_star=this.dataStar._id;
+          //this.dataStar=JSON.parse(response.data); 
+          this.dataStar=response.data;         
+          this.star=this.dataStar[0].qualification;
+          console.log("estrellas",this.star);
+          this.id_star=this.dataStar[0]._id;
           this.setRating(this.star);
           this.band=1;
           console.log("estrellas",response);
@@ -104,7 +106,6 @@ export class CommentComponent {
       const resp = await lastValueFrom(
         this.fadService.UpdateStar(id,dataStar)
       );
-      //location.reload();
     } catch (error) {
       console.log(error);
     }

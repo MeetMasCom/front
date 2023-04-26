@@ -47,6 +47,8 @@ import { HotelRegisterComponent} from './hotel/components/hotel-register/hotel-r
 import { ListHotelComponent} from './hotel/components/list-hotel/list-hotel.component';
 import { VerifyHotelComponent} from './hotel/components/verify-hotel/verify-hotel.component';
 import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-alerts.component';
+import { ColumnsComponent } from './shared/components/columns/columns.component';
+import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-aler
     HotelRegisterComponent,
     VerifyHotelComponent,
     ListHotelComponent,
+    ColumnsComponent,
+    HotelDetailComponent,
   ],
   imports: [
     BrowserModule,

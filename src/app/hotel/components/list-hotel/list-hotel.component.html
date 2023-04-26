@@ -37,6 +37,8 @@
     </li>
   </ul>
 
+<!--TODOS LOS HOTELES-->
+
   <div class="tab-content" id="pills-tabContent">
     <div
       class="tab-pane fade show active"
@@ -47,52 +49,8 @@
       <ng-container *ngIf="hotel?.length > 0">
         <div class="row">
           <div class="col col-lg-3">
-            <div class="row p-2">
-              <hr />
-              <span>Buscar por nombre</span>
-              <input
-                class="form-control p-3"
-                type="text"
-                placeholder="Nombre"
-              />
-            </div>
-            <hr />
-            <div class="row p-2">
-              <span>Estrellas</span>
-              <div class="row p-2">
-                <div class="col border rounded p-2">
-                  1 <fa-icon class="fa-3x" [icon]="faStar">1</fa-icon>
-                </div>
-                <div class="col border rounded p-2">
-                  2 <fa-icon class="fa-3x" [icon]="faStar"></fa-icon>
-                </div>
-                <div class="col border rounded p-2">
-                  3 <fa-icon class="fa-3x" [icon]="faStar"></fa-icon>
-                </div>
-                <div class="col border rounded p-2">
-                  4 <fa-icon class="fa-3x" [icon]="faStar"></fa-icon>
-                </div>
-                <div class="col border rounded p-2">
-                  5 <fa-icon class="fa-3x" [icon]="faStar"></fa-icon>
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div class="row p-2">
-              <span>Precio por noche</span>
-              <div class="row p-2">
-                <label for="customRange2" class="form-label"></label>
-                <input
-                  type="range"
-                  class="form-range"
-                  min="0"
-                  max="5"
-                  id="customRange2"
-                />
-              </div>
-            </div>
-            <hr />
-          </div>
+          <app-columns  [tipo]="1"></app-columns>
+        </div>
           <div class="col-md-7">
             <div class="row p-3" *ngFor="let h of hotel">
               <div class="card">
@@ -116,7 +74,7 @@
                     <div class="col-md-3 float-left">
                       <h5 class="card-title">Precio por noche</h5>
                       <h1>$320</h1>
-                      <a href="#" class="btn" style="background-color: #f9a21e"
+                      <a  class="btn" style="background-color: #f9a21e"  (click)="selectedHotel(h._id)"
                         >Ver detalles</a
                       >
                     </div>
@@ -125,7 +83,9 @@
               </div>
             </div>
           </div>
-          <div class="col col-lg-2 float-left">3 of 3</div>
+          <div class="col col-lg-2 float-left">
+            <app-columns  [tipo]="0"></app-columns>
+          </div>
         </div>
       </ng-container>
       <ng-container *ngIf="hotel.length === 0">
@@ -135,35 +95,45 @@
       </ng-container>
     </div>
 
+<!--MIS HOTELES-->
+
     <div
       class="tab-pane fade"
       id="pills-profile"
       role="tabpanel"
       aria-labelledby="pills-profile-tab"
     >
-      <ng-container *ngIf="hotelUser?.length > 0">
-        <div class="gallery" style="min-height: 29.5vw">
-          <div
-            *ngFor="let f of hotelUser"
-            class="h-100 mt-3 card rounded"
-          >
-          <div class="card">
-            <h5 class="card-header">{{f.name}}</h5>
-            <div class="card-body">
-              <h5 class="card-title">{{f.city}}-{{f.country}}</h5>
-              <p class="card-text">Dirección: {{f.address}}</p>
-              <p class="card-text">Teléfono: {{f.phone}}</p>
-              <a href="#" class="btn nuevo justify-content-end align-items-right">Detalles</a>
+    <ng-container *ngIf="hotelUser?.length > 0">
+      <div class="row">
+        <div class="col col-lg-3">
+        <app-columns  [tipo]="1"></app-columns>
+      </div>
+        <div class="col-md-7">
+          <div class="row p-3" *ngFor="let f of hotelUser">
+            <div class="card">
+              <h5 class="card-header">{{ f.name }}</h5>
+              <div class="card-body">
+                <div class="card-body">
+                  <h5 class="card-title">{{f.city}}-{{f.country}}</h5>
+                  <p class="card-text">Dirección: {{f.address}}</p>
+                  <p class="card-text">Teléfono: {{f.phone}}</p>
+                  <button  class="btn" style="background-color: #f9a21e"  (click)="selectedHotel(f._id)"
+                            >Ver detalles</button
+                          >
+                </div>
+              </div>
             </div>
           </div>
-            </div>
         </div>
-      </ng-container>
-      <ng-container *ngIf="hotelUser?.length === 0">
-        <div class="d-flex justify-content-center" style="min-height: 30vw">
-          <Span>No hay publicaciones disponibles</Span>
-        </div>
-      </ng-container>
+        <div class="col col-lg-2 float-left">
+          <app-columns  [tipo]="0"></app-columns></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="hotel.length === 0">
+      <div class="d-flex justify-content-center" style="min-height: 30vw">
+        <Span>No hay hoteles disponibles</Span>
+      </div>
+    </ng-container>
     </div>
   </div>
 </div>
@@ -177,12 +147,23 @@
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
 
 <app-modal-alerts
-  [idModal]="'warning'"
+  [idModal]="'correctModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Los datos del hotel se están validando'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  #correctModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'warningModal'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Complete sus datos'"
   [descripcion]="'Para continuar con la acción debe actualizar sus datos.'"
   (successModal)="onRedirigir()"
   #warningModal
 ></app-modal-alerts>
+
+
 
 <app-footer></app-footer>

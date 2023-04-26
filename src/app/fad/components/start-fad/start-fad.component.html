@@ -109,6 +109,15 @@
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
 
 <app-modal-alerts
+  [idModal]="'exito'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  #exitoModal
+></app-modal-alerts>
+
+<app-modal-alerts
   [idModal]="'warning'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Complete sus datos'"

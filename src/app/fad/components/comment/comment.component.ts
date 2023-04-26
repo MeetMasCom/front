@@ -34,12 +34,12 @@ export class CommentComponent {
 
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
-    this.activatedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe(async (params) => {
       this.id_fad = params['id'];
       this.fadService.getFadId(this.id_fad).subscribe((res) => {
         if (res != null) {
-          this.fad = JSON.parse(res.data);
-          this.usuario=this.fad.user_id;
+          this.fad =  res.data;
+          this.usuario=this.fad[0].user_id;
          
           console.log('fad', this.fad);
         }
@@ -54,19 +54,22 @@ export class CommentComponent {
       if (sessionStorage.getItem('id')!) {
         this.id_user = sessionStorage.getItem('id')!;
       }
-      this.fadService.getStartUserFadId(this.id_user, this.id_fad).subscribe(res => {
-        if (res != null) {
-          this.dataStar=JSON.parse(res.data);
+
+      const response = await lastValueFrom(
+        this.fadService.getStartUserFadId(this.id_user, this.id_fad)
+      );
+      if (response !== null) {
+        this.dataStar=JSON.parse(response.data);          
           this.star=this.dataStar.qualification;
           this.id_star=this.dataStar._id;
           this.setRating(this.star);
           this.band=1;
-          console.log("estrellas",res);
-        }else{
+          console.log("estrellas",response);
+      }else{
           this.star=0;
-        }
-          
-      })
+      }
+
+    
       
     });
     

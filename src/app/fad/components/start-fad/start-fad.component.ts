@@ -94,6 +94,10 @@ export class StartFadComponent {
     });
   }
 
+  onRefresh(){
+    location.reload();
+  }
+
   onRedirigir() {
     this.router.navigate(['/dataUser', this.estado]);
   }

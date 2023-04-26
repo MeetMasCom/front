@@ -10,11 +10,12 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-list-hotel',
   templateUrl: './list-hotel.component.html',
-  styleUrls: ['./list-hotel.component.css']
+  styleUrls: ['./list-hotel.component.css'],
 })
 export class ListHotelComponent {
   @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
+  @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
   user_data: any = [];
   hotel: any = [];
   api = '';
@@ -22,8 +23,11 @@ export class ListHotelComponent {
   message: string = '';
   user_id!: string;
   id: any;
-  faStar=faStar;
-  hotelUser:any =[];
+  faStar = faStar;
+  hotelUser: any = [];
+  estado = -1;
+  hotelId: any = [];
+  errMsj: any;
 
   constructor(
     private hotelService: HotelServiceService,
@@ -36,14 +40,13 @@ export class ListHotelComponent {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
-    if(this.id!=null){
+    if (this.id != null) {
       this.api = this.constante.API_IMAGES;
       await this.getAllsHotel();
-    }else{
+    } else {
       this.router.navigate(['/inicio']);
     }
     this.hotelbyUser(this.id);
-        
   }
 
   async getAllsHotel() {
@@ -54,34 +57,56 @@ export class ListHotelComponent {
     });
   }
 
- async hotelbyUser(id:string){
-  const response = await lastValueFrom(
-    this.hotelService.getHotelByIdUser(id)
-  );
-  if (response.data !== null) {
-   this.hotelUser=response.data;
-   console.log("hoteles por user",this.hotelUser);
+  async hotelbyUser(id: string) {
+    const response = await lastValueFrom(
+      this.hotelService.getHotelByIdUser(id)
+    );
+    if (response.data !== null) {
+      this.hotelUser = response.data;
+      console.log('hoteles por user', this.hotelUser);
+    }
   }
- }
-
-
 
   onValidate() {
-    if (this.user_data.state === 0) {
+    this.user_data.state.forEach((element: any, index: any) => {
+      if (this.user_data.state[index] !== 2) {
+        this.estado = 1;
+      }
+      if (this.user_data.state[index] === 2) {
+        this.estado = 0;
+      }
+    });
+
+    if (this.estado === 1) {
+      this.estado = 1;
       this.warningModal.abrir();
     }
-    if (
-      this.user_data.state === 1 ||
-      this.user_data.state === 2 ||
-      this.user_data.state === 3
-    ) {
+    if (this.estado === 0) {
       this.fadModal.abrir();
     }
   }
-  
+
   onRedirigir() {
-    this.router.navigate(['/dataUser']);
+    this.router.navigate(['/dataUser', this.estado]);
   }
 
+  onRefresh(){
+    location.reload()
+  }
 
+  async selectedHotel(id: string) {
+    try {
+      const response = await lastValueFrom(this.hotelService.getHotelById(id));
+      if (response.data !== null) {
+        this.hotelId = response.data;
+        if (this.hotelId[0].state === 1) {
+          this.router.navigate(['/hotelDetail', id]);
+        } else if (this.hotelId[0].state === 0) {
+          this.correctModal.abrir();
+        }
+      } 
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
 }

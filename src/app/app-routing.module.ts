@@ -7,6 +7,8 @@ import { UserDataComponent } from './user/components/user-data/user-data.compone
 import { HotelRegisterComponent } from './hotel/components/hotel-register/hotel-register.component';
 import { VerifyHotelComponent } from './hotel/components/verify-hotel/verify-hotel.component';
 import {ListHotelComponent} from './hotel/components/list-hotel/list-hotel.component';
+import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component'
+
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: StartLayoutComponent },
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: 'hotelToVerify', component: VerifyHotelComponent },
   { path: 'hotel', component: ListHotelComponent },
   { path: 'dataUser/:estado', component: UserDataComponent },
+  { path: 'hotelDetail/:id', component: HotelDetailComponent },
 ];
 
 @NgModule({

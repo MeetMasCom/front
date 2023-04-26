@@ -121,7 +121,7 @@ export class MmodalComponent {
       //;
       this.classA = 'alert-success';
       this.message = resp.message;
-      //this.router.navigate(['/fad']);
+      this.router.navigate(['/fad']);
       this.message = resp.message;
         this.exitoModal.abrir();
       /*setTimeout(() => {
@@ -136,9 +136,7 @@ export class MmodalComponent {
       console.log('error', error.error);
       this.message = error.error.message;
       this.failModal.abrir();
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      
     }
   }
 
@@ -147,13 +145,7 @@ export class MmodalComponent {
       form.value.user_id=this.id;
         const resp = await lastValueFrom(this.hotelService.registerHotel(form.value));
         console.log('resp', resp);    
-        //;  
-       // this.classA = 'alert-success';
         this.message = "Los datos ingresados serán validados";  
-        //this.router.navigate(['/fad']); 
-        //setTimeout(() => {
-         // location.reload();
-        //}, 1500);
         this.message = resp.message;
         this.exitoModal.abrir();
       
@@ -165,7 +157,8 @@ export class MmodalComponent {
   }
 
   onRedirigir() {
-    this.router.navigate(['/hotel']);
+    //this.router.navigate(['/hotel']);
+    location.reload();
   }
 
   onFail() {

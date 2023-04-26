@@ -1,10 +1,12 @@
 {
     "menu": {
+      "search": "Buscar",
       "matches": "Parejas",
       "fashion": "Moda",
       "hotels": "Hoteles",
       "restaurants": "Restaurants",
-      "flowers": "Flores"
+      "flowers": "Flores",
+      "login": "Ingresar"
     }
   }
   

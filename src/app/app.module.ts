@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common';
 import {
   RECAPTCHA_SETTINGS,
@@ -24,6 +28,8 @@ import { AuthInterceptorInterceptor } from './auth/services/interceptors/auth-in
 import { SharedInterceptorInterceptor } from './shared/services/interceptors/shared-interceptor.interceptor';
 
 //modules
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -44,6 +50,10 @@ import { RatingStarComponent } from './shared/components/rating-star/rating-star
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
 import { ModalAlertsComponent } from './shared/components/modal-alerts/modal-alerts.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -68,6 +78,13 @@ import { ModalAlertsComponent } from './shared/components/modal-alerts/modal-ale
     ModalAlertsComponent,
   ],
   imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     BrowserModule,
     AppRoutingModule,
     FormsModule,

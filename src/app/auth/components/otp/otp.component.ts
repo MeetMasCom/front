@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
@@ -11,9 +11,11 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 })
 export class OtpComponent implements OnInit {
   @Input() userN!: string;
+  @Input() idModal: string = '';
   @ViewChild('otp') otp: any;
   @ViewChild('exitoModal') exitoModal!: ModalAlertsComponent;
   @ViewChild('failModal') failModal!: ModalAlertsComponent;
+  @ViewChild('modalOtpButton') modalOtpButton!: ElementRef;
 
   classA: string = '';
   message: string = '';
@@ -21,6 +23,10 @@ export class OtpComponent implements OnInit {
   constructor(public userService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  abrir() {
+    this.modalOtpButton.nativeElement.click();
+  }
 
   onOtpChange(otp: any) {
     this.otp = otp;

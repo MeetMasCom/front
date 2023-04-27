@@ -34,7 +34,11 @@ export class MmodalComponent {
   id: any;
   fadData: any;
 
-  constructor(private fadService: FadServiceService,private hotelService:HotelServiceService, private router: Router) {}
+  constructor(
+    private fadService: FadServiceService,
+    private hotelService: HotelServiceService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     if (sessionStorage.getItem('id')!) {
@@ -123,7 +127,7 @@ export class MmodalComponent {
       this.message = resp.message;
       this.router.navigate(['/fad']);
       this.message = resp.message;
-        this.exitoModal.abrir();
+      this.exitoModal.abrir();
       /*setTimeout(() => {
         location.reload();
       }, 1500);*/
@@ -136,19 +140,19 @@ export class MmodalComponent {
       console.log('error', error.error);
       this.message = error.error.message;
       this.failModal.abrir();
-      
     }
   }
 
   async onRegisterHotel(form: any) {
     try {
-      form.value.user_id=this.id;
-        const resp = await lastValueFrom(this.hotelService.registerHotel(form.value));
-        console.log('resp', resp);    
-        this.message = "Los datos ingresados serán validados";  
-        this.message = resp.message;
-        this.exitoModal.abrir();
-      
+      form.value.user_id = this.id;
+      const resp = await lastValueFrom(
+        this.hotelService.registerHotel(form.value)
+      );
+      console.log('resp', resp);
+      this.message = 'Los datos ingresados serán validados';
+      this.message = resp.message;
+      this.exitoModal.abrir();
     } catch (error: any) {
       console.log('error', error.error);
       this.message = error.error.message;
@@ -164,5 +168,4 @@ export class MmodalComponent {
   onFail() {
     location.reload();
   }
-
 }

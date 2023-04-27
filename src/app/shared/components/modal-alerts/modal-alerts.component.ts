@@ -16,8 +16,11 @@ export class ModalAlertsComponent {
   @Input() idModal: string = '';
   @Input() icono: string = '';
   @Input() titulo: string = '';
+  @Input() title: string = '';
   @Input() descripcion: string = '';
+  @Input() tipo: number = -1;
   @Output() successModal: EventEmitter<any> = new EventEmitter();
+  @Output() sendModal: EventEmitter<any> = new EventEmitter();
   @ViewChild('modalButton') modalButton!: ElementRef;
 
   constructor() {}
@@ -28,5 +31,9 @@ export class ModalAlertsComponent {
 
   onSuccess() {
     this.successModal.emit();
+  }
+
+  onRecover(form: any) {
+    this.sendModal.emit(form);
   }
 }

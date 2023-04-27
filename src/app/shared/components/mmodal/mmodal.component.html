@@ -21,6 +21,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header border-0">
+        <h5 *ngIf="title !== ''" class="modal-title">{{ title }}</h5>
         <button
           type="button"
           class="btn-close"
@@ -29,7 +30,6 @@
         ></button>
       </div>
       <div class="modal-body">
-
         <!--Formulario para registro de modas-->
         <ng-container *ngIf="tipo === 1">
           <form
@@ -122,7 +122,10 @@
 
         <!--Formulario para el registro de Hotel-->
         <ng-container *ngIf="tipo === 2">
-          <form #fmrRegisterHotel="ngForm" (ngSubmit)="onRegisterHotel(fmrRegisterHotel)">
+          <form
+            #fmrRegisterHotel="ngForm"
+            (ngSubmit)="onRegisterHotel(fmrRegisterHotel)"
+          >
             <div class="col-12 containerInput mt-2 mb-3">
               <div class="form-group col-md-12 col-sm-12">
                 <label class="form-label">Nombre</label>
@@ -165,7 +168,10 @@
                   *ngIf="address.invalid && (address.dirty || address.touched)"
                   class="text-danger form-group position-absolute"
                 >
-                  <small class="form-group" *ngIf="address.errors?.['required']">
+                  <small
+                    class="form-group"
+                    *ngIf="address.errors?.['required']"
+                  >
                     Campo requerido.
                   </small>
                 </div>
@@ -213,7 +219,10 @@
                   *ngIf="country.invalid && (country.dirty || country.touched)"
                   class="text-danger form-group position-absolute"
                 >
-                  <small class="form-group" *ngIf="country.errors?.['required']">
+                  <small
+                    class="form-group"
+                    *ngIf="country.errors?.['required']"
+                  >
                     Campo requerido.
                   </small>
                 </div>
@@ -243,7 +252,7 @@
                 </div>
               </div>
             </div>
-      
+
             <div class="col-12 containerInput mt-2 mb-3">
               <div class="form-group col-md-12 col-sm-12">
                 <label class="form-label">Estrellas</label>
@@ -257,7 +266,9 @@
                   #stars="ngModel"
                   [ngClass]="'input'"
                 >
-                <option value="0" disabled selected>Seleccione una opción</option>
+                  <option value="0" disabled selected>
+                    Seleccione una opción
+                  </option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -292,7 +303,10 @@
                   *ngIf="manager.invalid && (manager.dirty || manager.touched)"
                   class="text-danger form-group position-absolute"
                 >
-                  <small class="form-group" *ngIf="manager.errors?.['required']">
+                  <small
+                    class="form-group"
+                    *ngIf="manager.errors?.['required']"
+                  >
                     Campo requerido.
                   </small>
                 </div>
@@ -320,7 +334,6 @@
             </div>
           </form>
         </ng-container>
-
       </div>
     </div>
   </div>

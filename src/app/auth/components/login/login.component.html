@@ -67,6 +67,14 @@
               </small>
             </div>
           </div>
+          <div>
+            <a class="btn-link btn border-0 p-0 m-0" (click)="onUser()">
+              Olvidé mi usuario </a
+            ><br />
+            <a class="btn-link btn border-0 p-0 m-0" (click)="onPass()">
+              Olvidé mi contraseña
+            </a>
+          </div>
           <div class="modal-footer justify-content-center d-flex border-0">
             <div class="form-group text-center">
               <input
@@ -86,5 +94,107 @@
   </div>
 </div>
 
-<app-alert [classAlert]="classA" [message]="message"></app-alert>
-<app-otp [userN]="nameUser"></app-otp>
+<!--Validar credenciales-->
+<app-otp [userN]="nameUser" [idModal]="'modalOtp'" #modalOtp></app-otp>
+
+<app-modal-alerts
+  [idModal]="'modalCredencialSuccess'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="message"
+  [tipo]="0"
+  (successModal)="onValidCredecial()"
+  #modalCredencialSuccess
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalCredencialFail'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Error en el proceso'"
+  [descripcion]="message"
+  [tipo]="0"
+  (successModal)="onFailValidCredecial()"
+  #modalCredencialFail
+></app-modal-alerts>
+
+<!--Recuperar usuario-->
+<app-modal-alerts
+  [idModal]="'modalUserName'"
+  [tipo]="1"
+  [title]="'Recuperar Usuario'"
+  (sendModal)="onForm($event)"
+  #modalUserName
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalUserSuccess'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #modalUserSuccess
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalUserFail'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Error en el proceso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #modalUserFail
+></app-modal-alerts>
+
+<!--Recuperar contraseña-->
+<app-modal-alerts
+  [idModal]="'modalPassword'"
+  [tipo]="2"
+  [title]="'Recuperar Contraseña'"
+  (sendModal)="onFormPass($event)"
+  #modalPassword
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalPassSuccess'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="message"
+  [tipo]="0"
+  (successModal)="onRecover()"
+  #modalPassSuccess
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalPassFail'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Error en el proceso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #modalPassFail
+></app-modal-alerts>
+
+<!--Recuperar contraseña parte 2-->
+<app-modal-alerts
+  [idModal]="'modalRecover'"
+  [tipo]="3"
+  [title]="'Actualizar Contraseña'"
+  (sendModal)="onFormActPass($event)"
+  #modalRecover
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalRecoverSuccess'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #modalRecoverSuccess
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalRecoverFail'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Error en el proceso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #modalRecoverFail
+></app-modal-alerts>

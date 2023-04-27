@@ -1,3 +1,14 @@
+<button
+  type="button"
+  class="hidden"
+  data-bs-toggle="modal"
+  [attr.data-bs-target]="'#' + idModal"
+  id="modalOtpButton"
+  #modalOtpButton
+>
+  Modal
+</button>
+
 <div
   class="modal fade"
   id="modalOtp"
@@ -50,6 +61,7 @@
   [titulo]="'OTP Correcto'"
   [descripcion]="message"
   (successModal)="onRedirigir()"
+  [tipo]="0"
   #exitoModal
 ></app-modal-alerts>
 
@@ -59,5 +71,6 @@
   [titulo]="'OTP Incorrecto'"
   [descripcion]="message"
   (successModal)="onFail()"
+  [tipo]="0"
   #failModal
 ></app-modal-alerts>

@@ -23,25 +23,25 @@ export const environment = {
       alias: 'br',
       icon: 'br.gif',
     },
-    {
-      label: 'Francés',
-      alias: 'fr',
-      icon: 'fr.gif',
-    },
-    {
-      label: 'Italiano',
-      alias: 'it',
-      icon: 'it.gif',
-    },
-    {
-      label: 'Mandarín',
-      alias: 'cn',
-      icon: 'cn.gif',
-    },
-    {
-      label: 'Hindi',
-      alias: 'in',
-      icon: 'in.gif',
-    },
+    // {
+    //   label: 'Francés',
+    //   alias: 'fr',
+    //   icon: 'fr.gif',
+    // },
+    // {
+    //   label: 'Italiano',
+    //   alias: 'it',
+    //   icon: 'it.gif',
+    // },
+    // {
+    //   label: 'Mandarín',
+    //   alias: 'cn',
+    //   icon: 'cn.gif',
+    // },
+    // {
+    //   label: 'Hindi',
+    //   alias: 'in',
+    //   icon: 'in.gif',
+    // },
   ],
 };

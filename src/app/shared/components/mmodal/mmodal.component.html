@@ -504,6 +504,7 @@
   [titulo]="'Registro Correcto'"
   [descripcion]="message"
   (successModal)="onRedirigir()"
+  [tipo]="0"
   #exitoModal
 ></app-modal-alerts>
 
@@ -513,5 +514,6 @@
   [titulo]="'Error en el registro'"
   [descripcion]="message"
   (successModal)="onFail()"
+  [tipo]="0"
   #failModal
 ></app-modal-alerts>

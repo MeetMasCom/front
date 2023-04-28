@@ -114,6 +114,7 @@
   [titulo]="'Registro Correcto'"
   [descripcion]="message"
   (successModal)="onRefresh()"
+  [tipo]="0"
   #exitoModal
 ></app-modal-alerts>
 
@@ -123,6 +124,7 @@
   [titulo]="'Complete sus datos'"
   [descripcion]="'Para continuar con la acción debe actualizar sus datos.'"
   (successModal)="onRedirigir()"
+  [tipo]="0"
   #warningModal
 ></app-modal-alerts>
 

@@ -321,6 +321,161 @@
           </form>
         </ng-container>
 
+<!--Formulario para el registro de una Habitacion-->
+<ng-container *ngIf="tipo === 3">
+  <form
+  #frmRegister="ngForm"
+  class="form form-horizontal"
+  (ngSubmit)="onRegisterRoom(frmRegister)"
+>
+  <div class="form-body">
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label> Número de habitación: </label>
+      </div>
+      <div class="col-md-8 form-group p-2">
+        <div class="position-relative has-icon-left">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="number"
+            id="number"
+            name="number"
+            required
+            ngModel
+            #number="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="number.invalid && (number.dirty || number.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small
+              class="form-group"
+              *ngIf="number.errors?.['required']"
+            >
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label> Tipo de habitación: </label>
+      </div>
+      <div class="col-md-8 form-group p-2">
+        <div class="position-relative has-icon-left">
+          <select
+            type="text"
+            class="form-control"
+            id="type"
+            required
+            ngModel
+            name="type"
+            #type="ngModel"
+            [ngClass]="'input'"
+          >
+            <option value="">--Seleccione un tipo--</option>
+            <option value="Individual">Individual</option>
+            <option value="Doble">Doble</option>
+            <option value="Triple">Triple</option>
+          </select>
+          <div
+            *ngIf="type.invalid && (type.dirty || type.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small
+              class="form-group"
+              *ngIf="type.errors?.['required']"
+            >
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label> Precio: </label>
+      </div>
+      <div class="col-md-8 form-group p-2">
+        <div class="position-relative has-icon-left">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="00.00"
+            id="price"
+            name="price"
+            required
+            ngModel
+            #price="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="price.invalid && (price.dirty || price.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small
+              class="form-group"
+              *ngIf="price.errors?.['required']"
+            >
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label> Descripcion: </label>
+      </div>
+      <div class="col-md-8 form-group p-2">
+        <div class="position-relative has-icon-left">
+          <textarea
+            type="text"
+            class="form-control"
+            placeholder="Descripción"
+            id="description"
+            name="description"
+            required
+            ngModel
+            #name="ngModel"
+            [ngClass]="'input'"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label> Foto: </label>
+      </div>
+      <div class="col-md-8 form-group p-2">
+        <div class="position-relative has-icon-left">
+          <input type="file" accept="image/png" #photoInput 
+          name="picture[]" multiple/>
+        </div>
+      </div>
+      <input
+            type="hidden"
+            class="form-control"
+            placeholder="hotel_id"
+            id="hotel_id"
+            name="hotel_id"
+            required
+            ngModel
+            #hotel_id="ngModel"
+            [ngClass]="'input'"
+          />
+      <div class="col-12 d-flex justify-content-end">
+        <input
+          class="btn float-right login_btn enviar"
+          type="submit"
+          value="Registrar"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+</ng-container>
+
+
       </div>
     </div>
   </div>

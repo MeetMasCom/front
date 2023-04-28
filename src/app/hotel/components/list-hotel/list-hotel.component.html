@@ -37,9 +37,9 @@
     </li>
   </ul>
 
-<!--TODOS LOS HOTELES-->
-
+  
   <div class="tab-content" id="pills-tabContent">
+    <!--TODOS LOS HOTELES-->
     <div
       class="tab-pane fade show active"
       id="pills-home"
@@ -49,21 +49,21 @@
       <ng-container *ngIf="hotel?.length > 0">
         <div class="row">
           <div class="col col-lg-3">
-          <app-columns  [tipo]="1"></app-columns>
-        </div>
-          <div class="col-md-7">
+            <app-columns [tipo]="1"></app-columns>
+          </div>
+          <div class="col-md-6">
             <div class="row p-3" *ngFor="let h of hotel">
               <div class="card">
                 <h5 class="card-header">{{ h.name }}</h5>
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-4">
-                      <img src="" alt="" style="width: 200px; height: 200px" />
+                      <img src="../../../../assets/hotel 1.jpg" alt="" style="width: 200px; height: 200px" />
                     </div>
-                    <div class="col-md-5 float-left">
-                      <h5 class="card-title">
+                    <div class="col-md-5" style="padding-left: 8%;">
+                      <h6 class="card-title">
                         {{ h.city }} -- {{ h.country }}
-                      </h5>
+                      </h6>
                       <span>Dirección:</span>
                       <p class="card-text float-left">{{ h.address }}</p>
                       <span>Teléfono:</span>
@@ -72,19 +72,31 @@
                       <p>{{ h.manager }}</p>
                     </div>
                     <div class="col-md-3 float-left">
-                      <h5 class="card-title">Precio por noche</h5>
-                      <h1>$320</h1>
-                      <a  class="btn" style="background-color: #f9a21e"  (click)="selectedHotel(h._id)"
-                        >Ver detalles</a
-                      >
+                      <div class="row">
+                        <h5 class="card-title">Precio por noche</h5>
+                        <h1>$320</h1>
+                        <button
+                      class="btn"
+                      style="background-color: #f9a21e"
+                      (click)="selectedHotel(h._id)"
+                    >
+                      Ver detalles
+                    </button>
+                      </div>
+                      <div class="row val">
+                        <app-rating-star
+                          (eventSetRating)="setRating($event)"
+                          [val]="h.stars"
+                        ></app-rating-star>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col col-lg-2 float-left">
-            <app-columns  [tipo]="0"></app-columns>
+          <div class="col col-lg-3 float-left">
+            <app-columns [tipo]="0"></app-columns>
           </div>
         </div>
       </ng-container>
@@ -95,7 +107,7 @@
       </ng-container>
     </div>
 
-<!--MIS HOTELES-->
+    <!--MIS HOTELES-->
 
     <div
       class="tab-pane fade"
@@ -103,37 +115,42 @@
       role="tabpanel"
       aria-labelledby="pills-profile-tab"
     >
-    <ng-container *ngIf="hotelUser?.length > 0">
-      <div class="row">
-        <div class="col col-lg-3">
-        <app-columns  [tipo]="1"></app-columns>
-      </div>
-        <div class="col-md-7">
-          <div class="row p-3" *ngFor="let f of hotelUser">
-            <div class="card">
-              <h5 class="card-header">{{ f.name }}</h5>
-              <div class="card-body">
+      <ng-container *ngIf="hotelUser?.length > 0">
+        <div class="row">
+          <div class="col col-lg-3">
+            <app-columns [tipo]="1"></app-columns>
+          </div>
+          <div class="col-md-7">
+            <div class="row p-3" *ngFor="let f of hotelUser">
+              <div class="card">
+                <h5 class="card-header">{{ f.name }}</h5>
                 <div class="card-body">
-                  <h5 class="card-title">{{f.city}}-{{f.country}}</h5>
-                  <p class="card-text">Dirección: {{f.address}}</p>
-                  <p class="card-text">Teléfono: {{f.phone}}</p>
-                  <button  class="btn" style="background-color: #f9a21e"  (click)="selectedHotel(f._id)"
-                            >Ver detalles</button
-                          >
+                  <div class="card-body">
+                    <h5 class="card-title">{{ f.city }}-{{ f.country }}</h5>
+                    <p class="card-text">Dirección: {{ f.address }}</p>
+                    <p class="card-text">Teléfono: {{ f.phone }}</p>
+                    <button
+                      class="btn"
+                      style="background-color: #f9a21e"
+                      (click)="myHotel(f._id)"
+                    >
+                      Ver detalles
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col col-lg-2 float-left">
+            <app-columns [tipo]="0"></app-columns>
+          </div>
         </div>
-        <div class="col col-lg-2 float-left">
-          <app-columns  [tipo]="0"></app-columns></div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="hotel.length === 0">
-      <div class="d-flex justify-content-center" style="min-height: 30vw">
-        <Span>No hay hoteles disponibles</Span>
-      </div>
-    </ng-container>
+      </ng-container>
+      <ng-container *ngIf="hotel.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay hoteles disponibles</Span>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
@@ -163,7 +180,5 @@
   (successModal)="onRedirigir()"
   #warningModal
 ></app-modal-alerts>
-
-
 
 <app-footer></app-footer>

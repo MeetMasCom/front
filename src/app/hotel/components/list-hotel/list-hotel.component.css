@@ -2,14 +2,14 @@
     background-color: #f9a21e;
 }
 
-.fa-icon:hover{
+fa-icon:hover{
     color: #f9a21e;
     width: 20px;
     height: 20px;
 }
 
 
-.fa-3x{
+fa-3x{
     font-size: 1em !important;
     padding: 0;
 }
@@ -24,3 +24,7 @@
     color: #000;
 }
 
+.val{
+font-size: .4em !important;
+justify-content: left !important;
+}

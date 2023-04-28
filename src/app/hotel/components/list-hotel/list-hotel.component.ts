@@ -28,6 +28,7 @@ export class ListHotelComponent {
   estado = -1;
   hotelId: any = [];
   errMsj: any;
+  rating: number=0;
 
   constructor(
     private hotelService: HotelServiceService,
@@ -94,13 +95,13 @@ export class ListHotelComponent {
     location.reload()
   }
 
-  async selectedHotel(id: string) {
+  async myHotel(id: string) {
     try {
       const response = await lastValueFrom(this.hotelService.getHotelById(id));
       if (response.data !== null) {
         this.hotelId = response.data;
         if (this.hotelId[0].state === 1) {
-          this.router.navigate(['/hotelDetail', id]);
+          this.router.navigate(['/myHotel', id]);
         } else if (this.hotelId[0].state === 0) {
           this.correctModal.abrir();
         }
@@ -109,4 +110,24 @@ export class ListHotelComponent {
       console.log('error', error.error);
     }
   }
+
+  async selectedHotel(id: string) {
+    try {
+      const response = await lastValueFrom(this.hotelService.getHotelById(id));
+      if (response.data !== null) {
+        this.hotelId = response.data;
+        this.router.navigate(['/hotelDetail', id]);       
+      } 
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+
+  async setRating(val: number) {
+    console.log(val);
+      this.rating = val;
+  }
+    
+
 }

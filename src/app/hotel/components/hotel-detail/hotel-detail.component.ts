@@ -15,6 +15,8 @@ export class HotelDetailComponent {
 
 id_hotel:string ='';
 hotel: any=[];
+  errMsj: any;
+  rating: number=0;
 
   constructor(
     private hotelService: HotelServiceService,
@@ -25,18 +27,32 @@ hotel: any=[];
 
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe(async (params) => {
       this.id_hotel = params['id'];
-      this.hotelService.getHotelById(this.id_hotel).subscribe((res) => {
-        if (res != null) {
-          this.hotel = res;
+
+
+      try {
+        const response = await lastValueFrom(
+          this.hotelService.getHotelById(this.id_hotel)
+        );
+        if (response.data !== null) {
+          this.hotel = response;
+          console.log(this.hotel);
         }
-      });
+      } catch (error: any) {
+        console.log('error', error.error);
+        this.errMsj = error.error.message;
+      }
+
 
       
     });
     
   }
 
+  async setRating(val: number) {
+    console.log(val);
+      this.rating = val;
+  }
 
 }

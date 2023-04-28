@@ -50,4 +50,33 @@ export class AuthServiceService {
       `${this.constante.API_SERVER}/user/validate/${param}`
     );
   }
+
+  recoverUser(email: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/recover-username`,
+      {
+        mail: email,
+      }
+    );
+  }
+
+  recoverPass(user: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/recover-password`,
+      {
+        username: user,
+      }
+    );
+  }
+
+  resetPass(user: string, pass: string, code: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/reset-password`,
+      {
+        username: user,
+        password: pass,
+        code: code,
+      }
+    );
+  }
 }

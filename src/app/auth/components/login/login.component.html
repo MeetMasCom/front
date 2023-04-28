@@ -134,15 +134,17 @@
   [titulo]="'Proceso Exitoso'"
   [descripcion]="message"
   [tipo]="0"
+  (successModal)="onFailValidCredecial()"
   #modalUserSuccess
 ></app-modal-alerts>
 
 <app-modal-alerts
   [idModal]="'modalUserFail'"
   [icono]="'./assets/img/fail.png'"
-  [titulo]="'Error en el proceso'"
+  [titulo]="'Proceso No Exitoso'"
   [descripcion]="message"
   [tipo]="0"
+  (successModal)="onFailValidCredecial()"
   #modalUserFail
 ></app-modal-alerts>
 
@@ -168,9 +170,10 @@
 <app-modal-alerts
   [idModal]="'modalPassFail'"
   [icono]="'./assets/img/fail.png'"
-  [titulo]="'Error en el proceso'"
+  [titulo]="'Proceso No Exitoso'"
   [descripcion]="message"
   [tipo]="0"
+  (successModal)="onFailValidCredecial()"
   #modalPassFail
 ></app-modal-alerts>
 
@@ -189,14 +192,26 @@
   [titulo]="'Proceso Exitoso'"
   [descripcion]="message"
   [tipo]="0"
+  (successModal)="onFailValidCredecial()"
   #modalRecoverSuccess
 ></app-modal-alerts>
 
 <app-modal-alerts
   [idModal]="'modalRecoverFail'"
   [icono]="'./assets/img/fail.png'"
-  [titulo]="'Error en el proceso'"
+  [titulo]="'Proceso No Exitoso'"
   [descripcion]="message"
   [tipo]="0"
+  (successModal)="onFailValidCredecial()"
   #modalRecoverFail
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'modalRecoverWarning'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="''"
+  [descripcion]="'Las contraseñas deben ser iguales.'"
+  [tipo]="0"
+  (successModal)="onRecover()"
+  #modalRecoverWarning
 ></app-modal-alerts>

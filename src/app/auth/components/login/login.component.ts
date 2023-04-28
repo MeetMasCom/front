@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('modalPassFail') modalPassFail!: ModalAlertsComponent;
   @ViewChild('modalRecoverSuccess') modalRecoverSuccess!: ModalAlertsComponent;
   @ViewChild('modalRecoverFail') modalRecoverFail!: ModalAlertsComponent;
+  @ViewChild('modalRecoverWarning') modalRecoverWarning!: ModalAlertsComponent;
 
   classA: string;
   message: string;
@@ -59,22 +60,62 @@ export class LoginComponent implements OnInit {
     this.modalPassword.abrir();
   }
 
-  onForm(event: any) {
-    console.log('event', event.value);
-    //this.modalUserSuccess.abrir();
-    this.modalUserFail.abrir();
+  async onForm(event: any) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.recoverUser(event.value.emailU)
+      );
+
+      if (response.data !== null) {
+        this.message = response.data;
+        this.modalUserSuccess.abrir();
+      }
+    } catch (error: any) {
+      this.message = error.error.message;
+      this.modalUserFail.abrir();
+    }
   }
 
-  onFormPass(event: any) {
-    console.log('event', event.value);
-    this.modalPassSuccess.abrir();
-    //this.modalPassFail.abrir();
+  async onFormPass(event: any) {
+    try {
+      sessionStorage.setItem('user', event.value.userU);
+      const response = await lastValueFrom(
+        this.userService.recoverPass(event.value.userU)
+      );
+
+      if (response.data !== null) {
+        this.message = response.data;
+        this.modalPassSuccess.abrir();
+      }
+    } catch (error: any) {
+      this.message = error.error.message;
+      this.modalPassFail.abrir();
+    }
   }
 
-  onFormActPass(event: any) {
-    console.log('event', event.value);
-    this.modalRecoverSuccess.abrir();
-    //this.modalRecoverFail.abrir();
+  async onFormActPass(event: any) {
+    if (event.value.passNew.toString() === event.value.passR.toString()) {
+      try {
+        const user = sessionStorage.getItem('user')!;
+        const response = await lastValueFrom(
+          this.userService.resetPass(
+            user,
+            event.value.passNew,
+            event.value.code
+          )
+        );
+
+        if (response.data !== null) {
+          this.message = response.data;
+          this.modalRecoverSuccess.abrir();
+        }
+      } catch (error: any) {
+        this.message = error.error.message;
+        this.modalRecoverFail.abrir();
+      }
+    } else {
+      this.modalRecoverWarning.abrir();
+    }
   }
 
   onValidCredecial() {

@@ -20,6 +20,7 @@ export class MmodalComponent {
   @Input() idModal: string = '';
   @Input() title = '';
   @Input() tipo = 0;
+  @Input() val: string = '';
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('exitoModal') exitoModal!: ModalAlertsComponent;
   @ViewChild('failModal') failModal!: ModalAlertsComponent;
@@ -33,6 +34,7 @@ export class MmodalComponent {
   description!: string;
   id: any;
   fadData: any;
+  id_hotel: any;
 
   constructor(
     private fadService: FadServiceService,
@@ -128,15 +130,7 @@ export class MmodalComponent {
       this.router.navigate(['/fad']);
       this.message = resp.message;
       this.exitoModal.abrir();
-      /*setTimeout(() => {
-        location.reload();
-      }, 1500);*/
     } catch (error: any) {
-      /*this.classA = 'alert-danger';
-      this.message = error.error.message;
-      setTimeout(() => {
-        location.reload();
-      }, 1500);*/
       console.log('error', error.error);
       this.message = error.error.message;
       this.failModal.abrir();
@@ -145,12 +139,11 @@ export class MmodalComponent {
 
   async onRegisterHotel(form: any) {
     try {
-      form.value.user_id = this.id;
+      form.value.user_id = this.val;
       const resp = await lastValueFrom(
         this.hotelService.registerHotel(form.value)
       );
       console.log('resp', resp);
-      this.message = 'Los datos ingresados serán validados';
       this.message = resp.message;
       this.exitoModal.abrir();
     } catch (error: any) {
@@ -167,5 +160,18 @@ export class MmodalComponent {
 
   onFail() {
     location.reload();
+  }
+
+  async onRegisterRoom(form: any) {
+    try {
+      form.value.hotel_id = this.val;
+      console.log(form.value);
+      const resp = await lastValueFrom(
+        this.hotelService.registerRoom(form.value)
+      );
+      console.log('resp', resp);
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
   }
 }

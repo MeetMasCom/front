@@ -1,0 +1,196 @@
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw">
+  <h5>{{ this.hotel.data[0].name }}</h5>
+  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="pills-home-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-home"
+        type="button"
+        role="tab"
+        aria-controls="pills-home"
+        aria-selected="true"
+      >
+        Descripción General
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-profile-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-profile"
+        type="button"
+        role="tab"
+        aria-controls="pills-profile"
+        aria-selected="false"
+      >
+        Habitaciones
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-location-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-location"
+        type="button"
+        role="tab"
+        aria-controls="pills-location"
+        aria-selected="false"
+      >
+        Ubicación
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-amenities-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-amenities"
+        type="button"
+        role="tab"
+        aria-controls="pills-amenities"
+        aria-selected="false"
+      >
+        Comodidades
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-policies-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-policies"
+        type="button"
+        role="tab"
+        aria-controls="pills-policies"
+        aria-selected="false"
+      >
+        Comodidades
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <!--DESCRIPCION GENERAL-->
+    <div
+      class="tab-pane fade show active"
+      id="pills-home"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <p>Dirección: {{ this.hotel.data[0].address }}</p>
+              <p>Teléfono: {{ this.hotel.data[0].phone }}</p>
+              <p>Estrellas:</p>
+              <div class="val1">
+                <app-rating-star
+                  (eventSetRating)="setRating($event)"
+                  [val]="this.hotel.data[0].stars"
+                ></app-rating-star>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <p>País: {{ this.hotel.data[0].country }}</p>
+              <p>Ciudad: {{ this.hotel.data[0].city }}</p>
+            </div>
+          </div>
+          <hr />
+          <!--Descripcion General-->
+          <div class="row">
+            <h2>Descripción</h2>
+          </div>
+        </div>
+        <div class="col col-lg-3 float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+
+    <!--HABITACIONES-->
+
+    <div
+      class="tab-pane fade"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-profile-tab"
+    >
+      <div class="row">
+        <div class="col col-md-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
+              Registrar
+            </button>
+          </div>
+            <ng-container *ngIf="this.room.length>0">
+              <div class="row p-3" *ngFor="let r of room">
+                <div class="card">
+                  <h5 class="card-header">Habitación # {{ r.number }}</h5>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <img src="../../../../assets/hotel 1.jpg" alt="" style="width: 250px; height: 250px" />
+                      </div>
+                      <div class="col-md-6" style="padding-left: 8%;">
+                        <h6 class="card-title">                         
+                        </h6>
+                        <span>Tipo de habitación:</span>
+                        <p class="card-text float-left">{{ r.type }}</p>
+                        <span>Teléfono:</span>
+                        <p></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="this.room.length===0">
+              <h3>No existen habitaciones registradas</h3>
+            </ng-container>
+
+        </div>
+        <div class="col col-md-3 float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+
+    <!--UBICACION-->
+    <div
+      class="tab-pane fade"
+      id="pills-locaction"
+      role="tabpanel"
+      aria-labelledby="pills-location-tab"
+    >
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-7">ubicacion</div>
+        <div class="col col-lg-2 float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-mmodal
+  [title]="'Registrar Habitación'"
+  [tipo]="3"
+  [val]=this.id_hotel
+  [idModal]="'modalFad'"
+  #fadModal
+></app-mmodal>
+<app-footer></app-footer>

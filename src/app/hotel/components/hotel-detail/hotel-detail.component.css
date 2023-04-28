@@ -1,0 +1,20 @@
+.val {
+  font-size: 0.3em !important;
+}
+
+.val rating {
+  display: block !important;
+}
+
+
+.nav-pills {
+  color: #000;
+}
+
+.nav-link:focus, .nav-link:hover,.nav-link.active{
+  background-color: #f9a21e;
+}
+
+.nav-link{
+  color: #000;
+}

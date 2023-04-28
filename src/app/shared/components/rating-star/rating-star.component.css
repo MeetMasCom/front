@@ -3,9 +3,9 @@ h3{
   }
   .rating{
     display: flex;
-    justify-content: center;
+    
     gap: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   fa-icon{
@@ -16,8 +16,8 @@ h3{
   
   fa-icon:hover{
       color: orange;
-      width: 60px;
-      height: 60px;
+      width: 40px;
+      height: 40px;
   }
   
   .active{

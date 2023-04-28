@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel } from '../interfaces/hotel';
+import { Room } from '../interfaces/room';
 import { ConstantsSystem } from '../../utils/constants-system';
 
 @Injectable({
@@ -53,5 +54,27 @@ getHotelById(id: string): Observable<Hotel> {
 getHotelByIdUser(id: string): Observable<any> {
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdUserHotel/${id}`);
 }
+
+
+registerRoom(room: Room): Observable<any> {
+  console.log("habitaciones",room);
+  return this.httpCLient.post(
+    `${this.constante.API_SERVER}/room/roomRegister`,
+    {
+      hotel_id: room.hotel_id,
+      number: room.number,
+      type: room.type,
+      price: room.price,
+      description: [room.description],
+      picture: [room.picture]
+    }
+  );
+}
+
+getRoomHotelById(id: string): Observable<Hotel> {
+  console.log("servicio",id);
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/room/getByIdHotelRoom/${id}`);
+}
+
 
 }

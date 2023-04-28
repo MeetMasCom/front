@@ -1,1 +1,89 @@
-<p>hotel-detail works!</p>
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw">
+  <div class="row"></div>
+  <nav id="opciones" class="navbar navbar-light bg-light px-3">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{id_hotel}}#description">Descripción General</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{id_hotel}}#rooms">Habitaciones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{id_hotel}}#location">Ubicación</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{id_hotel}}#amenities">Comodidades</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{id_hotel}}#policies">Políticas</a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    data-bs-spy="scroll"
+    data-bs-target="#opciones"
+    data-bs-offset="0"
+    class="scrollspy-example"
+    tabindex="0"
+  >
+
+  <!--DESCRIPCION GENERAL-->
+    <div class="row" id="description">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row">
+            <h1>{{ this.hotel.data[0].name }}</h1>
+          </div>
+
+          <div class="val">
+            <app-rating-star
+              style="display: block !important"
+              (eventSetRating)="setRating($event)"
+              [val]="this.hotel.data[0].stars"
+            ></app-rating-star>
+          </div>
+        </div>
+        <div class="col-md-5"></div>
+      </div>
+    </div>
+
+     <!--HABITACIONES-->
+    <h4 id="rooms">Segundo encabezado</h4>
+    <p>
+      . <br>
+      . <br>
+      . <br>
+      . <br>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum debitis neque vero ullam quidem ea eius, odio magni facilis soluta dolore illum deleniti saepe nemo magnam, provident ad earum. Ipsam?
+    </p>
+     <!--UBICACION-->
+    <h4 id="location">Tercer encabezado</h4>
+    <p>
+      . <br>
+      . <br>
+      . <br>
+      . <br>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum debitis neque vero ullam quidem ea eius, odio magni facilis soluta dolore illum deleniti saepe nemo magnam, provident ad earum. Ipsam?
+    </p>
+     <!--COMODIDADES-->
+    <h4 id="amenities">Cuarto encabezado</h4>
+    <p>
+      . <br>
+      . <br>
+      . <br>
+      . <br>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum debitis neque vero ullam quidem ea eius, odio magni facilis soluta dolore illum deleniti saepe nemo magnam, provident ad earum. Ipsam?
+    </p>
+     <!--POLITICAS-->
+    <h4 id="policies">Quinto encabezado</h4>
+    <p>
+      . <br>
+      . <br>
+      . <br>
+      . <br>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum debitis neque vero ullam quidem ea eius, odio magni facilis soluta dolore illum deleniti saepe nemo magnam, provident ad earum. Ipsam?
+    </p>
+  </div>
+  <hr />
+</div>

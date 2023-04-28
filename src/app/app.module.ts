@@ -55,6 +55,7 @@ import { VerifyHotelComponent} from './hotel/components/verify-hotel/verify-hote
 import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-alerts.component';
 import { ColumnsComponent } from './shared/components/columns/columns.component';
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
+import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -86,6 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ListHotelComponent,
     ColumnsComponent,
     HotelDetailComponent,
+    MyHotelComponent,
   ],
   imports: [
     TranslateModule.forRoot({

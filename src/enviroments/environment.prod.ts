@@ -6,38 +6,38 @@ export const environment = {
   languages: [
     {
       label: 'Español',
-      alias: 'EC',
+      alias: 'ec',
       icon: 'ec.gif',
     },
     {
       label: 'Ingles',
-      alias: 'EN',
+      alias: 'en',
       icon: 'en.gif',
     },
     {
       label: 'Portugués Brasileño',
-      alias: 'BR',
+      alias: 'br',
       icon: 'br.gif',
     },
-    {
-      label: 'Francés',
-      alias: 'FR',
-      icon: 'fr.gif',
-    },
-    {
-      label: 'Italiano',
-      alias: 'IT',
-      icon: 'it.gif',
-    },
-    {
-      label: 'Mandarín',
-      alias: 'CN',
-      icon: 'cn.gif',
-    },
-    {
-      label: 'Hindi',
-      alias: 'IN',
-      icon: 'in.gif',
-    },
+    // {
+    //   label: 'Francés',
+    //   alias: 'fr',
+    //   icon: 'fr.gif',
+    // },
+    // {
+    //   label: 'Italiano',
+    //   alias: 'it',
+    //   icon: 'it.gif',
+    // },
+    // {
+    //   label: 'Mandarín',
+    //   alias: 'cn',
+    //   icon: 'cn.gif',
+    // },
+    // {
+    //   label: 'Hindi',
+    //   alias: 'in',
+    //   icon: 'in.gif',
+    // },
   ],
 };

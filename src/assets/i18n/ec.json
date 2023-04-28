@@ -1,12 +1,40 @@
 {
-    "menu": {
-      "search": "Buscar",
-      "matches": "Parejas",
-      "fashion": "Moda",
-      "hotels": "Hoteles",
-      "restaurants": "Restaurants",
-      "flowers": "Flores",
-      "login": "Ingresar"
-    }
+  "menu": {
+    "search": "Buscar",
+    "matches": "Parejas",
+    "fashion": "Moda",
+    "hotels": "Hoteles",
+    "restaurants": "Restaurants",
+    "flowers": "Flores",
+    "login": "Ingresar"
+  },
+  "footer": {
+    "copyright": "Meet Mas todos los derechos reservados"
+  },
+  "summary": {
+    "welcome": "Bienvenido a Meet Mas",
+    "totalUsers": "Total Usuarios",
+    "onlineUsers": "Usuarios en línea",
+    "menUsers": "Hombres en línea",
+    "womanUsers": "Mujeres en línea"
+  },
+  "register": {
+    "title": "Registrarse",
+    "country": "País",
+    "countrySelect": "Selecciona un país",
+    "date": "Fecha nacimiento",
+    "selectDate": " Seleccione una fecha.",
+    "username": "Nombre de usuario",
+    "insertMsg": "Ingrese el",
+    "invaliMsg": "no válido.",
+    "unaviableMsg": "no disponible",
+    "usedMsg": "ya registrado",
+    "mail": "Correo electrónico",
+    "password": "Contraseña",
+    "minPassword": "debe tener mínino 8 caracteres.",
+    "acceptMsg": "Acepto los",
+    "Terms": "Términos y Condiciones",
+    "captcha": "Captcha requerido.",
+    "registerBtn": "Registrarse"
   }
-  
+}

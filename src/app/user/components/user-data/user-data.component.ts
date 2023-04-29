@@ -12,6 +12,11 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 export class UserDataComponent implements OnInit {
   @ViewChild('successPModal') successPModal!: ModalAlertsComponent;
   @ViewChild('failPModal') failPModal!: ModalAlertsComponent;
+  @ViewChild('successPassUD') successPassUD!: ModalAlertsComponent;
+  @ViewChild('failPassUD') failPassUD!: ModalAlertsComponent;
+  @ViewChild('recoverSuccessUD') recoverSuccessUD!: ModalAlertsComponent;
+  @ViewChild('recoverFailUD') recoverFailUD!: ModalAlertsComponent;
+  @ViewChild('recoverWarningUD') recoverWarningUD!: ModalAlertsComponent;
 
   stateCivil: any = [];
   policies: any = [];
@@ -31,6 +36,9 @@ export class UserDataComponent implements OnInit {
   dataUser: any = [];
   errMsj = '';
   estado: any;
+  showPass1 = false;
+  showPass2 = false;
+  msj = '';
 
   constructor(
     public userService: UserServiceService,
@@ -311,6 +319,59 @@ export class UserDataComponent implements OnInit {
       });
     } catch (error: any) {
       console.log('error', error.error);
+    }
+  }
+
+  onShowPass1() {
+    this.showPass1 = true;
+  }
+
+  onShowPass2() {
+    this.showPass1 = false;
+    this.showPass2 = true;
+  }
+
+  onReload() {
+    location.reload();
+  }
+
+  async onRecoverUD() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.recoverPass(sessionStorage.getItem('user')!)
+      );
+
+      if (response.data !== null) {
+        this.msj = response.data;
+        this.successPassUD.abrir();
+      }
+    } catch (error: any) {
+      this.msj = error.error.message;
+      this.failPassUD.abrir();
+    }
+  }
+
+  async onResetUD(form: any) {
+    if (form.value.passNewUD.toString() === form.value.passRUD.toString()) {
+      try {
+        const response = await lastValueFrom(
+          this.userService.resetPass(
+            sessionStorage.getItem('user')!,
+            form.value.passNewUD,
+            form.value.codeUD
+          )
+        );
+
+        if (response.data !== null) {
+          this.msj = response.data;
+          this.recoverSuccessUD.abrir();
+        }
+      } catch (error: any) {
+        this.msj = error.error.message;
+        this.recoverFailUD.abrir();
+      }
+    } else {
+      this.recoverWarningUD.abrir();
     }
   }
 }

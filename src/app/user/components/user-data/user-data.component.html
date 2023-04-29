@@ -1,24 +1,24 @@
 <app-menu></app-menu>
-<div class="d-flex justify-content-center align-items-start">
+<div class="d-flex">
   <div class="col col-3">
-    <app-columns [tipo]="1"></app-columns>
+    <app-columns [tipo]="2"></app-columns>
   </div>
-  <div
-    class="col-7 d-flex flex-column justify-content-center align-items-center"
-  >
+  <div class="col-6 d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center align-items-center">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link disabled">Paso 1</a>
+          <a class="nav-link disabled">Datos Básicos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Paso 2</a>
+          <a class="nav-link disabled">Datos Hotel</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Paso 3</a>
+          <a class="nav-link disabled">Datos Pareja</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Cambiar Contraseña</a>
+          <a class="nav-link btn border-0" (click)="onShowPass1()">
+            Cambiar Contraseña
+          </a>
         </li>
       </ul>
     </div>
@@ -1005,9 +1005,158 @@
         </form>
       </div>
     </ng-container>
+
+    <ng-container *ngIf="showPass1">
+      <div class="container mt-5">
+        <form #fmrPasswordUD="ngForm" (ngSubmit)="onRecoverUD()">
+          <strong>Ingrese el nombre de usuario registrado</strong><br />
+          <div class="col-12 containerInput mt-2 mb-3">
+            <div class="form-group col-md-12 col-sm-12 mt-3">
+              <label class="form-label">Usuario</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Usuario"
+                id="userUD"
+                name="userUD"
+                required
+                ngModel
+                #userUD="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="userUD.invalid && (userUD.dirty || userUD.touched)"
+                class="text-danger form-group position-absolute"
+              >
+                <small class="form-group" *ngIf="userUD.errors?.['required']">
+                  Campo requerido.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 mt-5">
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                value="ENVIAR"
+                [disabled]="!fmrPasswordUD['valid']"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showPass2">
+      <div class="container">
+        <form #fmrResetUD="ngForm" (ngSubmit)="onResetUD(fmrResetUD)">
+          <div class="col-12 containerInput mt-2 mb-3">
+            <div class="form-group col-md-12 col-sm-12 mt-3">
+              <label class="form-label">Código</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Código"
+                id="codeUD"
+                name="codeUD"
+                required
+                ngModel
+                #codeUD="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="codeUD.invalid && (codeUD.dirty || codeUD.touched)"
+                class="text-danger form-group position-absolute mb-3"
+              >
+                <small class="form-group" *ngIf="codeUD.errors?.['required']">
+                  Campo requerido.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 containerInput mt-3 mb-3">
+            <div class="form-group col-md-12 col-sm-12 mt-3">
+              <label class="form-label">Contraseña Nueva</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Contraseña Nueva"
+                id="passNewUD"
+                name="passNewUD"
+                required
+                ngModel
+                minlength="8"
+                #passNewUD="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="
+                  passNewUD.invalid && (passNewUD.dirty || passNewUD.touched)
+                "
+                class="text-danger form-group position-absolute mb-3"
+              >
+                <small
+                  class="form-group"
+                  *ngIf="passNewUD.errors?.['required']"
+                >
+                  Campo requerido.
+                </small>
+                <small
+                  class="form-group"
+                  *ngIf="passNewUD.errors?.['minlength']"
+                >
+                  Debe tener mínino 8 caracteres.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 containerInput mt-3 mb-3">
+            <div class="form-group col-md-12 col-sm-12 mt-3">
+              <label class="form-label">Repita la Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Repita la Contraseña"
+                id="passRUD"
+                name="passRUD"
+                required
+                minlength="8"
+                ngModel
+                #passRUD="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="passRUD.invalid && (passRUD.dirty || passRUD.touched)"
+                class="text-danger form-group position-absolute"
+              >
+                <small class="form-group" *ngIf="passRUD.errors?.['required']">
+                  Campo requerido.
+                </small>
+                <small class="form-group" *ngIf="passRUD.errors?.['minlength']">
+                  Debe tener mínino 8 caracteres.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 mt-5">
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                value="ENVIAR"
+                [disabled]="!fmrResetUD['valid']"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-container>
   </div>
 
-  <div class="col col-2 float-left">
+  <div class="col col-3 float-left">
     <app-columns [tipo]="0"></app-columns>
   </div>
 </div>
@@ -1018,6 +1167,7 @@
   [titulo]="'Datos actualizados correctamente'"
   [descripcion]="''"
   (successModal)="onRedirigir()"
+  [tipo]="0"
   #successPModal
 ></app-modal-alerts>
 
@@ -1026,6 +1176,56 @@
   [icono]="'./assets/img/fail.png'"
   [titulo]="'No se pudo actualizar los datos'"
   [descripcion]="errMsj"
+  [tipo]="0"
   #failPModal
 ></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'successPassUD'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="msj"
+  [tipo]="0"
+  (successModal)="onShowPass2()"
+  #successPassUD
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failPassUD'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Proceso No Exitoso'"
+  [descripcion]="msj"
+  [tipo]="0"
+  #failPassUD
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'recoverSuccessUD'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="msj"
+  [tipo]="0"
+  (successModal)="onReload()"
+  #recoverSuccessUD
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'recoverFailUD'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Proceso No Exitoso'"
+  [descripcion]="msj"
+  [tipo]="0"
+  (successModal)="onReload()"
+  #recoverFailUD
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'recoverWarningUD'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="''"
+  [descripcion]="'Las contraseñas deben ser iguales.'"
+  [tipo]="0"
+  #recoverWarningUD
+></app-modal-alerts>
+
 <app-footer></app-footer>

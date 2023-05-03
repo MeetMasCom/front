@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel } from '../interfaces/hotel';
 import { Room } from '../interfaces/room';
+import { Service } from '../interfaces/service';
 import { ConstantsSystem } from '../../utils/constants-system';
 
 @Injectable({
@@ -15,7 +16,6 @@ export class HotelServiceService {
   ) {}
 
   registerHotel(hotel: Hotel): Observable<any> {
-    console.log(hotel);
     return this.httpCLient.post(
       `${this.constante.API_SERVER}/hotel/hotelRegister`,
       {
@@ -27,6 +27,7 @@ export class HotelServiceService {
         city: hotel.city,
         manager: hotel.manager,
         stars: hotel.stars,
+        price:hotel.price
       }
     );
   }
@@ -46,7 +47,6 @@ export class HotelServiceService {
 }
 
 getHotelById(id: string): Observable<Hotel> {
-  console.log("servicio",id);
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdHotel/${id}`);
 }
 
@@ -56,25 +56,40 @@ getHotelByIdUser(id: string): Observable<any> {
 }
 
 
-registerRoom(room: Room): Observable<any> {
-  console.log("habitaciones",room);
+registerRoom(room:Room,file1:File,valores:string): Observable<any> {
+   const fd = new FormData();
+    fd.append('hotel_id', room.hotel_id);
+    fd.append('number', room.number.toString());
+    fd.append('type', room.type);
+   fd.append('name', room.name);
+    fd.append('dimension', room.dimension);
+    fd.append('price', room.price);
+    fd.append('description', room.description);
+    fd.append('image', file1);
+    fd.append('service', valores);
+
   return this.httpCLient.post(
-    `${this.constante.API_SERVER}/room/roomRegister`,
-    {
-      hotel_id: room.hotel_id,
-      number: room.number,
-      type: room.type,
-      price: room.price,
-      description: [room.description],
-      picture: [room.picture]
-    }
+    `${this.constante.API_SERVER}/room/roomRegister`,fd
   );
 }
 
 getRoomHotelById(id: string): Observable<Hotel> {
-  console.log("servicio",id);
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/room/getByIdHotelRoom/${id}`);
 }
 
+
+registerServices(service:Service): Observable<any> {
+  console.log("servicios",service);
+  return this.httpCLient.post(
+    `${this.constante.API_SERVER}/service/serviceRegister`,{
+      hotel_id:service.hotel_id,
+      description:service.description
+    }
+  );
+}
+
+getServicesHotelById(id: string): Observable<Hotel> {
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/service/getByIdHotelService/${id}`);
+}
 
 }

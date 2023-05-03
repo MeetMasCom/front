@@ -33,6 +33,20 @@
     <li class="nav-item" role="presentation">
       <button
         class="nav-link"
+        id="pills-otherService-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-otherService"
+        type="button"
+        role="tab"
+        aria-controls="pills-otherService"
+        aria-selected="false"
+      >
+        Otros Servicios
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
         id="pills-location-tab"
         data-bs-toggle="pill"
         data-bs-target="#pills-location"
@@ -69,7 +83,7 @@
         aria-controls="pills-policies"
         aria-selected="false"
       >
-        Comodidades
+        Políticas
       </button>
     </li>
   </ul>
@@ -129,39 +143,166 @@
           <app-columns [tipo]="1"></app-columns>
         </div>
         <div class="col-md-6">
-          <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
+          <div
+            class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end"
+          >
+            <button
+              type="button"
+              class="btn btn-warning nuevo"
+              (click)="onValidate()"
+            >
               Registrar
             </button>
           </div>
-            <ng-container *ngIf="this.room.length>0">
-              <div class="row p-3" *ngFor="let r of room">
-                <div class="card">
-                  <h5 class="card-header">Habitación # {{ r.number }}</h5>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <img src="../../../../assets/hotel 1.jpg" alt="" style="width: 250px; height: 250px" />
+          <ng-container *ngIf="this.room.length > 0">
+            <div class="row p-3" *ngFor="let r of room">
+              <div class="card">
+                <h5 class="card-header"> {{ r.name }}</h5>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+
+
+                      <img
+                      [src]="api + r.picture"
+                        alt=""
+                        style="width: 250px; height: 250px"
+                      />
+                    </div>
+                    <div class="col-md-6" style="padding-left: 8%">
+                      <div class="row p-2">
+                        Número: {{ r.number }}
                       </div>
-                      <div class="col-md-6" style="padding-left: 8%;">
-                        <h6 class="card-title">                         
-                        </h6>
-                        <span>Tipo de habitación:</span>
-                        <p class="card-text float-left">{{ r.type }}</p>
-                        <span>Teléfono:</span>
-                        <p></p>
+                      <div class="row p-2">
+                        Tipo: {{ r.type }}
+                      </div>
+                      <div class="row p-2">
+                        Precio: ${{ r.price }}
+                      </div>
+                      <div class="row p-2">
+                       Dimensión: {{ r.dimension }}
+                      </div>
+                      <div class="row p-2">
+                        Descripción: {{ r.description }}
+                       </div>
+                       <div>
+                        <button
+                        class="btn"
+                        style="background-color: #f9a21e"
+                       
+                      >
+                        Ver detalles
+                      </button>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
-            </ng-container>
-            <ng-container *ngIf="this.room.length===0">
-              <h3>No existen habitaciones registradas</h3>
-            </ng-container>
-
+            </div>
+          </ng-container>
+          <ng-container *ngIf="this.room.length === 0">
+            <h3>No existen habitaciones registradas</h3>
+          </ng-container>
         </div>
         <div class="col col-md-3 float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+    <!--OTROS SERVICIOS-->
+    <div
+      class="tab-pane fade"
+      id="pills-otherService"
+      role="tabpanel"
+      aria-labelledby="pills-otherService-tab"
+    >
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <form
+              #fmrRegisterServices="ngForm"
+              class="form form-horizontal"
+              (ngSubmit)="registerServices(fmrRegisterServices)"
+            >
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label> Detalle: </label>
+                  </div>
+                  <div class="col-md-8 form-group p-2">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Servicio"
+                        id="description"
+                        name="description"
+                        required
+                        ngModel
+                        #description="ngModel"
+                        [ngClass]="'input'"
+                      />
+
+                      <div
+                        *ngIf="
+                          description.invalid &&
+                          (description.dirty || description.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="description.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4 d-flex justify-content-end">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="hotel_id"
+                      name="hotel_id"
+                      ngModel
+                      #hotel_id="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <input
+                      class="btn float-right login_btn nuevo"
+                      type="submit"
+                      value="Registrar"
+                      [disabled]="!fmrRegisterServices['valid']"
+                      [ngClass]="'input-btn'"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div>
+            <ng-container *ngIf="this.services?.length > 0">
+              <div class="row" *ngFor="let s of this.services">
+                <div class="col-md-1 float-left">
+                  <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
+                </div>
+                <div class="col-md-11 float-left">
+                  {{ s.description }}
+                </div>
+               
+              </div>
+            </ng-container>
+            <ng-container *ngIf="this.services?.length === 0">
+              <p>No hay servicios registrados</p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col col-lg-3 float-left">
           <app-columns [tipo]="0"></app-columns>
         </div>
       </div>
@@ -170,7 +311,7 @@
     <!--UBICACION-->
     <div
       class="tab-pane fade"
-      id="pills-locaction"
+      id="pills-location"
       role="tabpanel"
       aria-labelledby="pills-location-tab"
     >
@@ -178,19 +319,79 @@
         <div class="col col-lg-3">
           <app-columns [tipo]="1"></app-columns>
         </div>
-        <div class="col-md-7">ubicacion</div>
-        <div class="col col-lg-2 float-left">
+        <div class="col-md-6">ubicacion</div>
+        <div class="col col-lg- float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+
+    <!--COMODIDADES-->
+    <div
+      class="tab-pane fade"
+      id="pills-amenities"
+      role="tabpanel"
+      aria-labelledby="pills-amenities-tab"
+    >
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6">comodidades</div>
+        <div class="col col-lg-3 float-left">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+
+    <!--POLICIES-->
+    <div
+      class="tab-pane fade"
+      id="pills-policies"
+      role="tabpanel"
+      aria-labelledby="pills-policies-tab"
+    >
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6">políticas</div>
+        <div class="col col-lg-3 float-left">
           <app-columns [tipo]="0"></app-columns>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <app-mmodal
-  [title]="'Registrar Habitación'"
+  [idModal]="'fadModal'"
   [tipo]="3"
-  [val]=this.id_hotel
-  [idModal]="'modalFad'"
+  [title]="'Nueva Habitación'"
+  [services]="this.services"
+  (sendModal)="onForm($event)"
+  (onChangeModal)="cargarImagen($event)"
+  (onSelectCheck)="selectCheck($event)"
   #fadModal
-></app-mmodal>
+>
+</app-mmodal>
+
+<app-modal-alerts
+  [idModal]="'correct'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #correctModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'error'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Error en el registro'"
+  [descripcion]="message"
+  [tipo]="0"
+  #errorModal
+></app-modal-alerts>
 <app-footer></app-footer>

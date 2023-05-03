@@ -11,7 +11,7 @@
 
 <div
   class="modal fade"
-  id="modalFad"
+  [id]="idModal"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
   tabindex="-1"
@@ -33,9 +33,9 @@
         <!--Formulario para registro de modas-->
         <ng-container *ngIf="tipo === 1">
           <form
-            #frmRegister="ngForm"
+            #frmRegisterFad="ngForm"
             class="form form-horizontal"
-            (ngSubmit)="onRegister(frmRegister)"
+            (ngSubmit)="onRecover(frmRegisterFad)"
           >
             <div class="form-body">
               <div class="row">
@@ -124,212 +124,255 @@
         <ng-container *ngIf="tipo === 2">
           <form
             #fmrRegisterHotel="ngForm"
-            (ngSubmit)="onRegisterHotel(fmrRegisterHotel)"
+            (ngSubmit)="onRecover(fmrRegisterHotel)"
           >
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Nombre</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Nombre del Hotel"
-                  id="name"
-                  name="name"
-                  required
-                  ngModel
-                  #name="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="name.invalid && (name.dirty || name.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small class="form-group" *ngIf="name.errors?.['required']">
-                    Campo requerido.
-                  </small>
+            <div class="form-body">
+              <div class="row">
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Nombre</label>
                 </div>
-              </div>
-            </div>
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Dirección</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Dirección"
-                  id="address"
-                  required
-                  ngModel
-                  name="address"
-                  #address="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="address.invalid && (address.dirty || address.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small
-                    class="form-group"
-                    *ngIf="address.errors?.['required']"
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre del Hotel"
+                    id="name"
+                    name="name"
+                    required
+                    ngModel
+                    #name="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="text-danger form-group position-absolute"
                   >
-                    Campo requerido.
-                  </small>
+                    <small class="form-group" *ngIf="name.errors?.['required']">
+                      Campo requerido.
+                    </small>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Teléfono</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Teléfono"
-                  id="phone"
-                  required
-                  ngModel
-                  name="phone"
-                  #phone="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small class="form-group" *ngIf="phone.errors?.['required']">
-                    Campo requerido.
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">País</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="País"
-                  id="country"
-                  required
-                  ngModel
-                  name="country"
-                  #country="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="country.invalid && (country.dirty || country.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small
-                    class="form-group"
-                    *ngIf="country.errors?.['required']"
-                  >
-                    Campo requerido.
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Ciudad</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ciudad"
-                  id="city"
-                  required
-                  ngModel
-                  name="city"
-                  #city="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="city.invalid && (city.dirty || city.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small class="form-group" *ngIf="city.errors?.['required']">
-                    Campo requerido.
-                  </small>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Estrellas</label>
-                <select
-                  type="text"
-                  class="form-control"
-                  id="stars"
-                  required
-                  ngModel
-                  name="stars"
-                  #stars="ngModel"
-                  [ngClass]="'input'"
-                >
-                  <option value="0" disabled selected>
-                    Seleccione una opción
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                <div
-                  *ngIf="stars.invalid && (stars.dirty || stars.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small class="form-group" *ngIf="stars.errors?.['required']">
-                    Campo requerido.
-                  </small>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Dirección</label>
                 </div>
-              </div>
-            </div>
-            <div class="col-12 containerInput mt-2 mb-3">
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="form-label">Gerente</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Nombre del Representante"
-                  id="manager"
-                  required
-                  ngModel
-                  name="manager"
-                  #manager="ngModel"
-                  [ngClass]="'input'"
-                />
-                <div
-                  *ngIf="manager.invalid && (manager.dirty || manager.touched)"
-                  class="text-danger form-group position-absolute"
-                >
-                  <small
-                    class="form-group"
-                    *ngIf="manager.errors?.['required']"
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Dirección"
+                    id="address"
+                    required
+                    ngModel
+                    name="address"
+                    #address="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="
+                      address.invalid && (address.dirty || address.touched)
+                    "
+                    class="text-danger form-group position-absolute"
                   >
-                    Campo requerido.
-                  </small>
+                    <small
+                      class="form-group"
+                      *ngIf="address.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
                 </div>
-                <input
-                  type="hidden"
-                  class="form-control"
-                  id="user_id"
-                  required
-                  ngModel
-                  name="user_id"
-                  #user_id="ngModel"
-                  [ngClass]="'input'"
-                />
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-group text-center">
-                <input
-                  type="submit"
-                  class="btn"
-                  value="GUARDAR"
-                  [ngClass]="'input-btn'"
-                />
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Teléfono</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Teléfono"
+                    id="phone"
+                    required
+                    ngModel
+                    name="phone"
+                    #phone="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="phone.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">País</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="País"
+                    id="country"
+                    required
+                    ngModel
+                    name="country"
+                    #country="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="
+                      country.invalid && (country.dirty || country.touched)
+                    "
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="country.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Ciudad</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ciudad"
+                    id="city"
+                    required
+                    ngModel
+                    name="city"
+                    #city="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="city.invalid && (city.dirty || city.touched)"
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small class="form-group" *ngIf="city.errors?.['required']">
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Precio por noche:</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="$ 00.00"
+                    id="price"
+                    required
+                    ngModel
+                    name="price"
+                    #price="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="price.invalid && (price.dirty || price.touched)"
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="price.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Estrellas</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <select
+                    type="text"
+                    class="form-control"
+                    id="stars"
+                    required
+                    ngModel
+                    name="stars"
+                    #stars="ngModel"
+                    [ngClass]="'input'"
+                  >
+                    <option value="0" disabled selected>
+                      Seleccione una opción
+                    </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <div
+                    *ngIf="stars.invalid && (stars.dirty || stars.touched)"
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="stars.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label class="form-label">Gerente</label>
+                </div>
+                <div class="col-md-9 form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre del Representante"
+                    id="manager"
+                    required
+                    ngModel
+                    name="manager"
+                    #manager="ngModel"
+                    [ngClass]="'input'"
+                  />
+                  <div
+                    *ngIf="
+                      manager.invalid && (manager.dirty || manager.touched)
+                    "
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="manager.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    id="user_id"
+                    required
+                    ngModel
+                    name="user_id"
+                    #user_id="ngModel"
+                    [ngClass]="'input'"
+                  />
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group text-center">
+                    <input
+                      type="submit"
+                      class="btn"
+                      value="GUARDAR"
+                      [ngClass]="'input-btn'"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </form>
@@ -338,150 +381,212 @@
         <!--Formulario para el registro de una Habitacion-->
         <ng-container *ngIf="tipo === 3">
           <form
-            #frmRegister="ngForm"
+            #fmrRegisterRoom="ngForm"
             class="form form-horizontal"
-            (ngSubmit)="onRegisterRoom(frmRegister)"
+            (ngSubmit)="onRecover(fmrRegisterRoom)"
           >
             <div class="form-body">
               <div class="row">
-                <div class="col-md-4 form-group">
-                  <label> Número de habitación: </label>
-                </div>
-                <div class="col-md-8 form-group p-2">
-                  <div class="position-relative has-icon-left">
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label> Número de habitación: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="number"
+                          id="number"
+                          name="number"
+                          required
+                          ngModel
+                          #number="ngModel"
+                          [ngClass]="'input'"
+                        />
+                        <div
+                          *ngIf="
+                            number.invalid && (number.dirty || number.touched)
+                          "
+                          class="text-danger form-group position-absolute"
+                        >
+                          <small
+                            class="form-group"
+                            *ngIf="number.errors?.['required']"
+                          >
+                            Campo requerido.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label> Dimensión: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Dimensión en sq ft"
+                          id="dimension"
+                          name="dimension"
+                          required
+                          ngModel
+                          #dimension="ngModel"
+                          [ngClass]="'input'"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label> Nombre de la habitación: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Nombre"
+                          id="name"
+                          name="name"
+                          required
+                          ngModel
+                          #name="ngModel"
+                          [ngClass]="'input'"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label> Tipo de habitación: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <select
+                          type="text"
+                          class="form-control"
+                          id="type"
+                          required
+                          ngModel
+                          name="type"
+                          #type="ngModel"
+                          [ngClass]="'input'"
+                        >
+                          <option value="">--Seleccione un tipo--</option>
+                          <option value="Individual">Individual</option>
+                          <option value="Doble">Doble</option>
+                          <option value="Triple">Triple</option>
+                        </select>
+                        <div
+                          *ngIf="type.invalid && (type.dirty || type.touched)"
+                          class="text-danger form-group position-absolute"
+                        >
+                          <small
+                            class="form-group"
+                            *ngIf="type.errors?.['required']"
+                          >
+                            Campo requerido.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label> Precio: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="00.00"
+                          id="price"
+                          name="price"
+                          required
+                          ngModel
+                          #price="ngModel"
+                          [ngClass]="'input'"
+                        />
+                        <div
+                          *ngIf="
+                            price.invalid && (price.dirty || price.touched)
+                          "
+                          class="text-danger form-group position-absolute"
+                        >
+                          <small
+                            class="form-group"
+                            *ngIf="price.errors?.['required']"
+                          >
+                            Campo requerido.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label> Descripción: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          placeholder="Descripción"
+                          id="description"
+                          name="description"
+                          required
+                          ngModel
+                          #name="ngModel"
+                          [ngClass]="'input'"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label> Foto: </label>
+                    </div>
+                    <div class="col-md-8 form-group p-2">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="file"
+                          accept="image/png"
+                          #photoInput
+                          (change)="onChange($event)"
+                          name="picture"
+                          multiple
+                        />
+                      </div>
+                    </div>
+
                     <input
-                      type="text"
+                      type="hidden"
                       class="form-control"
-                      placeholder="number"
-                      id="number"
-                      name="number"
+                      placeholder="hotel_id"
+                      id="hotel_id"
+                      name="hotel_id"
                       required
                       ngModel
-                      #number="ngModel"
+                      #hotel_id="ngModel"
                       [ngClass]="'input'"
                     />
-                    <div
-                      *ngIf="number.invalid && (number.dirty || number.touched)"
-                      class="text-danger form-group position-absolute"
-                    >
-                      <small
-                        class="form-group"
-                        *ngIf="number.errors?.['required']"
-                      >
-                        Campo requerido.
-                      </small>
+                    
+                  </div>
+                  
+                </div>
+                <div class="col-md-4">
+                  <div class="row p-3">
+                    <label> Servicios: </label>
+                  </div>
+                  <div class="row">
+                    <div *ngFor="let service of services">
+                      <input type="checkbox" id="{{service._id}}"  (click)="selectCheck(service._id)">
+                      {{ service.description }}
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-4">
-                  <label> Tipo de habitación: </label>
+                 
                 </div>
-                <div class="col-md-8 form-group p-2">
-                  <div class="position-relative has-icon-left">
-                    <select
-                      type="text"
-                      class="form-control"
-                      id="type"
-                      required
-                      ngModel
-                      name="type"
-                      #type="ngModel"
-                      [ngClass]="'input'"
-                    >
-                      <option value="">--Seleccione un tipo--</option>
-                      <option value="Individual">Individual</option>
-                      <option value="Doble">Doble</option>
-                      <option value="Triple">Triple</option>
-                    </select>
-                    <div
-                      *ngIf="type.invalid && (type.dirty || type.touched)"
-                      class="text-danger form-group position-absolute"
-                    >
-                      <small
-                        class="form-group"
-                        *ngIf="type.errors?.['required']"
-                      >
-                        Campo requerido.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label> Precio: </label>
-                </div>
-                <div class="col-md-8 form-group p-2">
-                  <div class="position-relative has-icon-left">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="00.00"
-                      id="price"
-                      name="price"
-                      required
-                      ngModel
-                      #price="ngModel"
-                      [ngClass]="'input'"
-                    />
-                    <div
-                      *ngIf="price.invalid && (price.dirty || price.touched)"
-                      class="text-danger form-group position-absolute"
-                    >
-                      <small
-                        class="form-group"
-                        *ngIf="price.errors?.['required']"
-                      >
-                        Campo requerido.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label> Descripcion: </label>
-                </div>
-                <div class="col-md-8 form-group p-2">
-                  <div class="position-relative has-icon-left">
-                    <textarea
-                      type="text"
-                      class="form-control"
-                      placeholder="Descripción"
-                      id="description"
-                      name="description"
-                      required
-                      ngModel
-                      #name="ngModel"
-                      [ngClass]="'input'"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label> Foto: </label>
-                </div>
-                <div class="col-md-8 form-group p-2">
-                  <div class="position-relative has-icon-left">
-                    <input
-                      type="file"
-                      accept="image/png"
-                      #photoInput
-                      name="picture[]"
-                      multiple
-                    />
-                  </div>
-                </div>
-                <input
-                  type="hidden"
-                  class="form-control"
-                  placeholder="hotel_id"
-                  id="hotel_id"
-                  name="hotel_id"
-                  required
-                  ngModel
-                  #hotel_id="ngModel"
-                  [ngClass]="'input'"
-                />
+              </div>
+              <div class="row">
                 <div class="col-12 d-flex justify-content-end">
                   <input
                     class="btn float-right login_btn enviar"
@@ -493,27 +598,71 @@
             </div>
           </form>
         </ng-container>
+
+        <!--Detalle de la habitacion-->
+        <ng-container *ngIf="tipo === 4">
+          <div
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner contImg">
+              <div class="carousel-item active contImg">
+                <img
+                  src="../../../../assets/hotel 1.jpg"
+                  class="d-block w-100"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../../../../assets/hotel 2.jpg"
+                  class="d-block w-100"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../../../../assets/hotel 3.jpg"
+                  class="d-block w-100"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../../../../assets/hotel 4.png"
+                  class="d-block w-100"
+                  alt="..."
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
 </div>
-
-<app-modal-alerts
-  [idModal]="'correcto'"
-  [icono]="'./assets/img/success.png'"
-  [titulo]="'Registro Correcto'"
-  [descripcion]="message"
-  (successModal)="onRedirigir()"
-  [tipo]="0"
-  #exitoModal
-></app-modal-alerts>
-
-<app-modal-alerts
-  [idModal]="'error'"
-  [icono]="'./assets/img/fail.png'"
-  [titulo]="'Error en el registro'"
-  [descripcion]="message"
-  (successModal)="onFail()"
-  [tipo]="0"
-  #failModal
-></app-modal-alerts>

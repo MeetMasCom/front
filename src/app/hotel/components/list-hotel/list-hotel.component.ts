@@ -16,6 +16,8 @@ export class ListHotelComponent {
   @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
   @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
+  @ViewChild('validModal') validModal!: ModalAlertsComponent;
+  @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
   user_data: any = [];
   hotel: any = [];
   api = '';
@@ -69,6 +71,7 @@ export class ListHotelComponent {
   }
 
   onValidate() {
+
     this.user_data.state.forEach((element: any, index: any) => {
       if (this.user_data.state[index] !== 2) {
         this.estado = 1;
@@ -127,6 +130,24 @@ export class ListHotelComponent {
   async setRating(val: number) {
     console.log(val);
       this.rating = val;
+  }
+
+
+  async onForm(event:any){
+    try {
+      event.value.user_id = this.id;
+      const resp = await lastValueFrom(
+        this.hotelService.registerHotel(event.value)
+      );
+      console.log('resp', resp);
+      this.message = resp.message;
+      this.validModal.abrir();
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.message = error.error.message;
+      this.errorModal.abrir();
+    }
+
   }
     
 

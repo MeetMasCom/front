@@ -32,6 +32,7 @@ export class MyHotelComponent {
   file!: File;
   services: any=[];
   valoresSeleccionados:any = [];
+  api = '';
   
     constructor(
       private hotelService: HotelServiceService,
@@ -42,6 +43,7 @@ export class MyHotelComponent {
   
   
     ngOnInit(): void {
+      this.api = this.constante.API_IMAGES;
       this.activatedRoute.params.subscribe(async (params) => {
         this.id_hotel = params['id'];   
       });

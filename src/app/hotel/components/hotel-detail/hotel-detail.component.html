@@ -84,9 +84,11 @@
               >
                 <div class="card" style="width: 20rem">
                   <img
-                    src="../../../../assets/hotel 1.jpg"
+                  [src]="api + r.picture"
                     class="card-img-top"
                     alt="..."
+                    width="100%"
+                    height="180px"
                   />
                   <div class="card-body">
                     <h5 class="card-title">{{ r.name }}</h5>

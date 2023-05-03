@@ -23,6 +23,7 @@ export class HotelDetailComponent {
   room: any = [];
   rating: number = 0;
   faShield = faShield;
+  api = '';
 
   constructor(
     private hotelService: HotelServiceService,
@@ -32,6 +33,7 @@ export class HotelDetailComponent {
   ) {}
 
   ngOnInit(): void {
+    this.api = this.constante.API_IMAGES;
     this.activatedRoute.params.subscribe(async (params) => {
       this.id_hotel = params['id'];
 

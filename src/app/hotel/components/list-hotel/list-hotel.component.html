@@ -77,7 +77,7 @@
                     <div class="col-md-3 float-left">
                       <div class="row">
                         <h5 class="card-title">Precio por noche</h5>
-                        <h1>$320</h1>
+                        <h1>$ {{h.price}}</h1>
                         <button
                           class="btn"
                           style="background-color: #f9a21e"
@@ -157,14 +157,18 @@
     </div>
   </div>
 </div>
-<app-mmodal
-  [title]="'Nuevo Hotel'"
-  [tipo]="2"
-  [idModal]="'modalFad'"
-  #fadModal
-></app-mmodal>
 
-<app-alert [classAlert]="classA" [message]="message"></app-alert>
+<!-- modal para el registro del hotel -->
+<app-mmodal
+  [idModal]="'fadModal'"
+  [tipo]="2"
+  [title]="'Nuevo Hotel'"
+  (sendModal)="onForm($event)"
+  #fadModal>  
+</app-mmodal>
+
+
+<!--  para validar los datos del hotel-->
 
 <app-modal-alerts
   [idModal]="'correctModal'"
@@ -176,6 +180,8 @@
   #correctModal
 ></app-modal-alerts>
 
+
+<!-- para actualizar los datos del hotel -->
 <app-modal-alerts
   [idModal]="'warningModal'"
   [icono]="'./assets/img/warning.png'"
@@ -184,6 +190,29 @@
   (successModal)="onRedirigir()"
   [tipo]="0"
   #warningModal
+></app-modal-alerts>
+
+
+<!-- ingreso correcto de datos -->
+<app-modal-alerts
+  [idModal]="'validModal'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #validModal
+></app-modal-alerts>
+
+<!-- error en el ingreso de datos-->
+<app-modal-alerts
+  [idModal]="'errorModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Registro incorrecto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #errorModal
 ></app-modal-alerts>
 
 <app-footer></app-footer>

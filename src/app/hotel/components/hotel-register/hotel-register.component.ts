@@ -25,28 +25,28 @@ classA: string = '';message: string = '';
   }
 
   
-async onRegister(form: any) {
-  try {
-    form.value.user_id=this.id;
-      const resp = await lastValueFrom(this.hotelService.registerHotel(form.value));
-      console.log('resp', resp);    
-      //;  
-      this.classA = 'alert-success';
-      this.message = resp.message;  
-      //this.router.navigate(['/fad']); 
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+// async onRegister(form: any) {
+//   try {
+//     form.value.user_id=this.id;
+//       const resp = await lastValueFrom(this.hotelService.registerHotel(form.value));
+//       console.log('resp', resp);    
+//       //;  
+//       this.classA = 'alert-success';
+//       this.message = resp.message;  
+//       //this.router.navigate(['/fad']); 
+//       setTimeout(() => {
+//         location.reload();
+//       }, 1500);
       
     
-  } catch (error: any) {
-    this.classA = 'alert-danger';
-    this.message = error.error.message;
-    setTimeout(() => {
-      location.reload();
-    }, 1500);
-  }
-}
+//   } catch (error: any) {
+//     this.classA = 'alert-danger';
+//     this.message = error.error.message;
+//     setTimeout(() => {
+//       location.reload();
+//     }, 1500);
+//   }
+// }
 
 onValidate() {
   if (this.user_data.state === 0) {

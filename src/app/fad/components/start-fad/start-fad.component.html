@@ -99,12 +99,18 @@
   </div>
 </div>
 
+
+<!--Registrar moda-->
+
 <app-mmodal
-  [title]="'Nueva Publicación'"
+  [idModal]="'fadModal'"
   [tipo]="1"
-  [idModal]="'modalFad'"
-  #fadModal
-></app-mmodal>
+  [title]="'Nueva Publicación'"
+  (sendModal)="onForm($event)"
+  [photoSelected]="photoSelected"
+  (onChangeModal)="cargarImagen($event)"
+  #fadModal>  
+</app-mmodal>
 
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
 
@@ -119,6 +125,15 @@
 ></app-modal-alerts>
 
 <app-modal-alerts
+  [idModal]="'error'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Error en el registro'"
+  [descripcion]="message"
+  [tipo]="0"
+  #errorModal
+></app-modal-alerts>
+
+<app-modal-alerts
   [idModal]="'warning'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Complete sus datos'"
@@ -127,5 +142,7 @@
   [tipo]="0"
   #warningModal
 ></app-modal-alerts>
+
+
 
 <app-footer></app-footer>

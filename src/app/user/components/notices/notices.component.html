@@ -1,0 +1,171 @@
+<app-menu></app-menu>
+<div class="d-flex contAll">
+  <div class="col col-3">
+    <app-columns [tipo]="2"></app-columns>
+  </div>
+  <div class="col col-6 d-flex flex-column align-items-center">
+    <div>
+      <h4>Ingrese los datos del anuncio</h4>
+    </div>
+    <div class="container">
+      <form #fmrNotices="ngForm" (ngSubmit)="onRegister(fmrNotices)">
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Edad</label>
+            <select
+              class="form-control"
+              id="age"
+              required
+              ngModel
+              name="age"
+              #age="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option value="1">Todos</option>
+              <option value="2">de 13 a 15 años</option>
+              <option value="3">de 16 a 18 años</option>
+              <option value="4">de 18 a 25 años</option>
+              <option value="5">de 25 años en adelante</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Profesión</label>
+            <select
+              class="form-control"
+              id="studies"
+              required
+              ngModel
+              name="studies"
+              #studies="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option value="ALL">Todos</option>
+              <option *ngFor="let item of jobs" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">País</label>
+            <select
+              class="form-control"
+              id="country"
+              required
+              ngModel
+              name="country"
+              #country="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" disabled selected>Seleccione una opción</option>
+              <option value="ALL">Todos</option>
+              <option *ngFor="let item of countries" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 p-2">
+            <label class="mb-1">Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              id="imgA"
+              name="imgA"
+              accept="image/png, image/jpeg image/jpg"
+              required
+              ngModel
+              #imgA="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Título</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Título del anuncio"
+              required
+              ngModel
+              #title="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              placeholder="Descripción del anuncio"
+              required
+              ngModel
+              maxlength="250"
+              #description="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Enalce Anuncio</label>
+            <input
+              type="text"
+              class="form-control"
+              id="alink"
+              name="alink"
+              placeholder="Enalce del Anuncio"
+              required
+              ngModel
+              #alink="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn"
+              value="Guardar"
+              [disabled]="!fmrNotices['valid']"
+              [ngClass]="'input-btn'"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col col-3">
+    <app-columns [tipo]="0"></app-columns>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!--Modales-->
+<app-modal-alerts
+  [idModal]="'successNotices'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="''"
+  [descripcion]="'Se envió correctamente el anuncio'"
+  [tipo]="0"
+  #successNotices
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failNotices'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="''"
+  [descripcion]="errMsj"
+  [tipo]="0"
+  #failNotices
+></app-modal-alerts>

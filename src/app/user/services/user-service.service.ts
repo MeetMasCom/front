@@ -18,6 +18,10 @@ export class UserServiceService {
     );
   }
 
+  getCountries(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
+  }
+
   updateUserBasic(
     form: any,
     id: string,

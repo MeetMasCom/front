@@ -6,9 +6,10 @@ import { CommentComponent } from './fad/components/comment/comment.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
 import { HotelRegisterComponent } from './hotel/components/hotel-register/hotel-register.component';
 import { VerifyHotelComponent } from './hotel/components/verify-hotel/verify-hotel.component';
-import {ListHotelComponent} from './hotel/components/list-hotel/list-hotel.component';
-import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component'
-import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component'
+import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.component';
+import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
+import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
+import { NoticesComponent } from './user/components/notices/notices.component';
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: StartLayoutComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'dataUser/:estado', component: UserDataComponent },
   { path: 'hotelDetail/:id', component: HotelDetailComponent },
   { path: 'myHotel/:id', component: MyHotelComponent },
+  { path: 'anuncios', component: NoticesComponent },
 ];
 
 @NgModule({

@@ -56,6 +56,7 @@ import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-aler
 import { ColumnsComponent } from './shared/components/columns/columns.component';
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
+import { NoticesComponent } from './user/components/notices/notices.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -88,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ColumnsComponent,
     HotelDetailComponent,
     MyHotelComponent,
+    NoticesComponent,
   ],
   imports: [
     TranslateModule.forRoot({

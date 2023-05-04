@@ -11,14 +11,23 @@
       <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
         <div class="container card register">
           <div class="mt-4">
-            <p>{{'register.title' | translate}}</p>
+            <p>{{ "register.title" | translate }}</p>
           </div>
           <div>
             <div class="form-group">
-              <label class="label">{{'register.country' | translate}}</label>
-              <select class="form-control d-flex" id="country" required ngModel name="country" #country="ngModel"
-                [ngClass]="'select'">
-                <option value="" selected disabled>{{'register.countrySelect' | translate}}</option>
+              <label class="label">{{ "register.country" | translate }}</label>
+              <select
+                class="form-control d-flex"
+                id="country"
+                required
+                ngModel
+                name="country"
+                #country="ngModel"
+                [ngClass]="'select'"
+              >
+                <option value="" selected disabled>
+                  {{ "register.countrySelect" | translate }}
+                </option>
                 <option *ngFor="let item of countries" [value]="item._id">
                   {{ item.name }}
                 </option>
@@ -27,15 +36,28 @@
           </div>
           <div>
             <div class="form-group">
-              <label class="label">{{'register.date' | translate}}</label>
-              <input type="date" class="form-control" placeholder="" id="dateBirth" required ngModel name="dateBirth"
-                #dateBirth="ngModel" [ngClass]="'input'" (ngModelChange)="onValidateDateBirth($event)" />
-              <div *ngIf="
+              <label class="label">{{ "register.date" | translate }}</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder=""
+                id="dateBirth"
+                required
+                ngModel
+                name="dateBirth"
+                #dateBirth="ngModel"
+                [ngClass]="'input'"
+                (ngModelChange)="onValidateDateBirth($event)"
+              />
+              <div
+                *ngIf="
                   dateBirth.invalid &&
                   (dateBirth.dirty || dateBirth.touched || errordate)
-                " class="text-danger">
+                "
+                class="text-danger"
+              >
                 <small *ngIf="dateBirth.errors?.['required']">
-                  {{'register.selectDate' | translate}}
+                  {{ "register.selectDate" | translate }}
                 </small>
               </div>
               <small class="text-danger" *ngIf="errordate !== ''">
@@ -45,87 +67,158 @@
           </div>
           <div>
             <div class="form-group">
-              <label class="label"> {{'register.username' | translate}}</label>
-              <input id="userName" type="text" class="form-control" placeholder=" {{'register.username' | translate}}"
-                required ngModel name="userName" pattern="[A-Za-z0-9]+" #userName="ngModel" [ngClass]="'input'"
-                (change)="onValidateUserName(userName.value)" />
-              <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+              <label class="label">
+                {{ "register.username" | translate }}</label
+              >
+              <input
+                id="userName"
+                type="text"
+                class="form-control"
+                placeholder=" {{ 'register.username' | translate }}"
+                required
+                ngModel
+                name="userName"
+                pattern="[A-Za-z0-9]+"
+                #userName="ngModel"
+                [ngClass]="'input'"
+                (change)="onValidateUserName(userName.value)"
+              />
+              <div
+                *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+                class="text-danger"
+              >
                 <small *ngIf="userName.errors?.['required']">
-                  {{'register.insertMsg' | translate}}
-                  {{'register.username' | translate}}
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.username" | translate }}
                 </small>
                 <small *ngIf="userName.errors?.['pattern']">
-                  {{'register.username' | translate}}
-                  {{'register.invaliMsg' | translate}}
+                  {{ "register.username" | translate }}
+                  {{ "register.invaliMsg" | translate }}
                 </small>
               </div>
               <div *ngIf="statusUserName" class="text-danger">
-                {{'register.username' | translate}}
-                {{'register.unaviableMsg' | translate}}
+                {{ "register.username" | translate }}
+                {{ "register.unaviableMsg" | translate }}
               </div>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <label class="label"> {{'register.mail' | translate}}</label>
-              <input id="email" type="email" class="form-control" placeholder=" {{'register.mail' | translate}}" placeholder="Email" required email
-                ngModel name="email" #email="ngModel" [ngClass]="'input'" (change)="onValidateEmail(email.value)" />
-              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <label class="label"> {{ "register.mail" | translate }}</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder=" {{ 'register.mail' | translate }}"
+                placeholder="Email"
+                required
+                email
+                ngModel
+                name="email"
+                #email="ngModel"
+                [ngClass]="'input'"
+                (change)="onValidateEmail(email.value)"
+              />
+              <div
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="text-danger"
+              >
                 <small *ngIf="email.errors?.['required']">
-                  {{'register.insertMsg' | translate}}
-                  {{'register.mail' | translate}}
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.mail" | translate }}
                 </small>
                 <small *ngIf="email.errors?.['email']">
-                  {{'register.mail' | translate}}
-                  {{'register.invaliMsg' | translate}}
+                  {{ "register.mail" | translate }}
+                  {{ "register.invaliMsg" | translate }}
                 </small>
               </div>
               <div *ngIf="statusEmail" class="text-danger">
-                {{'register.mail' | translate}}
-                {{'register.usedMsg' | translate}} </div>
+                {{ "register.mail" | translate }}
+                {{ "register.usedMsg" | translate }}
+              </div>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <label class="label"> {{'register.password' | translate}}</label>
-              <input type="password" class="form-control" placeholder=" {{'register.password' | translate}}" id="password" required ngModel
-                minlength="8" name="password" #password="ngModel" [ngClass]="'input'" />
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger form-group">
+              <label class="label">
+                {{ "register.password" | translate }}</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                placeholder=" {{ 'register.password' | translate }}"
+                id="password"
+                required
+                ngModel
+                minlength="8"
+                name="password"
+                #password="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="text-danger form-group"
+              >
                 <small class="form-group" *ngIf="password.errors?.['required']">
-                  {{'register.insertMsg' | translate}}
-                  {{'register.password' | translate}}
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.password" | translate }}
                 </small>
-                <small class="form-group" *ngIf="password.errors?.['minlength']">
-                  {{'register.minPassword' | translate}}
+                <small
+                  class="form-group"
+                  *ngIf="password.errors?.['minlength']"
+                >
+                  {{ "register.minPassword" | translate }}
                 </small>
               </div>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <input type="checkbox" id="terms" required ngModel name="terms" #terms="ngModel" />
-              {{'register.acceptMsg' | translate}}
-              <a href="#">{{'register.Terms' | translate}}</a>
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                ngModel
+                name="terms"
+                #terms="ngModel"
+              />
+              {{ "register.acceptMsg" | translate }}
+              <a href="#">{{ "register.Terms" | translate }}</a>
             </div>
           </div>
           <div class="mt-2">
             <div class="form-group">
-              <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+              <re-captcha
+                id="recaptcha"
+                name="recaptcha"
+                #recaptcha="ngModel"
+                [(ngModel)]="token"
+                required
                 [class.is-invalid]="
                   recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "></re-captcha>
-              <div *ngIf="
+                "
+              ></re-captcha>
+              <div
+                *ngIf="
                   recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                " class="invalid-feedback">
+                "
+                class="invalid-feedback"
+              >
                 <div *ngIf="recaptcha.errors?.['required']">
-                  {{'register.captcha' | translate}} </div>
+                  {{ "register.captcha" | translate }}
+                </div>
               </div>
             </div>
           </div>
           <div class="col-sm-12">
             <div class="form-group text-center">
-              <input type="submit" class="btn" value="{{'register.registerBtn' | translate}}"
-                [disabled]="!frmREgister.valid || errordate !== ''" [ngClass]="'input-btn'" />
+              <input
+                type="submit"
+                class="btn"
+                value="{{ 'register.registerBtn' | translate }}"
+                [disabled]="!frmREgister.valid || errordate !== ''"
+                [ngClass]="'input-btn'"
+              />
             </div>
           </div>
         </div>
@@ -139,8 +232,20 @@
   </div>
 </div>
 
-<app-modal-alerts [idModal]="'exitoR'" [icono]="'./assets/img/success.png'" [titulo]="'Registro Correcto'"
-  [descripcion]="message" (successModal)="onRedirigir()" #exitoRModal></app-modal-alerts>
+<app-modal-alerts
+  [idModal]="'exitoR'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRedirigir()"
+  #exitoRModal
+></app-modal-alerts>
 
-<app-modal-alerts [idModal]="'failR'" [icono]="'./assets/img/fail.png'" [titulo]="'Registro Incorrecto'"
-  [descripcion]="message" (successModal)="onFail()" #failRModal></app-modal-alerts>
+<app-modal-alerts
+  [idModal]="'failR'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Registro Incorrecto'"
+  [descripcion]="message"
+  (successModal)="onFail()"
+  #failRModal
+></app-modal-alerts>

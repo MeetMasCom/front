@@ -115,13 +115,13 @@
 <app-alert [classAlert]="classA" [message]="message"></app-alert>
 
 <app-modal-alerts
-  [idModal]="'exito'"
+  [idModal]="'correct'"
   [icono]="'./assets/img/success.png'"
   [titulo]="'Registro Correcto'"
   [descripcion]="message"
   (successModal)="onRefresh()"
   [tipo]="0"
-  #exitoModal
+  #correctModal
 ></app-modal-alerts>
 
 <app-modal-alerts

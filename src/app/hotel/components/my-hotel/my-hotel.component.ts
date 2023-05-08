@@ -15,7 +15,9 @@ import { faShield} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./my-hotel.component.css']
 })
 export class MyHotelComponent {
+  @ViewChild('fadModalH') fadModalH!: MmodalComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
+  @ViewChild('detalleModal') detalleModal!: MmodalComponent;
   @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
   @ViewChild('validModal') validModal!: ModalAlertsComponent;
   @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
@@ -33,26 +35,80 @@ export class MyHotelComponent {
   services: any=[];
   valoresSeleccionados:any = [];
   api = '';
-  
+  id: any;
+  selectedFiles!: [];
+  roomDetail: any = [];
+ photo: any = [];
+ roomD: any = [];
+ servicesR: any = [];
+ serviceRoom: any = [];
+  filesToUpload!: Array<File>;
     constructor(
       private hotelService: HotelServiceService,
       private router: Router,
       private activatedRoute: ActivatedRoute,
-      public constante: ConstantsSystem
+      public constante: ConstantsSystem,
     ) {}
   
   
     ngOnInit(): void {
       this.api = this.constante.API_IMAGES;
-      this.activatedRoute.params.subscribe(async (params) => {
-        this.id_hotel = params['id'];   
-      });
 
-      this.getRoomsByHotelId(this.id_hotel);
+      if (sessionStorage.getItem('id')!) {
+        this.id = sessionStorage.getItem('id')!;
+      }
+      if (this.id != null) {
+        
+      this.activatedRoute.params.subscribe(async (params) => {
+        this.id_hotel = params['id'];
+        this.getRoomsByHotelId(this.id_hotel);
       this.getHotel(this.id_hotel);
-      this.getServices();
+      this.getServices();   
+      });
+      } else {
+        this.router.navigate(['/inicio']);
+      }
+      
+    }
+
+  
+    async detalleh(id:string) {
+      // const resp = await 
+      //   this.hotelService.getRoomById(id).toPromise() 
+      const resp = await lastValueFrom(
+        this.hotelService.getRoomById(id)
+      );
+      
+      if (resp?.data.length >0) {
+        console.log("datos",resp?.data[0])
+        this.roomDetail = resp?.data;
+        this.roomD=resp?.data[0];
+        this.photo=resp?.data[0].photo;
+        this.serviceRoom=this.roomD.service;
+      }
+      console.log("fotos",this.photo);
+      console.log("todos los servicios",this.serviceRoom);
+      this.getServiceById();    
+      this.fadModalH.abrir();
     }
   
+  
+     async getServiceById(){
+      try {
+          console.log("obtener servicio");
+          console.log(this.serviceRoom.length);
+        for (let i = 0; i < this.serviceRoom.length; i++) {
+          console.log("entra al for");
+          const resp = await lastValueFrom(this.hotelService.getServiceById(this.serviceRoom[i]));
+          this.servicesR.push(resp.data);
+          console.log("i ciclo for",i);
+        }  
+        console.log("servicios luego del for",this.servicesR);
+      } catch (error: any) {
+        console.log("sale por el catch");
+        console.log('error', error.error);
+      }
+     }
 
     async getHotel(id:string){
       try {
@@ -91,31 +147,6 @@ export class MyHotelComponent {
         this.fadModal.abrir();
     }
 
-
-
-
-    async onRegister(event:any){
-
-      try {
-        const formData = new FormData();  
-        for (let i = 0; i < this.images.length; i++) {
-          formData.append('images', this.images[i]);
-        }
-        this.file = <File>event.target.files[0];
-        event.value.hotel_id = this.id_hotel;
-        const resp = await lastValueFrom(
-          this.hotelService.registerRoom(event.value, this.file,this.valoresSeleccionados)
-        );
-  
-        this.router.navigate(['/myHotel', this.id_hotel]);
-        this.validModal.abrir();
-      } catch (error: any) {
-        console.log('error', error.error);
-        this.errorModal.abrir();
-      }
-
-    }
-
     onRefresh(){
       location.reload();
     }
@@ -149,13 +180,17 @@ export class MyHotelComponent {
     }
 
 
-    async onForm(event:any){
+    async onFormRegisterRoom(event:any){
       try {
-        console.log(event);
-        const formData = new FormData();
-          event.value.hotel_id = this.id_hotel;
-          console.log(event.value);
-        const resp = await lastValueFrom(this.hotelService.registerRoom(event.value, this.file, this.valoresSeleccionados)
+        event.value.rhotel_id = this.id_hotel;
+        const ruta: any=[];
+
+        for (let i = 0; i < this.selectedFiles.length; i++) {
+          const resp = await lastValueFrom(this.hotelService.registerImage(this.selectedFiles[i]));
+          ruta.push(resp.data);
+        }           
+       
+        const resp = await lastValueFrom(this.hotelService.registerRoom(event.value,ruta,this.valoresSeleccionados)
         );
         this.message = resp.message;
         this.correctModal.abrir();
@@ -173,11 +208,13 @@ export class MyHotelComponent {
         this.valoresSeleccionados.splice(index, 1);
       }
       console.log(this.valoresSeleccionados);
+     
     }
 
     cargarImagen(event:any){
-      this.file = <File>event.target.files[0];
-      console.log(this.file);
+      this.filesToUpload = <Array<File>>event.target.files;
+      this.selectedFiles = event.target.files;
+      console.log("archivos",this.filesToUpload);
     }
 
 }

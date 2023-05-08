@@ -44,7 +44,7 @@
         Otros Servicios
       </button>
     </li>
-    <li class="nav-item" role="presentation">
+    <!-- <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-location-tab"
@@ -57,8 +57,8 @@
       >
         Ubicación
       </button>
-    </li>
-    <li class="nav-item" role="presentation">
+    </li> -->
+    <!-- <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-amenities-tab"
@@ -71,8 +71,8 @@
       >
         Comodidades
       </button>
-    </li>
-    <li class="nav-item" role="presentation">
+    </li> -->
+     <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-policies-tab"
@@ -85,7 +85,7 @@
       >
         Políticas
       </button>
-    </li>
+    </li> 
   </ul>
 
   <div class="tab-content" id="pills-tabContent">
@@ -164,7 +164,7 @@
 
 
                       <img
-                      [src]="api + r.picture"
+                      [src]="api + r.photo[0]"
                         alt=""
                         style="width: 250px; height: 250px"
                       />
@@ -188,8 +188,8 @@
                        <div>
                         <button
                         class="btn"
-                        style="background-color: #f9a21e"
-                       
+                        style="background-color: #f9a21e" 
+                        (click)="detalleh(r._id)"                      
                       >
                         Ver detalles
                       </button>
@@ -364,12 +364,14 @@
   </div>
 </div>
 
+
+<!--Registrar una nueva habitación-->
 <app-mmodal
   [idModal]="'fadModal'"
   [tipo]="3"
   [title]="'Nueva Habitación'"
   [services]="this.services"
-  (sendModal)="onForm($event)"
+  (sendModal)="onFormRegisterRoom($event)"
   (onChangeModal)="cargarImagen($event)"
   (onSelectCheck)="selectCheck($event)"
   #fadModal
@@ -394,4 +396,17 @@
   [tipo]="0"
   #errorModal
 ></app-modal-alerts>
+
+<!-- modal el detalle de la habitacion -->
+<app-mmodal
+  [idModal]="'fadModalH'"
+  [tipo]="5"
+  [title]="'Detalle Habitación'"
+  [photo]="photo"
+  [room]="roomD"
+  [service]="servicesR"
+
+  #fadModalH
+>
+
 <app-footer></app-footer>

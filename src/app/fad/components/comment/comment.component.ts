@@ -25,6 +25,7 @@ export class CommentComponent {
   rating: number = 0;
   id_star:string='';
   band=0;
+  id:any;
   constructor(
     private fadService: FadServiceService,
     private router: Router,
@@ -34,48 +35,63 @@ export class CommentComponent {
 
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
-    this.activatedRoute.params.subscribe(async (params) => {
-      this.id_fad = params['id'];
-      this.fadService.getFadId(this.id_fad).subscribe((res) => {
-        if (res != null) {
-          this.fad =  res.data;
-          this.usuario=this.fad[0].user_id;
-         
-          console.log('fad', this.fad);
-        }
-      });
 
-      this.fadService.getCommentByIdFad(this.id_fad).subscribe((res) => {
-        if (res != null) {
-          this.comment = res.data;
-          console.log('comment', this.comment);
-        }
+    if (sessionStorage.getItem('id')!) {
+      this.id_user = sessionStorage.getItem('id')!;
+    }
+    if(this.id!=null){
+      this.activatedRoute.params.subscribe(async (params) => {
+        this.id_fad = params['id'];   
+        this.commentByIdFad();
+        this.getStarUserId(); 
       });
-      if (sessionStorage.getItem('id')!) {
-        this.id_user = sessionStorage.getItem('id')!;
-      }
-
-      const response = await lastValueFrom(
-        this.fadService.getStartUserFadId(this.id_user, this.id_fad)
-      );
-      if (response !== null) {
-          //this.dataStar=JSON.parse(response.data); 
-          this.dataStar=response.data;         
-          this.star=this.dataStar[0].qualification;
-          console.log("estrellas",this.star);
-          this.id_star=this.dataStar[0]._id;
-          this.setRating(this.star);
-          this.band=1;
-          console.log("estrellas",response);
-      }else{
-          this.star=0;
-      }
+      this.api = this.constante.API_IMAGES;
+      this.getFadId();
+    }else{
+      this.router.navigate(['/inicio']);
+    }
 
     
-      
-    });
     
   }
+
+
+  commentByIdFad(){
+    this.fadService.getCommentByIdFad(this.id_fad).subscribe((res) => {
+      if (res != null) {
+        this.comment = res.data;
+      }
+    });
+  }
+
+  async getStarUserId(){
+    const response = await lastValueFrom(
+      this.fadService.getStartUserFadId(this.id_user, this.id_fad)
+    );
+    if (response !== null) {
+        //this.dataStar=JSON.parse(response.data); 
+        this.dataStar=response.data;         
+        this.star=this.dataStar[0].qualification;
+        console.log("estrellas",this.star);
+        this.id_star=this.dataStar[0]._id;
+        this.setRating(this.star);
+        this.band=1;
+        console.log("estrellas",response);
+    }else{
+        this.star=0;
+    }
+  }
+
+getFadId(){
+  this.fadService.getFadId(this.id_fad).subscribe((res) => {
+    if (res != null) {
+      this.fad =  res.data;
+      this.usuario=this.fad[0].user_id;
+     
+      console.log('fad', this.fad);
+    }
+  });
+}
 
   async onRegister(form: any) {
     try {

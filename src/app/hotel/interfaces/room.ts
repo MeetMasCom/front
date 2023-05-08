@@ -1,13 +1,13 @@
 export interface Room {
     data: any;
-    hotel_id: string;
-    number: number;
-    name:string;
-    dimension:string;
-    price:string;
-    type:string;
-    description: string;
-    picture: string; 
-    service:string
+    rhotel_id: string;
+    rnumber: number;
+    rname:string;
+    rdimension:string;
+    rprice:string;
+    rtype:string;
+    rdescription: string;
+    rpicture: string; 
+    rservice:string
   }
   

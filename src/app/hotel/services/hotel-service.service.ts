@@ -15,20 +15,22 @@ export class HotelServiceService {
     public constante: ConstantsSystem
   ) {}
 
-  registerHotel(hotel: Hotel): Observable<any> {
+  registerHotel(hotel: Hotel,file:File): Observable<any> {
+    console.log(file);
+    const fd = new FormData();
+    fd.append('user_id', hotel.huser_id);
+    fd.append('name', hotel.hname);
+    fd.append('address', hotel.haddress);
+    fd.append('phone', hotel.hphone);
+    fd.append('country', hotel.hcountry);
+    fd.append('city', hotel.hcity);
+    fd.append('manager', hotel.hmanager);
+    fd.append('stars', hotel.hstars.toString());
+    fd.append('ruc', hotel.hruc);
+    fd.append('web', hotel.hweb);
+    fd.append('archivo', file);
     return this.httpCLient.post(
-      `${this.constante.API_SERVER}/hotel/hotelRegister`,
-      {
-        user_id: hotel.user_id,
-        name: hotel.name,
-        address: hotel.address,
-        phone: hotel.phone,
-        country: hotel.country,
-        city: hotel.city,
-        manager: hotel.manager,
-        stars: hotel.stars,
-        price:hotel.price
-      }
+      `${this.constante.API_SERVER}/hotel/hotelRegister`,fd
     );
   }
 
@@ -56,20 +58,19 @@ getHotelByIdUser(id: string): Observable<any> {
 }
 
 
-registerRoom(room:Room,file1:File,valores:string): Observable<any> {
-   const fd = new FormData();
-    fd.append('hotel_id', room.hotel_id);
-    fd.append('number', room.number.toString());
-    fd.append('type', room.type);
-   fd.append('name', room.name);
-    fd.append('dimension', room.dimension);
-    fd.append('price', room.price);
-    fd.append('description', room.description);
-    fd.append('image', file1);
-    fd.append('service', valores);
-
+registerRoom(room:Room,fd1:any,valores:any): Observable<any> {
+console.log(room);
   return this.httpCLient.post(
-    `${this.constante.API_SERVER}/room/roomRegister`,fd
+    `${this.constante.API_SERVER}/room/roomRegister`,{
+      hotel_id:room.rhotel_id,
+      name:room.rname,
+      number:room.rnumber,
+      dimension:room.rdimension,
+      type:room.rtype,
+      description:room.rdescription,
+      service:valores,
+      photo:fd1,
+    }
   );
 }
 
@@ -90,6 +91,24 @@ registerServices(service:Service): Observable<any> {
 
 getServicesHotelById(id: string): Observable<Hotel> {
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/service/getByIdHotelService/${id}`);
+}
+
+getRoomById(id: string): Observable<Hotel> {
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/room/getRoomById/${id}`);
+}
+
+getServiceById(id: string): Observable<Hotel> {
+  console.log("id servicio",id);
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/service/getByIdService/${id}`);
+}
+
+registerImage(image:File): Observable<any> { 
+  const fd= new FormData();
+  fd.append('image',image);
+  console.log("imagen servicio",fd.get('image'));
+  return this.httpCLient.post(
+    `${this.constante.API_SERVER}/room/imagesRegister`,fd
+    );
 }
 
 }

@@ -31,6 +31,7 @@ export class ListHotelComponent {
   hotelId: any = [];
   errMsj: any;
   rating: number=0;
+  selectedFile!: File;
 
   constructor(
     private hotelService: HotelServiceService,
@@ -133,11 +134,11 @@ export class ListHotelComponent {
   }
 
 
-  async onForm(event:any){
+  async onFormHotel(event:any){
     try {
-      event.value.user_id = this.id;
+      event.value.huser_id = this.id;
       const resp = await lastValueFrom(
-        this.hotelService.registerHotel(event.value)
+        this.hotelService.registerHotel(event.value,this.selectedFile)
       );
       console.log('resp', resp);
       this.message = resp.message;
@@ -148,6 +149,10 @@ export class ListHotelComponent {
       this.errorModal.abrir();
     }
 
+  }
+
+  onDoc(event:any){
+    this.selectedFile = event.target.files[0];
   }
     
 

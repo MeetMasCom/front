@@ -13,7 +13,7 @@
           >Habitaciones</a
         >
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="hotelDetail/{{ id_hotel }}#location"
           >Ubicación</a
         >
@@ -22,7 +22,7 @@
         <a class="nav-link" href="hotelDetail/{{ id_hotel }}#amenities"
           >Comodidades</a
         >
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="hotelDetail/{{ id_hotel }}#policies"
           >Políticas</a
@@ -77,14 +77,14 @@
             <h4>Habitaciones</h4>
             <hr />
 
-            <ng-container *ngIf="this.room.length > 0">
+            <ng-container *ngIf="room.length > 0">
               <div
                 *ngFor="let r of room"
                 class="h-100 d-inline-block mt-3 col-md-6"
               >
                 <div class="card" style="width: 20rem">
                   <img
-                  [src]="api + r.picture"
+                  [src]="api + r.photo[0]"
                     class="card-img-top"
                     alt="..."
                     width="100%"
@@ -98,7 +98,7 @@
                       <div class="p-2">Tipo: {{ r.type }}</div>
                       <div class="p-2">Precio: ${{ r.price }}</div>
                     </div>
-                    <button class="btn details" (click)="detalle()">
+                    <button class="btn details" (click)="detalle(r._id)">
                       Mas detalles
                     </button>
                   </div>
@@ -130,12 +130,16 @@
   </div>
 </div>
 
-<!-- modal para el registro del hotel -->
+<!-- modal el detalle de la habitacion -->
 <app-mmodal
-  [idModal]="'fadModal'"
+  [idModal]="'fadModalH'"
   [tipo]="4"
   [title]="'Detalle Habitación'"
-  #fadModal
+  [photo]="photo"
+  [room]="roomD"
+  [service]="servicesR"
+
+  #fadModalH
 >
 </app-mmodal>
 

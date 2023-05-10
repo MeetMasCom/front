@@ -12,10 +12,10 @@ export class ConstantsSystem {
 
     this.API_IMAGES_LOCAL = 'http://localhost:8000';
 
-    //this.API_SERVER = 'https://meetmas.com/api';
-    this.API_SERVER = 'http://localhost:8000/api';
+    this.API_SERVER = 'https://meetmas.com/api';
+    //this.API_SERVER = 'http://localhost:8000/api';
 
-    //this.API_IMAGES = 'http://meetmas.com/';
-    this.API_IMAGES = 'http://localhost:8000';
+    this.API_IMAGES = 'http://meetmas.com/';
+    //this.API_IMAGES = 'http://localhost:8000';
   }
 }

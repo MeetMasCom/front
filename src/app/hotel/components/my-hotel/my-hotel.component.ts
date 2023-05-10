@@ -39,10 +39,15 @@ export class MyHotelComponent {
   selectedFiles!: [];
   roomDetail: any = [];
  photo: any = [];
+ price: any = [];
  roomD: any = [];
  servicesR: any = [];
  serviceRoom: any = [];
   filesToUpload!: Array<File>;
+
+  selectedRadio: string = '';
+  idRoom:any;
+  typeRoom: any;
     constructor(
       private hotelService: HotelServiceService,
       private router: Router,
@@ -53,17 +58,16 @@ export class MyHotelComponent {
   
     ngOnInit(): void {
       this.api = this.constante.API_IMAGES;
-
       if (sessionStorage.getItem('id')!) {
         this.id = sessionStorage.getItem('id')!;
       }
-      if (this.id != null) {
-        
+      if (this.id != null) {        
       this.activatedRoute.params.subscribe(async (params) => {
         this.id_hotel = params['id'];
         this.getRoomsByHotelId(this.id_hotel);
       this.getHotel(this.id_hotel);
       this.getServices();   
+      this.getTypeRoom();
       });
       } else {
         this.router.navigate(['/inicio']);
@@ -73,21 +77,18 @@ export class MyHotelComponent {
 
   
     async detalleh(id:string) {
-      // const resp = await 
-      //   this.hotelService.getRoomById(id).toPromise() 
+      this.idRoom=id;
       const resp = await lastValueFrom(
         this.hotelService.getRoomById(id)
       );
       
       if (resp?.data.length >0) {
-        console.log("datos",resp?.data[0])
         this.roomDetail = resp?.data;
         this.roomD=resp?.data[0];
         this.photo=resp?.data[0].photo;
+        this.price=resp?.data[0].price;
         this.serviceRoom=this.roomD.service;
       }
-      console.log("fotos",this.photo);
-      console.log("todos los servicios",this.serviceRoom);
       this.getServiceById();    
       this.fadModalH.abrir();
     }
@@ -95,17 +96,11 @@ export class MyHotelComponent {
   
      async getServiceById(){
       try {
-          console.log("obtener servicio");
-          console.log(this.serviceRoom.length);
         for (let i = 0; i < this.serviceRoom.length; i++) {
-          console.log("entra al for");
           const resp = await lastValueFrom(this.hotelService.getServiceById(this.serviceRoom[i]));
           this.servicesR.push(resp.data);
-          console.log("i ciclo for",i);
         }  
-        console.log("servicios luego del for",this.servicesR);
       } catch (error: any) {
-        console.log("sale por el catch");
         console.log('error', error.error);
       }
      }
@@ -116,7 +111,7 @@ export class MyHotelComponent {
           this.hotelService.getHotelById(id)
         );
         if (response.data !== null) {
-          this.hotel = response;      
+          this.hotel = response.data[0];      
         }
       } catch (error: any) {
         console.log('error', error.error);
@@ -155,7 +150,6 @@ export class MyHotelComponent {
     async registerServices(form:any){
       try{
         form.value.hotel_id=this.id_hotel;
-        console.log("formulario",form.value);
         const resp = await lastValueFrom(
           this.hotelService.registerServices(form.value)
         );
@@ -168,10 +162,24 @@ export class MyHotelComponent {
 
     async getServices(){
       try{
+        this.selectedRadio
         const resp = await lastValueFrom(
           this.hotelService.getServicesHotelById(this.id_hotel));
           if (resp.data !== null) {
             this.services = resp.data;
+          }
+      }catch (error: any) {
+        console.log('error', error.error);        
+      }
+      
+    }
+
+    async getTypeRoom(){
+      try{
+        const resp = await lastValueFrom(
+          this.hotelService.getTypeRoomByIdHotel(this.id_hotel));
+          if (resp.data !== null) {
+            this.typeRoom = resp.data;
           }
       }catch (error: any) {
         console.log('error', error.error);        
@@ -207,14 +215,57 @@ export class MyHotelComponent {
       } else {
         this.valoresSeleccionados.splice(index, 1);
       }
-      console.log(this.valoresSeleccionados);
+
      
     }
 
     cargarImagen(event:any){
       this.filesToUpload = <Array<File>>event.target.files;
       this.selectedFiles = event.target.files;
-      console.log("archivos",this.filesToUpload);
     }
 
+    async onFormRegisterPrice(event:any){
+      try {
+        console.log(event.value);
+        const response = await lastValueFrom(
+          this.hotelService.registerPriceRoom(this.idRoom,event.value)
+        );
+        if (response.data !== null) {
+          this.room = response.data;
+        }
+        location.reload();
+      } catch (error: any) {
+        console.log('error', error);
+      }
+
+    }
+
+    async selectPrice(event:any){
+      try {        
+        console.log(event);
+        const response = await lastValueFrom(
+          this.hotelService.updateActualPriceRoom(this.idRoom,event)
+        );
+        location.reload();
+      } catch (error: any) {
+        console.log('error', error);
+      }
+    }
+
+    async registerType(form:any){
+      try{
+        form.value.thotel_id=this.id_hotel;
+        const resp = await lastValueFrom(
+          this.hotelService.registerTypeRoom(form.value)
+        );
+        location.reload();
+      }catch (error: any) {
+        console.log('error', error.error);        
+      }
+    }
+
+    selectType($event:any)
+    {
+
+    }
 }

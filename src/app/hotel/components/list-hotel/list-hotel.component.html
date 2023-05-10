@@ -2,7 +2,7 @@
 <div class="container" style="min-height: 40vw">
   <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
     <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
-      Registrar
+      Publicar
     </button>
   </div>
 
@@ -162,7 +162,7 @@
 <app-mmodal
   [idModal]="'fadModal'"
   [tipo]="2"
-  [title]="'Nuevo Hotel'"
+  [title]="'Representante/ Gerente de Hotel'"
   (sendModal)="onFormHotel($event)"
   (onSelectDoc)="onDoc($event)"
   #fadModal>  
@@ -199,7 +199,7 @@
   [idModal]="'validModal'"
   [icono]="'./assets/img/success.png'"
   [titulo]="'Registro Correcto'"
-  [descripcion]="message"
+  [descripcion]="message"  
   (successModal)="onRefresh()"
   [tipo]="0"
   #validModal
@@ -216,4 +216,25 @@
   #errorModal
 ></app-modal-alerts>
 
+<!--FORMULARIO PARA COMPLETAR DATOS DEL HOTEL-->
+<app-mmodal
+  [idModal]="'ValidateH'"
+  [tipo]="8"
+  [title]="'Datos del hotel'"
+  [hotel]="dataHotel"
+  (onSelectDoc)="onDoc($event)"
+  (onUpdateHotel)="updateHotel($event)"
+  #ValidateH
+>
+
+<!--MODAL AVISO -->
+<app-modal-alerts
+  [idModal]="'avisoModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'No se ha podido validar los datos del hotel, complete la información'"
+  [descripcion]="message"
+  (successModal)="onComplete()" 
+  [tipo]="0"
+  #avisoModal
+></app-modal-alerts>
 <app-footer></app-footer>

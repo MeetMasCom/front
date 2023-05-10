@@ -10,6 +10,8 @@ export interface Hotel {
     hweb:string;
     hdoc:string;
     hstars:number;
+    hcomment:number;
     hmanager:string,
+    hdetalle:string
   }
   

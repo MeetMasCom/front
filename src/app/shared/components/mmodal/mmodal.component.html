@@ -128,10 +128,8 @@
           >
             <div class="form-body">
               <div class="row">
-                <div class="col-md-3 form-group">
+                <div class="form-group mb-3">
                   <label class="form-label">Nombre</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
                   <input
                     type="text"
                     class="form-control"
@@ -147,15 +145,17 @@
                     *ngIf="hname.invalid && (hname.dirty || hname.touched)"
                     class="text-danger form-group position-absolute"
                   >
-                    <small class="form-group" *ngIf="hname.errors?.['required']">
+                    <small
+                      class="form-group"
+                      *ngIf="hname.errors?.['required']"
+                    >
                       Campo requerido.
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+
+                <div class="form-group mt-4">
                   <label class="form-label">RUC:</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
                   <input
                     type="text"
                     class="form-control"
@@ -176,10 +176,9 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+
+                <div class="form-group mt-4">
                   <label class="form-label">Página web:</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
                   <input
                     type="text"
                     ngModel
@@ -201,10 +200,9 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+
+                <div class="form-group mt-4">
                   <label class="form-label">Dirección</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
                   <input
                     type="text"
                     class="form-control"
@@ -230,10 +228,10 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+
+                <div class="form-group mt-4">
                   <label class="form-label">Teléfono</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+
                   <input
                     type="text"
                     class="form-control"
@@ -257,10 +255,9 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="form-group mt-4">
                   <label class="form-label">País</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+
                   <input
                     type="text"
                     class="form-control"
@@ -286,10 +283,10 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
+
+                <div class="form-group mt-4">
                   <label class="form-label">Ciudad</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+
                   <input
                     type="text"
                     class="form-control"
@@ -305,16 +302,17 @@
                     *ngIf="hcity.invalid && (hcity.dirty || hcity.touched)"
                     class="text-danger form-group position-absolute"
                   >
-                    <small class="form-group" *ngIf="hcity.errors?.['required']">
+                    <small
+                      class="form-group"
+                      *ngIf="hcity.errors?.['required']"
+                    >
                       Campo requerido.
                     </small>
                   </div>
                 </div>
 
-                <div class="col-md-3 form-group">
-                  <label class="form-label">Estrellas</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+                <div class="form-group mt-4">
+                  <label class="form-label">Estrellas / Tipo de Hotel</label>
                   <select
                     type="text"
                     class="form-control"
@@ -346,14 +344,12 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-3 form-group">
-                  <label class="form-label">Gerente</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+                <div class="form-group mt-4">
+                  <label class="form-label">Gerente / Representante</label>
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Nombre del Representante"
+                    placeholder="Nombre del Representante / Gerente"
                     id="hmanager"
                     required
                     ngModel
@@ -385,10 +381,8 @@
                     [ngClass]="'input'"
                   />
                 </div>
-                <div class="col-md-3 form-group">
-                  <label class="form-label">Cargar Documento:</label>
-                </div>
-                <div class="col-md-9 form-group p-2">
+                <div class="form-group mt-4">
+                  <label class="form-label">Cargar Documento / RUC o DNI</label>
                   <input
                     type="file"
                     class="form-control"
@@ -408,6 +402,19 @@
                       Campo requerido.
                     </small>
                   </div>
+                </div>
+                <div class="form-group mt-4">
+                  <label class="form-label">Detalles adicionales</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="hdetalle"
+                    placeholder="Más detalles"
+                    required
+                    ngModel
+                    name="hdetalle"
+                    #hdetallw="ngModel"
+                  ></textarea>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group text-center">
@@ -436,139 +443,124 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="row">
-                    <div class="col-md-4 form-group">
+                    <div class="form-group mb-3">
                       <label> Número de habitación: </label>
-                    </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="number"
-                          id="rnumber"
-                          name="rnumber"
-                          required
-                          ngModel
-                          #rnumber="ngModel"
-                          [ngClass]="'input'"
-                        />
-                        <div
-                          *ngIf="
-                            rnumber.invalid && (rnumber.dirty || rnumber.touched)
-                          "
-                          class="text-danger form-group position-absolute"
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="number"
+                        id="rnumber"
+                        name="rnumber"
+                        required
+                        ngModel
+                        #rnumber="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="
+                          rnumber.invalid && (rnumber.dirty || rnumber.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="rnumber.errors?.['required']"
                         >
-                          <small
-                            class="form-group"
-                            *ngIf="rnumber.errors?.['required']"
-                          >
-                            Campo requerido.
-                          </small>
-                        </div>
+                          Campo requerido.
+                        </small>
                       </div>
                     </div>
-                    <div class="col-md-4 form-group">
-                      <label> Dimensión: </label>
+                    <div class="form-group mt-4">
+                      <label>
+                        Dimensión en  m² o ft²
+                      </label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Dimensión en m² o ft"
+                        id="rdimension"
+                        name="rdimension"
+                        required
+                        ngModel
+                        #rdimension="ngModel"
+                        [ngClass]="'input'"
+                      />
                     </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Dimensión en sq ft"
-                          id="rdimension"
-                          name="rdimension"
-                          required
-                          ngModel
-                          #rdimension="ngModel"
-                          [ngClass]="'input'"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-4 form-group">
+                    <div class="form-group mt-4">
                       <label> Nombre de la habitación: </label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre"
+                        id="rname"
+                        name="rname"
+                        required
+                        ngModel
+                        #rname="ngModel"
+                        [ngClass]="'input'"
+                      />
                     </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Nombre"
-                          id="rname"
-                          name="rname"
-                          required
-                          ngModel
-                          #rname="ngModel"
-                          [ngClass]="'input'"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="form-group mt-4">
                       <label> Tipo de habitación: </label>
-                    </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <select
-                          type="text"
-                          class="form-control"
-                          id="rtype"
-                          required
-                          ngModel
-                          name="rtype"
-                          #rtype="ngModel"
-                          [ngClass]="'input'"
+
+                      <select
+                        type="text"
+                        class="form-control"
+                        id="rtype"
+                        required
+                        ngModel
+                        name="rtype"
+                        #rtype="ngModel"
+                        [ngClass]="'input'"
+                      >
+                        <option value="">--Seleccione un tipo--</option>
+                        <option
+                          *ngFor="let type of typeRoom"
+                          [(ngModel)]="type.name"
                         >
-                          <option value="">--Seleccione un tipo--</option>
-                          <option value="Individual">Individual</option>
-                          <option value="Doble">Doble</option>
-                          <option value="Triple">Triple</option>
-                        </select>
-                        <div
-                          *ngIf="rtype.invalid && (rtype.dirty || rtype.touched)"
-                          class="text-danger form-group position-absolute"
+                          {{ type.name }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="rtype.invalid && (rtype.dirty || rtype.touched)"
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="rtype.errors?.['required']"
                         >
-                          <small
-                            class="form-group"
-                            *ngIf="rtype.errors?.['required']"
-                          >
-                            Campo requerido.
-                          </small>
-                        </div>
+                          Campo requerido.
+                        </small>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="form-group mt-4">
                       <label> Descripción: </label>
-                    </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <textarea
-                          type="text"
-                          class="form-control"
-                          placeholder="Descripción"
-                          id="rdescription"
-                          name="description"
-                          required
-                          ngModel
-                          #rdescription="ngModel"
-                          [ngClass]="'input'"
-                        ></textarea>
-                      </div>
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Descripción"
+                        id="rdescription"
+                        name="rdescription"
+                        required
+                        ngModel
+                        #rdescription="ngModel"
+                        [ngClass]="'input'"
+                      ></textarea>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="form-group mt-4">
                       <label> Foto: </label>
-                    </div>
-                    <div class="col-md-8 form-group p-2">
-                      <div class="position-relative has-icon-left">
-                        <input
-                          type="file"
-                          accept="image/png"
-                          #photoInput
-                          (change)="onChange($event)"
-                          name="picture"
-                          multiple
-                        />
-                      </div>
+
+                      <input
+                        type="file"
+                        accept="image/png"
+                        #photoInput
+                        (change)="onChange($event)"
+                        name="picture"
+                        multiple
+                      />
                     </div>
 
                     <input
@@ -584,7 +576,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 card mb-3">
                   <div class="row p-3">
                     <label> Servicios: </label>
                   </div>
@@ -618,41 +610,60 @@
           <ng-container *ngIf="photo.length > 0">
             <div id="detail" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div *ngFor="let image of photo; let i=index" class="carousel-item contImg" [class.active]="i === 0">
-                  <img class="d-block w-100" [src]="api + image" alt="Slide">
-                 
+                <div
+                  *ngFor="let image of photo; let i = index"
+                  class="carousel-item contImg"
+                  [class.active]="i === 0"
+                >
+                  <img class="d-block w-100" [src]="api + image" alt="Slide" />
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#detail" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#detail"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#detail" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#detail"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Next</span>
               </button>
-            </div><hr>
-              <h5>Datos de la habitación</h5>
-              <div class=" card d-grid gap-3 p-3">  
-                <div class="ms-4">
-                  <span class="font-weight-bold">Nombre:</span> {{room.name}}
-                </div>
-                <div class="ms-4">
-                  <span class="font-weight-bold">Número:</span> {{room.number}}
-                </div>
-                <div class="ms-4">
-                  <span class="font-weight-bold">Tipo:</span> {{room.type}}
-                </div>
-                <div class="ms-4">
-                  <span class="font-weight-bold">Descripción:</span> {{room.description}}
-                </div>
+            </div>
+            <hr />
+            <h5>Datos de la habitación</h5>
+            <div class="card d-grid gap-3 p-3">
+              <div class="ms-4">
+                <span class="font-weight-bold">Nombre:</span> {{ room.name }}
               </div>
-              <h5>Servicios</h5>
-              <div class="row p-2"> 
-                <div class="col-md-6" *ngFor="let ser of service">
-                  <div *ngFor="let item of ser">
-
-                  
+              <div class="ms-4">
+                <span class="font-weight-bold">Número:</span> {{ room.number }}
+              </div>
+              <div class="ms-4">
+                <span class="font-weight-bold">Tipo:</span> {{ room.type }}
+              </div>
+              <div class="ms-4">
+                <span class="font-weight-bold">Descripción:</span>
+                {{ room.description }}
+              </div>
+            </div>
+            <h5>Servicios</h5>
+            <div class="row p-2">
+              <div class="col-md-6" *ngFor="let ser of service">
+                <div *ngFor="let item of ser">
                   <div class="row">
                     <div class="col-md-1 p-2">
                       <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
@@ -661,9 +672,9 @@
                       {{ item.description }}
                     </div>
                   </div>
-                  </div>
                 </div>
               </div>
+            </div>
           </ng-container>
           <ng-container *ngIf="room.length === 0">
             <div>
@@ -673,65 +684,754 @@
         </ng-container>
 
         <!--Detalle de la my habitacion-->
-        
+
         <ng-container *ngIf="tipo === 5">
-          <ng-container *ngIf="photo.length > 0">            
+          <ng-container *ngIf="photo.length > 0">
             <div id="myHotel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div *ngFor="let image of photo; let i=index" class="carousel-item contImg" [class.active]="i === 0">
-                  <img class="d-block w-100" [src]="api + image" alt="Slide">
-                 
+                <div
+                  *ngFor="let image of photo; let i = index"
+                  class="carousel-item contImg"
+                  [class.active]="i === 0"
+                >
+                  <img class="d-block w-100" [src]="api + image" alt="Slide" />
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#myHotel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#myHotel"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#myHotel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#myHotel"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-              <h5>Datos de la habitación</h5>
-              <div class=" card d-grid gap-3 p-3">  
+            <div class="row">
+              <div class="card d-grid gap-3 p-3">
                 <div class="ms-4">
-                  <span class="font-weight-bold">Nombre:</span> {{room.name}}
+                  <span class="font-weight-bold">Nombre:</span> {{ room.name }}
                 </div>
                 <div class="ms-4">
-                  <span class="font-weight-bold">Número:</span> {{room.number}}
+                  <span class="font-weight-bold">Número:</span>
+                  {{ room.number }}
                 </div>
                 <div class="ms-4">
-                  <span class="font-weight-bold">Tipo:</span> {{room.type}}
+                  <span class="font-weight-bold">Tipo:</span> {{ room.type }}
                 </div>
                 <div class="ms-4">
-                  <span class="font-weight-bold">Descripción:</span> {{room.description}}
+                  <span class="font-weight-bold">Descripción:</span>
+                  {{ room.description }}
                 </div>
               </div>
-              <h5>Servicios</h5>
-              <div class="row p-2"> 
+            </div>
+            <div class="row">
+              <h5 style="padding-top: 20px">Servicios</h5>
+              <div class="row p-2">
                 <div class="col-md-6" *ngFor="let ser of service">
                   <div *ngFor="let item of ser">
-
-                  
-                  <div class="row">
-                    <div class="col-md-1 p-2">
-                      <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
+                    <div class="row">
+                      <div class="col-md-1 p-2">
+                        <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
+                      </div>
+                      <div class="col-md-11 p-2">
+                        {{ item.description }}
+                      </div>
                     </div>
-                    <div class="col-md-11 p-2">
-                      {{ item.description }}
-                    </div>
-                  </div>
                   </div>
                 </div>
               </div>
+            </div>
           </ng-container>
-          <ng-container *ngIf="room.length === 0">
+          <ng-container *ngIf="price.length > 0">
+            <div class="row">
+              <h5 style="padding-top: 20px">Precios</h5>
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="">
+                      <th></th>
+                      <th>#</th>
+                      <th>Precio</th>
+                      <th>Descripción</th>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let price of price; index as i">
+                        <tr>
+                          <td>
+                            <input
+                              type="radio"
+                              name="radio"
+                              [value]="price.price"
+                              class="form-check-input"
+                              (click)="selectPrice(price.price)"
+                            />
+                            {{ service.description }}
+                          </td>
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ price.price }}</td>
+                          <td>{{ price.description }}</td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                >
+                  Nuevo Precio
+                </button>
+              </h2>
+              <div
+                id="collapseThree"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <form
+                    #fmrRegisterPrice="ngForm"
+                    class="form form-horizontal"
+                    (ngSubmit)="registerPrice(fmrRegisterPrice)"
+                  >
+                    <div class="form-body">
+                      <div class="row">
+                        <div class="col-md-4 form-group">
+                          <label> Precio: </label>
+                        </div>
+                        <div class="col-md-8 form-group p-2">
+                          <div class="position-relative has-icon-left">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="00.00"
+                              id="precio"
+                              name="precio"
+                              required
+                              ngModel
+                              #precio="ngModel"
+                              [ngClass]="'input'"
+                            />
+
+                            <div
+                              *ngIf="
+                                precio.invalid &&
+                                (precio.dirty || precio.touched)
+                              "
+                              class="text-danger form-group position-absolute"
+                            >
+                              <small
+                                class="form-group"
+                                *ngIf="precio.errors?.['required']"
+                              >
+                                Campo requerido.
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label> Detalle: </label>
+                        </div>
+                        <div class="col-md-8 form-group p-2">
+                          <div class="position-relative has-icon-left">
+                            <textarea
+                              type="text"
+                              class="form-control"
+                              placeholder="Servicio"
+                              id="description"
+                              name="description"
+                              required
+                              ngModel
+                              #description="ngModel"
+                              [ngClass]="'input'"
+                            ></textarea>
+
+                            <div
+                              *ngIf="
+                                description.invalid &&
+                                (description.dirty || description.touched)
+                              "
+                              class="text-danger form-group position-absolute"
+                            >
+                              <small
+                                class="form-group"
+                                *ngIf="description.errors?.['required']"
+                              >
+                                Campo requerido.
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                          <input
+                            class="btn float-right login_btn nuevo"
+                            type="submit"
+                            value="Registrar"
+                            [disabled]="!fmrRegisterPrice['valid']"
+                            [ngClass]="'input-btn'"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="price.length === 0">
             <div>
-              <h2>no hay imagenes disponibles</h2>
+              <h5>Sin precios registrados para esta habitación</h5>
             </div>
           </ng-container>
         </ng-container>
-        <div></div>
+
+        <!--DETALLE DEL HOTEL A VALIDAR-->
+        <ng-container *ngIf="tipo === 6">
+          <ng-container *ngIf="hotel != null">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label class="form-label">Nombre</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.name }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">RUC:</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.ruc }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">Página web:</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.web }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">Dirección</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.address }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">Teléfono</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.phone }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">País</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.country }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">Ciudad</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.city }}</label>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label class="form-label"
+                  >Estrellas /
+                  <p>Tipo de Hotel</p>
+                </label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.stars }} estrellas</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label"
+                  >Gerente /
+                  <p>Representante</p></label
+                >
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <label class="form-label">{{ hotel.manager }}</label>
+              </div>
+              <div class="col-md-4 form-group">
+                <label class="form-label">RUC o DNI</label>
+              </div>
+              <div class="col-md-8 form-group p-2">
+                <button (click)="onDownload(hotel._id)">
+                  <fa-icon
+                    class="fa-light fa-file-pdf fa-2xl"
+                    [icon]="faFile"
+                  ></fa-icon>
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group text-center">
+                  <input
+                    type="submit"
+                    class="btn"
+                    (click)="onValidateH(hotel._id)"
+                    value="APROBAR"
+                    [ngClass]="'input-btn'"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group text-center">
+                  <input
+                    type="submit"
+                    class="btn"
+                    (click)="onDeclineH(hotel._id)"
+                    value="RECHAZAR"
+                    [ngClass]="'input-btn'"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--COMENTARIO DEL HOTEL RECHAZADO-->
+        <ng-container *ngIf="tipo === 7">
+          <ng-container *ngIf="hotel != null">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <p>Nombre: {{ hotel.name }}</p>
+                <p>RUC: {{ hotel.ruc }}</p>
+                <p>Página web: {{ hotel.web }}</p>
+                <p>Dirección: {{ hotel.address }}</p>
+                <p>Gerente: {{ hotel.manager }}</p>
+              </div>
+              <div class="col-md-6 form-group">
+                <p>Teléfono: {{ hotel.phone }}</p>
+                <p>País: {{ hotel.country }}</p>
+                <p>Ciudad: {{ hotel.city }}</p>
+                <p>Estrellas: {{ hotel.stars }}</p>
+              </div>
+              <form
+                #fmrRegisterComment="ngForm"
+                (ngSubmit)="onCommentH(fmrRegisterComment)"
+              >
+                <div class="form-body">
+                  <div class="row">
+                    <div class="col-md-4 form-group">
+                      <label> Comentario: </label>
+                    </div>
+                    <div class="col-md-8 form-group">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Comentario"
+                        id="hcomentario"
+                        name="hcomentario"
+                        required
+                        ngModel
+                        rows="7"
+                        #hcomentario="ngModel"
+                        [ngClass]="'input'"
+                      ></textarea>
+                      <div
+                        *ngIf="
+                          hcomentario.invalid &&
+                          (hcomentario.dirty || hcomentario.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="hcomentario.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="form-group text-center">
+                        <input
+                          type="submit"
+                          class="btn"
+                          value="RECHAZAR"
+                          [ngClass]="'input-btn'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--MODIFICAR LOS DATOS DEL HOTEL-->
+        <ng-container *ngIf="tipo === 8">
+          <ng-container *ngIf="hotel != null">
+            <form
+              #fmrUpdateHotel="ngForm"
+              (ngSubmit)="UpdateHotel(fmrUpdateHotel)"
+            >
+              <div class="alert alert-danger" role="alert">
+                {{ hotel.comment }}
+              </div>
+              <div class="form-body">
+                <div class="row">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre del Hotel"
+                      id="mhname"
+                      name="mhname"
+                      required
+                      [(ngModel)]="hotel.name"
+                      ngModel
+                      #mhname="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="mhname.invalid && (mhname.dirty || mhname.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhname.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">RUC:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      id="mhruc"
+                      required
+                      [(ngModel)]="hotel.ruc"
+                      ngModel
+                      name="mhruc"
+                      #mhruc="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="mhruc.invalid && (mhruc.dirty || mhruc.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhruc.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Página web:</label>
+                    <input
+                      type="text"
+                      ngModel
+                      class="form-control"
+                      placeholder=""
+                      id="mhweb"
+                      [(ngModel)]="hotel.web"
+                      required
+                      ngModel
+                      name="mhweb"
+                      #mhweb="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="mhweb.invalid && (mhweb.dirty || mhweb.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhweb.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Dirección</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Dirección"
+                      id="mhaddress"
+                      required
+                      [(ngModel)]="hotel.address"
+                      ngModel
+                      name="mhaddress"
+                      #mhaddress="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="
+                        mhaddress.invalid &&
+                        (mhaddress.dirty || mhaddress.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhaddress.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Teléfono</label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Teléfono"
+                      id="mhphone"
+                      [(ngModel)]="hotel.phone"
+                      required
+                      ngModel
+                      name="mhphone"
+                      #mhphone="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="
+                        mhphone.invalid && (mhphone.dirty || mhphone.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhphone.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group mt-4">
+                    <label class="form-label">País</label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="País"
+                      id="mhcountry"
+                      required
+                      [(ngModel)]="hotel.country"
+                      ngModel
+                      name="mhcountry"
+                      #mhcountry="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="
+                        mhcountry.invalid &&
+                        (mhcountry.dirty || mhcountry.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhcountry.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Ciudad</label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Ciudad"
+                      id="mhcity"
+                      [(ngModel)]="hotel.city"
+                      required
+                      ngModel
+                      name="mhcity"
+                      #mhcity="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="mhcity.invalid && (mhcity.dirty || mhcity.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhcity.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Estrellas / Tipo de Hotel</label>
+                    <select
+                      type="text"
+                      class="form-control"
+                      id="mhstars"
+                      required
+                      ngModel
+                      [(ngModel)]="hotel.stars"
+                      name="mhstars"
+                      #mhstars="ngModel"
+                      [ngClass]="'input'"
+                    >
+                      <option value="0" disabled selected>
+                        Seleccione una opción
+                      </option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        mhstars.invalid && (mhstars.dirty || mhstars.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhstars.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group mt-4">
+                    <label class="form-label">Gerente / Representante</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre del Representante / Gerente"
+                      id="mhmanager"
+                      required
+                      ngModel
+                      name="mhmanager"
+                      [(ngModel)]="hotel.manager"
+                      #mhmanager="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="
+                        mhmanager.invalid &&
+                        (mhmanager.dirty || mhmanager.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhmanager.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="mhuser_id"
+                      [(ngModel)]="hotel._id"
+                      required
+                      ngModel
+                      name="mhuser_id"
+                      #mhuser_id="ngModel"
+                      [ngClass]="'input'"
+                    />
+                  </div>
+                  <div class="form-group mt-4">
+                    <label class="form-label"
+                      >Cargar Documento / RUC o DNI</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="mhdoc"
+                      required
+                      ngModel
+                      name="mhdoc"
+                      #mhdoc="ngModel"
+                      (change)="onFileSelected($event)"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="mhdoc.invalid && (mhdoc.dirty || mhdoc.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="mhdoc.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group mt-4">
+                    <label class="form-label">Detalles adicionales</label>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      id="mhdetalle"
+                      placeholder="Más detalles"
+                      [(ngModel)]="hotel.detail"
+                      required
+                      ngModel
+                      name="mhdetalle"
+                      #mhdetallw="ngModel"
+                    ></textarea>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group text-center">
+                      <input
+                        type="submit"
+                        class="btn"
+                        value="GUARDAR"
+                        [ngClass]="'input-btn'"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </div>

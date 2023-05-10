@@ -14,16 +14,18 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 })
 export class ListHotelComponent {
   @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
+  @ViewChild('ValidateH') ValidateH!: ModalAlertsComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
   @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
   @ViewChild('validModal') validModal!: ModalAlertsComponent;
   @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
+  @ViewChild('avisoModal') avisoModal!: ModalAlertsComponent;
   user_data: any = [];
   hotel: any = [];
   api = '';
   classA: string = '';
   message: string = '';
-  user_id!: string;
+  hotel_id!: string;
   id: any;
   faStar = faStar;
   hotelUser: any = [];
@@ -32,6 +34,7 @@ export class ListHotelComponent {
   errMsj: any;
   rating: number=0;
   selectedFile!: File;
+  dataHotel: any;
 
   constructor(
     private hotelService: HotelServiceService,
@@ -72,7 +75,6 @@ export class ListHotelComponent {
   }
 
   onValidate() {
-
     this.user_data.state.forEach((element: any, index: any) => {
       if (this.user_data.state[index] !== 2) {
         this.estado = 1;
@@ -80,6 +82,7 @@ export class ListHotelComponent {
       if (this.user_data.state[index] === 2) {
         this.estado = 0;
       }
+      
     });
 
     if (this.estado === 1) {
@@ -89,6 +92,7 @@ export class ListHotelComponent {
     if (this.estado === 0) {
       this.fadModal.abrir();
     }
+   
   }
 
   onRedirigir() {
@@ -99,15 +103,29 @@ export class ListHotelComponent {
     location.reload()
   }
 
+  onComplete(){
+    this.ValidateH.abrir();
+  }
+
   async myHotel(id: string) {
     try {
+      this.hotel_id=id;
       const response = await lastValueFrom(this.hotelService.getHotelById(id));
       if (response.data !== null) {
-        this.hotelId = response.data;
+        
+        this.hotelId = response.data;     
+        
         if (this.hotelId[0].state === 1) {
           this.router.navigate(['/myHotel', id]);
         } else if (this.hotelId[0].state === 0) {
+          //modal que indica que los datos se estan validando
           this.correctModal.abrir();
+        }else if (this.hotelId[0].state === 2) {
+          console.log("estado",this.hotelId[0].state);
+          //modal que indica que falta informacion
+          this.dataHotel=response.data[0];
+         // this.avisoModal.abrir();
+         this.ValidateH.abrir();
         }
       } 
     } catch (error: any) {
@@ -155,5 +173,21 @@ export class ListHotelComponent {
     this.selectedFile = event.target.files[0];
   }
     
+  async updateHotel(event:any){
+    try {
+
+      event.value.mhuser_id= this.id;
+      const resp = await lastValueFrom(
+        this.hotelService.updateHotel(this.hotel_id,event.value,this.selectedFile)
+      );
+      console.log('resp', resp);
+      this.message = resp.message;
+      this.validModal.abrir();
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.message = error.error.message;
+      this.errorModal.abrir();
+    }
+  }
 
 }

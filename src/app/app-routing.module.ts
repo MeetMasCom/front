@@ -10,6 +10,10 @@ import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.com
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
 import { NoticesComponent } from './user/components/notices/notices.component';
+import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
+import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
+import { AdminsComponent } from './admin/components/admins/admins.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: StartLayoutComponent },
@@ -23,6 +27,11 @@ const routes: Routes = [
   { path: 'hotelDetail/:id', component: HotelDetailComponent },
   { path: 'myHotel/:id', component: MyHotelComponent },
   { path: 'anuncios', component: NoticesComponent },
+
+  //admin
+  { path: 'admin', component: AdminLayoutComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'administradores', component: AdminsComponent },
 ];
 
 @NgModule({

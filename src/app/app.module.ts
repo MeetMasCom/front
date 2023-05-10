@@ -57,6 +57,10 @@ import { ColumnsComponent } from './shared/components/columns/columns.component'
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
 import { NoticesComponent } from './user/components/notices/notices.component';
+import { AdminloginComponent } from './admin/components/adminlogin/adminlogin.component';
+import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
+import { MenuadminComponent } from './shared/components/menuadmin/menuadmin.component';
+import { AdminsComponent } from './admin/components/admins/admins.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -90,6 +94,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     HotelDetailComponent,
     MyHotelComponent,
     NoticesComponent,
+    AdminloginComponent,
+    DashboardComponent,
+    MenuadminComponent,
+    AdminsComponent,
   ],
   imports: [
     TranslateModule.forRoot({

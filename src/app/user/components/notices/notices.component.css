@@ -3,6 +3,11 @@
   font-family: Inter;
 }
 
+.central {
+  background: #ffffff;
+  border-radius: 20px;
+}
+
 .containerInput {
   display: flex;
   justify-content: space-between;

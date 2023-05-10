@@ -21,3 +21,8 @@
   background: #555;
   cursor: pointer;
 }
+
+body {
+  background: #eeeeed;
+  font-family: Inter;
+}

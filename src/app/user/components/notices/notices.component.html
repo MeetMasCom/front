@@ -3,83 +3,58 @@
   <div class="col col-3">
     <app-columns [tipo]="2"></app-columns>
   </div>
-  <div class="col col-6 d-flex flex-column align-items-center">
-    <div>
+  <div class="col col-6 d-flex flex-column align-items-center central mb-5">
+    <div class="mt-4">
       <h4>Ingrese los datos del anuncio</h4>
     </div>
     <div class="container">
       <form #fmrNotices="ngForm" (ngSubmit)="onRegister(fmrNotices)">
         <div class="col-12 containerInput mt-2 mb-3">
-          <div class="form-group col-md-6 col-sm-12 p-2">
+          <div class="form-group col-md-12 col-sm-12 p-2">
             <label class="mb-1">Edad</label>
-            <select
-              class="form-control"
-              id="age"
-              required
-              ngModel
-              name="age"
-              #age="ngModel"
-              [ngClass]="'select'"
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="ageList"
+              [(ngModel)]="selectedAge"
+              (onSelect)="onSelectProf($event)"
+              (onSelectAll)="onSelectAllProf($event)"
+              (onDeSelect)="onDeSelectProf($event)"
+              [ngModelOptions]="{ standalone: true }"
             >
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option value="1">Todos</option>
-              <option value="2">de 13 a 15 años</option>
-              <option value="3">de 16 a 18 años</option>
-              <option value="4">de 18 a 25 años</option>
-              <option value="5">de 25 años en adelante</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Profesión</label>
-            <select
-              class="form-control"
-              id="studies"
-              required
-              ngModel
-              name="studies"
-              #studies="ngModel"
-              [ngClass]="'select'"
-            >
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option value="ALL">Todos</option>
-              <option *ngFor="let item of jobs" [value]="item.id">
-                {{ item.name }}
-              </option>
-            </select>
+            </ng-multiselect-dropdown>
           </div>
         </div>
         <div class="col-12 containerInput mt-2 mb-3">
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">País</label>
-            <select
-              class="form-control"
-              id="country"
-              required
-              ngModel
-              name="country"
-              #country="ngModel"
-              [ngClass]="'select'"
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Profesión</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="profsList"
+              [(ngModel)]="selectedProfs"
+              (onSelect)="onSelectProf($event)"
+              (onSelectAll)="onSelectAllProf($event)"
+              (onDeSelect)="onDeSelectProf($event)"
+              [ngModelOptions]="{ standalone: true }"
             >
-              <option value="" disabled selected>Seleccione una opción</option>
-              <option value="ALL">Todos</option>
-              <option *ngFor="let item of countries" [value]="item._id">
-                {{ item.name }}
-              </option>
-            </select>
+            </ng-multiselect-dropdown>
           </div>
-          <div class="form-group col-md-6 col-sm-12 p-2">
-            <label class="mb-1">Imagen</label>
-            <input
-              type="file"
-              class="form-control"
-              id="imgA"
-              name="imgA"
-              accept="image/png, image/jpeg image/jpg"
-              required
-              ngModel
-              #imgA="ngModel"
-              [ngClass]="'input'"
-            />
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">País</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
           </div>
         </div>
         <div class="col-12 containerInput mt-2 mb-3">
@@ -131,6 +106,134 @@
             />
           </div>
         </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Enalce Conversión</label>
+            <input
+              type="text"
+              class="form-control"
+              id="alinkc"
+              name="alinkc"
+              placeholder="Enalce de la Conversión"
+              required
+              ngModel
+              #alinkc="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1" for="imgA">Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              id="imgA"
+              name="imgA"
+              accept="image/png, image/jpeg image/jpg"
+              required
+              ngModel
+              #imgA="ngModel"
+              [ngClass]="'input'"
+            />
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Idioma</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Pasatiempos</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Sexo</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="generoList"
+              [(ngModel)]="selectedGenero"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Religión</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Jornada Laboral</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 containerInput mt-2 mb-3">
+          <div class="form-group col-md-12 col-sm-12 p-2">
+            <label class="mb-1">Tipo de Dependencia</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Seleccione una opción'"
+              [settings]="dropdownSettings"
+              [data]="countriesList"
+              [(ngModel)]="selectedCountry"
+              (onSelect)="onSelectCountry($event)"
+              (onSelectAll)="onSelectAllCountry($event)"
+              (onDeSelect)="onDeSelectCountry($event)"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
         <div class="col-sm-12">
           <div class="form-group text-center">
             <input
@@ -149,7 +252,9 @@
     <app-columns [tipo]="0"></app-columns>
   </div>
 </div>
-<app-footer></app-footer>
+<div class="col-12 position-absolute mt-2 pt-2">
+  <app-footer></app-footer>
+</div>
 
 <!--Modales-->
 <app-modal-alerts

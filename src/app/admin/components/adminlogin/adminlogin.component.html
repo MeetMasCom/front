@@ -1,0 +1,90 @@
+<div class="container mb-3 mt-1">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card mt-5 col-md-6 col-sm-12">
+      <div class="card-header border-0 text-center bg-white mt-3">
+        <h4>Iniciar Sesión</h4>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <form #frmLoginAdmin="ngForm" (ngSubmit)="onLoginAdmin(frmLoginAdmin)">
+          <div class="form-group col-md-12 col-sm-12 mb-4">
+            <label class="label">Rol de usuario</label>
+            <select
+              class="form-select"
+              aria-label="Default select"
+              id="rol"
+              name="rol"
+              required
+              ngModel
+              #rol="ngModel"
+              [ngClass]="'select'"
+              [(ngModel)]="opSelect"
+              (change)="onChangeSelect($event)"
+            >
+              <option value="AD" selected>Administrador</option>
+              <option value="SS">Soporte Sistemas</option>
+              <option value="SV">Soporte Ventas</option>
+              <option value="SA">Soporte Anuncios</option>
+            </select>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 mb-4">
+            <label class="label">Usuario</label>
+            <input
+              id="userAdmin"
+              type="text"
+              class="form-control mb-3"
+              placeholder="Nombre usuario"
+              required
+              ngModel
+              name="userAdmin"
+              #userAdmin="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                userAdmin.invalid && (userAdmin.dirty || userAdmin.touched)
+              "
+              class="text-danger"
+            >
+              <small *ngIf="userAdmin.errors?.['required']">
+                Ingrese el usuario.
+              </small>
+            </div>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 mb-4">
+            <label class="label">Contraseña</label>
+            <input
+              id="passAdmin"
+              type="password"
+              class="form-control mb-3"
+              placeholder="Contraseña usuario"
+              required
+              ngModel
+              name="passAdmin"
+              #passAdmin="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="
+                passAdmin.invalid && (passAdmin.dirty || passAdmin.touched)
+              "
+              class="text-danger"
+            >
+              <small *ngIf="passAdmin.errors?.['required']">
+                Ingrese la contraseña.
+              </small>
+            </div>
+          </div>
+          <div class="form-group text-center mt-5 mb-4">
+            <input
+              type="submit"
+              class="btn"
+              value="Iniciar Sesión"
+              [disabled]="!frmLoginAdmin.valid"
+              [ngClass]="'input-btn'"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

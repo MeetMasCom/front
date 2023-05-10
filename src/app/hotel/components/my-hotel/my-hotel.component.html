@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 <div class="container" style="min-height: 40vw">
-  <h5>{{ this.hotel.data[0].name }}</h5>
+  <h5>{{ this.hotel.name }}</h5>
   <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
       <button
@@ -44,7 +44,7 @@
         Otros Servicios
       </button>
     </li>
-    <li class="nav-item" role="presentation">
+    <!-- <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-location-tab"
@@ -57,8 +57,8 @@
       >
         Ubicación
       </button>
-    </li>
-    <li class="nav-item" role="presentation">
+    </li> -->
+    <!-- <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-amenities-tab"
@@ -71,8 +71,8 @@
       >
         Comodidades
       </button>
-    </li>
-    <li class="nav-item" role="presentation">
+    </li> -->
+     <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="pills-policies-tab"
@@ -85,7 +85,7 @@
       >
         Políticas
       </button>
-    </li>
+    </li> 
   </ul>
 
   <div class="tab-content" id="pills-tabContent">
@@ -103,25 +103,32 @@
         <div class="col-md-6">
           <div class="row p-3">
             <div class="col-md-6">
-              <p>Dirección: {{ this.hotel.data[0].address }}</p>
-              <p>Teléfono: {{ this.hotel.data[0].phone }}</p>
+              <p>Dirección: {{ this.hotel.address }}</p>
+              <p>Teléfono: {{ this.hotel.phone }}</p>
+              <p>Gerente: {{ this.hotel.manager }}</p>
               <p>Estrellas:</p>
               <div class="val1">
                 <app-rating-star
                   (eventSetRating)="setRating($event)"
-                  [val]="this.hotel.data[0].stars"
+                  [val]="this.hotel.stars"
                 ></app-rating-star>
               </div>
             </div>
             <div class="col-md-6">
-              <p>País: {{ this.hotel.data[0].country }}</p>
-              <p>Ciudad: {{ this.hotel.data[0].city }}</p>
+              <p>País: {{ this.hotel.country }}</p>
+              <p>Ciudad: {{ this.hotel.city }}</p>
+              <p>RUC: {{this.hotel.ruc}}</p>
+              <p>Página Web: {{this.hotel.web}}</p>
             </div>
           </div>
           <hr />
           <!--Descripcion General-->
           <div class="row">
             <h2>Descripción</h2>
+
+            <p>
+              {{ this.hotel.description }}
+            </p>
           </div>
         </div>
         <div class="col col-lg-3 float-left">
@@ -151,7 +158,7 @@
               class="btn btn-warning nuevo"
               (click)="onValidate()"
             >
-              Registrar
+              Publicar Habitación
             </button>
           </div>
           <ng-container *ngIf="this.room.length > 0">
@@ -161,10 +168,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-6">
-
-
                       <img
-                      [src]="api + r.picture"
+                      [src]="api + r.photo[0]"
                         alt=""
                         style="width: 250px; height: 250px"
                       />
@@ -177,19 +182,16 @@
                         Tipo: {{ r.type }}
                       </div>
                       <div class="row p-2">
-                        Precio: ${{ r.price }}
+                        Precio: ${{ r.actualPrice }}
                       </div>
                       <div class="row p-2">
-                       Dimensión: {{ r.dimension }}
-                      </div>
-                      <div class="row p-2">
-                        Descripción: {{ r.description }}
-                       </div>
+                       Dimensión: {{ r.dimension }} ft²
+                      </div><hr>
                        <div>
                         <button
                         class="btn"
-                        style="background-color: #f9a21e"
-                       
+                        style="background-color: #f9a21e" 
+                        (click)="detalleh(r._id)"                      
                       >
                         Ver detalles
                       </button>
@@ -222,70 +224,10 @@
           <app-columns [tipo]="1"></app-columns>
         </div>
         <div class="col-md-6">
-          <div class="row">
-            <form
-              #fmrRegisterServices="ngForm"
-              class="form form-horizontal"
-              (ngSubmit)="registerServices(fmrRegisterServices)"
-            >
-              <div class="form-body">
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label> Detalle: </label>
-                  </div>
-                  <div class="col-md-8 form-group p-2">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Servicio"
-                        id="description"
-                        name="description"
-                        required
-                        ngModel
-                        #description="ngModel"
-                        [ngClass]="'input'"
-                      />
-
-                      <div
-                        *ngIf="
-                          description.invalid &&
-                          (description.dirty || description.touched)
-                        "
-                        class="text-danger form-group position-absolute"
-                      >
-                        <small
-                          class="form-group"
-                          *ngIf="description.errors?.['required']"
-                        >
-                          Campo requerido.
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-4 d-flex justify-content-end">
-                    <input
-                      type="hidden"
-                      class="form-control"
-                      id="hotel_id"
-                      name="hotel_id"
-                      ngModel
-                      #hotel_id="ngModel"
-                      [ngClass]="'input'"
-                    />
-                    <input
-                      class="btn float-right login_btn nuevo"
-                      type="submit"
-                      value="Registrar"
-                      [disabled]="!fmrRegisterServices['valid']"
-                      [ngClass]="'input-btn'"
-                    />
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div>
+       
+       
+          <div class="row p-4">
+            <h5 class="p-2">Servicios que ofrece el hotel</h5>
             <ng-container *ngIf="this.services?.length > 0">
               <div class="row" *ngFor="let s of this.services">
                 <div class="col-md-1 float-left">
@@ -301,6 +243,243 @@
               <p>No hay servicios registrados</p>
             </ng-container>
           </div>
+
+          <div class="row p-4">
+           
+            <div class="accordion" id="accordionExample1">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Registrar nuevo servicio
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample1"
+                >
+                  <div class="accordion-body">
+                    <form
+                    #fmrRegisterServices="ngForm"
+                    class="form form-horizontal"
+                    (ngSubmit)="registerServices(fmrRegisterServices)"
+                  >
+                    <div class="form-body">
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label> Detalle: </label>
+                        </div>
+                        <div class="col-md-8 form-group p-2">
+                          <div class="position-relative has-icon-left">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Servicio"
+                              id="hdescription"
+                              name="hdescription"
+                              required
+                              ngModel
+                              #hdescription="ngModel"
+                              [ngClass]="'input'"
+                            />
+      
+                            <div
+                              *ngIf="
+                                hdescription.invalid &&
+                                (hdescription.dirty || hdescription.touched)
+                              "
+                              class="text-danger form-group position-absolute"
+                            >
+                              <small
+                                class="form-group"
+                                *ngIf="hdescription.errors?.['required']"
+                              >
+                                Campo requerido.
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                          <input
+                            type="hidden"
+                            class="form-control"
+                            id="hotel_id"
+                            name="hotel_id"
+                            ngModel
+                            #hotel_id="ngModel"
+                            [ngClass]="'input'"
+                          />
+                          <input
+                            class="btn float-right login_btn nuevo"
+                            type="submit"
+                            value="Registrar"
+                            [disabled]="!fmrRegisterServices['valid']"
+                            [ngClass]="'input-btn'"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+
+          <hr>
+
+          <div class="row p-4">
+            <h5 class="p-2">Tipos de habitaciones</h5>
+            <ng-container *ngIf="this.typeRoom?.length > 0">
+              <div class="row" *ngFor="let t of this.typeRoom">
+                <div class="col-md-1 float-left">
+                  <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
+                </div>
+                <div class="col-md-11 float-left">
+                  {{ t.name }}
+                </div>
+               
+              </div>
+            </ng-container>
+            <ng-container *ngIf="this.typeRoom?.length === 0">
+              <p>No hay tipos de habitaciones registrados</p>
+            </ng-container>
+          </div>
+          <div class="row p-4">
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree1"
+                    aria-expanded="false"
+                    aria-controls="collapseThree1"
+                  >
+                    Registrar Tipo de Habitación
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree1"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    <form
+                      #fmrRegisterType="ngForm"
+                      class="form form-horizontal"
+                      (ngSubmit)="registerType(fmrRegisterType)"
+                    >
+                      <div class="form-body">
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label> Nombre: </label>
+                          </div>
+                          <div class="col-md-8 form-group p-2">
+                            <div class="position-relative has-icon-left">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Nombre"
+                                id="tname"
+                                name="tname"
+                                required
+                                ngModel
+                                #tname="ngModel"
+                                [ngClass]="'input'"
+                              />
+  
+                              <div
+                                *ngIf="
+                                  tname.invalid &&
+                                  (tname.dirty || tname.touched)
+                                "
+                                class="text-danger form-group position-absolute"
+                              >
+                                <small
+                                  class="form-group"
+                                  *ngIf="tname.errors?.['required']"
+                                >
+                                  Campo requerido.
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label> Descripción: </label>
+                          </div>
+                          <div class="col-md-8 form-group p-2">
+                            <div class="position-relative has-icon-left">
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Descripción"
+                                id="tdescription"
+                                name="tdescription"
+                                required
+                                ngModel
+                                #tdescription="ngModel"
+                                [ngClass]="'input'"
+                              ></textarea>
+  
+                              <div
+                                *ngIf="
+                                  tdescription.invalid &&
+                                  (tdescription.dirty || tdescription.touched)
+                                "
+                                class="text-danger form-group position-absolute"
+                              >
+                                <small
+                                  class="form-group"
+                                  *ngIf="tdescription.errors?.['required']"
+                                >
+                                  Campo requerido.
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 d-flex justify-content-end">
+                            <input
+                            type="hidden"
+                            class="form-control"
+                            id="thotel_id"
+                            name="thotel_id"
+                            ngModel
+                            #thotel_id="ngModel"
+                            [ngClass]="'input'"
+                          />
+                            <input
+                              class="btn float-right login_btn nuevo"
+                              type="submit"
+                              value="Registrar"
+                              [disabled]="!fmrRegisterType['valid']"
+                              [ngClass]="'input-btn'"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
         <div class="col col-lg-3 float-left">
           <app-columns [tipo]="0"></app-columns>
@@ -364,14 +543,17 @@
   </div>
 </div>
 
+
+<!--Registrar una nueva habitación-->
 <app-mmodal
   [idModal]="'fadModal'"
   [tipo]="3"
   [title]="'Nueva Habitación'"
   [services]="this.services"
-  (sendModal)="onForm($event)"
+  (sendModal)="onFormRegisterRoom($event)"
   (onChangeModal)="cargarImagen($event)"
   (onSelectCheck)="selectCheck($event)"
+  [typeRoom]="typeRoom"
   #fadModal
 >
 </app-mmodal>
@@ -394,4 +576,19 @@
   [tipo]="0"
   #errorModal
 ></app-modal-alerts>
+
+<!-- modal el detalle de la habitacion -->
+<app-mmodal
+  [idModal]="'fadModalH'"
+  [tipo]="5"
+  [title]="'Detalle Habitación'"
+  [photo]="photo"
+  [price]="price"
+  [room]="roomD"
+  [service]="servicesR"
+  (onPrice)="onFormRegisterPrice($event)"
+  (onSelectPrice)="selectPrice($event)"
+  #fadModalH
+>
+
 <app-footer></app-footer>

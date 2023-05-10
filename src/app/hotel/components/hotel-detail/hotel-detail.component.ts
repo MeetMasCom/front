@@ -14,17 +14,22 @@ import { faShield } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./hotel-detail.component.css'],
 })
 export class HotelDetailComponent {
-  @ViewChild('fadModal') fadModal!: MmodalComponent;
+  @ViewChild('fadModalH') fadModalH!: MmodalComponent;
 
   id_hotel: string = '';
   hotel: any = [];
   services: any = [];
   errMsj: any;
-  room: any = [];
+  room: any;
+  serviceRoom:any;
+  roomDetail: any = [];
+  roomD: any = [];
   rating: number = 0;
   faShield = faShield;
   api = '';
-
+  id:any;
+  photo: any = [];
+  servicesR:any=[];
   constructor(
     private hotelService: HotelServiceService,
     private router: Router,
@@ -34,26 +39,41 @@ export class HotelDetailComponent {
 
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
-    this.activatedRoute.params.subscribe(async (params) => {
-      this.id_hotel = params['id'];
+    if (sessionStorage.getItem('id')!) {
+      this.id = sessionStorage.getItem('id')!;
+    }
+    if(this.id!=null){
+      this.activatedRoute.params.subscribe(async (params) => {
+        this.id_hotel = params['id'];
+        this.getHotelById();
+        
+      });
+  
+      this.getRoomsByHotelId(this.id_hotel);
+      this.getServices();
+    }else{
+      this.router.navigate(['/inicio']);
+    }
 
-      try {
-        const response = await lastValueFrom(
-          this.hotelService.getHotelById(this.id_hotel)
-        );
-        if (response.data !== null) {
-          this.hotel = response;
-          console.log(this.hotel);
-        }
-      } catch (error: any) {
-        console.log('error', error.error);
-        this.errMsj = error.error.message;
-      }
-    });
 
-    this.getRoomsByHotelId(this.id_hotel);
-    this.getServices();
+   
   }
+
+
+  async getHotelById(){
+  try {
+    const response = await lastValueFrom(
+      this.hotelService.getHotelById(this.id_hotel)
+    );
+    if (response.data !== null) {
+      this.hotel = response;
+      //console.log(this.hotel);
+    }
+  } catch (error: any) {
+    console.log('error', error.error);
+    this.errMsj = error.error.message;
+  }
+}
 
   async getRoomsByHotelId(id: string) {
     try {
@@ -62,7 +82,7 @@ export class HotelDetailComponent {
       );
       if (response.data !== null) {
         this.room = response.data;
-        console.log('rooms', this.room);
+        //console.log('rooms', this.room);
       }
     } catch (error: any) {
       console.log('error', error);
@@ -70,13 +90,47 @@ export class HotelDetailComponent {
   }
 
   async setRating(val: number) {
-    console.log(val);
+    //console.log(val);
     this.rating = val;
   }
 
-  detalle() {
-    this.fadModal.abrir();
+  async detalle(id:string) {
+    // const resp = await 
+    //   this.hotelService.getRoomById(id).toPromise() 
+    const resp = await lastValueFrom(
+      this.hotelService.getRoomById(id)
+    );
+    
+    if (resp?.data.length >0) {
+      console.log("datos",resp?.data[0])
+      this.roomDetail = resp?.data;
+      this.roomD=resp?.data[0];
+      this.photo=resp?.data[0].photo;
+      this.serviceRoom=this.roomD.service;
+    }
+    console.log("roomD",this.roomD);
+    console.log("todos los servicios",this.serviceRoom);
+    this.getServiceById();    
+    this.fadModalH.abrir();
   }
+
+
+   async getServiceById(){
+    try {
+        console.log("obtener servicio");
+        console.log(this.serviceRoom.length);
+      for (let i = 0; i < this.serviceRoom.length; i++) {
+        console.log("entra al for");
+        const resp = await lastValueFrom(this.hotelService.getServiceById(this.serviceRoom[i]));
+        this.servicesR.push(resp.data);
+        console.log("i ciclo for",i);
+      }  
+      console.log("servicios luego del for",this.servicesR);
+    } catch (error: any) {
+      console.log("sale por el catch");
+      console.log('error', error.error);
+    }
+   }
 
   async getServices() {
     try {

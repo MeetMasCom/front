@@ -4,9 +4,12 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+import { ConstantsSystem } from 'src/app/utils/constants-system';
+import { faShield } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-mmodal',
@@ -23,18 +26,41 @@ export class MmodalComponent {
   @Input() val: string = '';
   @Input() photoSelected: string = '';
   @Input() services: any = [];
+  @Input() room:any;  
+  @Input() photo: any;
+  @Input() price: any;
+  @Input() service: any ;
+  @Input() hotel: any ;
+  @Input() typeRoom: any ;
+
+  faShield = faShield;
+  faFile=faFile;
 
   @Output() successModal: EventEmitter<any> = new EventEmitter();
   @Output() sendModal: EventEmitter<any> = new EventEmitter();
   @Output() onChangeModal: EventEmitter<any> = new EventEmitter();
   @Output() selectPhoto: EventEmitter<any> = new EventEmitter();
   @Output() onSelectCheck: EventEmitter<any> = new EventEmitter();
+  @Output() onSelectDoc: EventEmitter<any> = new EventEmitter();
+  @Output() onPrice: EventEmitter<any> = new EventEmitter();
+  @Output() onSelectPrice: EventEmitter<any> = new EventEmitter();
+  @Output() onValidateHotel: EventEmitter<any> = new EventEmitter();
+  @Output() onDeclineHotel: EventEmitter<any> = new EventEmitter();
+  @Output() onCommentDecline: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateHotel: EventEmitter<any> = new EventEmitter();
+  @Output() onDownloadDoc: EventEmitter<any> = new EventEmitter();
+
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
 
-message: string='';
-  constructor(
+  message: string='';
+  api = '';
+  constructor(public constante: ConstantsSystem
   ) {}
+  async ngOnInit() {
+  this.api = this.constante.API_IMAGES;
+  
+  }
 
   abrir() {
     this.modalPublicar.nativeElement.click();
@@ -56,4 +82,35 @@ message: string='';
     this.onSelectCheck.emit(event);
   }
 
+  onFileSelected(event:any){
+    this.onSelectDoc.emit(event);
+  }
+
+  registerPrice(event:any){
+    this.onPrice.emit(event);
+  }
+
+  selectPrice(event:any){
+    this.onSelectPrice.emit(event);
+  }
+
+  onValidateH(event:any){   
+    this.onValidateHotel.emit(event); 
+  }
+
+  onDeclineH(event:any){
+    this.onDeclineHotel.emit(event);
+  }
+
+  onDownload(event:any){
+    this.onDownloadDoc.emit(event);
+  }
+
+  onCommentH(event:any){
+    this.onCommentDecline.emit(event);
+  }
+
+  UpdateHotel(event:any){
+    this.onUpdateHotel.emit(event);
+  }
 }

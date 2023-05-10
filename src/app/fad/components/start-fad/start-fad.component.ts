@@ -16,6 +16,7 @@ import { HotelServiceService } from 'src/app/hotel/services/hotel-service.servic
 export class StartFadComponent {
   @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
   @ViewChild('exitoModal') exitoModal!: ModalAlertsComponent;
+  @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
   @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
 
@@ -44,9 +45,9 @@ export class StartFadComponent {
   ) {}
 
   async ngOnInit() {
-    this.api = this.constante.API_IMAGES;
+    
     this.user_data = JSON.parse(sessionStorage.getItem('data')!);
-    await this.getAllsFad();
+    //await this.getAllsFad();
 
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
@@ -134,7 +135,7 @@ export class StartFadComponent {
       this.message = resp.message;
       this.router.navigate(['/fad']);
       this.message = resp.message;
-      this.exitoModal.abrir();
+      this.correctModal.abrir();
     } catch (error: any) {
       console.log('error', error.error);
       this.message = error.error.message;

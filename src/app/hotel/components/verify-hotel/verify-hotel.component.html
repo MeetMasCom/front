@@ -1,40 +1,105 @@
 <app-menu></app-menu>
-<div class="container" style="min-height: 40vw;">
-    <ng-container *ngIf="hotel?.length > 0">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Pais</th>
-                <th scope="col">Ciudad</th>
-                <th scope="col">Gerente</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-                <ng-container
-                *ngFor="let h of hotel ;index as i">
-              <tr >
-                <th scope="row">{{i+1}}</th>
-                <td>{{h.name}}</td>
-                <td>{{h.country}}</td>
-                <td>{{h.city}}</td>
-                <td>{{h.manager}}</td>
-                <td>
-                  <button class="btn" style="background-color: #f9a21e;" (click)="validar(h._id)"> Validar </button>
-                </td>
-              </tr>
-                </ng-container>
-            </tbody>
-          </table>
-            
-    </ng-container>
-    <ng-container *ngIf="hotel.length === 0">
-        <div class="d-flex justify-content-center" style="min-height: 30vw">
-          <Span>No existen hoteles por verificar</Span>
-        </div>
-      </ng-container>
-   
+<div class="container" style="min-height: 40vw">
+  <ng-container *ngIf="hotel?.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Pais</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Gerente</th>
+          <th scope="col">RUC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let h of hotel; index as i">
+          <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ h.name }}</td>
+            <td>{{ h.country }}</td>
+            <td>{{ h.city }}</td>
+            <td>{{ h.manager }}</td>
+            <td>
+              <button (click)="download(h.doc)">
+                <fa-icon
+                  class="fa-light fa-file-pdf fa-2xl"
+                  [icon]="faFile"
+                ></fa-icon>
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn"
+                style="background-color: #f9a21e"
+                (click)="detalleh(h._id)"
+              >
+                Detalles
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngIf="hotel.length === 0">
+    <div class="d-flex justify-content-center" style="min-height: 30vw">
+      <Span>No existen hoteles por verificar</Span>
+    </div>
+  </ng-container>
 </div>
+
+<!--Detalle del hotel a validar-->
+<app-mmodal
+  [idModal]="'detalleHotel'"
+  [tipo]="6"
+  [title]="'Detalle Hotel'"
+  [hotel]="dataHotel"
+  (onValidateHotel)="validateHotel($event)"
+  (onDeclineHotel)="declineHotel($event)"
+  (onDownloadDoc)="downloadPDF($event)"
+  #detalleHotel
+>
+</app-mmodal>
+
+<!--Registrar comentario al rechazar habitación-->
+<app-mmodal
+  [idModal]="'rechazarHotel'"
+  [tipo]="7"
+  [title]="'Detalle Hotel'"
+  [hotel]="dataHotel"
+  (onCommentDecline)="commetDecline($event)"
+  #rechazarHotel
+>
+</app-mmodal>
+
+<app-modal-alerts
+  [idModal]="'exitModal'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Validación Correcta'"
+  (successModal)="onRefresh()"
+  [descripcion]="message"
+  [tipo]="0"
+  #exitModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'errorModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Error en la Validación'"
+  [descripcion]="message"
+  [tipo]="0"
+  #errorModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'cModal'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Comentario registrado'"
+  (successModal)="onRefresh()"
+  [descripcion]="message"
+  [tipo]="0"
+  #cModal
+></app-modal-alerts>
+
 <app-footer></app-footer>

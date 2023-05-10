@@ -5,6 +5,8 @@ import { Hotel } from '../interfaces/hotel';
 import { Room } from '../interfaces/room';
 import { Service } from '../interfaces/service';
 import { ConstantsSystem } from '../../utils/constants-system';
+import { Form } from '@angular/forms';
+import { typeRoom } from '../interfaces/typeRoom';
 
 @Injectable({
   providedIn: 'root',
@@ -15,20 +17,23 @@ export class HotelServiceService {
     public constante: ConstantsSystem
   ) {}
 
-  registerHotel(hotel: Hotel): Observable<any> {
+  registerHotel(hotel: Hotel,file:File): Observable<any> {
+    console.log(file);
+    const fd = new FormData();
+    fd.append('user_id', hotel.huser_id);
+    fd.append('name', hotel.hname);
+    fd.append('address', hotel.haddress);
+    fd.append('phone', hotel.hphone);
+    fd.append('country', hotel.hcountry);
+    fd.append('city', hotel.hcity);
+    fd.append('manager', hotel.hmanager);
+    fd.append('stars', hotel.hstars.toString());
+    fd.append('ruc', hotel.hruc);
+    fd.append('web', hotel.hweb);
+    fd.append('detalle', hotel.hdetalle);
+    fd.append('archivo', file);
     return this.httpCLient.post(
-      `${this.constante.API_SERVER}/hotel/hotelRegister`,
-      {
-        user_id: hotel.user_id,
-        name: hotel.name,
-        address: hotel.address,
-        phone: hotel.phone,
-        country: hotel.country,
-        city: hotel.city,
-        manager: hotel.manager,
-        stars: hotel.stars,
-        price:hotel.price
-      }
+      `${this.constante.API_SERVER}/hotel/hotelRegister`,fd
     );
   }
 
@@ -42,34 +47,36 @@ export class HotelServiceService {
     );
   }
 
-  verifyHotel(id: string): Observable<any> {
+verifyHotel(id: string): Observable<any> {
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/verifyHotel/${id}`,id);
+}
+
+declineHotel(id: string): Observable<any> {
+  return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/declineHotel/${id}`,id);
 }
 
 getHotelById(id: string): Observable<Hotel> {
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdHotel/${id}`);
 }
 
-
 getHotelByIdUser(id: string): Observable<any> {
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdUserHotel/${id}`);
 }
 
 
-registerRoom(room:Room,file1:File,valores:string): Observable<any> {
-   const fd = new FormData();
-    fd.append('hotel_id', room.hotel_id);
-    fd.append('number', room.number.toString());
-    fd.append('type', room.type);
-   fd.append('name', room.name);
-    fd.append('dimension', room.dimension);
-    fd.append('price', room.price);
-    fd.append('description', room.description);
-    fd.append('image', file1);
-    fd.append('service', valores);
-
+registerRoom(room:Room,fd1:any,valores:any): Observable<any> {
+console.log(room);
   return this.httpCLient.post(
-    `${this.constante.API_SERVER}/room/roomRegister`,fd
+    `${this.constante.API_SERVER}/room/roomRegister`,{
+      hotel_id:room.rhotel_id,
+      name:room.rname,
+      number:room.rnumber,
+      dimension:room.rdimension,
+      type:room.rtype,
+      description:room.rdescription,
+      service:valores,
+      photo:fd1,
+    }
   );
 }
 
@@ -78,12 +85,12 @@ getRoomHotelById(id: string): Observable<Hotel> {
 }
 
 
-registerServices(service:Service): Observable<any> {
-  console.log("servicios",service);
+registerServices(form:any): Observable<any> {
+  console.log("servicios",form);
   return this.httpCLient.post(
     `${this.constante.API_SERVER}/service/serviceRegister`,{
-      hotel_id:service.hotel_id,
-      description:service.description
+      hotel_id:form.hotel_id,
+      description:form.hdescription
     }
   );
 }
@@ -91,5 +98,92 @@ registerServices(service:Service): Observable<any> {
 getServicesHotelById(id: string): Observable<Hotel> {
   return this.httpCLient.get<any>(`${this.constante.API_SERVER}/service/getByIdHotelService/${id}`);
 }
+
+getRoomById(id: string): Observable<Hotel> {
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/room/getRoomById/${id}`);
+}
+
+getServiceById(id: string): Observable<Hotel> {
+  console.log("id servicio",id);
+  return this.httpCLient.get<any>(`${this.constante.API_SERVER}/service/getByIdService/${id}`);
+}
+
+registerImage(image:File): Observable<any> { 
+  const fd= new FormData();
+  fd.append('image',image);
+  return this.httpCLient.post(
+    `${this.constante.API_SERVER}/room/imagesRegister`,fd
+    );
+}
+
+registerPriceRoom(id: string, form:any): Observable<any> {
+  console.log("precio servicio",form);
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/room/registerPrice/${id}`,{
+        price:form.precio,
+        description:form.description
+      }
+    );
+  }
+
+  updateActualPriceRoom(id: string, val:any): Observable<any> {
+
+      return this.httpCLient.post(        
+        `${this.constante.API_SERVER}/room/updatePrice/${id}`,{
+          actualPrice:val
+        }
+      );
+    }
+
+
+    commentHotel(id:string,form:any): Observable<any> {
+      console.log(form.hcomentario);
+      console.log(id);
+        return this.httpCLient.post(
+          `${this.constante.API_SERVER}/hotel/commentHotel/${id}`,{
+            comment:form.hcomentario
+          }
+        );
+      }
+
+    getTypeRoomByIdHotel(id: string): Observable<Hotel> {
+      return this.httpCLient.get<any>(`${this.constante.API_SERVER}/type/getTypeHotelId/${id}`);
+    }
+
+    registerTypeRoom(type:typeRoom): Observable<any> {     
+      console.log(type);
+      return this.httpCLient.post(
+        `${this.constante.API_SERVER}/type/typeRoomRegister`,{
+          hotel_id:type.thotel_id,
+          description:type.tdescription,
+          name:type.tname
+        }
+      );
+    }
+
+    updateHotel(id:string,form:any,file:File): Observable<any> {
+      console.log(file);
+      console.log(form);
+      const state=0;
+      const fd = new FormData();
+      
+      return this.httpCLient.post(
+        `${this.constante.API_SERVER}/hotel/updateHotel/${id}`,{
+          user_id:form.mhuser_id,
+         name:form.mhname,
+          address:form.mhaddress,
+          phone:form.mhphone,
+         country:form.mhcountry,
+         city:form.mhcity,
+          manager:form.mhmanager,
+          stars:form.mhstars,
+          ruc:form.mhruc,
+          web:form.mhweb ,
+          detail: form.mhdetalle,
+          state:state,
+         archivo:file
+        }
+      );
+    }
 
 }

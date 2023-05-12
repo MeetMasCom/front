@@ -170,16 +170,16 @@
 
 
 <!--  para validar los datos del hotel-->
-
 <app-modal-alerts
-  [idModal]="'correctModal'"
+  [idModal]="'datavalidModal'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Los datos del hotel se están validando'"
   [descripcion]="message"
   (successModal)="onRefresh()"
   [tipo]="0"
-  #correctModal
+  #datavalidModal
 ></app-modal-alerts>
+
 
 
 <!-- para actualizar los datos del hotel -->
@@ -226,15 +226,13 @@
   (onUpdateHotel)="updateHotel($event)"
   #ValidateH
 >
+<!--FORMULARIO PARA INGRESAR LAS POLÍTICAS DEL HOTEL-->
 
-<!--MODAL AVISO -->
-<app-modal-alerts
-  [idModal]="'avisoModal'"
-  [icono]="'./assets/img/warning.png'"
-  [titulo]="'No se ha podido validar los datos del hotel, complete la información'"
-  [descripcion]="message"
-  (successModal)="onComplete()" 
-  [tipo]="0"
-  #avisoModal
-></app-modal-alerts>
+<app-mmodal
+  [idModal]="'RegisterPolicies'"
+  [tipo]="10"
+  [title]="'Políticas del hotel'"
+  (onRegisterPolicies)="registerPolicies($event)"
+  #RegisterPolicies>  
+</app-mmodal>
 <app-footer></app-footer>

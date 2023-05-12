@@ -471,9 +471,7 @@
                       </div>
                     </div>
                     <div class="form-group mt-4">
-                      <label>
-                        Dimensión en  m² o ft²
-                      </label>
+                      <label> Dimensión en m² o ft² </label>
 
                       <input
                         type="text"
@@ -918,71 +916,65 @@
         <ng-container *ngIf="tipo === 6">
           <ng-container *ngIf="hotel != null">
             <div class="row">
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">Nombre</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.name }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">RUC:</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.ruc }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">Página web:</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.web }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">Dirección</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.address }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">Teléfono</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.phone }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">País</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.country }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">Ciudad</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.city }}</label>
               </div>
 
-              <div class="col-md-4 form-group">
-                <label class="form-label"
-                  >Estrellas /
-                  <p>Tipo de Hotel</p>
-                </label>
+              <div class="col-md-5 form-group">
+                <label class="form-label">Estrellas / Tipo de Hotel </label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.stars }} estrellas</label>
               </div>
-              <div class="col-md-4 form-group">
-                <label class="form-label"
-                  >Gerente /
-                  <p>Representante</p></label
-                >
+              <div class="col-md-5 form-group">
+                <label class="form-label">Gerente / Representante</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <label class="form-label">{{ hotel.manager }}</label>
               </div>
-              <div class="col-md-4 form-group">
+              <div class="col-md-5 form-group">
                 <label class="form-label">RUC o DNI</label>
               </div>
-              <div class="col-md-8 form-group p-2">
+              <div class="col-md-7 form-group p-2">
                 <button (click)="onDownload(hotel._id)">
                   <fa-icon
                     class="fa-light fa-file-pdf fa-2xl"
@@ -990,28 +982,43 @@
                   ></fa-icon>
                 </button>
               </div>
-              <div class="col-sm-6">
-                <div class="form-group text-center">
-                  <input
-                    type="submit"
-                    class="btn"
-                    (click)="onValidateH(hotel._id)"
-                    value="APROBAR"
-                    [ngClass]="'input-btn'"
-                  />
+              <ng-container *ngIf="hotel.state == 0">
+                <div class="col-sm-6">
+                  <div class="form-group text-center">
+                    <input
+                      type="submit"
+                      class="btn"
+                      (click)="onValidateH(hotel._id)"
+                      value="APROBAR"
+                      [ngClass]="'input-btn'"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group text-center">
-                  <input
-                    type="submit"
-                    class="btn"
-                    (click)="onDeclineH(hotel._id)"
-                    value="RECHAZAR"
-                    [ngClass]="'input-btn'"
-                  />
+                <div class="col-sm-6">
+                  <div class="form-group text-center">
+                    <input
+                      type="submit"
+                      class="btn"
+                      (click)="onDeclineH(hotel._id)"
+                      value="RECHAZAR"
+                      [ngClass]="'input-btn'"
+                    />
+                  </div>
                 </div>
-              </div>
+              </ng-container>
+              <ng-container *ngIf="policies.length > 0">
+                <div class="col-sm-12">
+                  <div class="form-group text-center">
+                    <input
+                      type="submit"
+                      class="btn"
+                      (click)="vPoliticas(hotel._id)"
+                      value="Ver Políticas"
+                      [ngClass]="'input-btn'"
+                    />
+                  </div>
+                </div>
+              </ng-container>
             </div>
           </ng-container>
         </ng-container>
@@ -1023,15 +1030,6 @@
               <div class="col-md-6 form-group">
                 <p>Nombre: {{ hotel.name }}</p>
                 <p>RUC: {{ hotel.ruc }}</p>
-                <p>Página web: {{ hotel.web }}</p>
-                <p>Dirección: {{ hotel.address }}</p>
-                <p>Gerente: {{ hotel.manager }}</p>
-              </div>
-              <div class="col-md-6 form-group">
-                <p>Teléfono: {{ hotel.phone }}</p>
-                <p>País: {{ hotel.country }}</p>
-                <p>Ciudad: {{ hotel.city }}</p>
-                <p>Estrellas: {{ hotel.stars }}</p>
               </div>
               <form
                 #fmrRegisterComment="ngForm"
@@ -1039,10 +1037,9 @@
               >
                 <div class="form-body">
                   <div class="row">
-                    <div class="col-md-4 form-group">
+                    <div class="form-group mb-4">
                       <label> Comentario: </label>
-                    </div>
-                    <div class="col-md-8 form-group">
+
                       <textarea
                         type="text"
                         class="form-control"
@@ -1077,6 +1074,7 @@
                           type="submit"
                           class="btn"
                           value="RECHAZAR"
+                          [disabled]="!fmrRegisterComment['valid']"
                           [ngClass]="'input-btn'"
                         />
                       </div>
@@ -1432,6 +1430,186 @@
             </form>
           </ng-container>
         </ng-container>
+
+        <!--MOSTRAR LAS POLITICAS DEL HOTEL-->
+        <ng-container *ngIf="tipo === 9">
+          <ng-container *ngIf="hotel != null">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <p>Nombre: {{ hotel.name }}</p>
+                <p>RUC: {{ hotel.ruc }}</p>
+              </div>
+              <div *ngFor="let p of policies">
+                {{ p }}
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group text-center">
+                  <input
+                    type="submit"
+                    class="btn"
+                    (click)="aprobarP(hotel._id)"
+                    value="APROBAR"
+                    [ngClass]="'input-btn'"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group text-center">
+                  <input
+                    type="submit"
+                    class="btn"
+                    (click)="commentPolicies(hotel._id)"
+                    value="RECHAZAR"
+                    [ngClass]="'input-btn'"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--ingresar las poiticas del hotel-->
+        <ng-container *ngIf="tipo === 10">
+          <div class="row bg-danger">
+            <div class="col-md-6 form-group"></div>
+            <form
+              #fmrRegisterPolicies="ngForm"
+              (ngSubmit)="registerPolicies(fmrRegisterPolicies)"
+            >
+              <div class="form-body">
+                <div class="row">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Política 1</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre del Hotel"
+                      id="policies1"
+                      name="policies1"
+                      required
+                      ngModel
+                      #policies1="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="
+                        policies1.invalid &&
+                        (policies1.dirty || policies1.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="policies1.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Política 2:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      id="policies2"
+                      ngModel
+                      name="policies2"
+                      #policies2="ngModel"
+                      [ngClass]="'input'"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    id="photel_id"
+                    ngModel
+                    name="photel_id"
+                    #photel_id="ngModel"
+                    [ngClass]="'input'"
+                  />
+
+                  <div class="col-sm-12">
+                    <div class="form-group text-center">
+                      <input
+                        type="submit"
+                        class="btn"
+                        value="GUARDAR"
+                        [ngClass]="'input-btn'"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-container>
+
+        <!--comentar las politicas del hotel-->
+        <ng-container *ngIf="tipo === 11">
+          <ng-container *ngIf="hotel != null">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <p>Nombre: {{ hotel.name }}</p>
+                <p>RUC: {{ hotel.ruc }}</p>
+              </div>
+              <form
+                #fmrRegisterCommentPolicies="ngForm"
+                (ngSubmit)="onCommentP(fmrRegisterCommentPolicies)"
+              >
+                <div class="form-body">
+                  <div class="row">
+                    <div class="form-group mb-4">
+                      <label> Comentario: </label>
+
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Comentario"
+                        id="pcomentario"
+                        name="pcomentario"
+                        required
+                        ngModel
+                        rows="7"
+                        #pcomentario="ngModel"
+                        [ngClass]="'input'"
+                      ></textarea>
+                      <div
+                        *ngIf="
+                          pcomentario.invalid &&
+                          (pcomentario.dirty || pcomentario.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="pcomentario.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="form-group text-center">
+                        <input
+                          type="submit"
+                          class="btn"
+                          value="RECHAZAR"
+                          [disabled]="!fmrRegisterCommentPolicies['valid']"
+                          [ngClass]="'input-btn'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </ng-container>
+        </ng-container>
+
       </div>
     </div>
   </div>

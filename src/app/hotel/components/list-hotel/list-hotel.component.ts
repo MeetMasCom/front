@@ -14,12 +14,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 })
 export class ListHotelComponent {
   @ViewChild('warningModal') warningModal!: ModalAlertsComponent;
-  @ViewChild('ValidateH') ValidateH!: ModalAlertsComponent;
+  @ViewChild('ValidateH') ValidateH!: MmodalComponent;
   @ViewChild('fadModal') fadModal!: MmodalComponent;
-  @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
+  @ViewChild('datavalidModal') datavalidModal!: ModalAlertsComponent;
   @ViewChild('validModal') validModal!: ModalAlertsComponent;
   @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
-  @ViewChild('avisoModal') avisoModal!: ModalAlertsComponent;
+  @ViewChild('RegisterPolicies') RegisterPolicies!: MmodalComponent;
+
   user_data: any = [];
   hotel: any = [];
   api = '';
@@ -32,7 +33,7 @@ export class ListHotelComponent {
   estado = -1;
   hotelId: any = [];
   errMsj: any;
-  rating: number=0;
+  rating: number = 0;
   selectedFile!: File;
   dataHotel: any;
 
@@ -82,7 +83,6 @@ export class ListHotelComponent {
       if (this.user_data.state[index] === 2) {
         this.estado = 0;
       }
-      
     });
 
     if (this.estado === 1) {
@@ -92,45 +92,54 @@ export class ListHotelComponent {
     if (this.estado === 0) {
       this.fadModal.abrir();
     }
-   
   }
 
   onRedirigir() {
     this.router.navigate(['/dataUser', this.estado]);
   }
 
-  onRefresh(){
-    location.reload()
+  onRefresh() {
+    location.reload();
   }
 
-  onComplete(){
+  onComplete() {
     this.ValidateH.abrir();
   }
 
   async myHotel(id: string) {
     try {
-      this.hotel_id=id;
+      this.hotel_id = id;
       const response = await lastValueFrom(this.hotelService.getHotelById(id));
       if (response.data !== null) {
-        
-        this.hotelId = response.data;     
-        
-        if (this.hotelId[0].state === 1) {
-          this.router.navigate(['/myHotel', id]);
-        } else if (this.hotelId[0].state === 0) {
-          //modal que indica que los datos se estan validando
-          this.correctModal.abrir();
-        }else if (this.hotelId[0].state === 2) {
-          console.log("estado",this.hotelId[0].state);
-          //modal que indica que falta informacion
-          this.dataHotel=response.data[0];
-         // this.avisoModal.abrir();
-         this.ValidateH.abrir();
+        this.dataHotel = response.data[0];
+        this.hotelId = response.data;
+
+        if (this.dataHotel.state === 0) {
+          this.datavalidModal.abrir();
+
+        } 
+        if (this.dataHotel.state === 1) {
+          console.log("estado",this.dataHotel.state);
+          this.dataHotel = response.data[0];
+          this.RegisterPolicies.abrir();
+          //this.ValidateH.abrir();
+        } 
+        if (this.dataHotel.state === 2) {
+          this.dataHotel = response.data[0];
+          this.ValidateH.abrir();
+
         }
-      } 
+        if (this.dataHotel.state === 3) {
+          this.router.navigate(['/myHotel', id]);
+        }
+      }
     } catch (error: any) {
       console.log('error', error.error);
     }
+  }
+
+  registerPolicies(event: any) {
+
   }
 
   async selectedHotel(id: string) {
@@ -138,25 +147,23 @@ export class ListHotelComponent {
       const response = await lastValueFrom(this.hotelService.getHotelById(id));
       if (response.data !== null) {
         this.hotelId = response.data;
-        this.router.navigate(['/hotelDetail', id]);       
-      } 
+        this.router.navigate(['/hotelDetail', id]);
+      }
     } catch (error: any) {
       console.log('error', error.error);
     }
   }
-
 
   async setRating(val: number) {
     console.log(val);
-      this.rating = val;
+    this.rating = val;
   }
 
-
-  async onFormHotel(event:any){
+  async onFormHotel(event: any) {
     try {
       event.value.huser_id = this.id;
       const resp = await lastValueFrom(
-        this.hotelService.registerHotel(event.value,this.selectedFile)
+        this.hotelService.registerHotel(event.value, this.selectedFile)
       );
       console.log('resp', resp);
       this.message = resp.message;
@@ -166,19 +173,21 @@ export class ListHotelComponent {
       this.message = error.error.message;
       this.errorModal.abrir();
     }
-
   }
 
-  onDoc(event:any){
+  onDoc(event: any) {
     this.selectedFile = event.target.files[0];
   }
-    
-  async updateHotel(event:any){
-    try {
 
-      event.value.mhuser_id= this.id;
+  async updateHotel(event: any) {
+    try {
+      event.value.mhuser_id = this.id;
       const resp = await lastValueFrom(
-        this.hotelService.updateHotel(this.hotel_id,event.value,this.selectedFile)
+        this.hotelService.updateHotel(
+          this.hotel_id,
+          event.value,
+          this.selectedFile
+        )
       );
       console.log('resp', resp);
       this.message = resp.message;
@@ -189,5 +198,4 @@ export class ListHotelComponent {
       this.errorModal.abrir();
     }
   }
-
 }

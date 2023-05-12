@@ -98,7 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminloginComponent,
     DashboardComponent,
     MenuadminComponent,
-    AdminsComponent,
+    AdminsComponent
   ],
   imports: [
     TranslateModule.forRoot({

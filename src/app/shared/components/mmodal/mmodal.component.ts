@@ -55,6 +55,7 @@ export class MmodalComponent {
   @Output() onAprobatePolicies: EventEmitter<any> = new EventEmitter();
   @Output() onCommentPolicies: EventEmitter<any> = new EventEmitter();
   @Output() onDeclinePolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdatePolicies: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -65,12 +66,10 @@ export class MmodalComponent {
   ) {}
   async ngOnInit() {
   this.api = this.constante.API_IMAGES;
-  console.log(this.tipo);
-  console.log(this.idModal);  
   }
 
   abrir() {
-    console.log("llega");
+    console.log(this.policies);
     this.modalPublicar.nativeElement.click();    
   }
 
@@ -141,6 +140,9 @@ this.onVPolicies.emit(event);
 
   onCommentP(event:any){
     this.onDeclinePolicies.emit(event);
+  }
+  onUpdateP(event:any){
+    this.onUpdatePolicies.emit(event);
   }
 
 }

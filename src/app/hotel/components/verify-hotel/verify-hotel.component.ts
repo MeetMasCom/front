@@ -35,6 +35,7 @@ export class VerifyHotelComponent {
   hotelVerify: any;
   dataPolicies: any;
   allhotel: any;
+  
   constructor(
     private hotelService: HotelServiceService,
     private router: Router,
@@ -115,8 +116,9 @@ export class VerifyHotelComponent {
   async validateHotel(event: any) {
     try {
       console.log(event);
+      const state=3;
       const response = await lastValueFrom(
-        this.hotelService.verifyHotel(event)
+        this.hotelService.updateState(event,state)
       );
       if (response.data !== null) {
         this.message = response.message;
@@ -166,8 +168,9 @@ export class VerifyHotelComponent {
         const response = await lastValueFrom(this.hotelService.commentHotel(this.id_hotel,event.value));
         if (response.data !== null) {
           console.log(event);
+          const state=2;
          const resp = await lastValueFrom(
-           this.hotelService.declineHotel(this.id_hotel)
+           this.hotelService.updateState(this.id_hotel,state)
          );
          if (resp.data !== null) {
           this.message = resp.message;
@@ -209,8 +212,15 @@ export class VerifyHotelComponent {
       this.hotelService.verifyPolicies(event)
     );
     if (response.data !== null) {
-      this.message = response.message;
-      this.exitModal.abrir();
+      const state=3;
+      const resp = await lastValueFrom(
+        this.hotelService.updateState(this.id_hotel,state)
+      );
+      if (resp.data !== null) {
+        this.message = response.message;
+        this.exitModal.abrir();
+      }
+      
     }
   } catch (error: any) {
     console.log('error', error.error);
@@ -228,6 +238,13 @@ async declinePolicies(event:any){
      const response = await lastValueFrom(this.hotelService.commentPolicies(this.id_hotel,event.value));
      if (response.data !== null) {
       location.reload();
+      const state=4;
+      const resp = await lastValueFrom(
+        this.hotelService.updateState(this.id_hotel,state)
+      );
+      if (resp.data !== null) {
+        this.message = response.message;
+      }
      }
    
  } catch (error: any) {

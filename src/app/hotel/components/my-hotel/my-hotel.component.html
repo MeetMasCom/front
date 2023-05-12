@@ -561,7 +561,7 @@
                     <div class="accordion-body">
                       <form
                         #fmrUpdatePolicies="ngForm"
-                        (ngSubmit)="onPoliciesH(fmrUpdatePolicies)"
+                        (ngSubmit)="onUpdatePoliciesH(fmrUpdatePolicies)"
                       >
                         <div class="form-body">
                           <div class="row">
@@ -572,23 +572,23 @@
                                 type="text"
                                 class="form-control"
                                 placeholder=""
-                                id="policies1"
-                                name="policies1"
+                                id="upolicies1"
+                                name="upolicies1"
                                 required
                                 ngModel
-                                #policies1="ngModel"
+                                #upolicies1="ngModel"
                                 [ngClass]="'input'"
                               />
                               <div
                                 *ngIf="
-                                  policies1.invalid &&
-                                  (policies1.dirty || policies1.touched)
+                                  upolicies1.invalid &&
+                                  (upolicies1.dirty || upolicies1.touched)
                                 "
                                 class="text-danger form-group position-absolute"
                               >
                                 <small
                                   class="form-group"
-                                  *ngIf="policies1.errors?.['required']"
+                                  *ngIf="upolicies1.errors?.['required']"
                                 >
                                   Campo requerido.
                                 </small>
@@ -601,10 +601,10 @@
                                 type="text"
                                 class="form-control"
                                 placeholder=""
-                                id="policies2"
-                                name="policies2"
+                                id="upolicies2"
+                                name="upolicies2"
                                 ngModel
-                                #policies2="ngModel"
+                                #upolicies2="ngModel"
                                 [ngClass]="'input'"
                               />
                             </div>

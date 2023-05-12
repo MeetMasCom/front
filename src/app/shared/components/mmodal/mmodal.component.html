@@ -1006,7 +1006,7 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-container *ngIf="policies.length > 0">
+              <ng-container *ngIf="hotel.state === 1">
                 <div class="col-sm-12">
                   <div class="form-group text-center">
                     <input
@@ -1470,81 +1470,70 @@
 
         <!--ingresar las poiticas del hotel-->
         <ng-container *ngIf="tipo === 10">
-          <div class="row bg-danger">
-            <div class="col-md-6 form-group"></div>
-            <form
-              #fmrRegisterPolicies="ngForm"
-              (ngSubmit)="registerPolicies(fmrRegisterPolicies)"
-            >
-              <div class="form-body">
-                <div class="row">
-                  <div class="form-group mb-3">
-                    <label class="form-label">Política 1</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Nombre del Hotel"
-                      id="policies1"
-                      name="policies1"
-                      required
-                      ngModel
-                      #policies1="ngModel"
-                      [ngClass]="'input'"
-                    />
-                    <div
-                      *ngIf="
-                        policies1.invalid &&
-                        (policies1.dirty || policies1.touched)
-                      "
-                      class="text-danger form-group position-absolute"
-                    >
-                      <small
-                        class="form-group"
-                        *ngIf="policies1.errors?.['required']"
-                      >
-                        Campo requerido.
-                      </small>
-                    </div>
-                  </div>
+          <form
+            #fmrRegisterPolicies="ngForm"
+            (ngSubmit)="registerPolicies(fmrRegisterPolicies)"
+          >
+            <div class="form-body">
+              <div class="row">
+                <div class="form-group mb-4">
+                  <label> URL 1: </label>
 
-                  <div class="form-group mt-4">
-                    <label class="form-label">Política 2:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder=""
-                      id="policies2"
-                      ngModel
-                      name="policies2"
-                      #policies2="ngModel"
-                      [ngClass]="'input'"
-                    />
-                  </div>
                   <input
                     type="text"
                     class="form-control"
                     placeholder=""
-                    id="photel_id"
+                    id="policies1"
+                    name="policies1"
+                    required
                     ngModel
-                    name="photel_id"
-                    #photel_id="ngModel"
+                    #policies1="ngModel"
                     [ngClass]="'input'"
                   />
+                  <div
+                    *ngIf="
+                      policies1.invalid &&
+                      (policies1.dirty || policies1.touched)
+                    "
+                    class="text-danger form-group position-absolute"
+                  >
+                    <small
+                      class="form-group"
+                      *ngIf="policies1.errors?.['required']"
+                    >
+                      Campo requerido.
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <label> URL 2: </label>
 
-                  <div class="col-sm-12">
-                    <div class="form-group text-center">
-                      <input
-                        type="submit"
-                        class="btn"
-                        value="GUARDAR"
-                        [ngClass]="'input-btn'"
-                      />
-                    </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    id="policies2"
+                    name="policies2"
+                    ngModel
+                    #policies2="ngModel"
+                    [ngClass]="'input'"
+                  />
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-group text-center">
+                    <input
+                      type="submit"
+                      class="btn"
+                      value="ACTUALIZAR"
+                      [disabled]="!fmrRegisterPolicies['valid']"
+                      [ngClass]="'input-btn'"
+                    />
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </ng-container>
 
         <!--comentar las politicas del hotel-->
@@ -1610,6 +1599,84 @@
           </ng-container>
         </ng-container>
 
+        <!--Actualizar las politicas del hotel-->
+
+        <ng-container *ngIf="tipo === 12">
+          <ng-container *ngIf="policies != null">
+            <div class="row">
+              <div class="alert alert-danger" role="alert">
+                {{ policies }}
+              </div>
+              <div class="col-md-12 form-group">
+               <h5>Ingrese al menos 1 link en donde se establezcan las políticas del hotel</h5>
+              </div>
+              <form
+                #fmrUpdatePolicies="ngForm"
+                (ngSubmit)="onUpdateP(fmrUpdatePolicies)"
+              >
+                <div class="form-body">
+                  <div class="row">
+                    <div class="form-group mb-4">
+                      <label> URL 1: </label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=""
+                        id="upolicies1"
+                        name="upolicies1"
+                        required
+                        ngModel
+                        #upolicies1="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="
+                          upolicies1.invalid &&
+                          (upolicies1.dirty || upolicies1.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="upolicies1.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                    <div class="form-group mt-3">
+                      <label> URL 2: </label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder=""
+                        id="upolicies2"
+                        name="upolicies2"
+                        ngModel
+                        #upolicies2="ngModel"
+                        [ngClass]="'input'"
+                      />
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="form-group text-center">
+                        <input
+                          type="submit"
+                          class="btn"
+                          value="ACTUALIZAR"
+                          [disabled]="!fmrUpdatePolicies['valid']"
+                          [ngClass]="'input-btn'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -50,6 +50,7 @@ export class MyHotelComponent {
   typeRoom: any;
 
   @ViewChild('myTabs') myTabs: any;
+  id_Policies: any;
   constructor(
     private hotelService: HotelServiceService,
     private router: Router,
@@ -285,13 +286,36 @@ export class MyHotelComponent {
     }
   }
 
+  async onUpdatePoliciesH(form: any) {
+    try {
+
+      console.log('formulario', form.value);
+      const policie1 = form.value.policies1;
+      const policie2 = form.value.policies2;
+      console.log('1', policie1);
+      console.log('2', policie2);
+      const response = await lastValueFrom(
+        this.hotelService.UpdatePoliciesHotel(this.id_Policies, form)
+      );
+      if (response.data !== null) {
+        console.log('politicas actualizadas');
+        location.reload();
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+
   async getPoliciesByHotel() {
     try {
       const response = await lastValueFrom(
         this.hotelService.getPoliciesIdHotel(this.id_hotel)
       );
       if (response.data !== null) {
+        console.log("politicas",response.data);
         this.policies = response.data[0].policies;
+        this.id_Policies=response.data[0]._id;
         console.log(this.policies);
       }
     } catch (error: any) {

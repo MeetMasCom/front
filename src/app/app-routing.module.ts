@@ -13,6 +13,9 @@ import { NoticesComponent } from './user/components/notices/notices.component';
 import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
+import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
+import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
+import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -32,6 +35,9 @@ const routes: Routes = [
   { path: 'admin', component: AdminLayoutComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
+  { path: 'supSistemas', component: SupSystemsComponent },
+  { path: 'supVentas', component: SupSalesComponent },
+  { path: 'supAnuncios', component: SupNoticesComponent },
 ];
 
 @NgModule({

@@ -42,11 +42,11 @@ tbody {
   background: #f9a21e;
 }
 
-#admin-home {
+#user-home {
   border-radius: 10px;
 }
 
-#admin-profile {
+#spam-profile {
   padding-top: 2vw;
   padding-left: 2vw;
   padding-right: 4vw;

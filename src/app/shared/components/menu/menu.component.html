@@ -1,8 +1,36 @@
 <div class="sticky-top">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand align-items-center icon" href="/inicio">
-      <img class="rounded" src="../../assets/img/logo7.png" alt="Ken You Me" />
-    </a>
+    <ng-container *ngIf="token !== ''">
+      <a class="navbar-brand align-items-center icon" href="/fad">
+        <img
+          class="rounded img-header img-fluid"
+          src="../../assets/img/logo7.png"
+          alt="Ken You Me"
+        />
+        &nbsp;
+        <img
+          class="rounded img-header img-fluid"
+          src="../../assets/img/demo.png"
+          alt="Ken You Me"
+        />
+      </a>
+    </ng-container>
+    <ng-container *ngIf="token === ''">
+      <a class="navbar-brand align-items-center icon" href="/inicio">
+        <img
+          class="rounded img-header img-fluid"
+          src="../../assets/img/logo7.png"
+          alt="Ken You Me"
+        />
+        &nbsp;
+        <img
+          class="rounded img-header img-fluid"
+          src="../../assets/img/demo.png"
+          alt="Ken You Me"
+        />
+      </a>
+    </ng-container>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -14,33 +42,113 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div
       class="collapse navbar-collapse justify-content-end align-items-center"
       id="navbarNavAltMarkup"
     >
       <div class="navbar-nav menu mx-4">
-        <form role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Buscar"
-          />
-        </form>
+        <div class="m-2">
+          <form role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              [placeholder]="'menu.search' | translate"
+              aria-label="Buscar"
+            />
+          </form>
+        </div>
 
-        <a class="nav-item nav-link" href="">Matches</a>
-        <a class="nav-item nav-link" href="">Estilo</a>
-        <a class="nav-item nav-link" href="">Hotel</a>
-        <a class="nav-item nav-link" href="">Restaurant</a>
-        <a class="nav-item nav-link" href="">Flores</a>
-        <a
-          class="nav-item nav-link"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#modalLogin"
+        <ng-container *ngIf="token !== ''">
+          <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
+          <a class="nav-item nav-link" href="fad">{{
+            "menu.fashion" | translate
+          }}</a>
+          <a class="nav-item nav-link" href="hotel">{{
+            "menu.hotels" | translate
+          }}</a>
+          <a class="nav-item nav-link">{{ "menu.restaurants" | translate }}</a>
+          <a class="nav-item nav-link">{{ "menu.flowers" | translate }}</a>
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle border-0 nav-item nav-link"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
+              <li><a class="dropdown-item">Privacidad</a></li>
+              <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
+              <li><a class="dropdown-item">Link Patrocinador</a></li>
+              <li><a class="dropdown-item">Mis Referidos</a></li>
+              <li><a class="dropdown-item">Mis Finanzas</a></li>
+              <li><a class="dropdown-item">Mis Amigos</a></li>
+              <li>
+                <a class="dropdown-item btn" (click)="onLogout()">Salir</a>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="token === ''">
+          <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
+          <a class="nav-item nav-link" href="inicio">{{
+            "menu.fashion" | translate
+          }}</a>
+          <a class="nav-item nav-link" href="inicio">{{
+            "menu.hotels" | translate
+          }}</a>
+          <a class="nav-item nav-link">{{ "menu.restaurants" | translate }}</a>
+          <a class="nav-item nav-link">{{ "menu.flowers" | translate }}</a>
+          <a
+            class="nav-item nav-link"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#modalLogin"
+          >
+            <fa-icon [icon]="['fas', 'key']"></fa-icon>
+            {{ "menu.login" | translate }}
+          </a>
+        </ng-container>
+
+        <div
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          [title]="selectLang.label"
+          *ngIf="selectLang"
+          class="dropdown m-2 cursor-pointer"
         >
-          <fa-icon [icon]="['fas', 'key']"></fa-icon> Login
-        </a>
+          <img
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            class="w-40 h-40 img-fluid"
+            [src]="'/assets/langs/' + selectLang.icon"
+            alt="Meet-mas"
+          />
+          <div class="dropdown-menu w-50" aria-labelledby="dropdownMenuButton1">
+            <div
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              [title]="lang.label"
+              *ngFor="let lang of langs"
+              class="p-1"
+            >
+              <img
+                *ngIf="lang.alias !== selectLang.alias"
+                (click)="setTransLanguage(lang)"
+                class="w-40 h-40 img-fluid"
+                [src]="'/assets/langs/' + lang.icon"
+                alt="Meet-mas"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -48,3 +156,6 @@
 
 <!-- Modal -->
 <app-login></app-login>
+
+<!--Alert-->
+<app-alert [classAlert]="classA" [message]="msj"></app-alert>

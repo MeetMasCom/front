@@ -1,0 +1,209 @@
+<app-menu></app-menu>
+<div class="align-items-center justify-content-center">
+  <div class="col-12 d-flex justify-content-center align-items-center mt-5">
+    <h3>DATOS DEL HOTEL</h3>
+  </div>
+  <div class="container">
+    <form #fmrRegister="ngForm">
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del Hotel"
+            id="name"
+            name="name"
+            required
+            ngModel
+            #name="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="name.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dirección"
+            id="address"
+            required
+            ngModel
+            name="address"
+            #address="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="address.invalid && (address.dirty || address.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="address.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Teléfono"
+            id="phone"
+            required
+            ngModel
+            name="phone"
+            #phone="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="phone.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">País</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="País"
+            id="country"
+            required
+            ngModel
+            name="country"
+            #country="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="country.invalid && (country.dirty || country.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="country.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Ciudad</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ciudad"
+            id="city"
+            required
+            ngModel
+            name="city"
+            #city="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="city.invalid && (city.dirty || city.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="city.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Estrellas</label>
+          <select
+            type="text"
+            class="form-control"
+            id="stars"
+            required
+            ngModel
+            name="stars"
+            #stars="ngModel"
+            [ngClass]="'input'"
+          >
+          <option value="" disabled selected>Seleccione una opción</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <div
+            *ngIf="stars.invalid && (stars.dirty || stars.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="stars.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 containerInput mt-2 mb-3">
+        <div class="form-group col-md-12 col-sm-12">
+          <label class="form-label">Gerente</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del Representante"
+            id="manager"
+            required
+            ngModel
+            name="manager"
+            #manager="ngModel"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="manager.invalid && (manager.dirty || manager.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="manager.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            id="user_id"
+            required
+            ngModel
+            name="user_id"
+            #user_id="ngModel"
+            [ngClass]="'input'"
+          />
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="form-group text-center">
+          <input
+            type="submit"
+            class="btn"
+            value="GUARDAR"
+            [disabled]="!fmrRegister['valid']"
+            [ngClass]="'input-btn'"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+<app-footer></app-footer>
+<app-alert [classAlert]="classA" [message]="message"></app-alert>

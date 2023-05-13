@@ -10,10 +10,12 @@
     <div class="col-md-6 justify-content-center align-items-center">
       <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
         <div class="container card register">
-          <div class="mt-4"><p>REGISTRO</p></div>
+          <div class="mt-4">
+            <p>{{ "register.title" | translate }}</p>
+          </div>
           <div>
             <div class="form-group">
-              <label class="label">Pais</label>
+              <label class="label">{{ "register.country" | translate }}</label>
               <select
                 class="form-control d-flex"
                 id="country"
@@ -23,14 +25,18 @@
                 #country="ngModel"
                 [ngClass]="'select'"
               >
-                <option value="" selected disabled>Seleccione un pais</option>
-                <option value="64307ffca6453f5787abf340">Ecuador</option>
+                <option value="" selected disabled>
+                  {{ "register.countrySelect" | translate }}
+                </option>
+                <option *ngFor="let item of countries" [value]="item._id">
+                  {{ item.name }}
+                </option>
               </select>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <label class="label">Fecha de nacimiento</label>
+              <label class="label">{{ "register.date" | translate }}</label>
               <input
                 type="date"
                 class="form-control"
@@ -51,7 +57,7 @@
                 class="text-danger"
               >
                 <small *ngIf="dateBirth.errors?.['required']">
-                  Seleccione una fecha.
+                  {{ "register.selectDate" | translate }}
                 </small>
               </div>
               <small class="text-danger" *ngIf="errordate !== ''">
@@ -61,43 +67,49 @@
           </div>
           <div>
             <div class="form-group">
-              <label class="label">Nombre de usuario</label>
+              <label class="label">
+                {{ "register.username" | translate }}</label
+              >
               <input
                 id="userName"
                 type="text"
                 class="form-control"
-                placeholder="Nombre usuario"
+                placeholder=" {{ 'register.username' | translate }}"
                 required
                 ngModel
                 name="userName"
                 pattern="[A-Za-z0-9]+"
                 #userName="ngModel"
                 [ngClass]="'input'"
+                (change)="onValidateUserName(userName.value)"
               />
               <div
                 *ngIf="userName.invalid && (userName.dirty || userName.touched)"
                 class="text-danger"
               >
                 <small *ngIf="userName.errors?.['required']">
-                  Ingrese el username.
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.username" | translate }}
                 </small>
                 <small *ngIf="userName.errors?.['pattern']">
-                  Username no válido.
+                  {{ "register.username" | translate }}
+                  {{ "register.invaliMsg" | translate }}
                 </small>
               </div>
-              <!-- <div *ngIf="authService.statusUserName" class="text-danger">
-                username no disponible.
-              </div> -->
+              <div *ngIf="statusUserName" class="text-danger">
+                {{ "register.username" | translate }}
+                {{ "register.unaviableMsg" | translate }}
+              </div>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <label class="label">Correo electrónico</label>
+              <label class="label"> {{ "register.mail" | translate }}</label>
               <input
                 id="email"
                 type="email"
                 class="form-control"
-                placeholder="Email"
+                placeholder=" {{ 'register.mail' | translate }}"
                 placeholder="Email"
                 required
                 email
@@ -105,30 +117,36 @@
                 name="email"
                 #email="ngModel"
                 [ngClass]="'input'"
+                (change)="onValidateEmail(email.value)"
               />
               <div
                 *ngIf="email.invalid && (email.dirty || email.touched)"
                 class="text-danger"
               >
-                <small *ngIf="email.errors?.['required']"
-                  >Ingrese el email.</small
-                >
+                <small *ngIf="email.errors?.['required']">
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.mail" | translate }}
+                </small>
                 <small *ngIf="email.errors?.['email']">
-                  Ingrese un email válido.
+                  {{ "register.mail" | translate }}
+                  {{ "register.invaliMsg" | translate }}
                 </small>
               </div>
-              <!-- <div *ngIf="authService.statusEmail" class="text-danger">
-                email ya registrado.
-              </div> -->
+              <div *ngIf="statusEmail" class="text-danger">
+                {{ "register.mail" | translate }}
+                {{ "register.usedMsg" | translate }}
+              </div>
             </div>
           </div>
           <div>
             <div class="form-group">
-              <label class="label">Contraseña</label>
+              <label class="label">
+                {{ "register.password" | translate }}</label
+              >
               <input
                 type="password"
                 class="form-control"
-                placeholder="Contraseña"
+                placeholder=" {{ 'register.password' | translate }}"
                 id="password"
                 required
                 ngModel
@@ -142,13 +160,14 @@
                 class="text-danger form-group"
               >
                 <small class="form-group" *ngIf="password.errors?.['required']">
-                  Ingrese el password.
+                  {{ "register.insertMsg" | translate }}
+                  {{ "register.password" | translate }}
                 </small>
                 <small
                   class="form-group"
                   *ngIf="password.errors?.['minlength']"
                 >
-                  Debe tener mínino 8 caracteres.
+                  {{ "register.minPassword" | translate }}
                 </small>
               </div>
             </div>
@@ -163,8 +182,8 @@
                 name="terms"
                 #terms="ngModel"
               />
-              Acepto los
-              <a href="#">Términos y Condiciones</a>
+              {{ "register.acceptMsg" | translate }}
+              <a href="#">{{ "register.Terms" | translate }}</a>
             </div>
           </div>
           <div class="mt-2">
@@ -186,7 +205,7 @@
                 class="invalid-feedback"
               >
                 <div *ngIf="recaptcha.errors?.['required']">
-                  Captcha requerido.
+                  {{ "register.captcha" | translate }}
                 </div>
               </div>
             </div>
@@ -196,7 +215,7 @@
               <input
                 type="submit"
                 class="btn"
-                value="Registrarse"
+                value="{{ 'register.registerBtn' | translate }}"
                 [disabled]="!frmREgister.valid || errordate !== ''"
                 [ngClass]="'input-btn'"
               />
@@ -213,5 +232,20 @@
   </div>
 </div>
 
-<!-- Alerts -->
-<!-- <app-alert [classAlert]="classA" [message]="message"></app-alert> -->
+<app-modal-alerts
+  [idModal]="'exitoR'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRedirigir()"
+  #exitoRModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failR'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Registro Incorrecto'"
+  [descripcion]="message"
+  (successModal)="onFail()"
+  #failRModal
+></app-modal-alerts>

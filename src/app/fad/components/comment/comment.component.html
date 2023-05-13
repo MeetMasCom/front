@@ -1,0 +1,108 @@
+<app-menu></app-menu>
+<div class="row" *ngIf="!fad; else main_content">
+  <h1>Loading...</h1>
+</div>
+<br />
+<ng-template #main_content>
+  <div class="container">
+    <div class="row justify-content-center flex align-items-center">
+      <div class="col-md-6">
+        <div class="card" style="width: 100%">
+          <img
+            [src]="api + fad[0].picture"
+            class="card-img-top img-fluid"
+            alt="..."
+          />
+         <ng-container *ngIf="this.usuario!=this.id_user">
+            <div class="card-body d-flex justify-content-center">
+              <app-rating-star
+                (eventSetRating)="setRating($event)" [val]="this.star"
+              ></app-rating-star>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <div class="none p-2">
+              <span style="font-weight: bold; border: 0px !important">{{
+                fad[0].name
+              }}</span>
+            </div>
+            <div class="form-group">
+              <textarea rows="2" class="form-control" disabled>{{
+                fad[0].description
+              }}</textarea>
+            </div>
+          </div>
+          <div class="p-4" style="max-height: 750px; overflow-y: scroll">
+            <div class="col-md-12 p-2" *ngFor="let c of comment">
+              <div class="row form-group border-bottom">
+                <div class="row data">
+                  <div class="col-md-6">
+                    <span>{{ c.user[0].userName }}</span>
+                  </div>
+                  <div class="col-md-6 d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                      <span>{{ c.created_at | date : "dd/MM/yyyy" }}</span>
+                      <span> {{ c.created_at | date : "h:mm a" }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <span>{{ c.comment }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="this.usuario!=this.id_user">
+          <div class="p-2">
+            <form
+              form
+              #frmRegister="ngForm"
+              class="form form-horizontal"
+              (ngSubmit)="onRegister(frmRegister)"
+            >
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="comment"
+                  placeholder="comentt"
+                  ngModel
+                  required
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="fad_id"
+                  ngModel="{{ fad[0]._id }}"
+                  required
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="user_id"
+                  ngModel="{{ fad[0].user_id }}"
+                />
+              </div>
+              <div
+                class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end"
+              >
+                <button
+                  class="btn btn-warning"
+                  style="background-color: #f9a21e !important"
+                >
+                  Comentar
+                </button>
+              </div>
+            </form>
+          </div>
+        </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<app-footer></app-footer>

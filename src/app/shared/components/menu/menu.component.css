@@ -2,17 +2,34 @@
   margin-top: -1vw;
 }
 
+.w-40{
+  width: 40px !important;
+}
+
+.w-50{
+  width: 50px !important;
+  min-width: 50px !important;
+}
+
+.cursor-pointer{
+  cursor: pointer !important;
+}
+
+.h-40{
+  height: 30px !important;
+}
+
 @media only screen and (min-width: 1001px) {
   .icon {
-    padding-inline-start: 10%;
+    padding-inline-start: 4%;
   }
 
   .menu {
-    padding-inline-end: 10%;
+    padding-inline-end: 4%;
     align-items: center;
   }
 
-  img {
+  .img-header {
     width: 4vw;
     min-height: 4vw;
   }

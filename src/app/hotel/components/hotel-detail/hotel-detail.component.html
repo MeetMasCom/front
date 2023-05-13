@@ -1,0 +1,146 @@
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw">
+  <div class="row"></div>
+  <nav id="opciones" class="navbar navbar-light bg-light px-3">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{ id_hotel }}#description"
+          >Descripción General</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{ id_hotel }}#rooms"
+          >Habitaciones</a
+        >
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{ id_hotel }}#location"
+          >Ubicación</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{ id_hotel }}#amenities"
+          >Comodidades</a
+        >
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="hotelDetail/{{ id_hotel }}#policies"
+          >Políticas</a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div
+    data-bs-spy="scroll"
+    data-bs-target="#opciones"
+    data-bs-offset="0"
+    class="scrollspy-example"
+    tabindex="0"
+  >
+    <!--DESCRIPCION GENERAL-->
+    <div>
+      <div class="row">
+        <div class="col col-lg-3">
+          <app-columns [tipo]="1"></app-columns>
+        </div>
+        <div class="col-md-6 p-3">
+          <!--DESCRIPCION-->
+          <div class="row" id="description">
+            <div class="row">
+              <h1>{{ this.hotel.data[0].name }}</h1>
+            </div>
+
+            <div class="val">
+              <app-rating-star
+                style="display: block !important"
+                (eventSetRating)="setRating($event)"
+                [val]="this.hotel.data[0].stars"
+              ></app-rating-star>
+            </div>
+            <div class="row p-4">
+              <h5>Servicios</h5>
+
+              <div class="col-md-6" *ngFor="let service of services">
+                <div class="row">
+                  <div class="col-md-1 p-2">
+                    <fa-icon class="fa-x" [icon]="faShield"></fa-icon>
+                  </div>
+                  <div class="col-md-11 p-2">
+                    {{ service.description }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--HABITACIONES-->
+          <div class="row justify-content-center" id="rooms">
+            <h4>Habitaciones</h4>
+            <hr />
+
+            <ng-container *ngIf="room.length > 0">
+              <div
+                *ngFor="let r of room"
+                class="h-100 d-inline-block mt-3 col-md-6"
+              >
+                <div class="card" style="width: 20rem">
+                  <img
+                  [src]="api + r.photo[0]"
+                    class="card-img-top"
+                    alt="..."
+                    width="100%"
+                    height="180px"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">{{ r.name }}</h5>
+                    <div class="card-text p-2">
+                      <div class="p-2">Número: {{ r.number }}</div>
+                      <div class="p-2">Dimension: {{ r.dimension }}</div>
+                      <div class="p-2">Tipo: {{ r.type }}</div>
+                      <div class="p-2">Precio: ${{ r.actualPrice }}</div>
+                    </div>
+                    <button class="btn details" (click)="detalle(r._id)">
+                      Mas detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <!--UBICACION-->
+          <div class="row" id="location">
+            <h4>Ubicación</h4>
+            <hr />
+          </div>
+          <!--COMODIDADES-->
+          <div class="row" id="amenities">
+            <h4>Comodidades</h4>
+            <hr />
+          </div>
+          <!--POLÍTICAS-->
+          <div class="row" id="policies">
+            <h4>Políticas</h4>
+            <hr />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <app-columns [tipo]="0"></app-columns>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal el detalle de la habitacion -->
+<app-mmodal
+  [idModal]="'fadModalH'"
+  [tipo]="4"
+  [title]="'Detalle Habitación'"
+  [photo]="photo"
+  [room]="roomD"
+  [service]="servicesR"
+
+  #fadModalH
+>
+</app-mmodal>
+
+<app-footer></app-footer>

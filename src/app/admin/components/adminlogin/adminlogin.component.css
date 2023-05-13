@@ -1,0 +1,28 @@
+.container {
+  min-height: 35vw;
+}
+
+.text-danger {
+  margin-top: -1.6vw;
+  position: absolute;
+  margin-bottom: 2vw;
+}
+
+.input-btn {
+  min-height: 2vw;
+  border: 1px solid #737373;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  background: #f9a21e;
+}
+
+/*PHONE*/
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+}
+
+/*TABLET*/
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+}

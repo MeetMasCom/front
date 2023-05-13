@@ -1,0 +1,260 @@
+<app-menu></app-menu>
+<div class="container" style="min-height: 40vw">
+  <div class="col-md-11 p-4 d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="button" class="btn btn-warning nuevo" (click)="onValidate()">
+      Publicar
+    </button>
+  </div>
+
+  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="pills-home-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-home"
+        type="button"
+        role="tab"
+        aria-controls="pills-home"
+        aria-selected="true"
+      >
+        Todos
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-profile-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-profile"
+        type="button"
+        role="tab"
+        aria-controls="pills-profile"
+        aria-selected="false"
+      >
+        Mis Hoteles
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <!--TODOS LOS HOTELES-->
+    <div
+      class="tab-pane fade show active"
+      id="pills-home"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <ng-container *ngIf="hotel?.length > 0">
+        <div class="row">
+          <div class="col col-lg-3">
+            <app-columns [tipo]="1"></app-columns>
+          </div>
+          <div class="col-md-6">
+            <div class="row p-3" *ngFor="let h of hotel">
+              <div class="card">
+                <h5 class="card-header">{{ h.name }}</h5>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img
+                        src="../../../../assets/hotel 1.jpg"
+                        alt=""
+                        style="width: 200px; height: 200px"
+                      />
+                    </div>
+                    <div class="col-md-5" style="padding-left: 8%">
+                      <h6 class="card-title">
+                        {{ h.city }} -- {{ h.country }}
+                      </h6>
+                      <span>Dirección:</span>
+                      <p class="card-text float-left">{{ h.address }}</p>
+                      <span>Teléfono:</span>
+                      <p>{{ h.phone }}</p>
+                      <span>Gerente:</span>
+                      <p>{{ h.manager }}</p>
+                    </div>
+                    <div class="col-md-3 float-left">
+                      <div class="row">
+                        <h5 class="card-title">Precio por noche</h5>
+                        <h1>$ {{h.price}}</h1>
+                        <button
+                          class="btn"
+                          style="background-color: #f9a21e"
+                          (click)="selectedHotel(h._id)"
+                        >
+                          Ver detalles
+                        </button>
+                      </div>
+                      <div class="row val">
+                        <app-rating-star
+                          (eventSetRating)="setRating($event)"
+                          [val]="h.stars"
+                        ></app-rating-star>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-3 float-left">
+            <app-columns [tipo]="0"></app-columns>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="hotel.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay hoteles disponibles</Span>
+        </div>
+      </ng-container>
+    </div>
+
+    <!--MIS HOTELES-->
+
+    <div
+      class="tab-pane fade"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-profile-tab"
+    >
+      <ng-container *ngIf="hotelUser?.length > 0">
+        <div class="row">
+          <div class="col col-lg-3">
+            <app-columns [tipo]="1"></app-columns>
+          </div>
+          <div class="col-md-7">
+            <div class="row p-3" *ngFor="let f of hotelUser">
+              <div class="card">
+                <h5 class="card-header">{{ f.name }}</h5>
+                <div class="card-body">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ f.city }}-{{ f.country }}</h5>
+                    <p class="card-text">Dirección: {{ f.address }}</p>
+                    <p class="card-text">Teléfono: {{ f.phone }}</p>
+                    <button
+                      class="btn"
+                      style="background-color: #f9a21e"
+                      (click)="myHotel(f._id)"
+                    >
+                      Ver detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-2 float-left">
+            <app-columns [tipo]="0"></app-columns>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="hotel.length === 0">
+        <div class="d-flex justify-content-center" style="min-height: 30vw">
+          <Span>No hay hoteles disponibles</Span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- modal para el registro del hotel -->
+<app-mmodal
+  [idModal]="'fadModal'"
+  [tipo]="2"
+  [title]="'Representante/ Gerente de Hotel'"
+  (sendModal)="onFormHotel($event)"
+  (onSelectDoc)="onDoc($event)"
+  #fadModal>  
+</app-mmodal>
+
+
+<!--  para validar los datos del hotel-->
+<app-modal-alerts
+  [idModal]="'datavalidModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Los datos del hotel se están validando'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #datavalidModal
+></app-modal-alerts>
+
+<!--  para validar las politicas del hotel-->
+<app-modal-alerts
+  [idModal]="'dataPoliciesModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Las políticas del hotel se están validando'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #dataPoliciesModal
+></app-modal-alerts>
+
+<!-- para actualizar los datos del hotel -->
+<app-modal-alerts
+  [idModal]="'warningModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Complete sus datos'"
+  [descripcion]="'Para continuar con la acción debe actualizar sus datos.'"
+  (successModal)="onRedirigir()"
+  [tipo]="0"
+  #warningModal
+></app-modal-alerts>
+
+
+<!-- ingreso correcto de datos -->
+<app-modal-alerts
+  [idModal]="'validModal'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"  
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #validModal
+></app-modal-alerts>
+
+<!-- error en el ingreso de datos-->
+<app-modal-alerts
+  [idModal]="'errorModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Registro incorrecto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #errorModal
+></app-modal-alerts>
+
+<!--FORMULARIO PARA COMPLETAR DATOS DEL HOTEL-->
+<app-mmodal
+  [idModal]="'ValidateH'"
+  [tipo]="8"
+  [title]="'Datos del hotel'"
+  [hotel]="dataHotel"
+  (onSelectDoc)="onDoc($event)"
+  (onUpdateHotel)="updateHotel($event)"
+  #ValidateH
+></app-mmodal>
+<!--FORMULARIO PARA INGRESAR LAS POLÍTICAS DEL HOTEL-->
+<app-mmodal
+  [idModal]="'RegisterP'"
+  [tipo]="10"
+  [title]="'Políticas del hotel'" 
+  (onregisterPolicies)="registerPolicies($event)"
+  #RegisterP>  
+</app-mmodal>
+
+
+<!--FORMULARIO PARA CAMBIAR LAS POLITICAS-->
+<app-mmodal
+  [idModal]="'ChangeP'"
+  [title]="'Políticas del Hotel'"
+  [tipo]="12"
+  [policies]="comment"
+  [hotel]="dataHotel" 
+  (onUpdatePolicies)="updateP($event)"
+  #ChangeP
+></app-mmodal>
+
+
+<app-footer></app-footer>

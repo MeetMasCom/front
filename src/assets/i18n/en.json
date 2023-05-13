@@ -1,0 +1,39 @@
+{
+  "menu": {
+    "search": "Search",
+    "fashion": "Fashion",
+    "hotels": "Hotels",
+    "restaurants": "Restaurants",
+    "flowers": "Flowers",
+    "login": "Login"
+  },
+  "footer": {
+    "copyright": "Meet Mas All rights reserved"
+  },
+  "summary": {
+    "welcome": "Welcome to Meet Mas",
+    "totalUsers": "Total Users",
+    "onlineUsers": "Users online",
+    "menUsers": "Men online",
+    "womanUsers": "Woman online"
+  },
+  "register": {
+    "title": "Register",
+    "country": "Country",
+    "countrySelect": "Select a country.",
+    "date": "Birth date",
+    "selectDate": "Select a date.",
+    "username": "Username",
+    "insertMsg": "Enter the",
+    "invaliMsg": "not valid.",
+    "unaviableMsg": "not available.",
+    "usedMsg": "already registered.",
+    "mail": "Email",
+    "password": "Password",
+    "minPassword": "Must have at least 8 characters.",
+    "acceptMsg": "I accept the",
+    "Terms": "Terms and Conditions",
+    "captcha": "Captcha required.",
+    "registerBtn": "Sign in"
+  }
+}

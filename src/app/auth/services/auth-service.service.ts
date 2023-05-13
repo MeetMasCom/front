@@ -1,18 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user';
+import { LoginUser, User } from '../interfaces/user';
+import { ConstantsSystem } from '../../utils/constants-system';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
-  AUTH_SERVER: string = 'http://localhost:8000/api';
-
-  constructor(private httpCLient: HttpClient) {}
+  constructor(
+    private httpCLient: HttpClient,
+    public constante: ConstantsSystem
+  ) {}
 
   register(user: User): Observable<any> {
-    return this.httpCLient.post(`${this.AUTH_SERVER}/user`, {
+    return this.httpCLient.post(`${this.constante.API_SERVER}/user`, {
       userName: user.userName,
       email: user.email,
       dateBirth: user.dateBirth,
@@ -20,5 +22,61 @@ export class AuthServiceService {
       terms: user.terms,
       country: user.country,
     });
+  }
+
+  login(user: LoginUser): Observable<any> {
+    return this.httpCLient.post(`${this.constante.API_SERVER}/user/login`, {
+      userName: user.userNameL,
+      password: user.passwordL,
+    });
+  }
+
+  validateOtp(otp: any, userName: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/valid-login`,
+      {
+        userName: userName,
+        otp: otp,
+      }
+    );
+  }
+
+  getCountries(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
+  }
+
+  validateUserEmail(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/validate/${param}`
+    );
+  }
+
+  recoverUser(email: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/recover-username`,
+      {
+        mail: email,
+      }
+    );
+  }
+
+  recoverPass(user: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/recover-password`,
+      {
+        username: user,
+      }
+    );
+  }
+
+  resetPass(user: string, pass: string, code: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/reset-password`,
+      {
+        username: user,
+        password: pass,
+        code: code,
+      }
+    );
   }
 }

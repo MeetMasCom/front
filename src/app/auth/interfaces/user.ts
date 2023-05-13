@@ -6,3 +6,8 @@ export interface User {
   terms: boolean;
   country: string;
 }
+
+export interface LoginUser {
+  userNameL: string;
+  passwordL: string;
+}

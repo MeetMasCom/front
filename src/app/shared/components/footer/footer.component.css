@@ -10,6 +10,8 @@
     align-items: center;
     padding-inline-start: 6vw;
     padding-top: 1vw;
+    font-weight: bold;
+    font-size: 16px !important;
   }
 
   .social {

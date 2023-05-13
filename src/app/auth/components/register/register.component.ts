@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { lastValueFrom } from 'rxjs';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +10,12 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  @ViewChild('exitoRModal')
+  exitoRModal!: ModalAlertsComponent;
+  @ViewChild('failRModal') failRModal!: ModalAlertsComponent;
   @ViewChild('recaptcha', { static: true })
   recaptchaElement!: ElementRef;
+
   response: boolean = false;
   token: string | undefined;
   nombres: string = '';
@@ -18,6 +23,11 @@ export class RegisterComponent implements OnInit {
   sponsorCode: string = '';
   errormsg: string = '';
   errordate: string = '';
+  message: string = '';
+  classA: string = '';
+  countries: any;
+  statusUserName: boolean = false;
+  statusEmail: boolean = false;
 
   constructor(
     private router: Router,
@@ -29,6 +39,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.addRecaptchaScript();
+    this.onGetCountry();
   }
 
   renderReCaptch() {
@@ -42,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
   addRecaptchaScript() {
     (function (d, s, id, obj) {
-      var js,
+      let js,
         fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         obj.renderReCaptch();
@@ -59,12 +70,24 @@ export class RegisterComponent implements OnInit {
     if (response !== '') {
       try {
         const resp = await lastValueFrom(this.userService.register(form.value));
-
-        console.log('resp', resp);
-      } catch (error) {
-        console.log(error);
+        if (resp.data !== null) {
+          sessionStorage.setItem('user', JSON.stringify(resp.data));
+          this.message = resp.message;
+          this.exitoRModal.abrir();
+        }
+      } catch (error: any) {
+        this.message = error.error.message;
+        this.failRModal.abrir();
       }
     }
+  }
+
+  onRedirigir() {
+    location.reload();
+  }
+
+  onFail() {
+    location.reload();
   }
 
   onValidateDateBirth(fecha: string) {
@@ -77,6 +100,45 @@ export class RegisterComponent implements OnInit {
     }
     if (years >= 13) {
       this.errordate = '';
+    }
+  }
+
+  async onGetCountry() {
+    try {
+      const response = await lastValueFrom(this.userService.getCountries());
+      this.countries = response.data;
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  async onValidateEmail(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusEmail = true;
+      } else {
+        this.statusEmail = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  async onValidateUserName(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusUserName = true;
+      } else {
+        this.statusUserName = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 }

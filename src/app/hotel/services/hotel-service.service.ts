@@ -47,6 +47,19 @@ export class HotelServiceService {
     );
   }
 
+  getHotelVerified(): Observable<any> {
+    return this.httpCLient.get<Hotel[]>(
+      `${this.constante.API_SERVER}/hotel/getHotelVerified`
+    );
+  }
+
+  getHotels(): Observable<any> {
+    return this.httpCLient.get<Hotel[]>(
+      `${this.constante.API_SERVER}/hotel/getHotels`
+    );
+  }
+
+
 verifyHotel(id: string): Observable<any> {
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/verifyHotel/${id}`,id);
 }
@@ -186,4 +199,52 @@ registerPriceRoom(id: string, form:any): Observable<any> {
       );
     }
 
+    PoliciesHotel(id:string,form:any): Observable<any> {
+      console.log("servicio",form.value);
+        return this.httpCLient.post(
+          `${this.constante.API_SERVER}/hotel/policies/`,{
+            hotel_id:id,
+            policies:[form.value.policies1,
+                      form.value.policies2]
+
+          }
+        );
+    }
+
+    UpdatePoliciesHotel(id:string,form:any): Observable<any> {
+      console.log("servicio",form.value);
+      console.log("id",id);
+        return this.httpCLient.post(
+          `${this.constante.API_SERVER}/hotel/updatePolicies/${id}`,{
+            policies:[form.value.upolicies1,
+                      form.value.upolicies2]
+          }
+        );
+    }
+
+    getPoliciesIdHotel(id: string): Observable<Hotel> {
+      return this.httpCLient.get<any>(`${this.constante.API_SERVER}/hotel/getByIdPolicies/${id}`);
+    }
+
+    commentPolicies(id:string,form:any): Observable<any> {
+      console.log(form.pcomentario);
+      console.log(id);
+        return this.httpCLient.post(
+          `${this.constante.API_SERVER}/hotel/commentPolicies/${id}`,{
+            comment:form.pcomentario,
+            state:2
+          }
+        );
+      }
+
+
+      verifyPolicies(id: string): Observable<any> {
+        return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/verifyPolicies/${id}`,id);
+    }
+
+
+    updateState(id: string,state:number): Observable<any> {
+      return this.httpCLient.post<any>(`${this.constante.API_SERVER}/hotel/updateState/${id}`,
+      {state:state});
+  }
 }

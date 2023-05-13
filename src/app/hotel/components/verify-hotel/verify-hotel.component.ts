@@ -16,9 +16,11 @@ import { faFile } from '@fortawesome/free-solid-svg-icons';
 export class VerifyHotelComponent {
   @ViewChild('detalleHotel') detalleHotel!: MmodalComponent;
   @ViewChild('rechazarHotel') rechazarHotel!: MmodalComponent;
+  @ViewChild('politicaHotel') politicaHotel!: MmodalComponent;
   @ViewChild('exitModal') exitModal!: ModalAlertsComponent;
   @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
   @ViewChild('cModal') cModal!: ModalAlertsComponent;
+  @ViewChild('rechazarPolicies') rechazarPolicies!: MmodalComponent;
 
   hotel: any = [];
   api = '';
@@ -30,6 +32,10 @@ export class VerifyHotelComponent {
   dataHotel: any;
   pdf: any;
   faFile=faFile;
+  hotelVerify: any;
+  dataPolicies: any;
+  allhotel: any;
+  
   constructor(
     private hotelService: HotelServiceService,
     private router: Router,
@@ -44,6 +50,8 @@ export class VerifyHotelComponent {
     if (this.id != null) {
       this.api = this.constante.API_IMAGES;
       await this.getHotelNoVerify();
+      await this.getHotelVerify();
+      this.getHotels();
     } else {
       this.router.navigate(['/inicio']);
     }
@@ -58,6 +66,25 @@ export class VerifyHotelComponent {
     });
   }
 
+  async getHotels() {
+    this.hotelService.getHotels().subscribe((res) => {
+      if (res != null) {
+        this.allhotel = res.data;
+        console.log(this.hotel);
+      }
+    });
+  }
+
+  async getHotelVerify() {
+    this.hotelService.getHotelVerified().subscribe((res) => {
+      if (res != null) {
+        this.hotelVerify = res.data;
+        console.log(this.hotel);
+      }
+    });
+  }
+
+
   async detalleh(_id: string) {
     try {
       this.id_hotel = _id;
@@ -65,18 +92,33 @@ export class VerifyHotelComponent {
       if (response.data !== null) {
         this.dataHotel = response.data[0];
         this.detalleHotel.abrir();
-        this.pdf=this.dataHotel.doc;        
+        this.pdf=this.dataHotel.doc;     
+        this.getPolicies();   
       }
     } catch (error: any) {
       console.log('error', error.error);
     }
   }
 
+  async getPolicies(){
+    try {    
+      this.dataPolicies=[];  
+      const response = await lastValueFrom(this.hotelService.getPoliciesIdHotel(this.id_hotel));
+      if (response.data !== null) {
+        this.dataPolicies = response.data[0].policies;       
+      }
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+
   async validateHotel(event: any) {
     try {
       console.log(event);
+      const state=3;
       const response = await lastValueFrom(
-        this.hotelService.verifyHotel(event)
+        this.hotelService.updateState(event,state)
       );
       if (response.data !== null) {
         this.message = response.message;
@@ -123,20 +165,20 @@ export class VerifyHotelComponent {
   async commetDecline(event:any){
      try {
       console.log(event.value);
-      const response = await lastValueFrom(this.hotelService.commentHotel(this.id_hotel,event.value));
-      if (response.data !== null) {
-        console.log(event);
-       const resp = await lastValueFrom(
-         this.hotelService.declineHotel(this.id_hotel)
-       );
-       if (resp.data !== null) {
-        this.message = resp.message;
-         //this.rechazarHotel.abrir();
-         //location.reload();
-         this.cModal.abrir();
-       }
+        const response = await lastValueFrom(this.hotelService.commentHotel(this.id_hotel,event.value));
+        if (response.data !== null) {
+          console.log(event);
+          const state=2;
+         const resp = await lastValueFrom(
+           this.hotelService.updateState(this.id_hotel,state)
+         );
+         if (resp.data !== null) {
+          this.message = resp.message;
+           this.cModal.abrir();
+         }             
           
-      }
+        }
+      
     } catch (error: any) {
       console.log('error', error.error);
     }
@@ -158,4 +200,57 @@ export class VerifyHotelComponent {
   onRefresh(){
     location.reload();
   }
+
+  getPoliticas(event:any){
+    this.politicaHotel.abrir();
+  }
+
+  async aprobatePolicies(event:any){
+  try {
+    console.log(event);
+    const response = await lastValueFrom(
+      this.hotelService.verifyPolicies(event)
+    );
+    if (response.data !== null) {
+      const state=3;
+      const resp = await lastValueFrom(
+        this.hotelService.updateState(this.id_hotel,state)
+      );
+      if (resp.data !== null) {
+        this.message = response.message;
+        this.exitModal.abrir();
+      }
+      
+    }
+  } catch (error: any) {
+    console.log('error', error.error);
+    this.errorModal.abrir();
+  }
+}
+
+async commentPolicies(event:any){
+  this.rechazarPolicies.abrir();
+}
+
+async declinePolicies(event:any){
+  try {
+   console.log(event.value);
+     const response = await lastValueFrom(this.hotelService.commentPolicies(this.id_hotel,event.value));
+     if (response.data !== null) {
+      location.reload();
+      const state=4;
+      const resp = await lastValueFrom(
+        this.hotelService.updateState(this.id_hotel,state)
+      );
+      if (resp.data !== null) {
+        this.message = response.message;
+      }
+     }
+   
+ } catch (error: any) {
+   console.log('error', error.error);
+ }
+
+}
+
 }

@@ -170,17 +170,26 @@
 
 
 <!--  para validar los datos del hotel-->
-
 <app-modal-alerts
-  [idModal]="'correctModal'"
+  [idModal]="'datavalidModal'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Los datos del hotel se están validando'"
   [descripcion]="message"
   (successModal)="onRefresh()"
   [tipo]="0"
-  #correctModal
+  #datavalidModal
 ></app-modal-alerts>
 
+<!--  para validar las politicas del hotel-->
+<app-modal-alerts
+  [idModal]="'dataPoliciesModal'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Las políticas del hotel se están validando'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #dataPoliciesModal
+></app-modal-alerts>
 
 <!-- para actualizar los datos del hotel -->
 <app-modal-alerts
@@ -225,16 +234,27 @@
   (onSelectDoc)="onDoc($event)"
   (onUpdateHotel)="updateHotel($event)"
   #ValidateH
->
+></app-mmodal>
+<!--FORMULARIO PARA INGRESAR LAS POLÍTICAS DEL HOTEL-->
+<app-mmodal
+  [idModal]="'RegisterP'"
+  [tipo]="10"
+  [title]="'Políticas del hotel'" 
+  (onregisterPolicies)="registerPolicies($event)"
+  #RegisterP>  
+</app-mmodal>
 
-<!--MODAL AVISO -->
-<app-modal-alerts
-  [idModal]="'avisoModal'"
-  [icono]="'./assets/img/warning.png'"
-  [titulo]="'No se ha podido validar los datos del hotel, complete la información'"
-  [descripcion]="message"
-  (successModal)="onComplete()" 
-  [tipo]="0"
-  #avisoModal
-></app-modal-alerts>
+
+<!--FORMULARIO PARA CAMBIAR LAS POLITICAS-->
+<app-mmodal
+  [idModal]="'ChangeP'"
+  [title]="'Políticas del Hotel'"
+  [tipo]="12"
+  [policies]="comment"
+  [hotel]="dataHotel" 
+  (onUpdatePolicies)="updateP($event)"
+  #ChangeP
+></app-mmodal>
+
+
 <app-footer></app-footer>

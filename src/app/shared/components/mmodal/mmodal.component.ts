@@ -32,6 +32,7 @@ export class MmodalComponent {
   @Input() service: any ;
   @Input() hotel: any ;
   @Input() typeRoom: any ;
+  @Input() policies: any ;
 
   faShield = faShield;
   faFile=faFile;
@@ -49,6 +50,12 @@ export class MmodalComponent {
   @Output() onCommentDecline: EventEmitter<any> = new EventEmitter();
   @Output() onUpdateHotel: EventEmitter<any> = new EventEmitter();
   @Output() onDownloadDoc: EventEmitter<any> = new EventEmitter();
+  @Output() onVPolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onRegisterPolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onAprobatePolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onCommentPolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onDeclinePolicies: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdatePolicies: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -59,11 +66,11 @@ export class MmodalComponent {
   ) {}
   async ngOnInit() {
   this.api = this.constante.API_IMAGES;
-  
   }
 
   abrir() {
-    this.modalPublicar.nativeElement.click();
+    console.log(this.policies);
+    this.modalPublicar.nativeElement.click();    
   }
 
   onSuccess() {
@@ -113,4 +120,29 @@ export class MmodalComponent {
   UpdateHotel(event:any){
     this.onUpdateHotel.emit(event);
   }
+
+  aprobarP(event:any){
+    this.onAprobatePolicies.emit(event);
+  }
+
+  commentPolicies(event:any){
+    this.onCommentPolicies.emit(event);
+  }
+
+   
+vPoliticas(event:any){
+this.onVPolicies.emit(event);
+}
+
+  registerPolicies(event:any){
+    this.onRegisterPolicies.emit(event);
+  }
+
+  onCommentP(event:any){
+    this.onDeclinePolicies.emit(event);
+  }
+  onUpdateP(event:any){
+    this.onUpdatePolicies.emit(event);
+  }
+
 }

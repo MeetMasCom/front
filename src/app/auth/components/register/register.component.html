@@ -238,6 +238,7 @@
   [titulo]="'Registro Correcto'"
   [descripcion]="message"
   (successModal)="onRedirigir()"
+  [tipo]="0"
   #exitoRModal
 ></app-modal-alerts>
 
@@ -247,5 +248,6 @@
   [titulo]="'Registro Incorrecto'"
   [descripcion]="message"
   (successModal)="onFail()"
+  [tipo]="0"
   #failRModal
 ></app-modal-alerts>

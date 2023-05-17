@@ -41,6 +41,8 @@ export class UserServiceService {
         studies: form.value.studies,
         image: img,
         description: form.value.description,
+        journal: form.value.journal,
+        time_work: form.value.deplab,
       },
       {
         headers: headers,

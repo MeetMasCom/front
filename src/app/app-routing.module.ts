@@ -13,9 +13,6 @@ import { NoticesComponent } from './user/components/notices/notices.component';
 import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
-import {BilleteraComponent} from './billetera/components/billetera/billetera.component';
-import {BilleteraEmpresaComponent} from './billetera/components/billetera-empresa/billetera-empresa.component';
-import {UpdateBilleteraEComponent} from './billetera/components/update-billetera-e/update-billetera-e.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -40,12 +37,6 @@ const routes: Routes = [
   { path: 'admin', component: AdminLayoutComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
-
-  //billetera
-
-  {path: 'billetera', component: BilleteraComponent},
-  {path: 'billeteraE', component: BilleteraEmpresaComponent},
-  {path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent }
 ];
 
 @NgModule({

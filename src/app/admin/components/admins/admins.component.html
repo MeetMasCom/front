@@ -13,8 +13,8 @@
           aria-controls="admin-home"
           aria-selected="true"
         >
-          <fa-icon [icon]="['fas', 'user-tie']"></fa-icon>
           Administradores
+          <fa-icon [icon]="['fas', 'user-tie']"></fa-icon>
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -28,14 +28,14 @@
           aria-controls="admin-profile"
           aria-selected="false"
         >
-          <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
           Agregar
+          <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
         </button>
       </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <div
-        class="tab-pane fade show active"
+        class="tab-pane fade show active bg-white p-3"
         id="admin-home"
         role="tabpanel"
         aria-labelledby="admin-home-tab"
@@ -60,9 +60,11 @@
                 <td>root</td>
                 <td class="text-center">
                   <button type="button" class="btn btn-outline-danger mx-2">
+                    <fa-icon [icon]="['fas', 'ban']"></fa-icon>
                     Deshabilitar
                   </button>
                   <button type="button" class="btn btn-outline-primary">
+                    <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                     Actualizar
                   </button>
                 </td>
@@ -73,9 +75,11 @@
                 <td>@fat</td>
                 <td class="text-center">
                   <button type="button" class="btn btn-outline-danger mx-2">
+                    <fa-icon [icon]="['fas', 'ban']"></fa-icon>
                     Deshabilitar
                   </button>
                   <button type="button" class="btn btn-outline-primary">
+                    <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                     Actualizar
                   </button>
                 </td>
@@ -86,9 +90,11 @@
                 <td>@twitter</td>
                 <td class="text-center">
                   <button type="button" class="btn btn-outline-danger mx-2">
+                    <fa-icon [icon]="['fas', 'ban']"></fa-icon>
                     Deshabilitar
                   </button>
                   <button type="button" class="btn btn-outline-primary">
+                    <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                     Actualizar
                   </button>
                 </td>
@@ -98,16 +104,118 @@
         </div>
       </div>
       <div
-        class="tab-pane fade"
+        class="tab-pane fade bg-white"
         id="admin-profile"
         role="tabpanel"
         aria-labelledby="admin-profile-tab"
       >
-        agregar
+        <div class="mb-4">
+          <h2>Agregar Administrador</h2>
+        </div>
+        <form #frmAddAdmin="ngForm" (ngSubmit)="onRegisterAdmin(frmAddAdmin)">
+          <div class="col-12 containerInput mt-2 mb-3">
+            <div class="form-group col-md-6 col-sm-12 m-2 mt-4">
+              <label>Nombre de usuario</label>
+              <input
+                id="userAdmin"
+                type="text"
+                class="form-control"
+                placeholder="Nombre de usuario"
+                required
+                ngModel
+                name="userAdmin"
+                #userAdmin="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="
+                  userAdmin.invalid && (userAdmin.dirty || userAdmin.touched)
+                "
+                class="text-danger form-group position-absolute"
+              >
+                <small *ngIf="userAdmin.errors?.['required']">
+                  Ingrese el nombre de usuario.
+                </small>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12 m-2 mt-4">
+              <label>Correo electrónico</label>
+              <input
+                id="emailAdmin"
+                type="email"
+                class="form-control"
+                placeholder="Correo electrónico"
+                required
+                ngModel
+                name="emailAdmin"
+                #emailAdmin="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="
+                  emailAdmin.invalid && (emailAdmin.dirty || emailAdmin.touched)
+                "
+                class="text-danger form-group position-absolute"
+              >
+                <small *ngIf="emailAdmin.errors?.['required']">
+                  Ingrese el correo electrónico.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 containerInput mt-2 mb-3">
+            <div class="form-group col-md-6 col-sm-12 m-2 mt-4">
+              <label>Contraseña</label>
+              <input
+                id="passAdmin"
+                type="password"
+                class="form-control"
+                placeholder="Contraseña"
+                required
+                ngModel
+                name="passAdmin"
+                #passAdmin="ngModel"
+                [ngClass]="'input'"
+              />
+              <div
+                *ngIf="
+                  passAdmin.invalid && (passAdmin.dirty || passAdmin.touched)
+                "
+                class="text-danger form-group position-absolute"
+              >
+                <small *ngIf="passAdmin.errors?.['required']">
+                  Ingrese la contraseña.
+                </small>
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12 m-2 mt-4">
+              <label>Rol</label>
+              <ng-multiselect-dropdown
+                [placeholder]="'Seleccione una opción'"
+                [settings]="dropdownSettings"
+                [data]="rolList"
+                [(ngModel)]="selectedRol"
+                (onSelect)="onSelectRol($event)"
+                (onSelectAll)="onSelectAllRoles($event)"
+                [ngModelOptions]="{ standalone: true }"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn"
+              value="Guardar"
+              [disabled]="!frmAddAdmin.valid"
+              [ngClass]="'input-btn'"
+            />
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<div class="col-12 position-absolute mt-5 pt-4">
+<div class="col-12 position-absolute mt-4 pt-3">
   <app-footer></app-footer>
 </div>

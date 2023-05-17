@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   HttpClient,
   HttpClientModule,
@@ -50,10 +50,10 @@ import { MmodalComponent } from './shared/components/mmodal/mmodal.component';
 import { RatingStarComponent } from './shared/components/rating-star/rating-star.component';
 import { MultiSelectComponent } from './shared/components/multi-select/multi-select.component';
 import { UserDataComponent } from './user/components/user-data/user-data.component';
-import { HotelRegisterComponent} from './hotel/components/hotel-register/hotel-register.component';
-import { ListHotelComponent} from './hotel/components/list-hotel/list-hotel.component';
-import { VerifyHotelComponent} from './hotel/components/verify-hotel/verify-hotel.component';
-import { ModalAlertsComponent} from './shared/components/modal-alerts/modal-alerts.component';
+import { HotelRegisterComponent } from './hotel/components/hotel-register/hotel-register.component';
+import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.component';
+import { VerifyHotelComponent } from './hotel/components/verify-hotel/verify-hotel.component';
+import { ModalAlertsComponent } from './shared/components/modal-alerts/modal-alerts.component';
 import { ColumnsComponent } from './shared/components/columns/columns.component';
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
@@ -62,6 +62,9 @@ import { AdminloginComponent } from './admin/components/adminlogin/adminlogin.co
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { MenuadminComponent } from './shared/components/menuadmin/menuadmin.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
+import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
+import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
+import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
 import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
 import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
@@ -101,10 +104,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminloginComponent,
     DashboardComponent,
     MenuadminComponent,
-    AdminsComponent,
-    BilleteraComponent,
-    BilleteraEmpresaComponent,
-    UpdateBilleteraEComponent
+    AdminsComponent
   ],
   imports: [
     TranslateModule.forRoot({

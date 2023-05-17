@@ -62,6 +62,9 @@ import { AdminloginComponent } from './admin/components/adminlogin/adminlogin.co
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { MenuadminComponent } from './shared/components/menuadmin/menuadmin.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
+import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -98,7 +101,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminloginComponent,
     DashboardComponent,
     MenuadminComponent,
-    AdminsComponent
+    AdminsComponent,
+    BilleteraComponent,
+    BilleteraEmpresaComponent,
+    UpdateBilleteraEComponent
   ],
   imports: [
     TranslateModule.forRoot({

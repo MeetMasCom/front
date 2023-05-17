@@ -104,7 +104,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminloginComponent,
     DashboardComponent,
     MenuadminComponent,
-    AdminsComponent
+    AdminsComponent,
+    BilleteraComponent,
+    BilleteraEmpresaComponent,
+    UpdateBilleteraEComponent,
+    SupSalesComponent,
+    SupSystemsComponent,
+    SupNoticesComponent
   ],
   imports: [
     TranslateModule.forRoot({

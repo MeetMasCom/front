@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     this.message = '';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    /*Funciones al iniciar componente*/
+  }
 
   async onLogin(form: any) {
     try {
@@ -51,12 +53,10 @@ export class LoginComponent implements OnInit {
   }
 
   onUser() {
-    console.log('user');
     this.modalUserName.abrir();
   }
 
   onPass() {
-    console.log('password');
     this.modalPassword.abrir();
   }
 

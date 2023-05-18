@@ -1,0 +1,184 @@
+<app-menu></app-menu>
+<div class="container">
+  <br />
+  <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="pills-home-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-home"
+        type="button"
+        role="tab"
+        aria-controls="pills-home"
+        aria-selected="true"
+      >
+        Billeteras
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="pills-profile-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#pills-profile"
+        type="button"
+        role="tab"
+        aria-controls="pills-profile"
+        aria-selected="false"
+      >
+        Agregar
+      </button>
+    </li>
+  </ul>
+
+  <br />
+  <div class="tab-content" id="pills-tabContent">
+    <br />
+    <div
+      class="tab-pane fade show active"
+      id="pills-home"
+      role="tabpanel"
+      aria-labelledby="pills-home-tab"
+    >
+      <div class="row">
+        <div class="col-sm-11">
+          <h3>Billeteras</h3>
+        </div>
+        <div class="col-sm-1">
+        </div>
+      </div>
+      <br />
+      <div class="row mx-3">
+        <div class="col-sm-6" *ngFor="let billetera of billetera">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text text-dark">
+                {{ billetera.detalle }}
+              </span>
+            </div>
+            <input
+              disabled
+              id="direccion"
+              name="direccion"
+              type="text"
+              class="form-control"
+              placeholder="{{ billetera.direccion }}"
+              ngModel
+              #btc="ngModel"
+            />
+            <input
+              *ngIf="billetera.tag"
+              disabled
+              id="tag"
+              name="tag"
+              type="text"
+              class="form-control"
+              placeholder="{{ billetera.tag }}"
+              ngModel
+              #btc="ngModel"
+            />
+          </div>
+        </div>
+        <div *ngIf="msj" class="col-sm-12">
+          <div
+            class="alert alert-warning alert-dismissible fade show text-center"
+            role="alert"
+          >
+            <strong>Aviso!</strong> {{ msj }}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-profile-tab"
+    >
+      <div class="row">
+        <div class="col-sm-11">
+          <h3>
+            Agregar Billetera
+          </h3>
+        </div>
+      </div>
+      <br />
+      <hr />
+      <div class="row mx-3">
+        <div class="col-sm-12">
+          <form
+            #frmBilleteras="ngForm"
+            (ngSubmit)="onCreateBilleteraBanco(frmBilleteras)"
+          >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text text-dark">Banco</span>
+              </div>
+              <input
+                id="detalle"
+                name="detalle"
+                type="text"
+                required
+                class="form-control"
+                placeholder="Nombre del Banco"
+                ngModel
+                #detalle="ngModel"
+              />
+              <input
+                id="nombretitular"
+                name="nombretitular"
+                type="text"
+                required
+                class="form-control"
+                placeholder="Nombre del titular "
+                ngModel
+                #nombretitular="ngModel"
+              />
+              <input
+                id="direccion"
+                name="direccion"
+                type="text"
+                required
+                class="form-control"
+                placeholder="Número de cuenta"
+                ngModel
+                #direccion="ngModel"
+              />
+
+              <select
+                class="custom-select"
+                name="tipo"
+                id="tipo"
+                ngModel
+                #tipo="ngModel"
+                required
+              >
+                <option value="" disabled>Seleccione tipo de cuenta</option>
+                <option value="Corriente">Cuenta Corriente</option>
+                <option value="Ahorro">Cuenta Ahorro</option>
+              </select>
+              <input
+                type="submit"
+                class="float-right btn nuevo boton float-center"
+                value="Guardar"
+                onclick="return confirm('¿Esta seguro?')"
+                [disabled]="!frmBilleteras.valid"
+              />
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -9,7 +9,8 @@ import { VerifyHotelComponent } from './hotel/components/verify-hotel/verify-hot
 import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.component';
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
-import { NoticesComponent } from './user/components/notices/notices.component';
+import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
+
 import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
@@ -29,7 +30,7 @@ const routes: Routes = [
   { path: 'dataUser/:estado', component: UserDataComponent },
   { path: 'hotelDetail/:id', component: HotelDetailComponent },
   { path: 'myHotel/:id', component: MyHotelComponent },
-  { path: 'anuncios', component: NoticesComponent },
+  { path: 'anuncios', component: AdsLayoutComponent },
 
   //admin
   { path: 'admin', component: AdminLayoutComponent },

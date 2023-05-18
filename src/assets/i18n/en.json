@@ -1,11 +1,14 @@
 {
   "menu": {
     "search": "Search",
+    "matches": "Couples",
     "fashion": "Fashion",
     "hotels": "Hotels",
     "restaurants": "Restaurants",
     "flowers": "Flowers",
-    "login": "Login"
+    "login": "Login",
+    "services": "Services",
+    "saludo": "Hello"
   },
   "footer": {
     "copyright": "Meet Mas All rights reserved"

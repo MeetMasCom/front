@@ -64,11 +64,7 @@
           <a class="nav-item nav-link" href="fad">{{
             "menu.fashion" | translate
           }}</a>
-          <a class="nav-item nav-link" href="hotel">{{
-            "menu.hotels" | translate
-          }}</a>
-          <a class="nav-item nav-link">{{ "menu.restaurants" | translate }}</a>
-          <a class="nav-item nav-link">{{ "menu.flowers" | translate }}</a>
+
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
@@ -78,7 +74,38 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <fa-icon [icon]="['fas', 'user']"></fa-icon> Hola {{ user }}
+              <fa-icon [icon]="['fas', 'building-user']"></fa-icon>
+              {{ "menu.services" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>
+                <a class="nav-item nav-link" href="hotel">
+                  {{ "menu.hotels" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="nav-item nav-link">
+                  {{ "menu.restaurants" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="nav-item nav-link">
+                  {{ "menu.flowers" | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle border-0 nav-item nav-link"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="['fas', 'user']"></fa-icon>
+              {{ "menu.saludo" | translate }} {{ user }}
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -100,11 +127,36 @@
           <a class="nav-item nav-link" href="inicio">{{
             "menu.fashion" | translate
           }}</a>
-          <a class="nav-item nav-link" href="inicio">{{
-            "menu.hotels" | translate
-          }}</a>
-          <a class="nav-item nav-link">{{ "menu.restaurants" | translate }}</a>
-          <a class="nav-item nav-link">{{ "menu.flowers" | translate }}</a>
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle border-0 nav-item nav-link"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="['fas', 'building-user']"></fa-icon>
+              {{ "menu.services" | translate }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>
+                <a class="nav-item nav-link" href="inicio">
+                  {{ "menu.hotels" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="nav-item nav-link" href="inicio">
+                  {{ "menu.restaurants" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="nav-item nav-link" href="inicio">
+                  {{ "menu.flowers" | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
           <a
             class="nav-item nav-link"
             type="button"

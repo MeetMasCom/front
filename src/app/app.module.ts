@@ -68,6 +68,8 @@ import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
 import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
 import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
+import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
+import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -110,7 +112,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdateBilleteraEComponent,
     SupSalesComponent,
     SupSystemsComponent,
-    SupNoticesComponent
+    SupNoticesComponent,
+    MyProfileComponent,
+    StartFriendsComponent
   ],
   imports: [
     TranslateModule.forRoot({

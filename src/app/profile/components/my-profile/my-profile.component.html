@@ -1,0 +1,102 @@
+<app-menu></app-menu>
+<div class="container" style="min-height: 37vw">
+  <div class="row">
+    <div class="col col-lg-3">
+      <app-columns [tipo]="1"></app-columns>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-3">
+          <img
+            [src]="this.imageBase64"
+            width="120px"
+            height="120px"
+            alt="..."
+            class="rounded-circle"
+          />
+        </div>
+        <div class="col-md-9">
+          <div>
+            <h4 class="font-weight-bold">{{ dataUser.userName }}</h4>
+          </div>
+          <div>{{ dataUser.firstname }}</div>
+          <div class="p-3">
+            <button type="button" class="btn nuevo" (click)="Actualizar()">
+              Editar Perfil
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row font-weight-bold">
+        <div class="col-md-6">
+          <p>{{ dataUser.description }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 float-left">Siguiendo</div>
+        <div class="col-md-3 float-left">Seguidores</div>
+        <div class="col-md-6 d-md-flex justify-content-md-end">
+          <button type="button" class="btn nuevo" (click)="Publicar()">
+            Publicar
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="Post.length > 0">
+          <div class="galery">
+            <div *ngFor="let post of Post">
+              <div class="h-100 d-inline-block mt-3 card rounded d-flex" style="width: 13rem;">
+                <img [src]="api+post.photo" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <p class="card-text">{{post.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </ng-container>
+        <ng-container *ngIf="Post.length === 0">
+          <div class="p-4 position-relative">
+            <h2 class="position-absolute">
+              Aún no tienes publicaciones
+            </h2>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col col-lg-3">
+      <app-columns [tipo]="0"></app-columns>
+    </div>
+  </div>
+</div>
+
+<app-mmodal
+  [idModal]="'postModal'"
+  [tipo]="13"
+  [title]="'Nueva Publicación'"
+  (PostModal)="RegisterPost($event)"
+  [photoSelected]="photoSelected"
+  (onChangeImagen)="cargarImagen($event)"
+  #postModal
+>
+</app-mmodal>
+
+<app-modal-alerts
+  [idModal]="'correct'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Registro Correcto'"
+  [descripcion]="message"
+  (successModal)="onRefresh()"
+  [tipo]="0"
+  #correctModal
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'error'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Error en el registro'"
+  [descripcion]="message"
+  [tipo]="0"
+  #errorModal
+></app-modal-alerts>
+<app-footer></app-footer>

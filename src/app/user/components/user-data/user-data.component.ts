@@ -132,7 +132,6 @@ export class UserDataComponent implements OnInit {
     reader.onload = () => {
       const base64String = reader.result!.toString().split(',')[1];
       const pureBase64 = base64String.replace(/[^a-zA-Z0-9+/]/g, '');
-
       this.img = pureBase64;
     };
   }

@@ -100,6 +100,6 @@ export class BilleteraEmpresaComponent {
   }
 
   ir(id: any) {
-    this.router.navigate(['/updateBilleteraE', id]);
+    this.router.navigate(['/updateBilletera', id]);
   }
 }

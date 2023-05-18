@@ -60,7 +60,7 @@
         </div>
 
         <ng-container *ngIf="token !== ''">
-          <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
+          <a class="nav-item nav-link" href="friends">{{ "menu.friends" | translate }}</a>
           <a class="nav-item nav-link" href="fad">{{
             "menu.fashion" | translate
           }}</a>
@@ -82,6 +82,7 @@
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="myProfile">Mi Perfil</a></li>
               <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
               <li><a class="dropdown-item">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
@@ -89,6 +90,7 @@
               <li><a class="dropdown-item">Mis Referidos</a></li>
               <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item">Mis Amigos</a></li>
+              <li><a class="dropdown-item" href="myBilletera">Mi Billetera</a></li>
               <li>
                 <a class="dropdown-item btn" (click)="onLogout()">Salir</a>
               </li>

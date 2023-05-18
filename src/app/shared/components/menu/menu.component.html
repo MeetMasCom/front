@@ -60,7 +60,29 @@
         </div>
 
         <ng-container *ngIf="token !== ''">
-          <a class="nav-item nav-link" href="friends">{{ "menu.friends" | translate }}</a>
+          
+
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle border-0 nav-item nav-link"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              href="friends"
+            >
+            {{ "menu.friends" | translate }}
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="travellers" >Viajeros</a></li>
+              <li><a class="dropdown-item" href="profesionals">Profesionales</a></li>
+              <li><a class="dropdown-item" href="businessmen">Negociantes</a></li>
+              <li><a class="dropdown-item" href="students">Estudiantes</a></li>
+              <li><a class="dropdown-item" href="languages">Idiomas</a></li>
+            </ul>
+          </div>
+
           <a class="nav-item nav-link" href="fad">{{
             "menu.fashion" | translate
           }}</a>

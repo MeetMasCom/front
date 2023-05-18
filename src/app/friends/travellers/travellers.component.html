@@ -1,0 +1,119 @@
+<app-menu></app-menu>
+<div class="container" style="min-height: 37vw">
+  <div class="row">
+    <div class="col col-lg-3">
+      <app-columns [tipo]="1"></app-columns>
+    </div>
+    <div class="col-md-6">
+      <div class="contenido rounded p-4">
+        <div class="row">
+          <div class="col-md-3">
+            <ng-container *ngIf="dataUser.image != null">
+            <img
+              [src]="this.imageBase64"
+              width="120px"
+              height="120px"
+              alt="..."
+              class="rounded-circle"
+            />
+          </ng-container>
+          <ng-container *ngIf="dataUser.image==null">
+            <img
+            [src]="'../../../../assets/user.png'"
+            width="120px"
+            height="120px"
+            alt="..."
+            class="rounded-circle"
+          />
+          </ng-container>
+
+          </div>
+          <div class="col-md-9">
+            <div>
+              <h4 class="font-weight-bold">{{ dataUser.userName }}</h4>
+            </div>
+            <div>{{ dataUser.firstname }}</div>
+            <br />
+            <div class="col-md-12">
+              <p>{{ dataUser.description }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row font-weight-bold">
+          <div class="col-md-6">
+            <p></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+        
+        <ng-container *ngIf="AllUser?.length > 0">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-6 p-3" *ngFor="let user of AllUser">
+              <div class="contenido rounded p-3" (click)="selectedProfile(user._id)">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-2 p-2">      
+                        <ng-container *ngIf="user.image != null">
+                            <img
+                      [src]="'data:image/jpeg;base64,' + user.image"
+                        width="40px"
+                        height="40px"
+                        alt="..."
+                        class="rounded-circle"
+                      />
+                          </ng-container>
+                          <ng-container *ngIf="user.image == null">
+                            <img
+                            [src]="'../../../../assets/user.png'"
+                              width="40px"
+                              height="40px"
+                              alt="..."
+                              class="rounded-circle"
+                            />
+                          </ng-container>
+                        
+                      
+                    </div>
+                    <div class="col-md-10 d-flex align-items-center">
+                      <h6 class="font-weight-bold">{{ user.userName }}</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="h-100 d-inline-block card d-flex col-12 p-4">
+                      <ng-container *ngIf="user.image != null">
+                        <img  [src]="'data:image/jpeg;base64,' + user.image" width="100%" height="200px" class="card-img-top" alt="..." />
+                      </ng-container>
+                      <ng-container *ngIf="user.image == null">
+                        <img
+                          [src]="'../../../../assets/user.png'"
+                          class="card-img-top"
+                          alt="..."
+                        />
+                      </ng-container>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="AllUser.length === 0">
+          <div class="d-flex justify-content-center" style="min-height: 30vw">
+            <Span>No hay publicaciones disponibles</Span>
+          </div>
+        </ng-container>
+    </div>
+      </div>
+    </div>
+    <div class="col col-lg-3">
+      <app-columns [tipo]="0"></app-columns>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

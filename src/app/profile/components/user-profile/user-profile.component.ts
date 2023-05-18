@@ -7,24 +7,20 @@ import { lastValueFrom, share } from 'rxjs';
 import { ConstantsSystem } from '../../../utils/constants-system';
 import { MmodalComponent } from 'src/app/shared/components/mmodal/mmodal.component';
 import { ModalAlertsComponent } from 'src/app/shared/components/modal-alerts/modal-alerts.component';
-
-
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class MyProfileComponent {
+export class UserProfileComponent {
 
-  @ViewChild('correctModal') correctModal!: ModalAlertsComponent;
-  @ViewChild('errorModal') errorModal!: ModalAlertsComponent;
-  @ViewChild('postModal') postModal!: MmodalComponent;
 
   photoSelected: any;
   classA: string = '';
   message: string = '';
 api:string='';
 id:string='';
+id_user:string='';
 img:string='';
 dataUser: any;
 Post: any=[];
@@ -42,22 +38,25 @@ file!: File;
     this.api = this.constante.API_IMAGES;
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
-      this.getUser();
+      this.activatedRoute.params.subscribe(async (params) => {
+        this.id_user = params['id'];
+        this.getUser();
       this.getPostUser();
+        
+      });
+      
       
     } else {
       this.router.navigate(['/inicio']);
     }
   }
 
-
   async getUser(){
-    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id_user));
 
     if (resp?.data.length > 0) {
       this.dataUser = resp?.data[0];
       this.img=this.dataUser.image;
-      console.log("img", this.img);
       this.imageBase64= 'data:image/png;base64,'+''+this.img // Aquí colocas tu cadena Base64
       
    
@@ -65,7 +64,7 @@ file!: File;
   }
   
   async getPostUser(){
-    const resp = await lastValueFrom(this.profileService.getPostByIdUser(this.id));
+    const resp = await lastValueFrom(this.profileService.getPostByIdUser(this.id_user));
     if (resp.data.length > 0) {
       this.Post = resp.data;   
     }else{
@@ -73,43 +72,4 @@ file!: File;
     }
   }
 
-  Actualizar(){
-    this.router.navigate(['/dataUser']);
-  }
-
-  Publicar(){
-    this.postModal.abrir();
-  }
-
-  cargarImagen(event:any){
-    if (event.target.files && event.target.files[0]) {
-      this.file = <File>event.target.files[0];
-
-          const reader = new FileReader();
-          reader.onload = (e) => (this.photoSelected = reader.result);
-          reader.readAsDataURL(this.file);
-  
-      } else {
-      console.log('seleccione una foto');
-    }
-  }
-
-
-  onRefresh(){
-    location.reload();
-  }
-
-  async RegisterPost(event:any){
-    try{
-      const resp = await lastValueFrom(this.profileService.registerPost(this.id,event.value,this.file));
-      this.classA = 'alert-success';
-      this.message = resp.message;     
-      this.correctModal.abrir();    
-    
-    } catch (error: any) {
-      console.log('error', error.error);
-      this.message = error.error.message;
-      this.errorModal.abrir();
-    }
-  }
 }

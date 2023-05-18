@@ -18,6 +18,12 @@ import { BilleteraEmpresaComponent } from './billetera/components/billetera-empr
 import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import {MyProfileComponent} from './profile/components/my-profile/my-profile.component';
 import {StartFriendsComponent} from './friends/components/start-friends/start-friends.component';
+import { TravellersComponent } from './friends/travellers/travellers.component';
+import { ProfesionalsComponent } from './friends/profesionals/profesionals.component';
+import { BusinessmenComponent } from './friends/businessmen/businessmen.component';
+import { StudentsComponent } from './friends/students/students.component';
+import { LanguagesComponent } from './friends/languages/languages.component';
+import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -50,9 +56,16 @@ const routes: Routes = [
 
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
+  { path: 'userProfile/:id', component: UserProfileComponent },
+
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },
+  { path: 'travellers', component: TravellersComponent },
+  { path: 'profesionals', component: ProfesionalsComponent },
+  { path: 'businessmen', component: BusinessmenComponent },
+  { path: 'students', component: StudentsComponent },
+  { path: 'languages', component: LanguagesComponent },
 ];
 
 @NgModule({

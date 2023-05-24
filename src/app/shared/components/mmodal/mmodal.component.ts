@@ -34,7 +34,9 @@ export class MmodalComponent {
   @Input() hotel: any;
   @Input() typeRoom: any;
   @Input() policies: any;
-
+  @Input() post: any = [];
+  @Input() user: any = [];
+  @Input() profile: any = [];
   faShield = faShield;
   faFile = faFile;
 
@@ -59,6 +61,9 @@ export class MmodalComponent {
   @Output() onUpdatePolicies: EventEmitter<any> = new EventEmitter();
   @Output() PostModal: EventEmitter<any> = new EventEmitter();
   @Output() onChangeImagen: EventEmitter<any> = new EventEmitter();
+  @Output() AddProfile: EventEmitter<any> = new EventEmitter();
+
+
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -71,7 +76,7 @@ export class MmodalComponent {
   }
 
   abrir() {
-    console.log(this.photoSelected);
+    console.log("user", this.user);
     this.modalPublicar.nativeElement.click();
   }
 
@@ -155,6 +160,8 @@ export class MmodalComponent {
     this.onChangeImagen.emit(event);
   }
 
-  
+  addProfile(event:any){
+    this.AddProfile.emit(event);
+  }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
@@ -28,11 +29,14 @@ export class RegisterComponent implements OnInit {
   countries: any;
   statusUserName: boolean = false;
   statusEmail: boolean = false;
+  profile: any=[];
+  profile_id:any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    public userService: AuthServiceService
+    public userService: AuthServiceService,
+    public profileService: ProfileServiceService
   ) {
     this.token = undefined;
   }
@@ -66,10 +70,12 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister(form: any) {
+    
+    this.profile_id='646c1e9ec29b09413fcb3887';
     const response = grecaptcha.getResponse();
     if (response !== '') {
       try {
-        const resp = await lastValueFrom(this.userService.register(form.value));
+        const resp = await lastValueFrom(this.userService.register(form.value,this.profile_id));
         if (resp.data !== null) {
           sessionStorage.setItem('user', JSON.stringify(resp.data));
           this.message = resp.message;
@@ -141,4 +147,23 @@ export class RegisterComponent implements OnInit {
       console.log(error.error);
     }
   }
+
+  async getProfile(){
+    const response = await lastValueFrom(
+      this.profileService.getProfile()
+    );
+    if (response.data !== null) {
+      this.profile = response.data;   
+      this.profile_id=this.profile.filter()
+    }else{
+      console.log("no se encontraron datos");
+    }
+
+  }
+
+  onSelectProfile(item: any) {
+    this.profile.filter((element: any) => element !== item.name);
+    console.log("id personal",);
+  }
+
 }

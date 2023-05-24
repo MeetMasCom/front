@@ -17,15 +17,15 @@ export class ProfileServiceService {
   ) {}
 
 
-  registerPost(id:string,post: Post,file:File): Observable<any> {
-    console.log(file);
-    console.log(post);
+  registerPost(id:string,post: Post,file:File,val:string): Observable<any> {
+
     const fd = new FormData();
     fd.append('user_id', id);
     fd.append('description', post.pdescription);
     fd.append('archivo', file);
+    fd.append('profile_id', val);
     return this.httpCLient.post(
-      `${this.constante.API_SERVER}/user/createPost`,fd
+      `${this.constante.API_SERVER}/post/createPost`,fd
     );
   }
 
@@ -35,9 +35,40 @@ export class ProfileServiceService {
 
 
   getPostByIdUser(id: string): Observable<any> {
-    console.log("servicio",id);
-    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/user/getPostByIdUser/${id}`);
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/getPostByIdUser/${id}`);
   }
 
+
+  updateProfile(id:string, form:any, img:string){
+    return this.httpCLient.post<any>(`${this.constante.API_SERVER}/post/updateProfile/${id}`,
+    {
+      description:form.updescription,
+      image:img
+    });  
+  }
+
+  getProfile(): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/profile/getAllProfile`);
+  }
+
+  addProfile(id:string, form:any){
+    console.log(form);
+    return this.httpCLient.post<any>(`${this.constante.API_SERVER}/profile/addProfile/${id}`,
+    {
+      profile:form.aprofile
+    });  
+  }
+
+  getProfileById(id:string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/profile/profileById/${id}`);
+  }
+
+  getProfileUserPost(id:string,profile:string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/getPostIdUser/${id}?profile=`+profile);  
+  }
+
+  getPostUserProfileId(id:string,profile:string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/getPostUserProfile?id=`+id+`&profile=`+profile);  
+  }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { SharedserviceService } from '../../services/sharedservice.service';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,10 +22,15 @@ export class MenuComponent implements OnInit {
   msj: string = '';
   langs: LanguageI[] = environment.languages;
   selectLang!: LanguageI;
+  friendsService: any;
+  profile: any;
+  val: string = '';
+  AllPost: any;
 
   constructor(
     library: FaIconLibrary,
     public sharedService: SharedserviceService,
+    public profileService: ProfileServiceService,
     private router: Router,
     private translate: TranslateService
   ) {
@@ -49,6 +55,7 @@ export class MenuComponent implements OnInit {
       this.id = sessionStorage.getItem('id')!;
     }
     this.translate.use(this.langs[0].alias);
+    this.getProfile();
   }
 
   async onLogout() {
@@ -73,6 +80,16 @@ export class MenuComponent implements OnInit {
       this.msj = error.error.message;
     }
   }
+
+  async getProfile() {
+    const resp = await lastValueFrom(this.profileService.getProfile());
+    if (resp.data.length > 0) {
+      this.profile = resp.data;
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
 
   setTransLanguage(lang: LanguageI) {
     this.selectLang = lang;

@@ -26,6 +26,7 @@ dataUser: any;
 Post: any=[];
 imageBase64:string='';
 file!: File;
+  profile: any;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -38,13 +39,19 @@ file!: File;
     this.api = this.constante.API_IMAGES;
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
-      this.activatedRoute.params.subscribe(async (params) => {
-        this.id_user = params['id'];
-        this.getUser();
-      this.getPostUser();
+      this.activatedRoute.queryParams.subscribe(async (params) => {
         
+        this.id_user = params['param1'];
+        this.profile = params['param2'];
+         console.log("user",this.id_user);
+        if(this.id===this.id_user){
+          this.router.navigate(['/myProfile']);
+        }
+        this.getUser();
+        //this.getPostUser();
+        this.getPostUserProfile();
       });
-      
+
       
     } else {
       this.router.navigate(['/inicio']);
@@ -67,6 +74,16 @@ file!: File;
     const resp = await lastValueFrom(this.profileService.getPostByIdUser(this.id_user));
     if (resp.data.length > 0) {
       this.Post = resp.data;   
+    }else{
+      console.log("no se encontraron datos");
+    }
+  }
+
+  async getPostUserProfile(){
+    const resp = await lastValueFrom(this.profileService.getPostUserProfileId(this.id_user,this.profile));
+    if (resp.data.length > 0) {
+       this.Post = resp.data;   
+       console.log(this.Post);
     }else{
       console.log("no se encontraron datos");
     }

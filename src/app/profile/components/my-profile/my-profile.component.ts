@@ -20,6 +20,7 @@ export class MyProfileComponent {
   @ViewChild('postModal') postModal!: MmodalComponent;
   @ViewChild('updateProfile') updateProfile!: MmodalComponent;
   @ViewChild('addProfile') addProfile!: MmodalComponent;
+  @ViewChild('mperfil') mperfil!: MmodalComponent;
 
 
   @ViewChild('selectElement') selectElement: any;
@@ -184,15 +185,24 @@ export class MyProfileComponent {
   }
 
   async AddProfile(event: any) {
-    const resp = await lastValueFrom(
-      this.profileService.addProfile(this.id, event.value)
-    );
-    if (resp.data.length > 0) {
-      this.profile = resp.data;
-      console.log('perfiles', this.profile);
-      location.reload();
-    } else {
-      console.log('no se encontraron datos');
+    try{
+      const resp = await lastValueFrom(
+        this.profileService.addProfile(this.id, event.value)
+      );
+      if (resp.data.length > 0) {
+        this.profile = resp.data;
+        console.log('perfiles', this.profile);
+        location.reload();
+      } else {
+         
+        console.log('no se encontraron datos');
+      }
+    }
+    
+    catch (error: any) {
+      console.log('error', error.error);
+      this.message = error.error.message;
+      this.mperfil.abrir();
     }
   }
 

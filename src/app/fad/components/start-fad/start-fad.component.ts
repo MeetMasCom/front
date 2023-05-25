@@ -114,13 +114,6 @@ export class StartFadComponent {
     try {
       this.description = event.value.description;
       this.name = event.value.name;
-      const fd = new FormData();
-      this.fadData = {
-        user_id: this.id,
-        name: event.value.name,
-        description: event.value.description,
-        image: this.file,
-      };
       const resp = await lastValueFrom(
         this.fadService.register(
           this.id,
@@ -129,7 +122,6 @@ export class StartFadComponent {
           this.file
         )
       );
-      console.log('resp', resp);
       //;
       this.classA = 'alert-success';
       this.message = resp.message;
@@ -148,41 +140,10 @@ export class StartFadComponent {
     if (event.target.files && event.target.files[0]) {
       this.file = <File>event.target.files[0];
 
-      const allowFiles = ['images/png'];
-      const fi = event.target.files[0];
-      const re = new FileReader();
-      const readerBase64 = new FileReader();
-
-      re.readAsArrayBuffer(fi);
-      re.onload = (evt) => {
-        const result = evt.target?.result as ArrayBuffer;
-        const uInt = new Uint8Array(result.slice(0, 4));
-        const bytes: string[] = [];
-        uInt.forEach((val) => {
-          bytes.push(val.toString(16));
-        });
-        const hexa = bytes.join('').toUpperCase();
-        const filterFileTypes = allowFiles.filter(
-          (val) => val === this.getImageType(hexa)
-        );
-
-        if (filterFileTypes.length > 0) {
+     
           const reader = new FileReader();
           reader.onload = (e) => (this.photoSelected = reader.result);
           reader.readAsDataURL(this.file);
-        } else {
-          this.classA = 'alert-danger';
-          this.message = 'Imagen no permitida';
-          event.target.value = '';
-          this.photoSelected = '';
-          setTimeout(() => {
-            location.reload();
-          }, 1500);
-        }
-      };
-
-      //image preview
-    } else {
       console.log('seleccione una foto');
     }
   }

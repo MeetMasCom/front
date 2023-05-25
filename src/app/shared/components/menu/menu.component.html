@@ -60,41 +60,51 @@
         </div>
 
         <ng-container *ngIf="token !== ''">
-          <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
-          <a class="nav-item nav-link" href="fad">{{
-            "menu.fashion" | translate
-          }}</a>
-
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
-              href="#"
               role="button"
               id="dropdownMenuLink"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              href="friends"
             >
-              <fa-icon [icon]="['fas', 'building-user']"></fa-icon>
-              {{ "menu.services" | translate }}
+              {{ "menu.friends" | translate }}
             </a>
+
+            <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" travellers href="travellers" >Viajeros</a></li>
+              <li><a class="dropdown-item" href="profesionals">Profesionales</a></li>
+              <li><a class="dropdown-item" href="businessmen">Negociantes</a></li>
+              <li><a class="dropdown-item" href="students">Estudiantes</a></li>
+              <li><a class="dropdown-item" href="languages">Idiomas</a></li>
+            </ul> -->
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>
-                <a class="nav-item nav-link" href="hotel">
-                  {{ "menu.hotels" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="nav-item nav-link">
-                  {{ "menu.restaurants" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="nav-item nav-link">
-                  {{ "menu.flowers" | translate }}
-                </a>
+              <li *ngFor="let p of profile">
+                <ng-container *ngIf="p.name !== 'Personal'">
+                  <a
+                    class="dropdown-item"
+                    travellers
+                    [routerLink]="'/travellers/' + p._id"
+                    >{{ p.name }}</a
+                  >
+                </ng-container>
               </li>
             </ul>
           </div>
+
+          <a class="nav-item nav-link d-none" href="fad">{{
+            "menu.fashion" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none" href="hotel">{{
+            "menu.hotels" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.restaurants" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.flowers" | translate
+          }}</a>
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
@@ -109,6 +119,7 @@
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="myProfile">Mi Perfil</a></li>
               <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
               <li><a class="dropdown-item">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
@@ -117,46 +128,30 @@
               <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item">Mis Amigos</a></li>
               <li>
+                <a class="dropdown-item" href="myBilletera">Mi Billetera</a>
+              </li>
+              <li>
                 <a class="dropdown-item btn" (click)="onLogout()">Salir</a>
               </li>
             </ul>
           </div>
         </ng-container>
         <ng-container *ngIf="token === ''">
-          <a class="nav-item nav-link">{{ "menu.matches" | translate }}</a>
-          <a class="nav-item nav-link" href="inicio">{{
+          <a class="nav-item nav-link d-none">{{
+            "menu.matches" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none" href="inicio">{{
             "menu.fashion" | translate
           }}</a>
-          <div class="dropdown">
-            <a
-              class="btn dropdown-toggle border-0 nav-item nav-link"
-              href="#"
-              role="button"
-              id="dropdownMenuLink"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <fa-icon [icon]="['fas', 'building-user']"></fa-icon>
-              {{ "menu.services" | translate }}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>
-                <a class="nav-item nav-link" href="inicio">
-                  {{ "menu.hotels" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="nav-item nav-link" href="inicio">
-                  {{ "menu.restaurants" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="nav-item nav-link" href="inicio">
-                  {{ "menu.flowers" | translate }}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <a class="nav-item nav-link d-none" href="inicio">{{
+            "menu.hotels" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.restaurants" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.flowers" | translate
+          }}</a>
           <a
             class="nav-item nav-link"
             type="button"

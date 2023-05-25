@@ -62,12 +62,20 @@ import { AdminloginComponent } from './admin/components/adminlogin/adminlogin.co
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { MenuadminComponent } from './shared/components/menuadmin/menuadmin.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
-import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
+import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
+import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
+import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
+import { TravellersComponent } from './friends/components/travellers/travellers.component';
+import { ProfesionalsComponent } from './friends/components/profesionals/profesionals.component';
+import { BusinessmenComponent } from './friends/components/businessmen/businessmen.component';
+import { StudentsComponent } from './friends/components/students/students.component';
+import { LanguagesComponent } from './friends/components/languages/languages.component';
+import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
 
@@ -110,10 +118,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     BilleteraComponent,
     BilleteraEmpresaComponent,
     UpdateBilleteraEComponent,
+    SupSalesComponent,
+    UpdateBilleteraEComponent,
     AdminsComponent,
     SupSystemsComponent,
-    SupSalesComponent,
     SupNoticesComponent,
+    MyProfileComponent,
+    StartFriendsComponent,
+    TravellersComponent,
+    ProfesionalsComponent,
+    BusinessmenComponent,
+    StudentsComponent,
+    LanguagesComponent,
+    UserProfileComponent,
     AdsLayoutComponent,
     NoticesTypeComponent,
   ],

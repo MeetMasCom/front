@@ -69,6 +69,7 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
+import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -108,12 +109,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminsComponent,
     BilleteraComponent,
     BilleteraEmpresaComponent,
-    UpdateBilleteraEComponent
+    UpdateBilleteraEComponent,
     AdminsComponent,
     SupSystemsComponent,
     SupSalesComponent,
     SupNoticesComponent,
     AdsLayoutComponent,
+    NoticesTypeComponent,
   ],
   imports: [
     TranslateModule.forRoot({

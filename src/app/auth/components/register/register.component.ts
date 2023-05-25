@@ -28,6 +28,8 @@ export class RegisterComponent implements OnInit {
   countries: any;
   statusUserName: boolean = false;
   statusEmail: boolean = false;
+  generos: any = [];
+  preferencias: any = [];
 
   constructor(
     private router: Router,
@@ -37,9 +39,10 @@ export class RegisterComponent implements OnInit {
     this.token = undefined;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.addRecaptchaScript();
     this.onGetCountry();
+    await this.getGenero();
   }
 
   renderReCaptch() {
@@ -139,6 +142,43 @@ export class RegisterComponent implements OnInit {
       }
     } catch (error: any) {
       console.log(error.error);
+    }
+  }
+
+  async getGenero() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('GENERO')
+      );
+
+      response.data.map((x: any) => {
+        this.generos.push({
+          id: x._id,
+          name: x.name,
+        });
+
+        if (x.name === 'Masculino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Hombres',
+          });
+        }
+        if (x.name === 'Femenino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Mujeres',
+          });
+        }
+        if (x.name === 'Otro') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Otro',
+          });
+        }
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.generos = [];
     }
   }
 }

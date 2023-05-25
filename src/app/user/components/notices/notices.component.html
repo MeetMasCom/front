@@ -1,5 +1,6 @@
 <div class="mt-4">
-  <h4>Ingrese los datos del anuncio</h4>
+  <h4 *ngIf="auxItem">Datos del anuncio</h4>
+  <h4 *ngIf="!auxItem">Ingrese los datos del anuncio</h4>
 </div>
 <div class="container">
   <form #fmrNotices="ngForm" (ngSubmit)="onRegister(fmrNotices)">
@@ -64,6 +65,7 @@
           ngModel
           #title="ngModel"
           [ngClass]="'input'"
+          [(ngModel)]="auxTitle"
         />
       </div>
     </div>
@@ -81,6 +83,7 @@
           maxlength="250"
           #description="ngModel"
           [ngClass]="'input'"
+          [(ngModel)]="auxDesc"
         />
       </div>
     </div>
@@ -97,6 +100,7 @@
           ngModel
           #alink="ngModel"
           [ngClass]="'input'"
+          [(ngModel)]="auxLink1"
         />
       </div>
     </div>
@@ -112,6 +116,7 @@
           ngModel
           #alinkc="ngModel"
           [ngClass]="'input'"
+          [(ngModel)]="auxLink2"
         />
       </div>
     </div>
@@ -124,13 +129,14 @@
           id="imgA"
           name="imgA"
           accept="image/png, image/jpeg image/jpg"
-          required
           ngModel
           #imgA="ngModel"
           [ngClass]="'input'"
           (change)="onChangeIng($event)"
-          accept="image/png"
         />
+        <small *ngIf="auxImg" class="text-success">
+          Ya tiene una imagen cargada
+        </small>
       </div>
     </div>
     <div class="col-12 containerInput mt-2 mb-3">
@@ -227,6 +233,27 @@
           [ngModelOptions]="{ standalone: true }"
         >
         </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <div class="col-12 containerInput mt-2 mb-3">
+      <div class="form-group col-md-12 col-sm-12 p-2">
+        <label class="mb-1">Paquete Visitas</label>
+        <select
+          class="form-select"
+          id="visit"
+          required
+          ngModel
+          name="visit"
+          #visit="ngModel"
+          [ngClass]="'select'"
+          [(ngModel)]="auxPackage"
+        >
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option value="50">50 visitas</option>
+          <option value="100">100 visitas</option>
+          <option value="500">500 visitas</option>
+          <option value="1000">1000 visitas</option>
+        </select>
       </div>
     </div>
     <div class="col-sm-12">

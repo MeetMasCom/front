@@ -323,6 +323,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onShowPass1() {
+    this.estado = -1;
     this.showPass1 = true;
   }
 
@@ -332,7 +333,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onReload() {
-    location.reload();
+    this.router.navigate(['/fad']);
   }
 
   async onRecoverUD() {

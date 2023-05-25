@@ -17,7 +17,7 @@
             <div class="form-group">
               <label class="label">{{ "register.country" | translate }}</label>
               <select
-                class="form-control d-flex"
+                class="form-select d-flex"
                 id="country"
                 required
                 ngModel
@@ -174,6 +174,49 @@
           </div>
           <div>
             <div class="form-group">
+              <label class="label"> Género </label>
+              <select
+                class="form-select d-flex"
+                id="gender"
+                required
+                ngModel
+                name="gender"
+                #gender="ngModel"
+                [ngClass]="'select'"
+              >
+                <option value="" selected disabled>
+                  Seleccione una opción
+                </option>
+                <option *ngFor="let item of generos" [value]="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+              <label class="label"> Preferencias </label>
+              <select
+                class="form-select d-flex"
+                id="prefer"
+                required
+                ngModel
+                name="prefer"
+                #prefer="ngModel"
+                [ngClass]="'select'"
+              >
+                <option value="" selected disabled>
+                  Seleccione una opción
+                </option>
+                <option *ngFor="let item of preferencias" [value]="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
               <input
                 type="checkbox"
                 id="terms"
@@ -225,7 +268,7 @@
       </form>
     </div>
     <div class="col-md-6 justify-content-center align-items-center banner">
-      <a href="/inicio">
+      <a>
         <img src="assets/img/logo7.png" class="rounded" alt="kenyoume" />
       </a>
     </div>

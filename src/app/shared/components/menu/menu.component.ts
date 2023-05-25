@@ -65,6 +65,7 @@ export class MenuComponent implements OnInit {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('id');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('item');
         this.router.navigate(['/inicio']);
       }
     } catch (error: any) {

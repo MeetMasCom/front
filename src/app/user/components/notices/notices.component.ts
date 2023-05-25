@@ -26,7 +26,7 @@ export class NoticesComponent implements OnInit {
 
   //seleccionados
   selectedAge: any;
-  selectedProfs: any;
+  selectedProfs: any = [];
   selectedCountry: any;
   selectedLanguage: any;
   selectedHobbies: any;
@@ -42,23 +42,34 @@ export class NoticesComponent implements OnInit {
   generos: any = [];
   imgA!: File;
   imgAb64 = '';
+  user_id = '';
+  item: any;
+  auxItem = false;
+  auxImg = false;
+  auxAge: any = [];
+  auxProf: any = [];
+  auxPais: any = [];
+  auxIdioma: any = [];
+  auxHobbie: any = [];
+  auxGender: any = [];
+  auxReligion: any = [];
+  auxJournal: any = [];
+  auxDepen: any = [];
+  auxTitle = '';
+  auxDesc = '';
+  auxLink1 = '';
+  auxLink2 = '';
+  auxPackage = '';
 
   constructor(private userService: UserServiceService) {}
 
   async ngOnInit() {
+    this.user_id = sessionStorage.getItem('id')!;
+    this.item = JSON.parse(sessionStorage.getItem('item')!);
+
     await this.getJobs();
     await this.onGetCountry();
     await this.getGenero();
-
-    this.selectedProfs = [];
-    this.selectedCountry = [];
-    this.selectedAge = [];
-    this.selectedLanguage = [];
-    this.selectedHobbies = [];
-    this.selectedGenero = [];
-    this.selectedReligion = [];
-    this.selectedJournal = [];
-    this.selectedDependency = [];
 
     this.profsList = this.jobs;
     this.countriesList = this.countries;
@@ -102,6 +113,18 @@ export class NoticesComponent implements OnInit {
       { item_id: 'Bajo Dependencia', item_text: 'Bajo Dependencia' },
       { item_id: 'Independiente', item_text: 'Independiente' },
     ];
+
+    this.onSetSelected();
+
+    this.selectedProfs = this.auxProf.length > 0 ? this.auxProf : [];
+    this.selectedCountry = this.auxPais.length > 0 ? this.auxPais : [];
+    this.selectedAge = this.auxAge.length > 0 ? this.auxAge : [];
+    this.selectedLanguage = this.auxIdioma.length > 0 ? this.auxIdioma : [];
+    this.selectedHobbies = this.auxHobbie.length > 0 ? this.auxHobbie : [];
+    this.selectedGenero = this.auxGender.length > 0 ? this.auxGender : [];
+    this.selectedReligion = this.auxReligion.length > 0 ? this.auxReligion : [];
+    this.selectedJournal = this.auxJournal.length > 0 ? this.auxJournal : [];
+    this.selectedDependency = this.auxDepen.length > 0 ? this.auxDepen : [];
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -224,12 +247,29 @@ export class NoticesComponent implements OnInit {
     };
 
     try {
-      const response = await lastValueFrom(
-        this.userService.createAds(form, this.imgAb64, listas)
-      );
+      if (!this.auxItem) {
+        const response = await lastValueFrom(
+          this.userService.createAds(form, this.user_id, this.imgAb64, listas)
+        );
 
-      if (response.data !== null) {
-        this.successNotices.abrir();
+        if (response.data !== null) {
+          this.successNotices.abrir();
+        }
+      }
+
+      if (this.auxItem) {
+        if (!this.imgAb64) {
+          this.imgAb64 = this.item.image;
+        }
+
+        const response = await lastValueFrom(
+          this.userService.updateAds(form, this.imgAb64, listas, this.item._id)
+        );
+
+        if (response.data !== null) {
+          sessionStorage.removeItem('item');
+          this.successNotices.abrir();
+        }
       }
     } catch (error: any) {
       console.log(error.error);
@@ -241,8 +281,122 @@ export class NoticesComponent implements OnInit {
     location.reload();
   }
 
+  //#region select update
+  onSetSelected() {
+    if (this.item !== null) {
+      this.auxItem = true;
+      this.auxImg = true;
+      this.auxTitle = this.item.title;
+      this.auxDesc = this.item.description;
+      this.auxLink1 = this.item.link_ads;
+      this.auxLink2 = this.item.link_conversion;
+      this.auxPackage = this.item.package;
+
+      this.ageList.filter((element: any) => {
+        this.item.age.filter((x: any, index: any) => {
+          if (element.item_id === this.item.age[index]) {
+            this.auxAge.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.jobs.filter((element: any) => {
+        this.item.job.filter((x: any, index: any) => {
+          if (element.item_id === this.item.job[index]) {
+            this.auxProf.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.countries.filter((element: any) => {
+        this.item.country.filter((x: any, index: any) => {
+          if (element.item_id === this.item.country[index]) {
+            this.auxPais.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.languageList.filter((element: any) => {
+        this.item.language.filter((x: any, index: any) => {
+          if (element.item_id === this.item.language[index]) {
+            this.auxIdioma.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.hobbiesList.filter((element: any) => {
+        this.item.hobbies.filter((x: any, index: any) => {
+          if (element.item_id === this.item.hobbies[index]) {
+            this.auxHobbie.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.generoList.filter((element: any) => {
+        this.item.gender.filter((x: any, index: any) => {
+          if (element.item_id === this.item.gender[index]) {
+            this.auxGender.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.religionList.filter((element: any) => {
+        this.item.religion.filter((x: any, index: any) => {
+          if (element.item_id === this.item.religion[index]) {
+            this.auxReligion.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.journalList.filter((element: any) => {
+        this.item.journal.filter((x: any, index: any) => {
+          if (element.item_id === this.item.journal[index]) {
+            this.auxJournal.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+
+      this.dependecyList.filter((element: any) => {
+        this.item.type_dependency.filter((x: any, index: any) => {
+          if (element.item_id === this.item.type_dependency[index]) {
+            this.auxDepen.push({
+              item_id: element.item_id,
+              item_text: element.item_text,
+            });
+          }
+        });
+      });
+    }
+  }
+  //#endregion
+
   //#region img
   onChangeIng(event: any) {
+    this.auxImg = false;
     this.imgA = <File>event.target.files[0];
 
     const reader = new FileReader();

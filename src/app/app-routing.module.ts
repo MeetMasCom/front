@@ -14,9 +14,9 @@ import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.c
 import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
-import {BilleteraComponent} from './billetera/components/billetera/billetera.component';
-import {BilleteraEmpresaComponent} from './billetera/components/billetera-empresa/billetera-empresa.component';
-import {UpdateBilleteraEComponent} from './billetera/components/update-billetera-e/update-billetera-e.component';
+import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   //modas
   { path: 'fad', component: StartFadComponent },
   { path: 'commentFad/:id', component: CommentComponent },
-  
+
   { path: 'dataUser', component: UserDataComponent },
   { path: 'dataUser/:estado', component: UserDataComponent },
 
@@ -47,9 +47,9 @@ const routes: Routes = [
 
   //billetera
 
-  {path: 'billetera', component: BilleteraComponent},
-  {path: 'billeteraE', component: BilleteraEmpresaComponent},
-  {path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent }
+  { path: 'billetera', component: BilleteraComponent },
+  { path: 'billeteraE', component: BilleteraEmpresaComponent },
+  { path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent },
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },

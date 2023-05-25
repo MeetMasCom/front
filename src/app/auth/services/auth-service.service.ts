@@ -21,6 +21,8 @@ export class AuthServiceService {
       password: user.password,
       terms: user.terms,
       country: user.country,
+      gender: user.gender,
+      preferences: user.prefer,
     });
   }
 
@@ -77,6 +79,12 @@ export class AuthServiceService {
         password: pass,
         code: code,
       }
+    );
+  }
+
+  getCatalog(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/catalogue/options?code=${param}`
     );
   }
 }

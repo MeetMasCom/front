@@ -71,14 +71,6 @@
             >
               {{ "menu.friends" | translate }}
             </a>
-
-            <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" travellers href="travellers" >Viajeros</a></li>
-              <li><a class="dropdown-item" href="profesionals">Profesionales</a></li>
-              <li><a class="dropdown-item" href="businessmen">Negociantes</a></li>
-              <li><a class="dropdown-item" href="students">Estudiantes</a></li>
-              <li><a class="dropdown-item" href="languages">Idiomas</a></li>
-            </ul> -->
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li *ngFor="let p of profile">
                 <ng-container *ngIf="p.name !== 'Personal'">

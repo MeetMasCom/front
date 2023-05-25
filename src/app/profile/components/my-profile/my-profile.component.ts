@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { ProfileServiceService } from '../../services/profile-service.service';
+import { FriendsServiceService } from '../../../friends/services/friends-service.service';
 import { Router } from '@angular/router';
 import { User } from '../../../auth/interfaces/user';
 import { lastValueFrom, share } from 'rxjs';
@@ -21,7 +22,8 @@ export class MyProfileComponent {
   @ViewChild('updateProfile') updateProfile!: MmodalComponent;
   @ViewChild('addProfile') addProfile!: MmodalComponent;
   @ViewChild('mperfil') mperfil!: MmodalComponent;
-
+  @ViewChild('postdetail') postdetail!: MmodalComponent;
+  
 
   @ViewChild('selectElement') selectElement: any;
   faUserPlus = faUserPlus;
@@ -42,9 +44,12 @@ export class MyProfileComponent {
   perfil: any[] = [];
   valorSeleccionado: string = '';
   val: string = '';
+  count: any;
+  PostD: any;
 
   constructor(
     private profileService: ProfileServiceService,
+    private friendsService: FriendsServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem
@@ -55,8 +60,7 @@ export class MyProfileComponent {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
       this.getUser();
-      this.getProfile();
-      this.getPostUser();      
+      this.getProfile();   
 
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
@@ -82,6 +86,7 @@ export class MyProfileComponent {
         this.perfil.push(resp.data[0]);     
         this.val = this.perfil[0]._id;
         this.getPostUser();
+        this.getCountPost(); 
       }
     }
   }
@@ -191,7 +196,6 @@ export class MyProfileComponent {
       );
       if (resp.data.length > 0) {
         this.profile = resp.data;
-        console.log('perfiles', this.profile);
         location.reload();
       } else {
          
@@ -213,5 +217,27 @@ export class MyProfileComponent {
     this.valorSeleccionado = textoSeleccionado;
     this.val = event.target.options[event.target.selectedIndex].value;
     this.getPostUser();
+    this.getCountPost();
   }
+
+  async getCountPost() {
+   
+    const resp = await lastValueFrom(this.profileService.getCountPost(this.id,this.val));
+    if (resp.data) {
+      this.count = resp.data;
+     
+    } else {
+      console.log('no se pudo contar');
+    }
+  }
+
+  async selectedPost(id: string) {
+    const resp = await lastValueFrom(this.friendsService.getPostById(id));
+
+    if (resp?.data.length > 0) {
+      this.PostD = resp?.data[0];
+    }
+    this.postdetail.abrir();
+  }
+
 }

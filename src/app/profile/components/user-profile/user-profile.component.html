@@ -82,7 +82,7 @@
                           </h6>
                         </div>
                       </div>
-                    <div class="row" >
+                    <div class="row" (click)="selectedPost(post._id)">
                       <div class="h-100 d-inline-block card d-flex col-12 p-2">
                         <img
                           [src]="api + post.photo"
@@ -114,5 +114,14 @@
     </div>
   </div>
 </div>
+
+<app-mmodal
+  [idModal]="'postdetail'"
+  [tipo]="14"
+  [title]="'Detalle Publicación'"
+  [post]="this.PostD"
+  #postdetail
+>
+</app-mmodal>
 
 <app-footer></app-footer>

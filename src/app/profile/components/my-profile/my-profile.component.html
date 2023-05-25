@@ -101,11 +101,14 @@
               </option>
             </select>
             </div>
-          <div class="col-md-4 d-md-flex justify-content-md-end">
-            <button type="button" class="btn nuevo" (click)="Publicar()">
-              Nueva Publicación
-            </button>
-          </div>
+            <ng-container *ngIf="this.count<25">
+              <div class="col-md-4 d-md-flex justify-content-md-end">
+                <button type="button" class="btn nuevo" (click)="Publicar()">
+                  Nueva Publicación
+                </button>
+              </div>
+            </ng-container>
+          
         </div>
       </div>
 
@@ -144,7 +147,7 @@
                           </h6>
                         </div>
                       </div>
-                    <div class="row" >
+                    <div class="row" (click)="selectedPost(post._id)" >
                       <div class="h-100 d-inline-block card d-flex col-12 p-2">
                         <img
                           [src]="api + post.photo"
@@ -241,5 +244,15 @@
   [tipo]="0"
   #mperfil
 ></app-modal-alerts>
+
+
+<app-mmodal
+  [idModal]="'postdetail'"
+  [tipo]="14"
+  [title]="'Detalle Publicación'"
+  [post]="this.PostD"
+  #postdetail
+>
+</app-mmodal>
 
 <app-footer></app-footer>

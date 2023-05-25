@@ -35,8 +35,7 @@ export class TravellersComponent {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
       this.activatedRoute.params.subscribe(async (params) => {        
-        this.profile = params['id'];
-        
+        this.profile = params['id'];        
         this.getPost();
       });
     } else {
@@ -45,6 +44,7 @@ export class TravellersComponent {
   }
 
   async getPost() {
+    this.AllPost='';
     const resp = await lastValueFrom(this.friendsService.getPost(this.profile));
 
     if (resp?.data.length > 0) {
@@ -75,7 +75,6 @@ export class TravellersComponent {
   verPerfil(user:String){
     const param1 = user;
     const param2 = this.profile;
-
     this.router.navigate(['/userProfile'], {
       queryParams: { param1, param2 }
     });

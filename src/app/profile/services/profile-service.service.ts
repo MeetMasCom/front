@@ -71,4 +71,8 @@ export class ProfileServiceService {
     return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/getPostUserProfile?id=`+id+`&profile=`+profile);  
   }
 
+  getCountPost(id:string,profile:string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/getCountPost/${id}?profile=`+profile);  
+  }
+
 }

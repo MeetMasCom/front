@@ -83,7 +83,9 @@
             </ul> -->
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li *ngFor="let p of profile">
-                  <a class="dropdown-item" travellers [routerLink]="'/travellers/' + p._id">{{p.name}}</a>
+                    <ng-container *ngIf="p.name!=='Personal'">
+                      <a class="dropdown-item" travellers [routerLink]="'/travellers/' + p._id">{{p.name}}</a>
+                    </ng-container>
                 </li>
             </ul>
           </div>

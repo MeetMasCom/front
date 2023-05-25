@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { ProfileServiceService } from '../../services/profile-service.service';
+import { FriendsServiceService } from '../../../friends/services/friends-service.service';
 import { Router } from '@angular/router';
 import { User } from '../../../auth/interfaces/user';
 import { lastValueFrom, share } from 'rxjs';
@@ -14,6 +15,7 @@ import { ModalAlertsComponent } from 'src/app/shared/components/modal-alerts/mod
 })
 export class UserProfileComponent {
 
+  @ViewChild('postdetail') postdetail!: MmodalComponent;
 
   photoSelected: any;
   classA: string = '';
@@ -27,9 +29,11 @@ Post: any=[];
 imageBase64:string='';
 file!: File;
   profile: any;
+  PostD: any;
 
   constructor(
     private profileService: ProfileServiceService,
+    private friendsService: FriendsServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem
@@ -82,11 +86,19 @@ file!: File;
   async getPostUserProfile(){
     const resp = await lastValueFrom(this.profileService.getPostUserProfileId(this.id_user,this.profile));
     if (resp.data.length > 0) {
-       this.Post = resp.data;   
-       console.log(this.Post);
+       this.Post = resp.data;  
     }else{
       console.log("no se encontraron datos");
     }
+  }
+
+  async selectedPost(id:string){
+    const resp = await lastValueFrom(this.friendsService.getPostById(id));
+
+    if (resp?.data.length > 0) {
+      this.PostD = resp?.data[0];
+    }
+    this.postdetail.abrir();
   }
 
 }

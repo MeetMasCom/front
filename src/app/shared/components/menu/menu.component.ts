@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fas,faMessage,faBell } from '@fortawesome/free-solid-svg-icons';
+
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
@@ -26,6 +27,8 @@ export class MenuComponent implements OnInit {
   profile: any;
   val: string = '';
   AllPost: any;
+
+  faBell=faBell;
 
   constructor(
     library: FaIconLibrary,

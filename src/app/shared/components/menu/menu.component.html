@@ -61,7 +61,7 @@
 
         <ng-container *ngIf="token !== ''">
           
-
+          <a class="nav-item nav-link" href="">Inicio</a>
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
@@ -98,6 +98,14 @@
           }}</a>
           <a class="nav-item nav-link d-none">{{ "menu.restaurants" | translate }}</a>
           <a class="nav-item nav-link d-none">{{ "menu.flowers" | translate }}</a>
+          <a class="border-0 nav-item nav-link" href="#">
+            <fa-icon [icon]="faBell"></fa-icon>
+          </a>
+          <a class="border-0 nav-item nav-link" href="#">
+            <fa-icon [icon]="['fas', 'message']"></fa-icon>
+          </a>
+          
+            
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"

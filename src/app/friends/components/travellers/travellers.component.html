@@ -10,7 +10,7 @@
                 <div class="contenido rounded p-3">
                   <div class="container">
                     <a  (click)="verPerfil(post.user_id)"  class="text-decoration-none text-dark">
-                      <div class="row">
+                      <div class="row manito">
                         <div class="col-md-2 p-2">
                           <ng-container *ngIf="post.user[0].image != null">
                             <img
@@ -41,10 +41,11 @@
                       </div>
                     </a>
                     <a [routerLink]="" class="text-decoration-none text-dark">
-                    <div class="row" (click)="selectedPost(post._id)">
+                    <div class="row manito" (click)="selectedPost(post._id)">
                       <div class="h-100 d-inline-block card d-flex col-12 p-2">
                         <img
-                          [src]="api + post.photo"
+                          [src]="'data:image/png;base64,'+
+                        post.photo"
                           width="100%"
                           height="250px"
                           class="card-img-top"

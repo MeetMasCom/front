@@ -8,7 +8,11 @@ import { lastValueFrom, share } from 'rxjs';
 import { ConstantsSystem } from '../../../utils/constants-system';
 import { MmodalComponent } from 'src/app/shared/components/mmodal/mmodal.component';
 import { ModalAlertsComponent } from 'src/app/shared/components/modal-alerts/modal-alerts.component';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-my-profile',
@@ -23,10 +27,10 @@ export class MyProfileComponent {
   @ViewChild('addProfile') addProfile!: MmodalComponent;
   @ViewChild('mperfil') mperfil!: MmodalComponent;
   @ViewChild('postdetail') postdetail!: MmodalComponent;
-  
 
   @ViewChild('selectElement') selectElement: any;
   faUserPlus = faUserPlus;
+  faElipsis = faEllipsis;
 
   photoSelected: any;
   classA: string = '';
@@ -44,23 +48,27 @@ export class MyProfileComponent {
   perfil: any[] = [];
   valorSeleccionado: string = '';
   val: string = '';
-  count: any;
+  count: number = 0;
   PostD: any;
+  user_data: any;
+  estado: number=0;
 
   constructor(
     private profileService: ProfileServiceService,
     private friendsService: FriendsServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public constante: ConstantsSystem
-  ) {}
+    public constante: ConstantsSystem,
+    library: FaIconLibrary
+  ) { library.addIconPacks(fas, far, fab);}
 
   ngOnInit(): void {
+    this.user_data = JSON.parse(sessionStorage.getItem('data')!);
     this.api = this.constante.API_IMAGES;
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
       this.getUser();
-      this.getProfile();   
+      this.getProfile();
 
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
@@ -83,10 +91,11 @@ export class MyProfileComponent {
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
         );
-        this.perfil.push(resp.data[0]);     
+        this.perfil.push(resp.data[0]);
         this.val = this.perfil[0]._id;
         this.getPostUser();
-        this.getCountPost(); 
+        this.getCountPost();
+        this.onValidateUser();
       }
     }
   }
@@ -101,14 +110,11 @@ export class MyProfileComponent {
     //   console.log('no se encontraron publicaciones');
     // }
     const resp = await lastValueFrom(
-      
-      this.profileService.getProfileUserPost(this.id,this.val)
+      this.profileService.getProfileUserPost(this.id, this.val)
     );
     if (resp.data.length > 0) {
       this.Post = resp.data;
-    } else {
-      console.log('no se encontraron publicaciones');
-    }
+    } 
   }
 
   Update() {
@@ -149,7 +155,7 @@ export class MyProfileComponent {
         this.profileService.registerPost(
           this.id,
           event.value,
-          this.file,
+          this.img,
           this.val
         )
       );
@@ -180,9 +186,7 @@ export class MyProfileComponent {
     const resp = await lastValueFrom(this.profileService.getProfile());
     if (resp.data.length > 0) {
       this.profile = resp.data;
-    } else {
-      console.log('no se encontraron datos');
-    }
+    } 
   }
 
   Add() {
@@ -190,20 +194,15 @@ export class MyProfileComponent {
   }
 
   async AddProfile(event: any) {
-    try{
+    try {
       const resp = await lastValueFrom(
         this.profileService.addProfile(this.id, event.value)
       );
       if (resp.data.length > 0) {
         this.profile = resp.data;
         location.reload();
-      } else {
-         
-        console.log('no se encontraron datos');
-      }
-    }
-    
-    catch (error: any) {
+      } 
+    } catch (error: any) {
       console.log('error', error.error);
       this.message = error.error.message;
       this.mperfil.abrir();
@@ -221,14 +220,12 @@ export class MyProfileComponent {
   }
 
   async getCountPost() {
-   
-    const resp = await lastValueFrom(this.profileService.getCountPost(this.id,this.val));
+    const resp = await lastValueFrom(
+      this.profileService.getCountPost(this.id, this.val)
+    );
     if (resp.data) {
       this.count = resp.data;
-     
-    } else {
-      console.log('no se pudo contar');
-    }
+    } 
   }
 
   async selectedPost(id: string) {
@@ -240,4 +237,36 @@ export class MyProfileComponent {
     this.postdetail.abrir();
   }
 
+  async deletePost(id: string) {
+    const resp = await lastValueFrom(this.profileService.deletePost(id));
+    if (resp.data.deletedCount === 1) {
+      location.reload();
+    }
+  }
+
+  onValidateUser() {
+
+    this.dataUser.state.forEach((element:any) => {
+      if(element===1){
+        this.estado = 1;
+      } 
+    });
+  }
+
+
+  async AddSocialN(event: any) {
+    try {
+      const resp = await lastValueFrom(
+        this.profileService.addSocialN(this.id, event.value)
+      );
+      if (resp.data.length > 0) {
+        this.profile = resp.data;
+        //location.reload();
+      } 
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.message = error.error.message;
+      this.mperfil.abrir();
+    }
+  }
 }

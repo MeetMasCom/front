@@ -34,11 +34,98 @@
                 </button>
               </div>
             </div>
-            <div class="row d-flex justify-content-center">
-              <div class="d-flex justify-content-center">
-                <h4>{{this.Post[0].profile[0].name}}</h4>
+            <div class="container">
+              <div class="row">
+                <div
+                  class="d-flex justify-content-center align-items-center"
+                  *ngFor="let social of dataUser.rsocials"
+                >
+                  <ng-container *ngIf="social.red === '1'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.facebook.com/{{ social.user }}"
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="social.red === '2'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'instagram']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.instagram.com/{{ social.user }}"
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="social.red === '3'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'tiktok']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.tiktok.com/@{{ social.user }} "
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="social.red === '4'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.twitter.com/{{ social.user }} "
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="social.red === '5'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.youtube.com/{{ social.user }}"
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="social.red === '6'">
+                    <div class="col-md-1 p-2 d-flex justify-content-end">
+                      <fa-icon [icon]="['fab', 'pinterest']"></fa-icon>
+                    </div>
+                    <div class="col-md-2 p-2">
+                      <a
+                        href="https://www.pinterest.com/{{ social.user }}"
+                        class="text-decoration-none text-dark"
+                        target="_blank"
+                      >
+                        {{ social.user }}</a
+                      >
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-            
             </div>
             
           </div>
@@ -82,10 +169,11 @@
                           </h6>
                         </div>
                       </div>
-                    <div class="row" (click)="selectedPost(post._id)">
+                    <div class="row manito" (click)="selectedPost(post._id)">
                       <div class="h-100 d-inline-block card d-flex col-12 p-2">
                         <img
-                          [src]="api + post.photo"
+                        [src]="'data:image/png;base64,'+
+                        post.photo"
                           width="100%"
                           height="200px"
                           class="card-img-top"
@@ -96,6 +184,7 @@
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>

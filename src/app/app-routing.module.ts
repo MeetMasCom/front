@@ -51,7 +51,7 @@ const routes: Routes = [
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },
-  { path: 'billetera/:id', component: BilleteraEmpresaComponent },
+  { path: 'billetera', component: BilleteraEmpresaComponent },
   { path: 'updateBilletera/:id', component: UpdateBilleteraEComponent },
 
   //perfil

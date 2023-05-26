@@ -44,3 +44,7 @@
     .contenido{
         background-color: white;
     }
+
+    .manito {
+        cursor: pointer;
+    }

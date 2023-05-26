@@ -256,8 +256,6 @@ comment:any;
       console.log('formulario politicas', event.value);
       const policie1 = event.value.upolicies1;
       const policie2 = event.value.upolicies2;
-      console.log('1', policie1);
-      console.log('2', policie2);
       const response = await lastValueFrom(
         this.hotelService.UpdatePoliciesHotel(this.id_Policies, event)
       );

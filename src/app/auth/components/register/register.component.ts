@@ -163,7 +163,6 @@ export class RegisterComponent implements OnInit {
 
   onSelectProfile(item: any) {
     this.profile.filter((element: any) => element !== item.name);
-    console.log("id personal",);
   }
 
 }

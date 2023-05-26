@@ -6,6 +6,8 @@ export interface User {
   password: string;
   terms: boolean;
   country: string;
+  gender: string;
+  prefer: string;
 }
 
 export interface LoginUser {

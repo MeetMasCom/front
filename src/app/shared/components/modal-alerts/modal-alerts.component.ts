@@ -23,8 +23,6 @@ export class ModalAlertsComponent {
   @Output() sendModal: EventEmitter<any> = new EventEmitter();
   @ViewChild('modalButton') modalButton!: ElementRef;
 
-  constructor() {}
-
   abrir() {
     this.modalButton.nativeElement.click();
   }

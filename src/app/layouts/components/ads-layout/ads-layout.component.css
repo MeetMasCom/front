@@ -1,22 +1,11 @@
-.input-btn {
-  width: 15vw;
-  min-height: 2vw;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  margin-top: 1vw;
-  margin-bottom: 1vw;
-  background: #f9a21e;
-}
-
-.containerInput {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.contAll {
+  flex-direction: row;
   font-family: Inter;
 }
 
-h3 {
-  font-family: Inter;
+.central {
+  background: #ffffff;
+  border-radius: 20px;
 }
 
 .nav-link:focus,
@@ -36,8 +25,12 @@ h3 {
 
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
-  .input-btn {
-    width: 50vw;
+  .contAll {
+    flex-direction: column-reverse;
+  }
+
+  .col {
+    width: 100%;
   }
 
   .containerInput {
@@ -47,6 +40,10 @@ h3 {
     display: contents;
   }
 
+  .input-btn {
+    width: 50vw;
+  }
+
   .nav-link:focus,
   .nav-link.active {
     font-size: 12px;
@@ -54,16 +51,5 @@ h3 {
 
   .nav-link {
     font-size: 12px;
-  }
-
-  .contAll {
-    flex-direction: column;
-  }
-}
-
-/*TABLET*/
-@media only screen and (min-width: 601px) and (max-width: 1300px) {
-  .input-btn {
-    width: 20vw;
   }
 }

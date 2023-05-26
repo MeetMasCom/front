@@ -76,6 +76,8 @@ import { BusinessmenComponent } from './friends/components/businessmen/businessm
 import { StudentsComponent } from './friends/components/students/students.component';
 import { LanguagesComponent } from './friends/components/languages/languages.component';
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
+import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
+import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -117,6 +119,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BilleteraEmpresaComponent,
     UpdateBilleteraEComponent,
     SupSalesComponent,
+    UpdateBilleteraEComponent,
+    AdminsComponent,
     SupSystemsComponent,
     SupNoticesComponent,
     MyProfileComponent,
@@ -126,7 +130,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BusinessmenComponent,
     StudentsComponent,
     LanguagesComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AdsLayoutComponent,
+    NoticesTypeComponent,
   ],
   imports: [
     TranslateModule.forRoot({

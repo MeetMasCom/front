@@ -1,21 +1,21 @@
 <app-menu></app-menu>
-<div class="d-flex">
-  <div class="col col-3">
-    <app-columns [tipo]="2"></app-columns>
-  </div>
-  <div class="col-6 d-flex flex-column align-items-center">
+<div class="d-flex contAll">
+  <div class="col-md-9 col-sm-12 d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center align-items-center">
       <ul class="nav">
-        <li class="nav-item">
+        <li class="nav-item" role="presentation">
           <a class="nav-link disabled">Datos Básicos</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none" role="presentation">
           <a class="nav-link disabled">Datos Hotel</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="presentation">
           <a class="nav-link disabled">Datos Pareja</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link btn border-0">Ganar Comisión</a>
+        </li>
+        <li class="nav-item" role="presentation">
           <a class="nav-link btn border-0" (click)="onShowPass1()">
             Cambiar Contraseña
           </a>
@@ -424,63 +424,6 @@
         <form #fmrUpdate="ngForm" (ngSubmit)="onUpdate(fmrUpdate)">
           <div class="col-12 containerInput mb-3">
             <div class="form-group col-md-6 col-sm-12 p-2">
-              <label class="mb-1">Identificación</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Cédula / DNI / Pasaporte"
-                id="identification"
-                required
-                ngModel
-                name="identification"
-                #identification="ngModel"
-                [ngClass]="'input'"
-              />
-              <div
-                *ngIf="
-                  identification.invalid &&
-                  (identification.dirty || identification.touched)
-                "
-                class="text-danger form-group position-absolute"
-              >
-                <small
-                  class="form-group"
-                  *ngIf="identification.errors?.['required']"
-                >
-                  Campo requerido.
-                </small>
-              </div>
-            </div>
-            <div class="form-group col-md-6 col-sm-12 p-2">
-              <label class="mb-1">Género</label>
-              <select
-                class="form-control"
-                id="genero"
-                required
-                ngModel
-                name="genero"
-                #genero="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" disabled selected>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of generos" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-              <div
-                *ngIf="genero.invalid && (genero.dirty || genero.touched)"
-                class="text-danger form-group position-absolute"
-              >
-                <small class="form-group" *ngIf="genero.errors?.['required']">
-                  Campo requerido.
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 containerInput mb-3">
-            <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Peso</label>
               <input
                 type="text"
@@ -585,7 +528,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Estado Civil</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="statecivil"
                 required
                 ngModel
@@ -617,7 +560,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Política</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="policy"
                 required
                 ngModel
@@ -646,7 +589,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Bebida</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="drink"
                 required
                 ngModel
@@ -673,7 +616,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Fuma</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="smoke"
                 required
                 ngModel
@@ -702,7 +645,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Hijos</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="children"
                 required
                 ngModel
@@ -753,7 +696,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Tipo de cuerpo</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="bodyform"
                 required
                 ngModel
@@ -780,7 +723,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Signo zodiacal</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="signz"
                 required
                 ngModel
@@ -809,7 +752,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Profesión</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="profesion"
                 required
                 ngModel
@@ -841,7 +784,7 @@
             <div class="form-group col-md-6 col-sm-12 p-2">
               <label class="mb-1">Deporte</label>
               <select
-                class="form-control"
+                class="form-select"
                 id="sport"
                 required
                 ngModel
@@ -1063,7 +1006,7 @@
     </ng-container>
 
     <ng-container *ngIf="showPass1">
-      <div class="container mt-5">
+      <div class="container mt-2 p-5">
         <form #fmrPasswordUD="ngForm" (ngSubmit)="onRecoverUD()">
           <strong>Ingrese el nombre de usuario registrado</strong><br />
           <div class="col-12 containerInput mt-2 mb-3">
@@ -1212,7 +1155,7 @@
     </ng-container>
   </div>
 
-  <div class="col col-3 float-left">
+  <div class="col col-md-3 col-sm-12 float-left">
     <app-columns [tipo]="0"></app-columns>
   </div>
 </div>

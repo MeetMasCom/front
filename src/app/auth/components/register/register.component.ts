@@ -29,8 +29,10 @@ export class RegisterComponent implements OnInit {
   countries: any;
   statusUserName: boolean = false;
   statusEmail: boolean = false;
-  profile: any=[];
-  profile_id:any;
+  profile: any = [];
+  profile_id: any;
+  generos: any = [];
+  preferencias: any = [];
 
   constructor(
     private router: Router,
@@ -41,9 +43,10 @@ export class RegisterComponent implements OnInit {
     this.token = undefined;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.addRecaptchaScript();
     this.onGetCountry();
+    await this.getGenero();
   }
 
   renderReCaptch() {
@@ -70,12 +73,13 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister(form: any) {
-    
-    this.profile_id='646c1e9ec29b09413fcb3887';
+    this.profile_id = '646c1e9ec29b09413fcb3887';
     const response = grecaptcha.getResponse();
     if (response !== '') {
       try {
-        const resp = await lastValueFrom(this.userService.register(form.value,this.profile_id));
+        const resp = await lastValueFrom(
+          this.userService.register(form.value, this.profile_id)
+        );
         if (resp.data !== null) {
           sessionStorage.setItem('user', JSON.stringify(resp.data));
           this.message = resp.message;
@@ -148,21 +152,55 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  async getProfile(){
-    const response = await lastValueFrom(
-      this.profileService.getProfile()
-    );
+  async getProfile() {
+    const response = await lastValueFrom(this.profileService.getProfile());
     if (response.data !== null) {
-      this.profile = response.data;   
-      this.profile_id=this.profile.filter()
-    }else{
-      console.log("no se encontraron datos");
+      this.profile = response.data;
+      this.profile_id = this.profile.filter();
+    } else {
+      console.log('no se encontraron datos');
     }
-
   }
 
   onSelectProfile(item: any) {
     this.profile.filter((element: any) => element !== item.name);
+    console.log('id personal');
   }
 
+  async getGenero() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('GENERO')
+      );
+
+      response.data.map((x: any) => {
+        this.generos.push({
+          id: x._id,
+          name: x.name,
+        });
+
+        if (x.name === 'Masculino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Hombres',
+          });
+        }
+        if (x.name === 'Femenino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Mujeres',
+          });
+        }
+        if (x.name === 'Otro') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Otro',
+          });
+        }
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.generos = [];
+    }
+  }
 }

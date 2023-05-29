@@ -78,6 +78,7 @@ import { LanguagesComponent } from './friends/components/languages/languages.com
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
+import { SearchComponent } from './shared/components/search/search.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -133,6 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserProfileComponent,
     AdsLayoutComponent,
     NoticesTypeComponent,
+    SearchComponent,
   ],
   imports: [
     TranslateModule.forRoot({

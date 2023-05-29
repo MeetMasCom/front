@@ -1,0 +1,131 @@
+<div class="sticky-top bg-white">
+  <div class="container">
+    <form role="search">
+      <div class="d-flex flex-column align-items-center">
+        <div class="col-md-12 selectContainer">
+          <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <select class="form-select select">
+              <option value="" selected disabled>País</option>
+              <option *ngFor="let item of countries" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <select class="form-select select">
+              <option value="" selected disabled>Edad</option>
+              <option value="18">18 años</option>
+              <option value="19">19 años</option>
+              <option value="20">20 años</option>
+              <option value="25">25 años</option>
+              <option value="30">30 años</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <button class="btn btn-primary" (click)="search()">Buscar</button>
+          </div>
+        </div>
+      </div>
+      <a (click)="moreOptions()" class="btn border-0 text-primary">
+        Más opciones
+      </a>
+      <div *ngIf="show" class="d-flex flex-column align-items-center">
+        <div class="col-md-12 selectContainer">
+          <div class="col-md-3 col-sm-12 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Estado Civil</option>
+              <option *ngFor="let item of stateCivil" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-12 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Estatura</option>
+              <option value="160">160 cm</option>
+              <option value="170">170 cm</option>
+              <option value="180">180 cm</option>
+              <option value="190">190 cm</option>
+              <option value="200">200 cm</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-12 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Color de ojos</option>
+              <option value="cafes">Cafés</option>
+              <option value="negros">Negros</option>
+              <option value="azules">Azules</option>
+              <option value="verdes">Verdes</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-12 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Tipo de cuerpo</option>
+              <option *ngFor="let item of bodysF" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12 selectContainer">
+          <div class="col-md-3 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Tipo de cuerpo</option>
+              <option *ngFor="let item of zodiacal" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Bebida</option>
+              <option *ngFor="let item of drinks" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Fuma</option>
+              <option *ngFor="let item of smokes" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <select
+              class="form-select select"
+              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+            >
+              <option value="" selected disabled>Hijos</option>
+              <option *ngFor="let item of childrens" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

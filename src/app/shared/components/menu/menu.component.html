@@ -1,5 +1,5 @@
 <div class="sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <ng-container *ngIf="token !== ''">
       <a class="navbar-brand align-items-center icon" href="/fad">
         <img
@@ -48,17 +48,6 @@
       id="navbarNavAltMarkup"
     >
       <div class="navbar-nav menu mx-4">
-        <div class="m-2">
-          <form role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              [placeholder]="'menu.search' | translate"
-              aria-label="Buscar"
-            />
-          </form>
-        </div>
-
         <ng-container *ngIf="token !== ''">
           <div class="dropdown">
             <a
@@ -191,6 +180,9 @@
       </div>
     </div>
   </nav>
+  <div *ngIf="token !== ''">
+    <app-search></app-search>
+  </div>
 </div>
 
 <!-- Modal -->

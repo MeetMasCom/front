@@ -2,20 +2,20 @@
   margin-top: -1vw;
 }
 
-.w-40{
+.w-40 {
   width: 40px !important;
 }
 
-.w-50{
+.w-50 {
   width: 50px !important;
   min-width: 50px !important;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer !important;
 }
 
-.h-40{
+.h-40 {
   height: 30px !important;
 }
 

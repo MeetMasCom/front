@@ -20,12 +20,12 @@ export class CommentComponent {
   id_fad: any;
   user: any;
   currentRate = 0;
-  usuario:any;
-  star=0;
+  usuario: any;
+  star = 0;
   rating: number = 0;
-  id_star:string='';
-  band=0;
-  id:any;
+  id_star: string = '';
+  band = 0;
+  id: any;
   constructor(
     private fadService: FadServiceService,
     private router: Router,
@@ -39,24 +39,20 @@ export class CommentComponent {
     if (sessionStorage.getItem('id')!) {
       this.id_user = sessionStorage.getItem('id')!;
     }
-    if(this.id!=null){
+    if (this.id != null) {
       this.activatedRoute.params.subscribe(async (params) => {
-        this.id_fad = params['id'];   
+        this.id_fad = params['id'];
         this.commentByIdFad();
-        this.getStarUserId(); 
+        this.getStarUserId();
       });
       this.api = this.constante.API_IMAGES;
       this.getFadId();
-    }else{
+    } else {
       this.router.navigate(['/inicio']);
     }
-
-    
-    
   }
 
-
-  commentByIdFad(){
+  commentByIdFad() {
     this.fadService.getCommentByIdFad(this.id_fad).subscribe((res) => {
       if (res != null) {
         this.comment = res.data;
@@ -64,64 +60,54 @@ export class CommentComponent {
     });
   }
 
-  async getStarUserId(){
+  async getStarUserId() {
     const response = await lastValueFrom(
       this.fadService.getStartUserFadId(this.id_user, this.id_fad)
     );
     if (response !== null) {
-        //this.dataStar=JSON.parse(response.data); 
-        this.dataStar=response.data;         
-        this.star=this.dataStar[0].qualification;
-        console.log("estrellas",this.star);
-        this.id_star=this.dataStar[0]._id;
-        this.setRating(this.star);
-        this.band=1;
-        console.log("estrellas",response);
-    }else{
-        this.star=0;
+      this.dataStar = response.data;
+      this.star = this.dataStar[0].qualification;
+      this.id_star = this.dataStar[0]._id;
+      this.setRating(this.star);
+      this.band = 1;
+    } else {
+      this.star = 0;
     }
   }
 
-getFadId(){
-  this.fadService.getFadId(this.id_fad).subscribe((res) => {
-    if (res != null) {
-      this.fad =  res.data;
-      this.usuario=this.fad[0].user_id;
-     
-      console.log('fad', this.fad);
-    }
-  });
-}
+  getFadId() {
+    this.fadService.getFadId(this.id_fad).subscribe((res) => {
+      if (res != null) {
+        this.fad = res.data;
+        this.usuario = this.fad[0].user_id;
+
+        console.log('fad', this.fad);
+      }
+    });
+  }
 
   async onRegister(form: any) {
     try {
       form.value.user_id = this.id_user;
-      const resp = await lastValueFrom(
-        this.fadService.registerComment(form.value)
-      );
+      await lastValueFrom(this.fadService.registerComment(form.value));
       location.reload();
     } catch (error) {
       console.log(error);
     }
   }
 
-
-  async onRegisterStar(dataStar:any) {
+  async onRegisterStar(dataStar: any) {
     try {
-      const resp = await lastValueFrom(
-        this.fadService.registerRatingStar(dataStar)
-      );
+      await lastValueFrom(this.fadService.registerRatingStar(dataStar));
       location.reload();
     } catch (error) {
       console.log(error);
     }
   }
-  
-  async onUpdateStar(id:string,dataStar:any) {
+
+  async onUpdateStar(id: string, dataStar: any) {
     try {
-      const resp = await lastValueFrom(
-        this.fadService.UpdateStar(id,dataStar)
-      );
+      await lastValueFrom(this.fadService.UpdateStar(id, dataStar));
     } catch (error) {
       console.log(error);
     }
@@ -129,18 +115,17 @@ getFadId(){
 
   async setRating(val: number) {
     try {
-      this.rating = val;      
+      this.rating = val;
       this.dataStar = {
         user_id: this.id_user,
         fad_id: this.id_fad,
         qualification: this.rating,
       };
-      if(this.star===0){
-          this.onRegisterStar(this.dataStar)
-      }else{
-      this.onUpdateStar(this.id_star,this.dataStar);
+      if (this.star === 0) {
+        await this.onRegisterStar(this.dataStar);
+      } else {
+        await this.onUpdateStar(this.id_star, this.dataStar);
       }
-    
     } catch (error) {
       console.log(error);
     }

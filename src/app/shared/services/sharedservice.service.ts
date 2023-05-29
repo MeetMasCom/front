@@ -33,4 +33,14 @@ export class SharedserviceService {
   sumaryService(): Observable<any> {
     return this.httpCLient.get(`${this.constante.API_SERVER}/user/count`);
   }
+
+  getCatalog(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/catalogue/options?code=${param}`
+    );
+  }
+
+  getCountries(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
+  }
 }

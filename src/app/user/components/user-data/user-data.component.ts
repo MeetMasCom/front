@@ -121,7 +121,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onRedirigir() {
-    this.router.navigate(['/fad']);
+    this.router.navigate(['/home']);
   }
 
   onChange(event: any): void {
@@ -332,7 +332,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onReload() {
-    this.router.navigate(['/fad']);
+    this.router.navigate(['/home']);
   }
 
   async onRecoverUD() {

@@ -12,7 +12,7 @@
                     <a  (click)="verPerfil(post.user_id)"  class="text-decoration-none text-dark">
                       <div class="row manito">
                         <div class="col-md-2 p-2">
-                          <ng-container *ngIf="post.user[0].image != null">
+                          <ng-container *ngIf="post.user[0].image !== ''">
                             <img
                               [src]="
                                 'data:image/jpeg;base64,' + post.user[0].image
@@ -23,7 +23,7 @@
                               class="rounded-circle img-fluid"
                             />
                           </ng-container>
-                          <ng-container *ngIf="post.user[0].image == null">
+                          <ng-container *ngIf="post.user[0].image ===''">
                             <img
                               [src]="'../../../../assets/user.png'"
                               width="30px"

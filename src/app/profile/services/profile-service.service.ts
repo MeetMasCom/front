@@ -117,4 +117,10 @@ export class ProfileServiceService {
       }
     );
   }
+
+  getUserGender(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/user/userByGender/${id}`
+    );
+  }
 }

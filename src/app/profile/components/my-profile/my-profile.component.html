@@ -11,7 +11,7 @@
             class="col-md-4 d-flex justify-content-center align-items-center"
           >
             <div class="">
-              <ng-container *ngIf="dataUser?.image != null">
+              <ng-container *ngIf="dataUser?.image !== ''">
                 <img
                   [src]="this.imageBase64"
                   width="80%"
@@ -20,7 +20,7 @@
                   class="img-fluid rounded-circle"
                 />
               </ng-container>
-              <ng-container *ngIf="dataUser?.image === null">
+              <ng-container *ngIf="dataUser?.image === ''">
                 <img
                   [src]="'../../../../assets/user.png'"
                   alt="..."
@@ -75,95 +75,65 @@
         <br />
         <div class="container">
           <div class="row">
-            <div
-              class="d-flex justify-content-center align-items-center"
-              *ngFor="let social of dataUser?.rsocials"
-            >
+            <div class="col-md-12 mb-3 d-flex justify-content-center align-items-center" >
+              <div *ngFor="let social of dataUser?.rsocials" >
               <ng-container *ngIf="social.red === '1'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
-                  <a
-                    href="https://www.facebook.com/{{ social.user }}"
-                    class="text-decoration-none text-dark"
-                    target="_blank"
-                  >
-                    {{ social.user }}</a
-                  >
-                </div>
+                <a
+                  href="https://www.facebook.com/{{ social.user }}"
+                  class="text-decoration-none text-dark mx-3 "
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'facebook']"></fa-icon>
+                </a>
               </ng-container>
               <ng-container *ngIf="social.red === '2'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'instagram']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
-                  <a
-                    href="https://www.instagram.com/{{ social.user }}"
-                    class="text-decoration-none text-dark"
-                    target="_blank"
-                  >
-                    {{ social.user }}</a
-                  >
-                </div>
+                <a
+                  href="https://www.instagram.com/{{ social.user }}"
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'instagram']"></fa-icon
+                ></a>
               </ng-container>
               <ng-container *ngIf="social.red === '3'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'tiktok']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
-                  <a
-                    href="https://www.tiktok.com/@{{ social.user }} "
-                    class="text-decoration-none text-dark"
-                    target="_blank"
-                  >
-                    {{ social.user }}</a
-                  >
-                </div>
+                <a
+                  href="https://www.tiktok.com/@{{ social.user }} "
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'tiktok']"></fa-icon
+                ></a>
               </ng-container>
+
               <ng-container *ngIf="social.red === '4'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
-                  <a
-                    href="https://www.twitter.com/{{ social.user }} "
-                    class="text-decoration-none text-dark"
-                    target="_blank"
-                  >
-                    {{ social.user }}</a
-                  >
-                </div>
+                <a
+                  href="https://www.twitter.com/{{ social.user }} "
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'twitter']"></fa-icon
+                ></a>
               </ng-container>
               <ng-container *ngIf="social.red === '5'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
                   <a
                     href="https://www.youtube.com/{{ social.user }}"
-                    class="text-decoration-none text-dark"
+                    class="text-decoration-none text-dark mx-3"
                     target="_blank"
                   >
-                    {{ social.user }}</a
+                  <fa-icon class="fa-3x" [icon]="['fab', 'youtube']"></fa-icon></a
                   >
-                </div>
               </ng-container>
               <ng-container *ngIf="social.red === '6'">
-                <div class="col-md-1 p-2 d-flex justify-content-end">
-                  <fa-icon [icon]="['fab', 'pinterest']"></fa-icon>
-                </div>
-                <div class="col-md-2 p-2">
                   <a
                     href="https://www.pinterest.com/{{ social.user }}"
-                    class="text-decoration-none text-dark"
+                    class="text-decoration-none text-dark mx-3"
                     target="_blank"
                   >
-                    {{ social.user }}</a
+                  <fa-icon class="fa-3x" [icon]="['fab', 'pinterest']"></fa-icon></a
                   >
-                </div>
               </ng-container>
             </div>
+          </div>
           </div>
         </div>
         <div class="row mt-2 d-flex align-items-center">

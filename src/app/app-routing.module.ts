@@ -28,10 +28,14 @@ import { UserProfileComponent } from './profile/components/user-profile/user-pro
 import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
+import { HomeComponent } from './profile/components/home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: StartLayoutComponent },
+
+  //home
+  { path: 'home', component: HomeComponent },
 
   //modas
   { path: 'fad', component: StartFadComponent },

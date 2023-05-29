@@ -1,7 +1,3 @@
-.contenido{
-    background-color: white;
-}
-
 
 .nuevo{
     background-color: #f9a21e;
@@ -28,17 +24,27 @@
         font-size: smaller;
         font-weight: bold;
     }
+
+
+    .gallery{
+        columns: 5 120px;
+        column-gap: 1.5em;
+    }
     
-   .nav-link:focus, .nav-link:hover,.nav-link.active{
-        background-color: #f9a21e;
-        color: #000;
+
+    .contenido{
+        background-color: white;
     }
 
-    
-    .nav-link{
-        color: #000;
-    }
+    .fa-3x {
+        font-size: 3em !important;
+        padding: 0;
+      }
 
-    .manito {
+      .manito {
         cursor: pointer;
     }
+
+    fa-icon:hover {
+        color: #f9a21e;
+      }

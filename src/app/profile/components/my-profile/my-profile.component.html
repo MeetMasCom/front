@@ -5,44 +5,41 @@
       <app-columns [tipo]="1"></app-columns>
     </div> -->
     <div class="col-md-9">
-      <ng-container></ng-container>
       <div class="contenido rounded p-4">
         <div class="row">
-          <div class="col-md-4 ">
-            <div class="d-flex align-items-center justify-content-center">
-
-          
-            <ng-container *ngIf="dataUser?.image != null">
-              
-              <img
-                [src]="this.imageBase64"
-                
-                alt="..."
-                class="img-fluid rounded-circle"
-              />
-            </ng-container>
-            <ng-container *ngIf="dataUser?.image === null">
-              <img
-                [src]="'../../../../assets/user.png'"
-                alt="..."
-                class=" img-fluid rounded-circle"
-              />
-            </ng-container>
-          </div>
+          <div
+            class="col-md-4 d-flex justify-content-center align-items-center"
+          >
+            <div class="">
+              <ng-container *ngIf="dataUser?.image !== ''">
+                <img
+                  [src]="this.imageBase64"
+                  width="80%"
+                  height="80%"
+                  alt="..."
+                  class="img-fluid rounded-circle"
+                />
+              </ng-container>
+              <ng-container *ngIf="dataUser?.image === ''">
+                <img
+                  [src]="'../../../../assets/user.png'"
+                  alt="..."
+                  width="80%"
+                  height="80%"
+                  class="img-fluid rounded-circle"
+                />
+              </ng-container>
+            </div>
           </div>
           <div class="col-md-8">
             <div class="row">
               <div class="container">
                 <div class="row">
                   <div class="col-md-10">
-                    <h4 class="font-weight-bold">{{ dataUser.userName }}</h4>
+                    <h4 class="font-weight-bold">{{ dataUser?.userName }}</h4>
                   </div>
                   <div class="col-md-2 d-flex justify-content-end">
-                    <button
-                      type="button"
-                      class="btn nuevo"
-                      (click)="Add()"
-                    >
+                    <button type="button" class="btn nuevo" (click)="Add()">
                       <fa-icon class="fa-3x" [icon]="faUserPlus"></fa-icon>
                     </button>
                   </div>
@@ -53,9 +50,9 @@
               <div class="container p-3">
                 <div class="row">
                   <div class="col-md-7">
-                    {{ dataUser.firstname }}
+                    {{ dataUser?.firstname }}
                   </div>
-                  <div class="col-md-5   d-flex justify-content-end">
+                  <div class="col-md-5 d-flex justify-content-end">
                     <button type="button" class="btn nuevo" (click)="Update()">
                       Editar Perfil
                     </button>
@@ -66,49 +63,108 @@
             <div class="row">
               <div class="container p-3">
                 <div class="row">
-                  <div class="col-md-7">
-                    {{ dataUser.description }}
+                  <div class="col-md-11">
+                    <p>{{ dataUser?.description }}</p>
                   </div>
-                  <div class="col-md-5  justify-content-end">
-                  
-                  </div>
+                  <div class="col-md-1 justify-content-end"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <br />
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mb-3 d-flex justify-content-center align-items-center" >
+              <div *ngFor="let social of dataUser?.rsocials" >
+              <ng-container *ngIf="social.red === '1'">
+                <a
+                  href="https://www.facebook.com/{{ social.user }}"
+                  class="text-decoration-none text-dark mx-3 "
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'facebook']"></fa-icon>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="social.red === '2'">
+                <a
+                  href="https://www.instagram.com/{{ social.user }}"
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'instagram']"></fa-icon
+                ></a>
+              </ng-container>
+              <ng-container *ngIf="social.red === '3'">
+                <a
+                  href="https://www.tiktok.com/@{{ social.user }} "
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'tiktok']"></fa-icon
+                ></a>
+              </ng-container>
+
+              <ng-container *ngIf="social.red === '4'">
+                <a
+                  href="https://www.twitter.com/{{ social.user }} "
+                  class="text-decoration-none text-dark mx-3"
+                  target="_blank"
+                >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'twitter']"></fa-icon
+                ></a>
+              </ng-container>
+              <ng-container *ngIf="social.red === '5'">
+                  <a
+                    href="https://www.youtube.com/{{ social.user }}"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'youtube']"></fa-icon></a
+                  >
+              </ng-container>
+              <ng-container *ngIf="social.red === '6'">
+                  <a
+                    href="https://www.pinterest.com/{{ social.user }}"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                  <fa-icon class="fa-3x" [icon]="['fab', 'pinterest']"></fa-icon></a
+                  >
+              </ng-container>
+            </div>
+          </div>
+          </div>
+        </div>
         <div class="row mt-2 d-flex align-items-center">
           <div class="col-md-2 float-left">Siguiendo</div>
-          <div class="col-md-3 float-left">Seguidores</div>         
-            <div class="col-md-3 float-left">
-              <select #selectElement
+          <div class="col-md-3 float-left">Seguidores</div>
+          <div class="col-md-3 float-left">
+            <select
+              #selectElement
               type="text"
               class="form-select"
               id="aprofile"
               required
-              ngModel      
-              [(ngModel)]="val"  (change)="selectProfile($event)"              
+              ngModel
+              [(ngModel)]="val"
+              (change)="selectProfile($event)"
               name="aprofile"
               #aprofile="ngModel"
               [ngClass]="'input'"
             >
-              <option selected
-                *ngFor="let p of perfil"
-                [value]="p._id"
-              >
+              <option selected *ngFor="let p of perfil" [value]="p._id">
                 {{ p.name }}
               </option>
             </select>
+          </div>
+          <ng-container *ngIf="this.count < 25 || this.count === 0">
+            <div class="col-md-4 d-md-flex justify-content-md-end">
+              <button type="button" class="btn nuevo" (click)="Publicar()">
+                Nueva Publicación
+              </button>
             </div>
-            <ng-container *ngIf="this.count<25">
-              <div class="col-md-4 d-md-flex justify-content-md-end">
-                <button type="button" class="btn nuevo" (click)="Publicar()">
-                  Nueva Publicación
-                </button>
-              </div>
-            </ng-container>
-          
+          </ng-container>
         </div>
       </div>
 
@@ -119,38 +175,64 @@
               <div class="col-md-4 p-2" *ngFor="let post of Post">
                 <div class="contenido rounded p-3">
                   <div class="container">
-                    
-                      <div class="row">
-                        <div class="col-md-2 p-2">
-                          <ng-container *ngIf="img != null">
-                            <img
+                    <div class="row">
+                      <div class="col-md-2 p-2">
+                        <ng-container *ngIf="img != null">
+                          <img
                             [src]="this.imageBase64"
-                              width="30px"
-                              height="30px"
-                              alt="..."
-                              class="rounded-circle"
-                            />
-                          </ng-container>
-                          <ng-container *ngIf="img === null">
-                            <img
-                              [src]="'../../../../assets/user.png'"
-                              width="30px"
-                              height="30px"
-                              alt="..."
-                              class="rounded-circle"
-                            />
-                          </ng-container>
-                        </div>
-                        <div class="col-md-10 d-flex align-items-center">
-                          <h6 class="font-weight-bold">
-                            {{ dataUser.userName }}
-                          </h6>
+                            width="30px"
+                            height="30px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                        <ng-container *ngIf="img === null">
+                          <img
+                            [src]="'../../../../assets/user.png'"
+                            width="30px"
+                            height="30px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                      </div>
+                      <div class="col-md-8 d-flex align-items-center">
+                        <h6 class="font-weight-bold">
+                          {{ dataUser.userName }}
+                        </h6>
+                      </div>
+                      <div class="col-md-2 d-flex">
+                        <div class="dropdown">
+                          <a
+                            class="btn dropdown-toggle border-0 nav-item nav-link"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            href="friends"
+                          >
+                            <fa-icon class="fa-3x" [icon]="faElipsis"></fa-icon>
+                          </a>
+                          <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuLink"
+                          >
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                (click)="deletePost(post._id)"
+                                travellers
+                                >Eliminar</a
+                              >
+                            </li>
+                          </ul>
                         </div>
                       </div>
-                    <div class="row" (click)="selectedPost(post._id)" >
+                    </div>
+                    <div class="row manito" (click)="selectedPost(post._id)">
                       <div class="h-100 d-inline-block card d-flex col-12 p-2">
                         <img
-                          [src]="api + post.photo"
+                          [src]="'data:image/png;base64,' + post.photo"
                           width="100%"
                           height="200px"
                           class="card-img-top"
@@ -172,8 +254,6 @@
             </div>
           </ng-container>
         </div>
-       
-
       </div>
     </div>
     <div class="col col-lg-3">
@@ -197,8 +277,10 @@
   [idModal]="'updateProfile'"
   [tipo]="15"
   [user]="dataUser"
+  [estado]="estado"
   [title]="'Modificar Perfil'"
   (PostModal)="UpdateProfile($event)"
+  (AddSocialN)="AddSocialN($event)"
   [photoSelected]="photoSelected"
   (onChangeImagen)="cargarImagen($event)"
   #updateProfile
@@ -235,7 +317,6 @@
   #errorModal
 ></app-modal-alerts>
 
-
 <app-modal-alerts
   [idModal]="'mmmmperfil'"
   [icono]="'./assets/img/warning.png'"
@@ -244,7 +325,6 @@
   [tipo]="0"
   #mperfil
 ></app-modal-alerts>
-
 
 <app-mmodal
   [idModal]="'postdetail'"

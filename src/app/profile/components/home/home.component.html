@@ -35,6 +35,20 @@
            Online
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="pills-active-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-active"
+            type="button"
+            role="tab"
+            aria-controls="pills-active"
+            aria-selected="false"
+          >
+           Activos
+          </button>
+        </li>
       </ul>
 
 
@@ -229,6 +243,109 @@
                                   <fa-icon class="fa-3x" [icon]="faCircleXmark
                                   "></fa-icon>
                                 </a>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="userGender?.length === 0">
+              <div class="d-flex justify-content-center" style="min-height: 30vw">
+                <Span>No hay publicaciones disponibles</Span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        </div>
+
+        <div
+          class="tab-pane fade show active"
+          id="pills-active"
+          role="tabpanel"
+          aria-labelledby="pills-active-tab"
+        >
+        <div class="row">
+          <div class="col-md-12">
+            <ng-container *ngIf="userGenderActive?.length > 0">
+              <div class="row d-flex justify-content-center">
+                <div class="col-md-4 p-2 gallery" *ngFor="let user of userGenderActive">
+                  <div class="contenido rounded p-3">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-2 p-2">
+                          <ng-container *ngIf="user?.image != ''">
+                            <img
+                            [src]="'data:image/png;base64,' + user.image"
+                              width="30vw"
+                              height="30vw"
+                              alt="..."
+                              class="rounded-circle"
+                            />
+                          </ng-container>
+                          <ng-container *ngIf="user?.image === ''">
+                            <img
+                              [src]="'../../../../assets/user.png'"
+                              width="30vw"
+                              height="30vw"
+                              alt="..."
+                              class="rounded-circle"
+                            />
+                          </ng-container>
+                        </div>
+                        <div class="col-md-8 d-flex align-items-center">
+                          <div class="row">
+                            <div class="col-md-5">
+                              <h6 class="font-weight-bold">
+                                {{ user.userName }}
+                              </h6>
+                            </div>
+                            <div class="col-md-5">
+                              <h6>{{user.country[0].name}},</h6>
+                            </div>
+                            <div class="col-md-2 d-flex text-right">
+                                {{ calcularEdad(user.dateBirth) }}
+                            </div>
+                          </div> 
+                         
+                        </div>
+                      </div>
+                      <div class="row manito" >
+                        <div class="h-100 d-inline-block card d-flex col-12 p-2">
+  
+                          <ng-container *ngIf="user?.image != ''">
+                            <img
+                            [src]="'data:image/png;base64,' + user.image"
+                            class="card-img-top img-fluid"
+                            alt="..."
+                            />
+                          </ng-container>
+                          <ng-container *ngIf="user?.image === ''">
+                            <img
+                              [src]="'../../../../assets/user.png'"
+                            class="card-img-top img-fluid"
+                            alt="..."
+                            />
+                          </ng-container>
+  
+                          <div class="card-body">
+                            <p class="card-text">{{ user.description }}</p>
+                            <div class="container">
+                              <div class="row ">                            
+                                <div class="col d-flex justify-content-center align-items-center">
+                                  <a (click)="addLike(user._id,true)">
+                                  <fa-icon class="fa-3x" [icon]="faCircleCheck
+                                  "></fa-icon></a>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center">
+                                  <a (click)="addLike(user._id,false)">
+                                  <fa-icon class="fa-3x" [icon]="faCircleXmark
+                                  "></fa-icon></a>
                                 </div>
                               </div>
                             </div>

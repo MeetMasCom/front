@@ -43,6 +43,7 @@ export class MmodalComponent {
   @Input() user: any = [];
   @Input() profile: any = [];
   @Input() entradas: any = [];
+  @Input() notification: any = [];
   @Input() estado: any;
   faShield = faShield;
   faFile = faFile;
@@ -70,6 +71,7 @@ export class MmodalComponent {
   @Output() onChangeImagen: EventEmitter<any> = new EventEmitter();
   @Output() AddProfile: EventEmitter<any> = new EventEmitter();
   @Output() AddSocialN: EventEmitter<any> = new EventEmitter();
+  @Output() changeRadio: EventEmitter<any> = new EventEmitter();
 
 
 
@@ -87,7 +89,6 @@ export class MmodalComponent {
   }
 
   abrir() {
-    console.log("user", this.user);
     this.modalPublicar.nativeElement.click();
   }
 
@@ -177,5 +178,10 @@ export class MmodalComponent {
 
   onAddSocial(form: any){
     this.AddSocialN.emit(form);
+  }
+
+  onRadioChange(event:any){
+    console.log("notificacion",event);
+    this.changeRadio.emit(event);
   }
 }

@@ -103,13 +103,15 @@
             </span>
           </a> -->
 
-          <button type="button" class="btn nuevo position-relative">
+          <button type="button" class="btn nuevo position-relative" (click)="notificaciones()">
             Notificaciones
+            
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              99+
-              <span class="visually-hidden">Notificaciones</span>
+              {{nuevas}}
+            <span class="visually-hidden"></span>
             </span>
           </button>
+
           <a class="border-0 nav-item nav-link" href="#">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
@@ -215,4 +217,12 @@
 <app-login></app-login>
 
 <!--Alert-->
-<app-alert [classAlert]="classA" [message]="msj"></app-alert>
+<app-mmodal
+  [idModal]="'mnotification'"
+  [tipo]="17"
+  [notification]="notification"
+  [title]="'Notificaciones'" 
+  (changeRadio)="updateLike($event)"
+  #mnotification
+>
+</app-mmodal>

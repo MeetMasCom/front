@@ -21,6 +21,7 @@ export class HomeComponent {
   userGender: any=[];
 gender:string='';
   userGenderOnline: any;
+  userGenderActive: any;
   
   constructor(
     private profileService: ProfileServiceService,
@@ -57,8 +58,12 @@ gender:string='';
         }
         const resp2 = await lastValueFrom(this.profileService.getUserOnline(this.gender));
       if (resp2?.data.length > 0) {
-        this.userGenderOnline = resp1.data;
+        this.userGenderOnline = resp2.data;
         }
+        const resp3 = await lastValueFrom(this.profileService.getUserActive(this.gender));
+        if (resp3?.data.length > 0) {
+          this.userGenderActive = resp3.data;
+          }
       }
     }
 

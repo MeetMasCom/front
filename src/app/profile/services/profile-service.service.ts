@@ -126,6 +126,13 @@ export class ProfileServiceService {
     );
   }
 
+  getUserActive(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/user/userActive/${id}`
+    );
+  }
+
+
   addFollowers(idFollower: string, id:string) {
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/profile/addFollowers/${id}`,
@@ -156,5 +163,18 @@ export class ProfileServiceService {
     );
   }
 
+  getNotification(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getByIdLike/${id}`
+    );
+  }
+
+  updateNotification(id: string): Observable<any> {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/like/updateLike/${id}`,{
+        state:1
+      }
+    );
+  }
 
 }

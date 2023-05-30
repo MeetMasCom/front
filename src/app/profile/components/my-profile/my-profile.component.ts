@@ -28,6 +28,7 @@ export class MyProfileComponent {
   @ViewChild('mperfil') mperfil!: MmodalComponent;
   @ViewChild('postdetail') postdetail!: MmodalComponent;
 
+
   @ViewChild('selectElement') selectElement: any;
   faUserPlus = faUserPlus;
   faElipsis = faEllipsis;
@@ -54,6 +55,7 @@ export class MyProfileComponent {
   estado: number=0;
   followers:number=0;
   followings:number=0;
+  notification: any;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -274,5 +276,17 @@ export class MyProfileComponent {
       this.message = error.error.message;
       this.mperfil.abrir();
     }
+  }
+
+  async getNotificacion(){
+    const resp = await lastValueFrom(this.profileService.getNotification(this.id));
+    if (resp.data.length > 0) {
+      this.notification = resp.data;
+     
+    } else {
+      console.log('no se encontraron datos');
+    }
+
+
   }
 }

@@ -21,15 +21,11 @@ export class ProfileServiceService {
     file: string,
     val: string
   ): Observable<any> {
-    const fd = new FormData();
-    fd.append('user_id', id);
-    fd.append('description', post.pdescription);
-    fd.append('photo', file);
-    fd.append('profile_id', val);
     return this.httpCLient.post(
       `${this.constante.API_SERVER}/post/createPost`,
       {
         user_id: id,
+        title:post.ptitle,
         description: post.pdescription,
         photo: file,
         profile_id: val,
@@ -123,4 +119,42 @@ export class ProfileServiceService {
       `${this.constante.API_SERVER}/user/userByGender/${id}`
     );
   }
+
+  getUserOnline(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/user/userOnline/${id}`
+    );
+  }
+
+  addFollowers(idFollower: string, id:string) {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/profile/addFollowers/${id}`,
+      {
+        followers:idFollower
+      }
+    );
+  }
+
+  addFollowing(idFollowing: string, id: string) {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/profile/addFollowings/${id}`,
+      {
+        following: idFollowing,
+      }
+    );
+  }
+
+
+  addLike(user_id:string,userlike:string,val:boolean) {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/like/addLike`,
+      {
+       user_id:user_id,
+       userlike:userlike,
+       like:val
+      }
+    );
+  }
+
+
 }

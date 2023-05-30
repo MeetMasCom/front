@@ -1696,11 +1696,11 @@
                         type="text"
                         class="form-control"
                         placeholder="Descripción"
-                        id="pdescription"
-                        name="pdescription"
+                        id="ptitle"
+                        name="ptitle"
                         required
                         ngModel
-                        #pdescription="ngModel"
+                        #ptitle="ngModel"
                         [ngClass]="'input'"
                       />
                     </div>
@@ -1723,6 +1723,23 @@
                         class="img-fluid"
                         (click)="photoInput1.click()"
                       />
+                    </div>
+                  </div>
+                  <div class="form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Descripción - Ingrese mínimo 200 carácteres"
+                        id="pdescription"
+                        name="pdescription"
+                        required
+                        ngModel
+                        #pdescription="ngModel"
+                        minlength="200"
+                        maxlength="1000"
+                        [ngClass]="'input'"
+                      ></textarea>
                     </div>
                   </div>
                   <br />

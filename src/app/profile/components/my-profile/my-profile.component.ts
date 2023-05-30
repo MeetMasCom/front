@@ -52,6 +52,8 @@ export class MyProfileComponent {
   PostD: any;
   user_data: any;
   estado: number=0;
+  followers:number=0;
+  followings:number=0;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -90,7 +92,11 @@ export class MyProfileComponent {
         const elemento = this.myProfile[i];
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
+
         );
+
+        this.followers=this.dataUser.followers.length;
+        this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
         this.val = this.perfil[0]._id;
         this.getPostUser();

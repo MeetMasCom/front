@@ -14,8 +14,8 @@
               <ng-container *ngIf="dataUser?.image !== ''">
                 <img
                   [src]="this.imageBase64"
-                  width="80%"
-                  height="80%"
+                  width="250vw"
+                  height="250vw"
                   alt="..."
                   class="img-fluid rounded-circle"
                 />
@@ -24,8 +24,8 @@
                 <img
                   [src]="'../../../../assets/user.png'"
                   alt="..."
-                  width="80%"
-                  height="80%"
+                  width="100vw"
+                  height="100vw"
                   class="img-fluid rounded-circle"
                 />
               </ng-container>
@@ -137,8 +137,8 @@
           </div>
         </div>
         <div class="row mt-2 d-flex align-items-center">
-          <div class="col-md-2 float-left">Siguiendo</div>
-          <div class="col-md-3 float-left">Seguidores</div>
+          <div class="col-md-2 float-left">Siguiendo {{this.followings}}</div>
+          <div class="col-md-3 float-left">Seguidores {{this.followers}}</div>
           <div class="col-md-3 float-left">
             <select
               #selectElement
@@ -239,6 +239,7 @@
                           alt="..."
                         />
                         <div class="card-body">
+                          <p class="card-text">{{ post.title}}</p>
                           <p class="card-text">{{ post.description }}</p>
                         </div>
                       </div>
@@ -318,7 +319,7 @@
 ></app-modal-alerts>
 
 <app-modal-alerts
-  [idModal]="'mmmmperfil'"
+  [idModal]="'mperfil'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Perfil ya registrado'"
   [descripcion]="message"

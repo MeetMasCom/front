@@ -2098,11 +2098,13 @@
             <div class="row">
               <div class="col-md-2"></div>
               <div class="col-md-8">
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let noti of notification">
+                <ul class="list-group list-unstyled">
+                  <div *ngFor="let noti of notification">
+                  
                     <ng-container *ngIf="noti.state===0">
-                      <div class="container"  >
-                        <div class="row noti rounded-pill p-2">
+                      <li class="list-group-item noti " >
+                      <div class="container "  >
+                        <div class="row noti p-2">
                           <div class="col-md-2">
                             <ng-container *ngIf="noti.user[0].image !== ''">
                               <img
@@ -2143,8 +2145,10 @@
                           </ng-container>                        
                         </div>
                       </div>
+                    </li>
                     </ng-container>
                     <ng-container *ngIf="noti.state===1">
+                      <li>
                       <div class="container"  >
                         <div class="row rounded-pill p-2">
                           <div class="col-md-2">
@@ -2187,9 +2191,11 @@
                           </ng-container>                        
                         </div>
                       </div>
+                    </li>
                     </ng-container>
                     
-                  </li>
+                  
+                </div>
                 </ul>
 
                 <div class="col-md-2"></div>

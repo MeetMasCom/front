@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { SharedserviceService } from '../../services/sharedservice.service';
+import { Router } from '@angular/router';
+import { ModalAlertsComponent } from '../modal-alerts/modal-alerts.component';
 
 @Component({
   selector: 'app-search',
@@ -8,6 +10,8 @@ import { SharedserviceService } from '../../services/sharedservice.service';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
+  @ViewChild('warningModalSearch') warningModalSearch!: ModalAlertsComponent;
+
   show = false;
   userFree = false;
   userPay = false;
@@ -19,8 +23,12 @@ export class SearchComponent implements OnInit {
   drinks: any = [];
   smokes: any = [];
   childrens: any = [];
+  estado = -1;
 
-  constructor(private sharedService: SharedserviceService) {}
+  constructor(
+    private sharedService: SharedserviceService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('data')!);
@@ -38,8 +46,25 @@ export class SearchComponent implements OnInit {
     await this.getChildrens();
   }
 
-  search() {
-    console.log('buscar');
+  async search(form: any) {
+    console.log(form.value);
+    this.user.state.forEach(async (element: any, index: any) => {
+      if (this.user.state[index] === 0 && this.user.state.length === 1) {
+        this.estado = 0;
+        this.router.navigate(['/dataUser', this.estado]);
+      }
+      if (this.user.state[index] === 1 || this.user.state[index] !== 0) {
+        try {
+          const response = await lastValueFrom(
+            this.sharedService.searchUsers(form.value)
+          );
+
+          console.log('response', response);
+        } catch (error) {
+          console.log('error', error);
+        }
+      }
+    });
   }
 
   moreOptions() {

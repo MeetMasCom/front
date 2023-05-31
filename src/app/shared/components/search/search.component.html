@@ -1,10 +1,17 @@
 <div class="sticky-top bg-white">
   <div class="container">
-    <form role="search">
+    <form #frmSearch="ngForm" (ngSubmit)="search(frmSearch)">
       <div class="d-flex flex-column align-items-center">
         <div class="col-md-12 selectContainer">
           <div class="col-md-4 col-sm-12 d-flex align-items-center">
-            <select class="form-select select">
+            <select
+              class="form-select select"
+              id="pais"
+              name="pais"
+              ngModel
+              #pais="ngModel"
+              required
+            >
               <option value="" selected disabled>País</option>
               <option *ngFor="let item of countries" [value]="item._id">
                 {{ item.name }}
@@ -12,17 +19,30 @@
             </select>
           </div>
           <div class="col-md-4 col-sm-12 d-flex align-items-center">
-            <select class="form-select select">
+            <select
+              class="form-select select"
+              id="edad"
+              name="edad"
+              ngModel
+              #edad="ngModel"
+              required
+            >
               <option value="" selected disabled>Edad</option>
-              <option value="18">18 años</option>
-              <option value="19">19 años</option>
-              <option value="20">20 años</option>
-              <option value="25">25 años</option>
-              <option value="30">30 años</option>
+              <option value="18-21">de 18 a 20 años</option>
+              <option value="21-26">de 21 a 25 años</option>
+              <option value="26-31">de 26 a 30 años</option>
+              <option value="31-36">de 31 a 35 años</option>
+              <option value="35-100">mas de 35 años</option>
             </select>
           </div>
           <div class="col-md-4 col-sm-12 d-flex align-items-center">
-            <button class="btn btn-primary" (click)="search()">Buscar</button>
+            <input
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!frmSearch.valid"
+              [ngClass]="'input-btn'"
+              value="Buscar"
+            />
           </div>
         </div>
       </div>
@@ -35,9 +55,13 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="ecivil"
+              name="ecivil"
+              ngModel
+              #ecivil="ngModel"
             >
               <option value="" selected disabled>Estado Civil</option>
-              <option *ngFor="let item of stateCivil" [value]="item._id">
+              <option *ngFor="let item of stateCivil" [value]="item.id">
                 {{ item.name }}
               </option>
             </select>
@@ -46,6 +70,10 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="uestatura"
+              name="uestatura"
+              ngModel
+              #uestatura="ngModel"
             >
               <option value="" selected disabled>Estatura</option>
               <option value="160">160 cm</option>
@@ -59,6 +87,10 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="cojos"
+              name="cojos"
+              ngModel
+              #cojos="ngModel"
             >
               <option value="" selected disabled>Color de ojos</option>
               <option value="cafes">Cafés</option>
@@ -71,9 +103,13 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="tcuerpo"
+              name="tcuerpo"
+              ngModel
+              #tcuerpo="ngModel"
             >
               <option value="" selected disabled>Tipo de cuerpo</option>
-              <option *ngFor="let item of bodysF" [value]="item._id">
+              <option *ngFor="let item of bodysF" [value]="item.id">
                 {{ item.name }}
               </option>
             </select>
@@ -84,20 +120,13 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
-            >
-              <option value="" selected disabled>Tipo de cuerpo</option>
-              <option *ngFor="let item of zodiacal" [value]="item._id">
-                {{ item.name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-3 d-flex align-items-center">
-            <select
-              class="form-select select"
-              [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="bebida"
+              name="bebida"
+              ngModel
+              #bebida="ngModel"
             >
               <option value="" selected disabled>Bebida</option>
-              <option *ngFor="let item of drinks" [value]="item._id">
+              <option *ngFor="let item of drinks" [value]="item.id">
                 {{ item.name }}
               </option>
             </select>
@@ -106,9 +135,13 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="fuma"
+              name="fuma"
+              ngModel
+              #fuma="ngModel"
             >
               <option value="" selected disabled>Fuma</option>
-              <option *ngFor="let item of smokes" [value]="item._id">
+              <option *ngFor="let item of smokes" [value]="item.id">
                 {{ item.name }}
               </option>
             </select>
@@ -117,13 +150,18 @@
             <select
               class="form-select select"
               [ngClass]="{ clsFree: userFree, clsPay: userPay }"
+              id="hijos"
+              name="hijos"
+              ngModel
+              #hijos="ngModel"
             >
               <option value="" selected disabled>Hijos</option>
-              <option *ngFor="let item of childrens" [value]="item._id">
+              <option *ngFor="let item of childrens" [value]="item.id">
                 {{ item.name }}
               </option>
             </select>
           </div>
+          <div class="col-md-3 d-flex align-items-center"></div>
         </div>
       </div>
     </form>

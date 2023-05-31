@@ -43,4 +43,28 @@ export class SharedserviceService {
   getCountries(): Observable<any> {
     return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
   }
+
+  searchUsers(form: any): Observable<any> {
+    const aux = form.edad.split('-');
+    const edadAux: any[] = [];
+    aux.map((element: any) => {
+      edadAux.push(parseInt(element));
+    });
+
+    const body = {
+      country: form.pais,
+      age: edadAux,
+      stateCivil: form.ecivil,
+      height: parseInt(form.uestatura),
+      eyeColor: form.cojos,
+      body: form.tcuerpo,
+      drink: form.bebida,
+      smoke: form.fuma,
+      childrens: form.hijos,
+    };
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/searchUsers`,
+      body
+    );
+  }
 }

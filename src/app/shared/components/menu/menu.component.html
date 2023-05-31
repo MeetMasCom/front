@@ -49,7 +49,6 @@
     >
       <div class="navbar-nav menu mx-4">
         <ng-container *ngIf="token !== ''">
-          
           <a class="nav-item nav-link" href="home">Inicio</a>
           <div class="dropdown">
             <a
@@ -82,16 +81,19 @@
           <a class="nav-item nav-link d-none" href="hotel">{{
             "menu.hotels" | translate
           }}</a>
-          <a class="nav-item nav-link d-none">{{ "menu.restaurants" | translate }}</a>
-          <a class="nav-item nav-link d-none">{{ "menu.flowers" | translate }}</a>
-          <a class="border-0 nav-item nav-link" href="#">
+          <a class="nav-item nav-link d-none">{{
+            "menu.restaurants" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.flowers" | translate
+          }}</a>
+          <a class="border-0 nav-item nav-link" href="home">
             <fa-icon [icon]="faBell"></fa-icon>
           </a>
-          <a class="border-0 nav-item nav-link" href="#">
+          <a class="border-0 nav-item nav-link" href="home">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
-          
-            
+
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
@@ -139,6 +141,7 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
+          <a class="nav-item nav-link" type="button"> Registrarse </a>
           <a
             class="nav-item nav-link"
             type="button"

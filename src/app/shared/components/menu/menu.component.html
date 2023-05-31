@@ -1,5 +1,5 @@
 <div class="sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <ng-container *ngIf="token !== ''">
       <a class="navbar-brand align-items-center icon" href="/fad">
         <img
@@ -48,19 +48,7 @@
       id="navbarNavAltMarkup"
     >
       <div class="navbar-nav menu mx-4">
-        <div class="m-2">
-          <form role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              [placeholder]="'menu.search' | translate"
-              aria-label="Buscar"
-            />
-          </form>
-        </div>
-
         <ng-container *ngIf="token !== ''">
-          
           <a class="nav-item nav-link" href="home">Inicio</a>
           <div class="dropdown">
             <a
@@ -117,8 +105,7 @@
           <a class="border-0 nav-item nav-link" href="#">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
-          
-            
+
           <div class="dropdown">
             <a
               class="btn dropdown-toggle border-0 nav-item nav-link"
@@ -166,6 +153,7 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
+          <a class="nav-item nav-link" type="button"> Registrarse </a>
           <a
             class="nav-item nav-link"
             type="button"
@@ -213,6 +201,9 @@
       </div>
     </div>
   </nav>
+  <div *ngIf="token !== ''">
+    <app-search></app-search>
+  </div>
 </div>
 
 <!-- Modal -->

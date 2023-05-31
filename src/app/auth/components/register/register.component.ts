@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public userService: AuthServiceService,
     public profileService: ProfileServiceService
   ) {

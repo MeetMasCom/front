@@ -1,280 +1,244 @@
-<div class="slider position-absolute" style="z-index: -1">
-  <div class="slide"></div>
-  <div class="slide"></div>
-  <div class="slide"></div>
-  <div class="slide"></div>
-  <div class="slide"></div>
-</div>
-<div>
-  <div class="d-flex justify-content-between align-items-center">
-    <div class="col-md-6 justify-content-center align-items-center">
-      <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
-        <div class="container card register">
-          <div class="mt-4">
-            <p>{{ "register.title" | translate }}</p>
+<app-menu></app-menu>
+<div class="d-flex justify-content-between align-items-center">
+  <div class="col-md-12 justify-content-center align-items-center">
+    <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
+      <div class="container card register">
+        <div class="mt-4">
+          <h3>REGISTRO</h3>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="label">País</label>
+            <select
+              class="form-select d-flex"
+              id="country"
+              required
+              ngModel
+              name="country"
+              #country="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" selected disabled>Seleccione una opción</option>
+              <option *ngFor="let item of countries" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
           </div>
-          <div>
-            <div class="form-group">
-              <label class="label">{{ "register.country" | translate }}</label>
-              <select
-                class="form-select d-flex"
-                id="country"
-                required
-                ngModel
-                name="country"
-                #country="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  {{ "register.countrySelect" | translate }}
-                </option>
-                <option *ngFor="let item of countries" [value]="item._id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <label class="label">{{ "register.date" | translate }}</label>
-              <input
-                type="date"
-                class="form-control"
-                placeholder=""
-                id="dateBirth"
-                required
-                ngModel
-                name="dateBirth"
-                #dateBirth="ngModel"
-                [ngClass]="'input'"
-                (ngModelChange)="onValidateDateBirth($event)"
-              />
-              <div
-                *ngIf="
-                  dateBirth.invalid &&
-                  (dateBirth.dirty || dateBirth.touched || errordate)
-                "
-                class="text-danger"
-              >
-                <small *ngIf="dateBirth.errors?.['required']">
-                  {{ "register.selectDate" | translate }}
-                </small>
-              </div>
-              <small class="text-danger" *ngIf="errordate !== ''">
-                {{ errordate }}
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="label">Fecha de nacimiento</label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder=""
+              id="dateBirth"
+              required
+              ngModel
+              name="dateBirth"
+              #dateBirth="ngModel"
+              [ngClass]="'input'"
+              (ngModelChange)="onValidateDateBirth($event)"
+            />
+            <div
+              *ngIf="
+                dateBirth.invalid &&
+                (dateBirth.dirty || dateBirth.touched || errordate)
+              "
+              class="text-danger"
+            >
+              <small *ngIf="dateBirth.errors?.['required']">
+                Seleccione una fecha
               </small>
             </div>
+            <small class="text-danger" *ngIf="errordate !== ''">
+              {{ errordate }}
+            </small>
           </div>
-          <div>
-            <div class="form-group">
-              <label class="label">
-                {{ "register.username" | translate }}</label
-              >
-              <input
-                id="userName"
-                type="text"
-                class="form-control"
-                placeholder=" {{ 'register.username' | translate }}"
-                required
-                ngModel
-                name="userName"
-                pattern="[A-Za-z0-9]+"
-                #userName="ngModel"
-                [ngClass]="'input'"
-                (change)="onValidateUserName(userName.value)"
-              />
-              <div
-                *ngIf="userName.invalid && (userName.dirty || userName.touched)"
-                class="text-danger"
-              >
-                <small *ngIf="userName.errors?.['required']">
-                  {{ "register.insertMsg" | translate }}
-                  {{ "register.username" | translate }}
-                </small>
-                <small *ngIf="userName.errors?.['pattern']">
-                  {{ "register.username" | translate }}
-                  {{ "register.invaliMsg" | translate }}
-                </small>
-              </div>
-              <div *ngIf="statusUserName" class="text-danger">
-                {{ "register.username" | translate }}
-                {{ "register.unaviableMsg" | translate }}
-              </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="label"> Nombre de usuario</label>
+            <input
+              id="userName"
+              type="text"
+              class="form-control"
+              placeholder="Nombre de usuario"
+              required
+              ngModel
+              name="userName"
+              pattern="[A-Za-z0-9]+"
+              #userName="ngModel"
+              [ngClass]="'input'"
+              (change)="onValidateUserName(userName.value)"
+            />
+            <div
+              *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+              class="text-danger"
+            >
+              <small *ngIf="userName.errors?.['required']">
+                Ingrese el nombre de usuario
+              </small>
+              <small *ngIf="userName.errors?.['pattern']">
+                Nombre de usuario no válido
+              </small>
             </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <label class="label"> {{ "register.mail" | translate }}</label>
-              <input
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder=" {{ 'register.mail' | translate }}"
-                placeholder="Email"
-                required
-                email
-                ngModel
-                name="email"
-                #email="ngModel"
-                [ngClass]="'input'"
-                (change)="onValidateEmail(email.value)"
-              />
-              <div
-                *ngIf="email.invalid && (email.dirty || email.touched)"
-                class="text-danger"
-              >
-                <small *ngIf="email.errors?.['required']">
-                  {{ "register.insertMsg" | translate }}
-                  {{ "register.mail" | translate }}
-                </small>
-                <small *ngIf="email.errors?.['email']">
-                  {{ "register.mail" | translate }}
-                  {{ "register.invaliMsg" | translate }}
-                </small>
-              </div>
-              <div *ngIf="statusEmail" class="text-danger">
-                {{ "register.mail" | translate }}
-                {{ "register.usedMsg" | translate }}
-              </div>
-            </div>
-          </div>
-          <div>
-          </div>
-
-          <div>
-            <div class="form-group">
-              <label class="label">
-                {{ "register.password" | translate }}</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                placeholder=" {{ 'register.password' | translate }}"
-                id="password"
-                required
-                ngModel
-                minlength="8"
-                name="password"
-                #password="ngModel"
-                [ngClass]="'input'"
-              />
-              <div
-                *ngIf="password.invalid && (password.dirty || password.touched)"
-                class="text-danger form-group"
-              >
-                <small class="form-group" *ngIf="password.errors?.['required']">
-                  {{ "register.insertMsg" | translate }}
-                  {{ "register.password" | translate }}
-                </small>
-                <small
-                  class="form-group"
-                  *ngIf="password.errors?.['minlength']"
-                >
-                  {{ "register.minPassword" | translate }}
-                </small>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <label class="label"> Género </label>
-              <select
-                class="form-select d-flex"
-                id="gender"
-                required
-                ngModel
-                name="gender"
-                #gender="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of generos" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <div class="form-group">
-              <label class="label"> Preferencias </label>
-              <select
-                class="form-select d-flex"
-                id="prefer"
-                required
-                ngModel
-                name="prefer"
-                #prefer="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of preferencias" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <input
-                type="checkbox"
-                id="terms"
-                required
-                ngModel
-                name="terms"
-                #terms="ngModel"
-              />
-              {{ "register.acceptMsg" | translate }}
-              <a href="#">{{ "register.Terms" | translate }}</a>
-            </div>
-          </div>
-          <div class="mt-2">
-            <div class="form-group">
-              <re-captcha
-                id="recaptcha"
-                name="recaptcha"
-                #recaptcha="ngModel"
-                [(ngModel)]="token"
-                required
-                [class.is-invalid]="
-                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "
-              ></re-captcha>
-              <div
-                *ngIf="
-                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "
-                class="invalid-feedback"
-              >
-                <div *ngIf="recaptcha.errors?.['required']">
-                  {{ "register.captcha" | translate }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12">
-            <div class="form-group text-center">
-              <input
-                type="submit"
-                class="btn"
-                value="{{ 'register.registerBtn' | translate }}"
-                [disabled]="!frmREgister.valid || errordate !== ''"
-                [ngClass]="'input-btn'"
-              />
+            <div *ngIf="statusUserName" class="text-danger">
+              Nombre de usuario ya registrado
             </div>
           </div>
         </div>
-      </form>
-    </div>
-    <div class="col-md-6 justify-content-center align-items-center banner">
-      <a>
-        <img src="assets/img/logo7.png" class="rounded" alt="kenyoume" />
-      </a>
-    </div>
+        <div>
+          <div class="form-group">
+            <label class="label">Correo electrónico</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              placeholder="Correo electrónico"
+              placeholder="Email"
+              required
+              email
+              ngModel
+              name="email"
+              #email="ngModel"
+              [ngClass]="'input'"
+              (change)="onValidateEmail(email.value)"
+            />
+            <div
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="text-danger"
+            >
+              <small *ngIf="email.errors?.['required']">
+                Ingrese un correo electrónico
+              </small>
+              <small *ngIf="email.errors?.['email']">
+                Correo electrónico incorrecto
+              </small>
+            </div>
+            <div *ngIf="statusEmail" class="text-danger">
+              Correo electrónico ya registrado
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Contraseña"
+              id="password"
+              required
+              ngModel
+              minlength="8"
+              name="password"
+              #password="ngModel"
+              [ngClass]="'input'"
+            />
+            <div
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="text-danger form-group"
+            >
+              <small class="form-group" *ngIf="password.errors?.['required']">
+                Ingrese una contraseña
+              </small>
+              <small class="form-group" *ngIf="password.errors?.['minlength']">
+                Debe tener mínimo 8 caracteres
+              </small>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="label"> Género </label>
+            <select
+              class="form-select d-flex"
+              id="gender"
+              required
+              ngModel
+              name="gender"
+              #gender="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" selected disabled>Seleccione una opción</option>
+              <option *ngFor="let item of generos" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label class="label"> Preferencias </label>
+            <select
+              class="form-select d-flex"
+              id="prefer"
+              required
+              ngModel
+              name="prefer"
+              #prefer="ngModel"
+              [ngClass]="'select'"
+            >
+              <option value="" selected disabled>Seleccione una opción</option>
+              <option *ngFor="let item of preferencias" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <input
+              type="checkbox"
+              id="terms"
+              required
+              ngModel
+              name="terms"
+              #terms="ngModel"
+            />
+            {{ "register.acceptMsg" | translate }}
+            <a href="#">{{ "register.Terms" | translate }}</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="form-group">
+            <re-captcha
+              id="recaptcha"
+              name="recaptcha"
+              #recaptcha="ngModel"
+              [(ngModel)]="token"
+              required
+              [class.is-invalid]="
+                recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+              "
+            ></re-captcha>
+            <div
+              *ngIf="
+                recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="recaptcha.errors?.['required']">
+                {{ "register.captcha" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn"
+              value="{{ 'register.registerBtn' | translate }}"
+              [disabled]="!frmREgister.valid || errordate !== ''"
+              [ngClass]="'input-btn'"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 

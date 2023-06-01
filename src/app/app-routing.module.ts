@@ -29,10 +29,13 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { HomeComponent } from './profile/components/home/home.component';
+import { RegisterComponent } from './auth/components/register/register.component';
+import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: StartLayoutComponent },
+  { path: 'registro/:u', component: RegisterComponent },
 
   //home
   { path: 'home', component: HomeComponent },
@@ -56,6 +59,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminLayoutComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
+  { path: 'membresias', component: AdminMembershipComponent },
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },

@@ -80,6 +80,7 @@ import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.c
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
 import { HomeComponent } from './profile/components/home/home.component';
 import { SearchComponent } from './shared/components/search/search.component';
+import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -137,6 +138,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NoticesTypeComponent,
     HomeComponent,
     SearchComponent,
+    AdminMembershipComponent,
   ],
   imports: [
     TranslateModule.forRoot({

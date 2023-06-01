@@ -1,0 +1,22 @@
+<app-menu></app-menu>
+<div class="container">
+  <h3>Referidos</h3>
+  <div *ngIf="referidos.length > 0">
+    <div class="col-md-12 row">
+      <div *ngFor="let item of referidos" class="card mb-4">
+        <div class="card-header text-center">{{ item.level }}</div>
+        <div class="card-body">{{ item.referralsId }}</div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="referidos.length === 0">
+    <div class="col-md-12 row">
+      <div class="card mb-5 mt-5">
+        <div class="card-body text-center">
+          <h4>No tiene referidos</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

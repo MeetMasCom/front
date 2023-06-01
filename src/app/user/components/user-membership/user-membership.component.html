@@ -21,7 +21,13 @@
         <div
           class="card-footer d-flex aling-items-center justify-content-center"
         >
-          <button class="btn btn-primary" type="button">COMPRAR</button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onSelectMembership(item)"
+          >
+            COMPRAR
+          </button>
         </div>
       </div>
     </div>
@@ -35,3 +41,32 @@
   </div>
 </div>
 <app-footer></app-footer>
+
+<app-modal-alerts
+  [idModal]="'infoBuyMembership'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'¿Esta seguro?'"
+  [descripcion]="''"
+  (successModal)="onBuyMembership()"
+  [tipo]="0"
+  #infoBuyMembership
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'successBuyM'"
+  [icono]="'./assets/img/success.png'"
+  [titulo]="'Proceso Exitoso'"
+  [descripcion]="message"
+  (successModal)="onRedirigir()"
+  [tipo]="0"
+  #successBuyM
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failBuyM'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="'Proceso No Exitoso'"
+  [descripcion]="message"
+  [tipo]="0"
+  #failBuyM
+></app-modal-alerts>

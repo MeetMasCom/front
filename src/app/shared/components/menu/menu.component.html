@@ -87,9 +87,38 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
+          <!-- <a class="border-0 nav-item nav-link" href="#">
+          <a class="nav-item nav-link d-none">{{
+            "menu.restaurants" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.flowers" | translate
+          }}</a>
           <a class="border-0 nav-item nav-link" href="home">
             <fa-icon [icon]="faBell"></fa-icon>
-          </a>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              99+
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a> -->
+
+          <button
+            type="button"
+            class="btn nuevo position-relative"
+            (click)="notificaciones()"
+          >
+            Notificaciones
+            <ng-container *ngIf="nuevas !== 0">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+                {{ nuevas }}
+                <span class="visually-hidden"></span>
+              </span>
+            </ng-container>
+          </button>
+
+          <a class="border-0 nav-item nav-link" href="#"> </a>
           <a class="border-0 nav-item nav-link" href="home">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
@@ -200,4 +229,12 @@
 <app-login></app-login>
 
 <!--Alert-->
-<app-alert [classAlert]="classA" [message]="msj"></app-alert>
+<app-mmodal
+  [idModal]="'mnotification'"
+  [tipo]="17"
+  [notification]="notification"
+  [title]="'Notificaciones'"
+  (changeRadio)="updateLike($event)"
+  #mnotification
+>
+</app-mmodal>

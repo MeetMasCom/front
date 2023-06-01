@@ -28,6 +28,7 @@ export class MyProfileComponent {
   @ViewChild('mperfil') mperfil!: MmodalComponent;
   @ViewChild('postdetail') postdetail!: MmodalComponent;
 
+
   @ViewChild('selectElement') selectElement: any;
   faUserPlus = faUserPlus;
   faElipsis = faEllipsis;
@@ -52,6 +53,9 @@ export class MyProfileComponent {
   PostD: any;
   user_data: any;
   estado: number=0;
+  followers:number=0;
+  followings:number=0;
+  notification: any;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -90,7 +94,11 @@ export class MyProfileComponent {
         const elemento = this.myProfile[i];
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
+
         );
+
+        this.followers=this.dataUser.followers.length;
+        this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
         this.val = this.perfil[0]._id;
         this.getPostUser();
@@ -268,5 +276,17 @@ export class MyProfileComponent {
       this.message = error.error.message;
       this.mperfil.abrir();
     }
+  }
+
+  async getNotificacion(){
+    const resp = await lastValueFrom(this.profileService.getNotification(this.id));
+    if (resp.data.length > 0) {
+      this.notification = resp.data;
+     
+    } else {
+      console.log('no se encontraron datos');
+    }
+
+
   }
 }

@@ -1695,12 +1695,12 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Descripción"
-                        id="pdescription"
-                        name="pdescription"
+                        placeholder="Título"
+                        id="ptitle"
+                        name="ptitle"
                         required
                         ngModel
-                        #pdescription="ngModel"
+                        #ptitle="ngModel"
                         [ngClass]="'input'"
                       />
                     </div>
@@ -1723,6 +1723,23 @@
                         class="img-fluid"
                         (click)="photoInput1.click()"
                       />
+                    </div>
+                  </div>
+                  <div class="form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Descripción - Ingrese mínimo 200 carácteres"
+                        id="pdescription"
+                        name="pdescription"
+                        required
+                        ngModel
+                        #pdescription="ngModel"
+                        minlength="200"
+                        maxlength="1000"
+                        [ngClass]="'input'"
+                      ></textarea>
                     </div>
                   </div>
                   <br />
@@ -1780,46 +1797,46 @@
                   <div class="form-group mb-3">
                     <div class="position-relative has-icon-left"></div>
                   </div>
-                  <ng-container>                  
-                  <div class="form-group mt-4">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Descripción"
-                        id="updescription"
-                        name="updescription"
-                        required
-                        [(ngModel)]="user.description"
-                        #updescription="ngModel"
-                        [ngClass]="'input'"
-                      />
+                  <ng-container>
+                    <div class="form-group mt-4">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Descripción"
+                          id="updescription"
+                          name="updescription"
+                          required
+                          [(ngModel)]="user.description"
+                          #updescription="ngModel"
+                          [ngClass]="'input'"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="form-group p-2 mt-4">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="file"
-                        class="d-none"
-                        id="puimage"
-                        name="pimage"
-                        (change)="onChangeI($event)"
-                        accept="image/png"
-                        #photoInput1
-                      />
-                      <img
-                        alt=""
-                        [src]="
-                          photoSelected ||
-                          'data:image/jpeg;base64,' + user.image
-                        "
-                        class="img-fluid"
-                        (click)="photoInput1.click()"
-                      />
+                    <div class="form-group p-2 mt-4">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="file"
+                          class="d-none"
+                          id="puimage"
+                          name="pimage"
+                          (change)="onChangeI($event)"
+                          accept="image/png"
+                          #photoInput1
+                        />
+                        <img
+                          alt=""
+                          [src]="
+                            photoSelected ||
+                            'data:image/jpeg;base64,' + user.image
+                          "
+                          class="img-fluid"
+                          (click)="photoInput1.click()"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </ng-container>
+                  </ng-container>
                   <br />
                   <ng-container *ngIf="estado === 1">
                     <div class="accordion" id="accordionExample1">
@@ -2073,6 +2090,118 @@
               </div>
             </div>
           </form>
+        </ng-container>
+
+        <!--Notificaciones de likes-->
+        <ng-container *ngIf="tipo === 17">
+          <div class="form-body">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                <ul class="list-group list-unstyled">
+                  <div *ngFor="let noti of notification">
+                  
+                    <ng-container *ngIf="noti.state===0">
+                      <li class="list-group-item noti " >
+                      <div class="container "  >
+                        <div class="row noti p-2">
+                          <div class="col-md-2">
+                            <ng-container *ngIf="noti.user[0].image !== ''">
+                              <img
+                                [src]="
+                                  'data:image/png;base64,' + noti.user[0].image
+                                "
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                            <ng-container *ngIf="noti.user[0].image === ''">
+                              <img
+                                [src]="'../../../../assets/user.png'"
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                          </div>
+                          <div class="col-md-8">
+                            El usuario {{ noti.user[0].userName }} le dio me gusta
+                            a tú publicación
+                          </div>
+                          <ng-container *ngIf="noti.state===0">
+                            <div class="col-md-2">
+                              <input
+                                class="form-check-input me-1"
+                                type="radio"
+                                
+                                alt="leído"
+                                aria-label="..."
+                                (change)="onRadioChange(noti._id)"
+                              />
+                            </div>
+                          </ng-container>                        
+                        </div>
+                      </div>
+                    </li>
+                    </ng-container>
+                    <ng-container *ngIf="noti.state===1">
+                      <li>
+                      <div class="container"  >
+                        <div class="row rounded-pill p-2">
+                          <div class="col-md-2">
+                            <ng-container *ngIf="noti.user[0].image !== ''">
+                              <img
+                                [src]="
+                                  'data:image/png;base64,' + noti.user[0].image
+                                "
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                            <ng-container *ngIf="noti.user[0].image === ''">
+                              <img
+                                [src]="'../../../../assets/user.png'"
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                          </div>
+                          <div class="col-md-8">
+                            El usuario {{ noti.user[0].userName }} le dio me gusta
+                            a tú publicación
+                          </div>
+                          <ng-container *ngIf="noti.state===0">
+                            <div class="col-md-2">
+                              <input
+                                class="form-check-input me-1"
+                                type="radio"
+                                
+                                alt="leído"
+                                aria-label="..."
+                                (change)="onRadioChange(noti._id)"
+                              />
+                            </div>
+                          </ng-container>                        
+                        </div>
+                      </div>
+                    </li>
+                    </ng-container>
+                    
+                  
+                </div>
+                </ul>
+
+                <div class="col-md-2"></div>
+              </div>
+            </div>
+          </div>
         </ng-container>
       </div>
     </div>

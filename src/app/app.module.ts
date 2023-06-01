@@ -81,6 +81,7 @@ import { NoticesTypeComponent } from './user/components/notices-type/notices-typ
 import { HomeComponent } from './profile/components/home/home.component';
 import { SearchComponent } from './shared/components/search/search.component';
 import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
+import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -139,6 +140,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     SearchComponent,
     AdminMembershipComponent,
+    UserMembershipComponent,
   ],
   imports: [
     TranslateModule.forRoot({

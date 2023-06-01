@@ -112,7 +112,7 @@ export class MenuComponent implements OnInit {
 
       this.notification.forEach((element: any, index: any) => {
         if (element.state === 0) {
-          +this.nuevas++;
+          this.nuevas++;
         }
       });
     } else {
@@ -125,9 +125,7 @@ export class MenuComponent implements OnInit {
   }
 
   async updateLike(event: any) {
-    const resp = await lastValueFrom(
-      this.profileService.updateNotification(event)
-    );
+    await lastValueFrom(this.profileService.updateNotification(event));
 
     location.reload();
   }

@@ -31,6 +31,7 @@ import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.
 import { HomeComponent } from './profile/components/home/home.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
+import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -83,6 +84,7 @@ const routes: Routes = [
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },
+  { path: 'usuarioMembresia', component: UserMembershipComponent },
 ];
 
 @NgModule({

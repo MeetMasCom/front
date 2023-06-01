@@ -185,4 +185,8 @@ export class UserServiceService {
       body
     );
   }
+
+  getAllMembership(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
+  }
 }

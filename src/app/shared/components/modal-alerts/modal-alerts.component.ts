@@ -19,6 +19,7 @@ export class ModalAlertsComponent {
   @Input() title: string = '';
   @Input() descripcion: string = '';
   @Input() tipo: number = -1;
+  @Input() data: any;
   @Output() successModal: EventEmitter<any> = new EventEmitter();
   @Output() sendModal: EventEmitter<any> = new EventEmitter();
   @ViewChild('modalButton') modalButton!: ElementRef;

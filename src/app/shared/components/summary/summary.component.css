@@ -1,11 +1,11 @@
-@media only screen and (min-width: 1301px) {
+.container {
+  min-height: 40vw;
 }
 
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .container {
     position: relative;
-    top: 150vw;
   }
 
   .icon {

@@ -242,6 +242,87 @@
             </div>
           </form>
         </ng-container>
+
+        <!--Editar membresía-->
+        <ng-container *ngIf="tipo === 4">
+          <form #fmrUpdateM="ngForm" (ngSubmit)="onRecover(fmrUpdateM)">
+            <div class="col-12 containerInput mb-3">
+              <div class="form-group col-md-12 col-sm-12 m-2 mt-4">
+                <label>Código membresía</label>
+                <input
+                  id="codeMember"
+                  type="text"
+                  class="form-control"
+                  placeholder="Código membresía"
+                  readonly
+                  disabled
+                  ngModel
+                  name="codeMember"
+                  #codeMember="ngModel"
+                  [ngClass]="'input'"
+                  pattern="[0-9]*"
+                  [(ngModel)]="data.code"
+                />
+              </div>
+              <div class="form-group col-md-12 col-sm-12 m-2 mt-4">
+                <label>Nombre membresía</label>
+                <input
+                  id="nameMember"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nombre membresía"
+                  required
+                  ngModel
+                  name="nameMember"
+                  #nameMember="ngModel"
+                  [ngClass]="'input'"
+                  [(ngModel)]="data.name"
+                />
+              </div>
+            </div>
+            <div class="col-12 containerInput mt-2 mb-3">
+              <div class="form-group col-md-12 col-sm-12 m-2 mt-4">
+                <label>Descripción</label>
+                <input
+                  id="descMember"
+                  type="text"
+                  class="form-control"
+                  placeholder="Descripción"
+                  required
+                  ngModel
+                  name="descMember"
+                  #descMember="ngModel"
+                  [ngClass]="'input'"
+                  [(ngModel)]="data.description"
+                />
+              </div>
+              <div class="form-group col-md-12 col-sm-12 m-2 mt-4">
+                <label>Precio membresía</label>
+                <input
+                  id="priceMember"
+                  type="text"
+                  class="form-control"
+                  placeholder="Precio membresía"
+                  ngModel
+                  name="priceMember"
+                  #priceMember="ngModel"
+                  [ngClass]="'input'"
+                  pattern="[0-9.]*"
+                  [(ngModel)]="data.price"
+                />
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                class="btn"
+                value="Actualizar"
+                [disabled]="!fmrUpdateM.valid"
+                [ngClass]="'input-btn'"
+              />
+            </div>
+          </form>
+        </ng-container>
       </div>
     </div>
   </div>

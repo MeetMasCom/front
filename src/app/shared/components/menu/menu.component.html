@@ -1,7 +1,7 @@
 <div class="sticky-top">
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <ng-container *ngIf="token !== ''">
-      <a class="navbar-brand align-items-center icon" href="/fad">
+      <a class="navbar-brand align-items-center icon" href="/home">
         <img
           class="rounded img-header img-fluid"
           src="../../assets/img/logo7.png"
@@ -81,6 +81,18 @@
           <a class="nav-item nav-link d-none" href="hotel">{{
             "menu.hotels" | translate
           }}</a>
+<<<<<<<<< Temporary merge branch 1
+          <a class="nav-item nav-link d-none">{{
+            "menu.restaurants" | translate
+          }}</a>
+          <a class="nav-item nav-link d-none">{{
+            "menu.flowers" | translate
+          }}</a>
+          <a class="border-0 nav-item nav-link" href="home">
+            <fa-icon [icon]="faBell"></fa-icon>
+          </a>
+          <a class="border-0 nav-item nav-link" href="home">
+=========
           <a class="nav-item nav-link d-none">{{ "menu.restaurants" | translate }}</a>
           <a class="nav-item nav-link d-none">{{ "menu.flowers" | translate }}</a>
           <!-- <a class="border-0 nav-item nav-link" href="#">
@@ -93,16 +105,18 @@
 
           <button type="button" class="btn nuevo position-relative" (click)="notificaciones()">
             Notificaciones
-            <ng-container *ngIf="nuevas!==0">
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{nuevas}}
-              <span class="visually-hidden"></span>
+            <ng-container *ngIf="nuevas !== 0">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+                {{ nuevas }}
+                <span class="visually-hidden"></span>
               </span>
             </ng-container>
-            
           </button>
 
           <a class="border-0 nav-item nav-link" href="#">
+>>>>>>>>> Temporary merge branch 2
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
 
@@ -124,12 +138,19 @@
               <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
               <li><a class="dropdown-item">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
-              <li><a class="dropdown-item">Link Patrocinador</a></li>
-              <li><a class="dropdown-item">Mis Referidos</a></li>
+              <li>
+                <a class="dropdown-item" href="sponsor">Link Patrocinador</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="referidos">Mis Referidos</a>
+              </li>
               <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item">Mis Amigos</a></li>
               <li>
                 <a class="dropdown-item" href="myBilletera">Mi Billetera</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="usuarioMembresia">Membresías</a>
               </li>
               <li>
                 <a class="dropdown-item btn" (click)="onLogout()">Salir</a>
@@ -153,7 +174,9 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
-          <a class="nav-item nav-link" type="button"> Registrarse </a>
+          <a class="nav-item nav-link" type="button" (click)="onRegister()">
+            Registrarse
+          </a>
           <a
             class="nav-item nav-link"
             type="button"
@@ -214,7 +237,7 @@
   [idModal]="'mnotification'"
   [tipo]="17"
   [notification]="notification"
-  [title]="'Notificaciones'" 
+  [title]="'Notificaciones'"
   (changeRadio)="updateLike($event)"
   #mnotification
 >

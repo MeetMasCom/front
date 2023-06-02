@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas,faMessage,faBell } from '@fortawesome/free-solid-svg-icons';
+import { fas, faMessage, faBell } from '@fortawesome/free-solid-svg-icons';
 
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { ProfileServiceService } from '../../../profile/services/profile-service.service';
@@ -29,10 +29,10 @@ export class MenuComponent implements OnInit {
   profile: any;
   val: string = '';
   AllPost: any;
-  nuevas:number=0;
+  nuevas: number = 0;
 
-  faBell=faBell;
-  notification: any=[];
+  faBell = faBell;
+  notification: any = [];
 
   constructor(
     library: FaIconLibrary,
@@ -98,36 +98,39 @@ export class MenuComponent implements OnInit {
     }
   }
 
-
   setTransLanguage(lang: LanguageI) {
     this.selectLang = lang;
     this.translate.use(lang.alias);
   }
 
-
-  async getNotificacion(){
-    const resp = await lastValueFrom(this.profileService.getNotification(this.id));
+  async getNotificacion() {
+    const resp = await lastValueFrom(
+      this.profileService.getNotification(this.id)
+    );
     if (resp.data.length > 0) {
       this.notification = resp.data;
-      
+
       this.notification.forEach((element: any, index: any) => {
-       if(element.state===0){+
-        
-        this.nuevas++;
-       }
+        if (element.state === 0) {
+          this.nuevas++;
+        }
       });
     } else {
       console.log('no se encontraron datos');
     }
   }
 
-  notificaciones(){
+  notificaciones() {
     this.mnotification.abrir();
   }
 
-  async updateLike(event:any){
-    const resp = await lastValueFrom(this.profileService.updateNotification(event));
-    
-   location.reload();
+  async updateLike(event: any) {
+    await lastValueFrom(this.profileService.updateNotification(event));
+
+    location.reload();
+  }
+
+  onRegister() {
+    this.router.navigate(['/registro', '']);
   }
 }

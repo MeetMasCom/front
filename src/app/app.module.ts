@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
   HttpClient,
@@ -78,6 +78,7 @@ import { LanguagesComponent } from './friends/components/languages/languages.com
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -133,6 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserProfileComponent,
     AdsLayoutComponent,
     NoticesTypeComponent,
+    ChatComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -145,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -175,4 +178,4 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

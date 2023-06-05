@@ -46,12 +46,27 @@
           <a class="nav-item nav-link d-none" href="hotel">{{
             "menu.hotels" | translate
             }}</a>
+
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
             }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
             }}</a>
+
+          <a class="border-0 nav-item nav-link" href="home">
+            <fa-icon [icon]="faBell"></fa-icon>
+          </a>
+          <a class="nav-item nav-link d-none">{{ "menu.restaurants" | translate }}</a>
+          <a class="nav-item nav-link d-none">{{ "menu.flowers" | translate }}</a>
+          <!-- <a class="border-0 nav-item nav-link" href="#">
+            <fa-icon [icon]="faBell"></fa-icon>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              99+
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a> -->
+
           <button type="button" class="btn nuevo position-relative" (click)="notificaciones()">
             Notificaciones
             <ng-container *ngIf="nuevas !== 0">
@@ -62,8 +77,7 @@
             </ng-container>
           </button>
 
-          <a class="border-0 nav-item nav-link" href="#"> </a>
-          <a class="border-0 nav-item nav-link" href="home">
+          <a class="border-0 nav-item nav-link" href="#">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
 

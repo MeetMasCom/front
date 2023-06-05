@@ -1690,18 +1690,17 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-
                   <div class="form-group mt-4">
                     <div class="position-relative has-icon-left">
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Descripción"
-                        id="pdescription"
-                        name="pdescription"
+                        placeholder="Título"
+                        id="ptitle"
+                        name="ptitle"
                         required
                         ngModel
-                        #pdescription="ngModel"
+                        #ptitle="ngModel"
                         [ngClass]="'input'"
                       />
                     </div>
@@ -1726,6 +1725,23 @@
                       />
                     </div>
                   </div>
+                  <div class="form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Descripción - Ingrese mínimo 200 carácteres"
+                        id="pdescription"
+                        name="pdescription"
+                        required
+                        ngModel
+                        #pdescription="ngModel"
+                        minlength="200"
+                        maxlength="1000"
+                        [ngClass]="'input'"
+                      ></textarea>
+                    </div>
+                  </div>
                   <br />
                   <div class="col-12 d-flex justify-content-end">
                     <input
@@ -1745,29 +1761,29 @@
 
         <!--Detalle de la publicacion-->
         <ng-container *ngIf="tipo === 14">
-          <ng-container *ngIf="post!=null">
-          <div
-            class="contenido rounded p-3 d-flex justify-content-center align-items-center"
-          >
-            <div class="container">
-              <div class="row">
-                <div class="h-100 d-inline-block card d-flex col-12 p-4">
-                  <img
-                    [src]="api + post.photo"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <p class="card-text">{{ post.description }}</p>
+          <ng-container *ngIf="post != null">
+            <div
+              class="contenido rounded p-3 d-flex justify-content-center align-items-center"
+            >
+              <div class="container">
+                <div class="row">
+                  <div class="h-100 d-inline-block card d-flex col-12 p-4">
+                    <img
+                      [src]="'data:image/png;base64,' + post.photo"
+                      class="card-img-top"
+                      alt="..."
+                    />
+                    <div class="card-body">
+                      <p class="card-text">{{ post.description }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
         </ng-container>
 
- <!--MOdificar perfil del usuario-->
+        <!--MOdificar perfil del usuario-->
         <ng-container *ngIf="tipo === 15">
           <form
             #frmUpdateProfile="ngForm"
@@ -1779,48 +1795,228 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                   <div class="form-group mb-3">
-                    <div class="position-relative has-icon-left">
-                    
-                    </div>
+                    <div class="position-relative has-icon-left"></div>
                   </div>
-
-                  <div class="form-group mt-4">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Descripción"
-                        id="updescription"
-                        name="updescription"
-                        required
-                        [(ngModel)]="user.description"
-                        #updescription="ngModel"
-                        [ngClass]="'input'"
-                      />
+                  <ng-container>
+                    <div class="form-group mt-4">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Descripción"
+                          id="updescription"
+                          name="updescription"
+                          required
+                          [(ngModel)]="user.description"
+                          #updescription="ngModel"
+                          [ngClass]="'input'"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="form-group p-2 mt-4">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="file"
-                        class="d-none"
-                        id="puimage"
-                        name="pimage"
-                        (change)="onChangeI($event)"
-                        accept="image/png"
-                        #photoInput1
-                      />
+                    <div class="form-group p-2 mt-4">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="file"
+                          class="d-none"
+                          id="puimage"
+                          name="pimage"
+                          (change)="onChangeI($event)"
+                          accept="image/png"
+                          #photoInput1
+                        />
                         <img
-                        alt=""
-                        [src]="photoSelected ||'data:image/jpeg;base64,' + user.image  "
-                        class="img-fluid"
-                        (click)="photoInput1.click()"
-                      />
-                     
+                          alt=""
+                          [src]="
+                            photoSelected ||
+                            'data:image/jpeg;base64,' + user.image
+                          "
+                          class="img-fluid"
+                          (click)="photoInput1.click()"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </ng-container>
                   <br />
+                  <ng-container *ngIf="estado === 1">
+                    <div class="accordion" id="accordionExample1">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree"
+                            aria-expanded="false"
+                            aria-controls="collapseThree"
+                          >
+                            Agregar una red social
+                          </button>
+                        </h2>
+                        <div
+                          id="collapseThree"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headingThree"
+                          data-bs-parent="#accordionExample1"
+                        >
+                          <div class="accordion-body">
+                            <div class="container">
+                              <div *ngFor="let social of user.rsocials">
+                                <div class="row">
+                                  <ng-container *ngIf="social.red === '1'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'facebook']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="social.red === '2'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'instagram']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="social.red === '3'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'tiktok']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="social.red === '4'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'twitter']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="social.red === '5'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'youtube']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngIf="social.red === '6'">
+                                    <div
+                                      class="col-md-5 p-2 d-flex justify-content-end"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fab', 'pinterest']"
+                                      ></fa-icon>
+                                    </div>
+                                    <div class="col-md-7 p-2">
+                                      {{ social.user }}
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </div>
+                            <form
+                              #fmrRegisterSocials="ngForm"
+                              class="form form-horizontal"
+                              (ngSubmit)="onAddSocial(fmrRegisterSocials)"
+                            >
+                              <div class="form-body">
+                                <div class="row">
+                                  <div class="col-md-8 form-group">
+                                    <div
+                                      class="position-relative has-icon-left"
+                                    >
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Nombre de usuario"
+                                        id="rsocial"
+                                        name="rsocial"
+                                        required
+                                        ngModel
+                                        #rsocial="ngModel"
+                                        [ngClass]="'input'"
+                                      />
+
+                                      <div
+                                        *ngIf="
+                                          rsocial.invalid &&
+                                          (rsocial.dirty || rsocial.touched)
+                                        "
+                                        class="text-danger form-group position-absolute"
+                                      >
+                                        <small
+                                          class="form-group"
+                                          *ngIf="rsocial.errors?.['required']"
+                                        >
+                                          Campo requerido.
+                                        </small>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-4 d-flex">
+                                    <select
+                                      class="form-select"
+                                      id="reds"
+                                      required
+                                      ngModel
+                                      name="reds"
+                                      #reds="ngModel"
+                                    >
+                                      <option value="" disabled selected>
+                                        Seleccione una opción
+                                      </option>
+                                      <option value="1">Facebook</option>
+                                      <option value="2">Instagram</option>
+                                      <option value="3">TikTok</option>
+                                      <option value="4">Twitter</option>
+                                      <option value="5">YouTube</option>
+                                      <option value="6">Pinterest</option>
+                                    </select>
+                                  </div>
+                                  <div
+                                    class="col-4 mt-4 d-flex justify-content-center"
+                                  >
+                                    <input
+                                      type="button"
+                                      class="btn btn-warning nuevo"
+                                      type="submit"
+                                      value="Agregar"
+                                      [disabled]="!fmrRegisterSocials['valid']"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+
                   <div class="col-12 d-flex justify-content-end">
                     <input
                       class="btn float-right login_btn enviar"
@@ -1847,41 +2043,39 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-
                   <div class="form-group mt-4">
                     <select
-                    type="text"
-                    class="form-control"
-                    id="aprofile"
-                    required
-                    ngModel
-                    
-                    name="aprofile"
-                    #aprofile="ngModel"
-                    [ngClass]="'input'"
-                  >
-                    <option value="" disabled>--Seleccione un perfil--</option>
-                    <option
-                      *ngFor="let p of profile"
-                      [value]="p._id"
+                      type="text"
+                      class="form-control"
+                      id="aprofile"
+                      required
+                      ngModel
+                      name="aprofile"
+                      #aprofile="ngModel"
+                      [ngClass]="'input'"
                     >
-                      {{ p.name }}
-                    </option>
-                  </select>
-                      <div
-                        *ngIf="aprofile.invalid && (aprofile.dirty || aprofile.touched)"
-                        class="text-danger form-group position-absolute"
+                      <option value="" disabled>
+                        --Seleccione un perfil--
+                      </option>
+                      <option *ngFor="let p of profile" [value]="p._id">
+                        {{ p.name }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="
+                        aprofile.invalid && (aprofile.dirty || aprofile.touched)
+                      "
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="aprofile.errors?.['required']"
                       >
-                        <small
-                          class="form-group"
-                          *ngIf="aprofile.errors?.['required']"
-                        >
-                          Campo requerido.
-                        </small>
-                      </div>
+                        Campo requerido.
+                      </small>
+                    </div>
                   </div>
 
-                  
                   <br />
                   <div class="col-12 d-flex justify-content-end">
                     <input
@@ -1898,6 +2092,117 @@
           </form>
         </ng-container>
 
+        <!--Notificaciones de likes-->
+        <ng-container *ngIf="tipo === 17">
+          <div class="form-body">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                <ul class="list-group list-unstyled">
+                  <div *ngFor="let noti of notification">
+                  
+                    <ng-container *ngIf="noti.state===0">
+                      <li class="list-group-item noti " >
+                      <div class="container "  >
+                        <div class="row noti p-2">
+                          <div class="col-md-2">
+                            <ng-container *ngIf="noti.user[0].image !== ''">
+                              <img
+                                [src]="
+                                  'data:image/png;base64,' + noti.user[0].image
+                                "
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                            <ng-container *ngIf="noti.user[0].image === ''">
+                              <img
+                                [src]="'../../../../assets/user.png'"
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                          </div>
+                          <div class="col-md-8">
+                            El usuario {{ noti.user[0].userName }} le dio me gusta
+                            a tú publicación
+                          </div>
+                          <ng-container *ngIf="noti.state===0">
+                            <div class="col-md-2">
+                              <input
+                                class="form-check-input me-1"
+                                type="radio"
+                                
+                                alt="leído"
+                                aria-label="..."
+                                (change)="onRadioChange(noti._id)"
+                              />
+                            </div>
+                          </ng-container>                        
+                        </div>
+                      </div>
+                    </li>
+                    </ng-container>
+                    <ng-container *ngIf="noti.state===1">
+                      <li>
+                      <div class="container"  >
+                        <div class="row rounded-pill p-2">
+                          <div class="col-md-2">
+                            <ng-container *ngIf="noti.user[0].image !== ''">
+                              <img
+                                [src]="
+                                  'data:image/png;base64,' + noti.user[0].image
+                                "
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                            <ng-container *ngIf="noti.user[0].image === ''">
+                              <img
+                                [src]="'../../../../assets/user.png'"
+                                width="40vw"
+                                height="40vw"
+                                alt="..."
+                                class="img-fluid rounded-circle"
+                              />
+                            </ng-container>
+                          </div>
+                          <div class="col-md-8">
+                            El usuario {{ noti.user[0].userName }} le dio me gusta
+                            a tú publicación
+                          </div>
+                          <ng-container *ngIf="noti.state===0">
+                            <div class="col-md-2">
+                              <input
+                                class="form-check-input me-1"
+                                type="radio"
+                                
+                                alt="leído"
+                                aria-label="..."
+                                (change)="onRadioChange(noti._id)"
+                              />
+                            </div>
+                          </ng-container>                        
+                        </div>
+                      </div>
+                    </li>
+                    </ng-container>
+                    
+                  
+                </div>
+                </ul>
+
+                <div class="col-md-2"></div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

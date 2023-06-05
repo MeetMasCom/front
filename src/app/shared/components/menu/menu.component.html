@@ -1,10 +1,8 @@
 <div class="sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <ng-container *ngIf="token !== ''">
-      <a class="navbar-brand align-items-center icon" href="/fad">
+      <a class="navbar-brand align-items-center icon" href="/home">
         <img class="rounded img-header img-fluid" src="../../assets/img/logo7.png" alt="Ken You Me" />
-        &nbsp;
-        <img class="rounded img-header img-fluid" src="../../assets/img/demo.png" alt="Ken You Me" />
       </a>
     </ng-container>
     <ng-container *ngIf="token === ''">
@@ -26,14 +24,8 @@
 
     <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavAltMarkup">
       <div class="navbar-nav menu mx-4">
-        <div class="m-2">
-          <form role="search">
-            <input class="form-control me-2" type="search" [placeholder]="'menu.search' | translate"
-              aria-label="Buscar" />
-          </form>
-        </div>
-
         <ng-container *ngIf="token !== ''">
+          <a class="nav-item nav-link" href="home">Inicio</a>
           <div class="dropdown">
             <a class="btn dropdown-toggle border-0 nav-item nav-link" role="button" id="dropdownMenuLink"
               data-bs-toggle="dropdown" aria-expanded="false" href="friends">
@@ -60,6 +52,21 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
             }}</a>
+          <button type="button" class="btn nuevo position-relative" (click)="notificaciones()">
+            Notificaciones
+            <ng-container *ngIf="nuevas !== 0">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ nuevas }}
+                <span class="visually-hidden"></span>
+              </span>
+            </ng-container>
+          </button>
+
+          <a class="border-0 nav-item nav-link" href="#"> </a>
+          <a class="border-0 nav-item nav-link" href="home">
+            <fa-icon [icon]="['fas', 'message']"></fa-icon>
+          </a>
+
           <div class="dropdown">
             <a class="btn dropdown-toggle border-0 nav-item nav-link" href="#" role="button" id="dropdownMenuLink"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,12 +79,19 @@
               <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
               <li><a class="dropdown-item">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
-              <li><a class="dropdown-item">Link Patrocinador</a></li>
-              <li><a class="dropdown-item">Mis Referidos</a></li>
+              <li>
+                <a class="dropdown-item" href="sponsor">Link Patrocinador</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="referidos">Mis Referidos</a>
+              </li>
               <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item">Mis Amigos</a></li>
               <li>
                 <a class="dropdown-item" href="myBilletera">Mi Billetera</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="usuarioMembresia">Membresías</a>
               </li>
               <li>
                 <a class="dropdown-item btn" (click)="onLogout()">Salir</a>
@@ -101,6 +115,9 @@
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
             }}</a>
+          <a class="nav-item nav-link" type="button" (click)="onRegister()">
+            Registrarse
+          </a>
           <a class="nav-item nav-link" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
             <fa-icon [icon]="['fas', 'key']"></fa-icon>
             {{ "menu.login" | translate }}
@@ -122,10 +139,15 @@
       </div>
     </div>
   </nav>
+  <div *ngIf="token !== ''">
+    <app-search></app-search>
+  </div>
 </div>
 
 <!-- Modal -->
 <app-login></app-login>
 
 <!--Alert-->
-<app-alert [classAlert]="classA" [message]="msj"></app-alert>
+<app-mmodal [idModal]="'mnotification'" [tipo]="17" [notification]="notification" [title]="'Notificaciones'"
+  (changeRadio)="updateLike($event)" #mnotification>
+</app-mmodal>

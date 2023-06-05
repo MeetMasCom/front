@@ -185,4 +185,26 @@ export class UserServiceService {
       body
     );
   }
+
+  getAllMembership(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
+  }
+
+  buyMembership(idUser: string, idMem: string): Observable<any> {
+    const body = {
+      userId: idUser,
+      membershipId: idMem,
+    };
+
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/membsership/membership-user`,
+      body
+    );
+  }
+
+  getAllReferes(id: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/refers/${id}`
+    );
+  }
 }

@@ -10,6 +10,11 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 import { ConstantsSystem } from 'src/app/utils/constants-system';
 import { faShield } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+
 
 @Component({
   selector: 'app-mmodal',
@@ -37,6 +42,9 @@ export class MmodalComponent {
   @Input() post: any = [];
   @Input() user: any = [];
   @Input() profile: any = [];
+  @Input() entradas: any = [];
+  @Input() notification: any = [];
+  @Input() estado: any;
   faShield = faShield;
   faFile = faFile;
 
@@ -62,6 +70,8 @@ export class MmodalComponent {
   @Output() PostModal: EventEmitter<any> = new EventEmitter();
   @Output() onChangeImagen: EventEmitter<any> = new EventEmitter();
   @Output() AddProfile: EventEmitter<any> = new EventEmitter();
+  @Output() AddSocialN: EventEmitter<any> = new EventEmitter();
+  @Output() changeRadio: EventEmitter<any> = new EventEmitter();
 
 
 
@@ -70,13 +80,15 @@ export class MmodalComponent {
 
   message: string = '';
   api = '';
-  constructor(public constante: ConstantsSystem) {}
+  constructor(public constante: ConstantsSystem,
+    library: FaIconLibrary) {
+      library.addIconPacks(fas, far, fab);
+    }
   async ngOnInit() {
     this.api = this.constante.API_IMAGES;
   }
 
   abrir() {
-    console.log("user", this.user);
     this.modalPublicar.nativeElement.click();
   }
 
@@ -164,4 +176,12 @@ export class MmodalComponent {
     this.AddProfile.emit(event);
   }
 
+  onAddSocial(form: any){
+    this.AddSocialN.emit(form);
+  }
+
+  onRadioChange(event:any){
+    console.log("notificacion",event);
+    this.changeRadio.emit(event);
+  }
 }

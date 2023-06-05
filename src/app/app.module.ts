@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   HttpClient,
   HttpClientModule,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { NgOptimizedImage } from '@angular/common';
 import {
   RECAPTCHA_SETTINGS,
   RecaptchaFormsModule,
@@ -19,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConstantsSystem } from './utils/constants-system';
+import { ClipboardModule } from 'ngx-clipboard';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -79,6 +79,12 @@ import { UserProfileComponent } from './profile/components/user-profile/user-pro
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
 import { ChatComponent } from './shared/components/chat/chat.component';
+import { HomeComponent } from './profile/components/home/home.component';
+import { SearchComponent } from './shared/components/search/search.component';
+import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
+import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
+import { SponsorComponent } from './user/components/sponsor/sponsor.component';
+import { RefersComponent } from './user/components/refers/refers.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -135,6 +141,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdsLayoutComponent,
     NoticesTypeComponent,
     ChatComponent,
+    HomeComponent,
+    SearchComponent,
+    AdminMembershipComponent,
+    UserMembershipComponent,
+    SponsorComponent,
+    RefersComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -156,6 +168,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgOptimizedImage,
     CommonModule,
     NgMultiSelectDropDownModule.forRoot(),
+    ClipboardModule,
   ],
   providers: [
     AuthServiceService,

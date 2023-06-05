@@ -24,16 +24,7 @@
         font-size: smaller;
         font-weight: bold;
     }
-    
-   .nav-link:focus, .nav-link:hover,.nav-link.active{
-        background-color: #f9a21e;
-        color: #000;
-    }
 
-    
-    .nav-link{
-        color: #000;
-    }
 
     .gallery{
         columns: 5 120px;
@@ -44,7 +35,13 @@
     .contenido{
         background-color: white;
     }
+
     .fa-3x {
-        font-size: 1em !important;
+        font-size: 1.5em !important;
         padding: 0;
       }
+
+      .manito {
+        cursor: pointer;
+    }
+

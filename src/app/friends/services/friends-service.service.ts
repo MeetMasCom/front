@@ -24,7 +24,6 @@ export class FriendsServiceService {
   }
 
   getPost(id:string): Observable<User> {
-    console.log("id en el servicio", id);
     return this.httpCLient.get<any>(`${this.constante.API_SERVER}/post/postByType/${id}`);
   }
 

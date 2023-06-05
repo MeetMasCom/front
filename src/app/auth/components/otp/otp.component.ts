@@ -59,7 +59,7 @@ export class OtpComponent implements OnInit {
   }
 
   onRedirigir() {
-    this.router.navigate(['/fad']);
+    this.router.navigate(['/home']);
   }
 
   onFail() {

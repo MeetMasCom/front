@@ -99,7 +99,6 @@
   </div>
 </div>
 
-
 <!--Registrar moda-->
 
 <app-mmodal
@@ -109,9 +108,9 @@
   (sendModal)="onForm($event)"
   [photoSelected]="photoSelected"
   (onChangeModal)="cargarImagen($event)"
-  #fadModal>  
+  #fadModal
+>
 </app-mmodal>
-
 
 <app-modal-alerts
   [idModal]="'correct'"
@@ -141,7 +140,5 @@
   [tipo]="0"
   #warningModal
 ></app-modal-alerts>
-
-
 
 <app-footer></app-footer>

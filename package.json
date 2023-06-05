@@ -32,6 +32,7 @@
     "ng-multiselect-dropdown": "^0.3.9",
     "ng-otp-input": "^1.8.5",
     "ng-recaptcha": "^11.0.0",
+    "ngx-clipboard": "^16.0.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.6.1",
     "tslib": "^2.3.0",

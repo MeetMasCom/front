@@ -1,0 +1,14 @@
+<app-menu></app-menu>
+<div class="col-md-12 col-sm-12">
+  <h5
+    class="d-flex justify-content-center align-items-center"
+    #linkPatrocinador
+  >
+    link de patrocinador &nbsp;&nbsp;
+    <button class="btn border-0" (click)="onCopy('hola')">
+      <fa-icon [icon]="['fas', 'paste']"></fa-icon>
+    </button>
+  </h5>
+  <div *ngIf="copy" class="alert alert-primary" role="alert">Texto Copiado</div>
+</div>
+<app-footer></app-footer>

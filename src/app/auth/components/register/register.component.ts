@@ -33,10 +33,11 @@ export class RegisterComponent implements OnInit {
   profile_id: any;
   generos: any = [];
   preferencias: any = [];
+  user = '';
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public userService: AuthServiceService,
     public profileService: ProfileServiceService
   ) {
@@ -47,6 +48,9 @@ export class RegisterComponent implements OnInit {
     this.addRecaptchaScript();
     this.onGetCountry();
     await this.getGenero();
+    this.activatedRoute.params.subscribe((params) => {
+      this.user = params['u'];
+    });
   }
 
   renderReCaptch() {
@@ -78,7 +82,7 @@ export class RegisterComponent implements OnInit {
     if (response !== '') {
       try {
         const resp = await lastValueFrom(
-          this.userService.register(form.value, this.profile_id)
+          this.userService.register(form.value, this.profile_id, this.user)
         );
         if (resp.data !== null) {
           sessionStorage.setItem('user', JSON.stringify(resp.data));
@@ -93,11 +97,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onRedirigir() {
-    location.reload();
+    this.router.navigate(['/inicio']);
   }
 
   onFail() {
-    location.reload();
+    this.router.navigate(['/inicio']);
   }
 
   onValidateDateBirth(fecha: string) {
@@ -106,7 +110,7 @@ export class RegisterComponent implements OnInit {
     const years = dateAct - parseInt(dateTemp[0]);
 
     if (years < 13) {
-      this.errordate = 'Debe tener 13 años.';
+      this.errordate = 'Debe tener mínimo 13 años.';
     }
     if (years >= 13) {
       this.errordate = '';
@@ -164,7 +168,6 @@ export class RegisterComponent implements OnInit {
 
   onSelectProfile(item: any) {
     this.profile.filter((element: any) => element !== item.name);
-    console.log('id personal');
   }
 
   async getGenero() {
@@ -199,7 +202,6 @@ export class RegisterComponent implements OnInit {
         }
       });
     } catch (error: any) {
-      console.log('error', error.error);
       this.generos = [];
     }
   }

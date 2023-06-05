@@ -4,5 +4,6 @@ export interface Post {
     pdescription: string;
     ptype: number;
     pphoto:string;
+    ptitle:string;
   }
   

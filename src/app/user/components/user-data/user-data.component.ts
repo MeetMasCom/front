@@ -121,7 +121,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onRedirigir() {
-    this.router.navigate(['/fad']);
+    this.router.navigate(['/home']);
   }
 
   onChange(event: any): void {
@@ -132,7 +132,6 @@ export class UserDataComponent implements OnInit {
     reader.onload = () => {
       const base64String = reader.result!.toString().split(',')[1];
       const pureBase64 = base64String.replace(/[^a-zA-Z0-9+/]/g, '');
-
       this.img = pureBase64;
     };
   }
@@ -323,6 +322,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onShowPass1() {
+    this.estado = -1;
     this.showPass1 = true;
   }
 
@@ -332,7 +332,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onReload() {
-    location.reload();
+    this.router.navigate(['/home']);
   }
 
   async onRecoverUD() {

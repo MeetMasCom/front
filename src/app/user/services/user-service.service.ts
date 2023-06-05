@@ -41,6 +41,8 @@ export class UserServiceService {
         studies: form.value.studies,
         image: img,
         description: form.value.description,
+        journal: form.value.journal,
+        time_work: form.value.deplab,
       },
       {
         headers: headers,
@@ -74,8 +76,6 @@ export class UserServiceService {
     return this.httpCLient.put(
       `${this.constante.API_SERVER}/user/${id}`,
       {
-        identification: form.value.identification,
-        gender: form.value.genero,
         weight: parseInt(form.value.weight),
         height: parseInt(form.value.talla),
         eyeColor: form.value.ojoscolor,
@@ -127,6 +127,84 @@ export class UserServiceService {
         password: pass,
         code: code,
       }
+    );
+  }
+
+  createAds(
+    form: any,
+    user_id: string,
+    img: string,
+    list: any
+  ): Observable<any> {
+    const body = {
+      user_id: user_id,
+      age: list.age,
+      job: list.job,
+      country: list.country,
+      title: form.value.title,
+      description: form.value.description,
+      link_ads: form.value.alink,
+      link_conversion: form.value.alinkc,
+      image: img,
+      language: list.language,
+      hobbies: list.hobbies,
+      gender: list.gender,
+      religion: list.religion,
+      journal: list.journal,
+      type_dependency: list.typeDep,
+      state: 0,
+      package: form.value.visit,
+      comentary: '',
+    };
+    return this.httpCLient.post(`${this.constante.API_SERVER}/ads`, body);
+  }
+
+  updateAds(form: any, img: string, list: any, id: string): Observable<any> {
+    const body = {
+      id: id,
+      age: list.age,
+      job: list.job,
+      country: list.country,
+      title: form.value.title,
+      description: form.value.description,
+      link_ads: form.value.alink,
+      link_conversion: form.value.alinkc,
+      image: img,
+      language: list.language,
+      hobbies: list.hobbies,
+      gender: list.gender,
+      religion: list.religion,
+      journal: list.journal,
+      type_dependency: list.typeDep,
+      state: 0,
+      package: form.value.visit,
+      comentary: '',
+    };
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/ads/updateAdsById`,
+      body
+    );
+  }
+
+  getAllMembership(): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
+  }
+
+  buyMembership(idUser: string, idMem: string): Observable<any> {
+    const body = {
+      userId: idUser,
+      membershipId: idMem,
+    };
+
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/membsership/membership-user`,
+      body
+    );
+  }
+
+  getAllReferes(id: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/refers/${id}`
     );
   }
 }

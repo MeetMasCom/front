@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fas, faMessage, faBell } from '@fortawesome/free-solid-svg-icons';
+
 import { SharedserviceService } from '../../services/sharedservice.service';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/enviroments/environment';
 import { LanguageI } from '../../interfaces/language.interface';
+import { MmodalComponent } from '../mmodal/mmodal.component';
 
 @Component({
   selector: 'app-menu',
@@ -14,6 +17,7 @@ import { LanguageI } from '../../interfaces/language.interface';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
+  @ViewChild('mnotification') mnotification!: MmodalComponent;
   token: string = '';
   user: string = '';
   id: string = '';
@@ -21,10 +25,19 @@ export class MenuComponent implements OnInit {
   msj: string = '';
   langs: LanguageI[] = environment.languages;
   selectLang!: LanguageI;
+  friendsService: any;
+  profile: any;
+  val: string = '';
+  AllPost: any;
+  nuevas: number = 0;
+
+  faBell = faBell;
+  notification: any = [];
 
   constructor(
     library: FaIconLibrary,
     public sharedService: SharedserviceService,
+    public profileService: ProfileServiceService,
     private router: Router,
     private translate: TranslateService
   ) {
@@ -49,6 +62,8 @@ export class MenuComponent implements OnInit {
       this.id = sessionStorage.getItem('id')!;
     }
     this.translate.use(this.langs[0].alias);
+    this.getProfile();
+    this.getNotificacion();
   }
 
   async onLogout() {
@@ -65,7 +80,7 @@ export class MenuComponent implements OnInit {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('id');
         sessionStorage.removeItem('token');
-        //location.reload();
+        sessionStorage.removeItem('item');
         this.router.navigate(['/inicio']);
       }
     } catch (error: any) {
@@ -74,8 +89,48 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  async getProfile() {
+    const resp = await lastValueFrom(this.profileService.getProfile());
+    if (resp.data.length > 0) {
+      this.profile = resp.data;
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
   setTransLanguage(lang: LanguageI) {
     this.selectLang = lang;
     this.translate.use(lang.alias);
+  }
+
+  async getNotificacion() {
+    const resp = await lastValueFrom(
+      this.profileService.getNotification(this.id)
+    );
+    if (resp.data.length > 0) {
+      this.notification = resp.data;
+
+      this.notification.forEach((element: any, index: any) => {
+        if (element.state === 0) {
+          this.nuevas++;
+        }
+      });
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
+  notificaciones() {
+    this.mnotification.abrir();
+  }
+
+  async updateLike(event: any) {
+    await lastValueFrom(this.profileService.updateNotification(event));
+
+    location.reload();
+  }
+
+  onRegister() {
+    this.router.navigate(['/registro', '']);
   }
 }

@@ -19,6 +19,21 @@ h3 {
   font-family: Inter;
 }
 
+.nav-link:focus,
+.nav-link.active {
+  background: #fbb240;
+  color: #000;
+  border-radius: 10px 10px 0 0;
+  font-family: Inter;
+  font-size: 15px;
+}
+
+.nav-link {
+  color: #000;
+  font-family: Inter;
+  font-size: 15px;
+}
+
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .input-btn {
@@ -30,6 +45,19 @@ h3 {
     justify-content: start;
     align-items: center;
     display: contents;
+  }
+
+  .nav-link:focus,
+  .nav-link.active {
+    font-size: 12px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .contAll {
+    flex-direction: column;
   }
 }
 

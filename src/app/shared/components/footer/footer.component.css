@@ -34,7 +34,7 @@
   .sticky-bottom {
     display: flex;
     position: relative;
-    top: 150vw;
+    top: 50vw;
   }
 
   .copy {

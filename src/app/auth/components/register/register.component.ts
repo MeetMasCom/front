@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 
@@ -28,18 +29,28 @@ export class RegisterComponent implements OnInit {
   countries: any;
   statusUserName: boolean = false;
   statusEmail: boolean = false;
+  profile: any = [];
+  profile_id: any;
+  generos: any = [];
+  preferencias: any = [];
+  user = '';
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    public userService: AuthServiceService
+    private activatedRoute: ActivatedRoute,
+    public userService: AuthServiceService,
+    public profileService: ProfileServiceService
   ) {
     this.token = undefined;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.addRecaptchaScript();
     this.onGetCountry();
+    await this.getGenero();
+    this.activatedRoute.params.subscribe((params) => {
+      this.user = params['u'];
+    });
   }
 
   renderReCaptch() {
@@ -66,10 +77,13 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister(form: any) {
+    this.profile_id = '646c1e9ec29b09413fcb3887';
     const response = grecaptcha.getResponse();
     if (response !== '') {
       try {
-        const resp = await lastValueFrom(this.userService.register(form.value));
+        const resp = await lastValueFrom(
+          this.userService.register(form.value, this.profile_id, this.user)
+        );
         if (resp.data !== null) {
           sessionStorage.setItem('user', JSON.stringify(resp.data));
           this.message = resp.message;
@@ -83,11 +97,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onRedirigir() {
-    location.reload();
+    this.router.navigate(['/inicio']);
   }
 
   onFail() {
-    location.reload();
+    this.router.navigate(['/inicio']);
   }
 
   onValidateDateBirth(fecha: string) {
@@ -96,7 +110,7 @@ export class RegisterComponent implements OnInit {
     const years = dateAct - parseInt(dateTemp[0]);
 
     if (years < 13) {
-      this.errordate = 'Debe tener 13 años.';
+      this.errordate = 'Debe tener mínimo 13 años.';
     }
     if (years >= 13) {
       this.errordate = '';
@@ -139,6 +153,56 @@ export class RegisterComponent implements OnInit {
       }
     } catch (error: any) {
       console.log(error.error);
+    }
+  }
+
+  async getProfile() {
+    const response = await lastValueFrom(this.profileService.getProfile());
+    if (response.data !== null) {
+      this.profile = response.data;
+      this.profile_id = this.profile.filter();
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
+  onSelectProfile(item: any) {
+    this.profile.filter((element: any) => element !== item.name);
+  }
+
+  async getGenero() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('GENERO')
+      );
+
+      response.data.map((x: any) => {
+        this.generos.push({
+          id: x._id,
+          name: x.name,
+        });
+
+        if (x.name === 'Masculino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Hombres',
+          });
+        }
+        if (x.name === 'Femenino') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Mujeres',
+          });
+        }
+        if (x.name === 'Otro') {
+          this.preferencias.push({
+            id: x._id,
+            name: 'Otro',
+          });
+        }
+      });
+    } catch (error: any) {
+      this.generos = [];
     }
   }
 }

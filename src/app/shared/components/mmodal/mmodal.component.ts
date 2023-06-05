@@ -4,11 +4,16 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 import { ConstantsSystem } from 'src/app/utils/constants-system';
 import { faShield } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 
 @Component({
@@ -25,17 +30,23 @@ export class MmodalComponent {
   @Input() descripcion: string = '';
   @Input() val: string = '';
   @Input() photoSelected: string = '';
+  @Input() photoSelect: string = '';
   @Input() services: any = [];
-  @Input() room:any;  
+  @Input() room: any;
   @Input() photo: any;
   @Input() price: any;
-  @Input() service: any ;
-  @Input() hotel: any ;
-  @Input() typeRoom: any ;
-  @Input() policies: any ;
-
+  @Input() service: any;
+  @Input() hotel: any;
+  @Input() typeRoom: any;
+  @Input() policies: any;
+  @Input() post: any = [];
+  @Input() user: any = [];
+  @Input() profile: any = [];
+  @Input() entradas: any = [];
+  @Input() notification: any = [];
+  @Input() estado: any;
   faShield = faShield;
-  faFile=faFile;
+  faFile = faFile;
 
   @Output() successModal: EventEmitter<any> = new EventEmitter();
   @Output() sendModal: EventEmitter<any> = new EventEmitter();
@@ -56,21 +67,29 @@ export class MmodalComponent {
   @Output() onCommentPolicies: EventEmitter<any> = new EventEmitter();
   @Output() onDeclinePolicies: EventEmitter<any> = new EventEmitter();
   @Output() onUpdatePolicies: EventEmitter<any> = new EventEmitter();
+  @Output() PostModal: EventEmitter<any> = new EventEmitter();
+  @Output() onChangeImagen: EventEmitter<any> = new EventEmitter();
+  @Output() AddProfile: EventEmitter<any> = new EventEmitter();
+  @Output() AddSocialN: EventEmitter<any> = new EventEmitter();
+  @Output() changeRadio: EventEmitter<any> = new EventEmitter();
+
+
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
 
-  message: string='';
+  message: string = '';
   api = '';
-  constructor(public constante: ConstantsSystem
-  ) {}
+  constructor(public constante: ConstantsSystem,
+    library: FaIconLibrary) {
+      library.addIconPacks(fas, far, fab);
+    }
   async ngOnInit() {
-  this.api = this.constante.API_IMAGES;
+    this.api = this.constante.API_IMAGES;
   }
 
   abrir() {
-    console.log(this.policies);
-    this.modalPublicar.nativeElement.click();    
+    this.modalPublicar.nativeElement.click();
   }
 
   onSuccess() {
@@ -81,68 +100,88 @@ export class MmodalComponent {
     this.sendModal.emit(form);
   }
 
-  onChange(event:any){
+  onChange(event: any) {
     this.onChangeModal.emit(event);
   }
 
-  selectCheck(event:any){
+  selectCheck(event: any) {
     this.onSelectCheck.emit(event);
   }
 
-  onFileSelected(event:any){
+  onFileSelected(event: any) {
     this.onSelectDoc.emit(event);
   }
 
-  registerPrice(event:any){
+  registerPrice(event: any) {
     this.onPrice.emit(event);
   }
 
-  selectPrice(event:any){
+  selectPrice(event: any) {
     this.onSelectPrice.emit(event);
   }
 
-  onValidateH(event:any){   
-    this.onValidateHotel.emit(event); 
+  onValidateH(event: any) {
+    this.onValidateHotel.emit(event);
   }
 
-  onDeclineH(event:any){
+  onDeclineH(event: any) {
     this.onDeclineHotel.emit(event);
   }
 
-  onDownload(event:any){
+  onDownload(event: any) {
     this.onDownloadDoc.emit(event);
   }
 
-  onCommentH(event:any){
+  onCommentH(event: any) {
     this.onCommentDecline.emit(event);
   }
 
-  UpdateHotel(event:any){
+  UpdateHotel(event: any) {
     this.onUpdateHotel.emit(event);
   }
 
-  aprobarP(event:any){
+  aprobarP(event: any) {
     this.onAprobatePolicies.emit(event);
   }
 
-  commentPolicies(event:any){
+  commentPolicies(event: any) {
     this.onCommentPolicies.emit(event);
   }
 
-   
-vPoliticas(event:any){
-this.onVPolicies.emit(event);
-}
+  vPoliticas(event: any) {
+    this.onVPolicies.emit(event);
+  }
 
-  registerPolicies(event:any){
+  registerPolicies(event: any) {
     this.onRegisterPolicies.emit(event);
   }
 
-  onCommentP(event:any){
+  onCommentP(event: any) {
     this.onDeclinePolicies.emit(event);
   }
-  onUpdateP(event:any){
+
+  onUpdateP(event: any) {
     this.onUpdatePolicies.emit(event);
   }
 
+  onPost(form: any) {
+    this.PostModal.emit(form);
+  }
+
+  onChangeI(event: any) {
+    this.onChangeImagen.emit(event);
+  }
+
+  addProfile(event:any){
+    this.AddProfile.emit(event);
+  }
+
+  onAddSocial(form: any){
+    this.AddSocialN.emit(form);
+  }
+
+  onRadioChange(event:any){
+    console.log("notificacion",event);
+    this.changeRadio.emit(event);
+  }
 }

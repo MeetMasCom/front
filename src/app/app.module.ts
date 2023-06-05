@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   HttpClient,
   HttpClientModule,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { NgOptimizedImage } from '@angular/common';
 import {
   RECAPTCHA_SETTINGS,
   RecaptchaFormsModule,
@@ -19,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConstantsSystem } from './utils/constants-system';
+import { ClipboardModule } from 'ngx-clipboard';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -65,6 +65,26 @@ import { AdminsComponent } from './admin/components/admins/admins.component';
 import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
+import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
+import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
+import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
+import { TravellersComponent } from './friends/components/travellers/travellers.component';
+import { ProfesionalsComponent } from './friends/components/profesionals/profesionals.component';
+import { BusinessmenComponent } from './friends/components/businessmen/businessmen.component';
+import { StudentsComponent } from './friends/components/students/students.component';
+import { LanguagesComponent } from './friends/components/languages/languages.component';
+import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
+import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
+import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
+import { HomeComponent } from './profile/components/home/home.component';
+import { SearchComponent } from './shared/components/search/search.component';
+import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
+import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
+import { SponsorComponent } from './user/components/sponsor/sponsor.component';
+import { RefersComponent } from './user/components/refers/refers.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -102,9 +122,31 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     MenuadminComponent,
     AdminsComponent,
-    SupSystemsComponent,
+    BilleteraComponent,
+    BilleteraEmpresaComponent,
+    UpdateBilleteraEComponent,
     SupSalesComponent,
+    UpdateBilleteraEComponent,
+    AdminsComponent,
+    SupSystemsComponent,
     SupNoticesComponent,
+    MyProfileComponent,
+    StartFriendsComponent,
+    TravellersComponent,
+    ProfesionalsComponent,
+    BusinessmenComponent,
+    StudentsComponent,
+    LanguagesComponent,
+    UserProfileComponent,
+    AdsLayoutComponent,
+    NoticesTypeComponent,
+    ChatComponent,
+    HomeComponent,
+    SearchComponent,
+    AdminMembershipComponent,
+    UserMembershipComponent,
+    SponsorComponent,
+    RefersComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -117,6 +159,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -125,6 +168,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgOptimizedImage,
     CommonModule,
     NgMultiSelectDropDownModule.forRoot(),
+    ClipboardModule,
   ],
   providers: [
     AuthServiceService,
@@ -147,4 +191,4 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

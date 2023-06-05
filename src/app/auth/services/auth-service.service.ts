@@ -13,7 +13,7 @@ export class AuthServiceService {
     public constante: ConstantsSystem
   ) {}
 
-  register(user: User): Observable<any> {
+  register(user: User, profile: string, sponsor: string): Observable<any> {
     return this.httpCLient.post(`${this.constante.API_SERVER}/user`, {
       userName: user.userName,
       email: user.email,
@@ -21,6 +21,10 @@ export class AuthServiceService {
       password: user.password,
       terms: user.terms,
       country: user.country,
+      profile: profile,
+      gender: user.gender,
+      preferences: user.prefer,
+      sponsor: sponsor ? sponsor : undefined,
     });
   }
 
@@ -77,6 +81,12 @@ export class AuthServiceService {
         password: pass,
         code: code,
       }
+    );
+  }
+
+  getCatalog(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/catalogue/options?code=${param}`
     );
   }
 }

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { io, Socket } from 'socket.io-client';
+import { FriendsServiceService } from 'src/app/friends/services/friends-service.service';
+import { ChatI } from '../../interfaces/chat.interface';
+import { AuthServiceService } from 'src/app/auth/services/auth-service.service';
 
 
 @Component({
@@ -8,27 +10,89 @@ import { io, Socket } from 'socket.io-client';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
-  private socket!: Socket;
+export class ChatComponent implements OnInit, AfterViewInit {
 
-  user!: any
   chat: FormControl = new FormControl("", Validators.required);
+  users: any[] = [];
+  user: any;
+  messagues: ChatI[] = []
+  isLoading: boolean = false
 
+  /**
+   * Constructor
+   * @param friendsServiceService
+   * @param authServiceService
+   * 
+   */
+  constructor(private friendsServiceService: FriendsServiceService, private authServiceService: AuthServiceService) {
+
+  }
+
+  /**
+   * AfterViewInit
+   */
+  ngAfterViewInit(): void {
+    this.sensorMessage();
+
+  }
+
+  /**
+   * Sensor
+   */
+  sensorMessage() {
+    setTimeout(() => {
+      this.getMessagues(this.user._id);
+      this.sensorMessage();
+    }, 60000);
+  }
+
+  /**
+   * OnInit
+   */
   ngOnInit(): void {
-    this.socket = io('http://0.0.0.0:8000'); // Update with your server's URL
+    const userId = sessionStorage.getItem('id')!;
+    this.friendsServiceService.getAllUserLike(userId).subscribe(res => {
+      this.users = res.data;
+      this.selectUser(res.data[0]);
+    })
+  }
 
-    // Emit a 'newUser' event with user information
-    this.user = { id: Math.random(), name: "Luis" };
-    this.socket.emit('newUser', this.user);
+  /**
+   * Seleccionar usuario
+   * @param user 
+   */
+  selectUser(user: any) {
+    if (this.user?._id == user?._id) return
+    this.messagues = [];
+    this.user = user;
+    this.getMessagues(user._id);
+  }
 
-    // Listen for 'privateMessage' events
-    this.socket.on('privateMessage', (data: any) => {
-      console.log('Private message received:', data);
-      // Handle the received private message
+  /**
+   * Obtener mensajes
+   * @param userId 
+   */
+  getMessagues(userId: string) {
+    this.isLoading = true;
+    const userFrom = sessionStorage.getItem('id')!;
+    this.friendsServiceService.getMessages(userFrom, userId).subscribe(res => {
+      this.messagues = res.data;
+      this.isLoading = false;
+    })
+  }
+
+  /**
+   * Guardar mensaje
+   */
+  saveMessague() {
+    const value = this.chat.value;
+    this.chat.reset();
+    this.isLoading = true;
+    const userFrom = sessionStorage.getItem('id')!;
+    this.friendsServiceService.saveMessages(this.user._id, userFrom, value).subscribe(res => {
+      this.isLoading = false;
+      this.getMessagues(this.user._id);
     });
   }
 
-  sendPrivateMessage(recipientId: string, message: string): void {
-    this.socket.emit('privateMessage', { recipientId, message });
-  }
 }

@@ -1,5 +1,5 @@
 <app-menu></app-menu>
-<div class="container">
+<div class="w-100 d-flex mb-5 flex-column align-items-center justify-content-center">
   <div class="col-md-12 col-sm-12 card vacio">
     <div class="card-body text-justify">
       <h5 *ngIf="user.type === 0">Su membresía actual es BRONCE</h5>
@@ -9,23 +9,17 @@
     </div>
   </div>
   <div *ngIf="membresias.length > 0">
-    <div class="containerInput row">
-      <div *ngFor="let item of membresias" class="col-md-4 col-sm-12 card">
-        <div class="card-header text-center">
-          <h3>{{ item.name }}</h3>
+    <div class="w-100 d-flex flex-wrap justify-content-center ">
+      <div *ngFor="let item of membresias" class="card p-0 mx-2 d-flex justify-content-center">
+        <div class="card-header text-center text-white p-2 m-0 bg-warning">
+          <h3>{{ item.name | uppercase }}</h3>
         </div>
-        <div class="card-body text-center">
-          <h4>{{ item.price | currency : "USD" }}</h4>
-          <p>{{ item.description }}</p>
+        <div class="card-body">
+          <div [innerHTML]="item.description"></div>
+          <div class="text-center mt-1 fs-4 fw-bold w-100 text-warning">{{ item.price | currency }}</div>
         </div>
-        <div
-          class="card-footer d-flex aling-items-center justify-content-center"
-        >
-          <button
-            class="btn btn-primary"
-            type="button"
-            (click)="onSelectMembership(item)"
-          >
+        <div class="card-footer d-flex aling-items-center justify-content-center">
+          <button class="btn btn-warning text-white" type="button" (click)="onSelectMembership(item)">
             COMPRAR
           </button>
         </div>
@@ -40,33 +34,16 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
 
-<app-modal-alerts
-  [idModal]="'infoBuyMembership'"
-  [icono]="'./assets/img/warning.png'"
-  [titulo]="'¿Esta seguro?'"
-  [descripcion]="''"
-  (successModal)="onBuyMembership()"
-  [tipo]="0"
-  #infoBuyMembership
-></app-modal-alerts>
+<div class="w-100 position-fixed bottom-0 ">
+  <app-footer></app-footer>
+</div>
 
-<app-modal-alerts
-  [idModal]="'successBuyM'"
-  [icono]="'./assets/img/success.png'"
-  [titulo]="'Proceso Exitoso'"
-  [descripcion]="message"
-  (successModal)="onRedirigir()"
-  [tipo]="0"
-  #successBuyM
-></app-modal-alerts>
+<app-modal-alerts [idModal]="'infoBuyMembership'" [icono]="'./assets/img/warning.png'" [titulo]="'¿Esta seguro?'"
+  [descripcion]="''" (successModal)="onBuyMembership()" [tipo]="0" #infoBuyMembership></app-modal-alerts>
 
-<app-modal-alerts
-  [idModal]="'failBuyM'"
-  [icono]="'./assets/img/fail.png'"
-  [titulo]="'Proceso No Exitoso'"
-  [descripcion]="message"
-  [tipo]="0"
-  #failBuyM
-></app-modal-alerts>
+<app-modal-alerts [idModal]="'successBuyM'" [icono]="'./assets/img/success.png'" [titulo]="'Proceso Exitoso'"
+  [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successBuyM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'failBuyM'" [icono]="'./assets/img/fail.png'" [titulo]="'Proceso No Exitoso'"
+  [descripcion]="message" [tipo]="0" #failBuyM></app-modal-alerts>

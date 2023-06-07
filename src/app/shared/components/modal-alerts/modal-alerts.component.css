@@ -2,6 +2,11 @@
   visibility: hidden;
 }
 
+.overflow-y-auto {
+  max-height: 80% !important;
+  overflow-y: auto !important;
+}
+
 .icon-confirm {
   width: 100%;
   display: flex;

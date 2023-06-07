@@ -94,7 +94,7 @@ export class MenuComponent implements OnInit {
     if (resp.data.length > 0) {
       this.profile = resp.data;
     } else {
-      console.log('no se encontraron datos');
+     // console.log('no se encontraron datos');
     }
   }
 
@@ -116,7 +116,7 @@ export class MenuComponent implements OnInit {
         }
       });
     } else {
-      console.log('no se encontraron datos');
+      //console.log('no se encontraron datos');
     }
   }
 

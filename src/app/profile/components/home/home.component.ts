@@ -55,7 +55,7 @@ gender:string='';
       const resp1 = await lastValueFrom(this.profileService.getUserGender(this.gender));
       if (resp1?.data.length > 0) {
         this.userGender = resp1.data;
-       
+       console.log("usuarios por genero",this.userGender);
         }
         const resp2 = await lastValueFrom(this.profileService.getUserOnline(this.gender));
       if (resp2?.data.length > 0) {

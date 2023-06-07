@@ -1,5 +1,16 @@
 <div class="sticky-bottom">
-  <div class="col-6 copy">
+  <div class="col-6 copy d-flex flex-column">
+    <div class="w-100 pt-2 px-5 d-flex justify-content-center align-items-center">
+      <a class="badge text-decoration-none text-dark" [href]="'politicas'">
+        Política de privacidad
+      </a> -
+      <a class="badge text-decoration-none text-dark" [href]="'acuerdo'">
+        Acuerdo de afiliación
+      </a> -
+      <a class="badge text-decoration-none text-dark" [href]="'fees'">
+        Fees
+      </a>
+    </div>
     <span>Copyright &copy; 2023. {{ "footer.copyright" | translate }}</span>
   </div>
   <div class="col-6 social">

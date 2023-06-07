@@ -35,6 +35,9 @@ import { AdminMembershipComponent } from './admin/components/admin-membership/ad
 import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 import { SponsorComponent } from './user/components/sponsor/sponsor.component';
 import { RefersComponent } from './user/components/refers/refers.component';
+import { FeesComponent } from './shared/components/fees/fees.component';
+import { PoliticsComponent } from './shared/components/politics/politics.component';
+import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -91,6 +94,11 @@ const routes: Routes = [
   { path: 'usuarioMembresia', component: UserMembershipComponent },
   { path: 'sponsor', component: SponsorComponent },
   { path: 'referidos', component: RefersComponent },
+  { path: 'fees', component: FeesComponent },
+  { path: 'politicas', component: PoliticsComponent },
+  { path: 'acuerdo', component: AgreementsComponent },
+  { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
+
 ];
 
 @NgModule({

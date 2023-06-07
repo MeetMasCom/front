@@ -6,6 +6,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-modal-alerts',
@@ -24,6 +26,8 @@ export class ModalAlertsComponent {
   @Output() sendModal: EventEmitter<any> = new EventEmitter();
   @ViewChild('modalButton') modalButton!: ElementRef;
 
+  public Editor = ClassicEditor;
+
   abrir() {
     this.modalButton.nativeElement.click();
   }
@@ -35,4 +39,10 @@ export class ModalAlertsComponent {
   onRecover(form: any) {
     this.sendModal.emit(form);
   }
+
+  onUpdateMembership(form: any, data: any) {
+    form.value['descMember'] = data.description;
+    this.sendModal.emit(form);
+  }
+
 }

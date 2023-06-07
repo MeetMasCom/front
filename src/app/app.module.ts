@@ -19,6 +19,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConstantsSystem } from './utils/constants-system';
 import { ClipboardModule } from 'ngx-clipboard';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -85,6 +86,9 @@ import { AdminMembershipComponent } from './admin/components/admin-membership/ad
 import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 import { SponsorComponent } from './user/components/sponsor/sponsor.component';
 import { RefersComponent } from './user/components/refers/refers.component';
+import { FeesComponent } from './shared/components/fees/fees.component';
+import { PoliticsComponent } from './shared/components/politics/politics.component';
+import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -147,8 +151,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserMembershipComponent,
     SponsorComponent,
     RefersComponent,
+    FeesComponent,
+    PoliticsComponent,
+    AgreementsComponent
   ],
   imports: [
+    CKEditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

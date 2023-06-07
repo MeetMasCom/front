@@ -28,6 +28,7 @@ import { UserProfileComponent } from './profile/components/user-profile/user-pro
 import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.component';
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
 import { HomeComponent } from './profile/components/home/home.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
@@ -86,6 +87,7 @@ const routes: Routes = [
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },
+  { path: 'messages', component: ChatComponent },
   { path: 'usuarioMembresia', component: UserMembershipComponent },
   { path: 'sponsor', component: SponsorComponent },
   { path: 'referidos', component: RefersComponent },
@@ -95,4 +97,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

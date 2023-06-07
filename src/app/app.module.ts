@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   HttpClient,
@@ -78,6 +78,7 @@ import { LanguagesComponent } from './friends/components/languages/languages.com
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
 import { NoticesTypeComponent } from './user/components/notices-type/notices-type.component';
+import { ChatComponent } from './shared/components/chat/chat.component';
 import { HomeComponent } from './profile/components/home/home.component';
 import { SearchComponent } from './shared/components/search/search.component';
 import { AdminMembershipComponent } from './admin/components/admin-membership/admin-membership.component';
@@ -139,6 +140,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserProfileComponent,
     AdsLayoutComponent,
     NoticesTypeComponent,
+    ChatComponent,
     HomeComponent,
     SearchComponent,
     AdminMembershipComponent,
@@ -157,6 +159,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -188,4 +191,4 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

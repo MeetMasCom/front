@@ -4,7 +4,7 @@
       <a class="navbar-brand align-items-center icon" href="/home">
         <img
           class="rounded img-header img-fluid"
-          src="../../assets/img/logo7.png"
+          src="../../assets/img/logo.png"
           alt="Ken You Me"
         />
         &nbsp;
@@ -81,29 +81,17 @@
           <a class="nav-item nav-link d-none" href="hotel">{{
             "menu.hotels" | translate
           }}</a>
-<<<<<<<<< Temporary merge branch 1
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
           }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
-          <a class="border-0 nav-item nav-link" href="home">
-            <fa-icon [icon]="faBell"></fa-icon>
-          </a>
-          <a class="border-0 nav-item nav-link" href="home">
-=========
-          <a class="nav-item nav-link d-none">{{ "menu.restaurants" | translate }}</a>
-          <a class="nav-item nav-link d-none">{{ "menu.flowers" | translate }}</a>
-          <!-- <a class="border-0 nav-item nav-link" href="#">
-            <fa-icon [icon]="faBell"></fa-icon>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              99+
-              <span class="visually-hidden">unread messages</span>
-            </span>
-          </a> -->
-
-          <button type="button" class="btn nuevo position-relative" (click)="notificaciones()">
+          <button
+            type="button"
+            class="btn nuevo position-relative"
+            (click)="notificaciones()"
+          >
             Notificaciones
             <ng-container *ngIf="nuevas !== 0">
               <span
@@ -115,8 +103,8 @@
             </ng-container>
           </button>
 
-          <a class="border-0 nav-item nav-link" href="#">
->>>>>>>>> Temporary merge branch 2
+          <a class="border-0 nav-item nav-link" href="#"> </a>
+          <a class="border-0 nav-item nav-link" href="home">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
           </a>
 

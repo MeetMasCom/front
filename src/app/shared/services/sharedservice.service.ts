@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Logout } from '../interfaces/logout';
 import { ConstantsSystem } from '../../utils/constants-system';
 
@@ -8,10 +8,21 @@ import { ConstantsSystem } from '../../utils/constants-system';
   providedIn: 'root',
 })
 export class SharedserviceService {
+
+  isLoading = new BehaviorSubject<boolean>(false);
+
   constructor(
     private httpCLient: HttpClient,
     public constante: ConstantsSystem
-  ) {}
+  ) { }
+
+  /**
+     * Flag loading.
+     * @param value
+     */
+  setIsloading(value: boolean) {
+    this.isLoading.next(value);
+  }
 
   logout(user: Logout): Observable<any> {
     const headers = new HttpHeaders({

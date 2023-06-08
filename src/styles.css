@@ -3,6 +3,11 @@
 body {
   overflow-x: hidden !important;
 }
+
+.text-justify {
+  text-align: justify !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   cursor: pointer;

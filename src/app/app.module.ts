@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   HttpClient,
@@ -89,10 +89,20 @@ import { RefersComponent } from './user/components/refers/refers.component';
 import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
-
+import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+export function numberValidator(control: AbstractControl): ValidationErrors | null {
+  return /^\d+(?:\.\d{1,2})?$/.test(control.value) ? null : { 'price': true };
+}
+
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+  return /^(https?|ftp):\/\/(www\.)?([^\s\/$.?#].[^\s]*)\.[^\s]{2,}$/.test(control.value) ? null : { 'url': true };
+}
+
 
 @NgModule({
   declarations: [
@@ -153,7 +163,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RefersComponent,
     FeesComponent,
     PoliticsComponent,
-    AgreementsComponent
+    AgreementsComponent,
+    WalletCompanyComponent
   ],
   imports: [
     CKEditorModule,
@@ -177,6 +188,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     NgMultiSelectDropDownModule.forRoot(),
     ClipboardModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'Campo Obligatorio' },
+        { name: 'price', message: 'Valor no válido' },
+        { name: 'url', message: 'Valor no válido' },
+      ],
+      validators: [
+        { name: 'price', validation: numberValidator },
+        { name: 'url', validation: urlValidator },
+      ],
+    }),
+    FormlyBootstrapModule
   ],
   providers: [
     AuthServiceService,

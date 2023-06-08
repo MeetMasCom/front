@@ -7,7 +7,7 @@ import { ConstantsSystem } from '../../utils/constants-system';
   providedIn: 'root',
 })
 export class AdminServiceService {
-  constructor(private http: HttpClient, public constante: ConstantsSystem) {}
+  constructor(private http: HttpClient, public constante: ConstantsSystem) { }
 
   createMembership(form: any): Observable<any> {
     const body = {
@@ -48,4 +48,15 @@ export class AdminServiceService {
       body
     );
   }
+
+
+  createWalletE(form: any): Observable<any> {
+    return this.http.post(`${this.constante.API_SERVER}/billetera/createBilleteraE`, form);
+  }
+
+  getAllBilletera(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/billetera`);
+  }
+
+
 }

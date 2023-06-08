@@ -15,7 +15,7 @@ export class ConstantsSystem {
     // this.API_SERVER = 'https://meetmas.com/api';
     this.API_SERVER = 'http://0.0.0.0:8000/api';
 
-    // this.API_IMAGES = 'http://meetmas.com/';
+    this.API_IMAGES = 'http://meetmas.com/';
     // this.API_IMAGES = 'http://0.0.0.0:8000';
   }
 }

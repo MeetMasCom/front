@@ -17,7 +17,19 @@ export class WalletCompanyComponent implements OnInit {
   successCreateM!: ModalAlertsComponent;
   @ViewChild('failCreateM')
   failCreateM!: ModalAlertsComponent;
+  @ViewChild('modalUpdateM') modalUpdateM!: ModalAlertsComponent;
+  @ViewChild('successUpdateM')
+  successUpdateM!: ModalAlertsComponent;
+  @ViewChild('failUpdateM')
+  failUpdateM!: ModalAlertsComponent;
+  @ViewChild('infoDeleteM')
+  infoDeleteM!: ModalAlertsComponent;
+  @ViewChild('successDeleteM')
+  successDeleteM!: ModalAlertsComponent;
+  @ViewChild('failDeleteM')
+  failDeleteM!: ModalAlertsComponent;
 
+  wallet!: WalletI
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [
@@ -334,5 +346,45 @@ export class WalletCompanyComponent implements OnInit {
     }
   }
 
+  onUpdate(data: WalletI) {
+    this.wallet = data;
+    this.modalUpdateM.abrir();
+  }
 
+  onQuestion(data: WalletI) {
+    this.wallet = data;
+    this.infoDeleteM.abrir();
+  }
+
+  async onDelete() {
+    try {
+      const response = await lastValueFrom(
+        this.adminService.deleteWallet(this.wallet._id!, this.wallet)
+      );
+
+      if (response.data !== null) {
+        this.message = response.message;
+        this.successDeleteM.abrir();
+      }
+    } catch (error: any) {
+      this.message = error.error.message;
+      this.failDeleteM.abrir();
+    }
+  }
+
+  async onForm(form: WalletI) {
+    try {
+      const response = await lastValueFrom(
+        this.adminService.updateWallet(this.wallet._id!, form)
+      );
+
+      if (response.data !== null) {
+        this.message = response.message;
+        this.successUpdateM.abrir();
+      }
+    } catch (error: any) {
+      this.message = error.error.message;
+      this.failUpdateM.abrir();
+    }
+  }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConstantsSystem } from '../../utils/constants-system';
+import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,22 @@ export class AdminServiceService {
 
   getAllBilletera(): Observable<any> {
     return this.http.get(`${this.constante.API_SERVER}/billetera`);
+  }
+
+  updateWallet(id: string, item: WalletI): Observable<any> {
+    return this.http.post(
+      `${this.constante.API_SERVER}/billetera/updateBilleteraE/${id}`,
+      item
+    );
+  }
+
+
+  deleteWallet(id: string, item: WalletI): Observable<any> {
+    item.estado = !item.estado;
+    return this.http.post(
+      `${this.constante.API_SERVER}/billetera/updateBilleteraE/${id}`,
+      item
+    );
   }
 
 

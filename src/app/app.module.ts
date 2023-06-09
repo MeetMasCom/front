@@ -67,8 +67,6 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
@@ -92,6 +90,7 @@ import { AgreementsComponent } from './shared/components/agreements/agreements.c
 import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { BalanceComponent } from './finance/components/balance/balance.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -137,10 +136,7 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     MenuadminComponent,
     AdminsComponent,
     BilleteraComponent,
-    BilleteraEmpresaComponent,
-    UpdateBilleteraEComponent,
     SupSalesComponent,
-    UpdateBilleteraEComponent,
     AdminsComponent,
     SupSystemsComponent,
     SupNoticesComponent,
@@ -164,7 +160,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     FeesComponent,
     PoliticsComponent,
     AgreementsComponent,
-    WalletCompanyComponent
+    WalletCompanyComponent,
+    BalanceComponent
   ],
   imports: [
     CKEditorModule,

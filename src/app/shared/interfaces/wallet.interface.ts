@@ -1,5 +1,6 @@
 
 export interface WalletI {
+    _id?: string
     alias: string
     sigla: string
     detalle: string

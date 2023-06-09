@@ -44,7 +44,26 @@
                   <td>{{ item.tipo === 1 ? 'Crypto':'Profit' }}</td>
                   <td>{{ item.costo | currency : "USD" }}</td>
                   <td class="text-center">
+                    <button title="Actualizar" type="button" class="btn btn-outline-primary" (click)="onUpdate(item)"
+                      [disabled]="!item.estado">
+                      <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
+                      <!-- Actualizar -->
+                    </button>
 
+                    <ng-container *ngIf="item.estado">
+                      <button title="Deshabilitar" type="button" class="btn btn-outline-danger mx-2"
+                        (click)="onQuestion(item)">
+                        <fa-icon [icon]="['fas', 'toggle-off']"></fa-icon>
+                        <!-- Deshabilitar -->
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="!item.estado">
+                      <button title="Habilitar" type="button" class="btn btn-outline-success mx-2"
+                        (click)="onQuestion(item)">
+                        <fa-icon [icon]="['fas', 'toggle-on']"></fa-icon>
+                        <!-- Habilitar -->
+                      </button>
+                    </ng-container>
                   </td>
                 </tr>
               </ng-container>
@@ -87,3 +106,21 @@
 
 <app-modal-alerts [idModal]="'failCreateM'" [icono]="'./assets/img/fail.png'" [titulo]="'Registro Incorrecto'"
   [descripcion]="message" [tipo]="0" #failCreateM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'modalUpdateM'" [tipo]="5" [title]="'Actualizar Billetera'" (sendModal)="onForm($event)"
+  [data]="wallet" #modalUpdateM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'successUpdateM'" [icono]="'./assets/img/success.png'" [titulo]="'Actualización Correcta'"
+  [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successUpdateM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'failUpdateM'" [icono]="'./assets/img/fail.png'" [titulo]="'Actualización Incorrecta'"
+  [descripcion]="message" [tipo]="0" #failUpdateM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'infoDeleteM'" [icono]="'./assets/img/warning.png'" [titulo]="'¿Esta seguro?'"
+  [descripcion]="''" (successModal)="onDelete()" [tipo]="0" #infoDeleteM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'successDeleteM'" [icono]="'./assets/img/success.png'" [titulo]="'Actualización Correcta'"
+  [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successDeleteM></app-modal-alerts>
+
+<app-modal-alerts [idModal]="'failDeleteM'" [icono]="'./assets/img/fail.png'" [titulo]="'Actualización Incorrecta'"
+  [descripcion]="message" [tipo]="0" #failDeleteM></app-modal-alerts>

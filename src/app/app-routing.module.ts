@@ -15,8 +15,6 @@ import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-la
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
@@ -39,6 +37,7 @@ import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
+import { BalanceComponent } from './finance/components/balance/balance.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -70,14 +69,12 @@ const routes: Routes = [
   { path: 'membresias', component: AdminMembershipComponent },
   { path: 'billeteraE', component: WalletCompanyComponent },
 
-  //billetera
-  { path: 'myBilletera', component: BilleteraComponent },
-  { path: 'billetera', component: BilleteraEmpresaComponent },
-  { path: 'updateBilletera/:id', component: UpdateBilleteraEComponent },
-
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
+
+  // finance
+  { path: 'finanzas', component: BalanceComponent },
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },
@@ -87,8 +84,6 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent },
   { path: 'languages', component: LanguagesComponent },
   { path: 'billetera', component: BilleteraComponent },
-  { path: 'billeteraE', component: BilleteraEmpresaComponent },
-  { path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent },
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },

@@ -176,6 +176,20 @@
             </div>
           </form>
         </ng-container>
+
+        <ng-container *ngIf="tipo === 5">
+          <form *ngIf="data" [formGroup]="form" (ngSubmit)="onUpdateWallet(data)">
+            <formly-form [form]="form" [fields]="fields" [model]="data"></formly-form>
+            <formly-form *ngIf="data.tipo == 1" [form]="form" [fields]="fieldsC" [model]="data"></formly-form>
+            <formly-form *ngIf="data.tipo == 2" [form]="form" [fields]="fieldsP" [model]="data"></formly-form>
+            <div class="form-group text-center">
+              <input type="submit" class="btn" value="Guardar" [disabled]="form.invalid" [ngClass]="'input-btn'" />
+            </div>
+          </form>
+        </ng-container>
+
+
+
       </div>
     </div>
   </div>

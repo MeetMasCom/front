@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas, faMessage, faBell } from '@fortawesome/free-solid-svg-icons';
+import { fas, faMessage, faBell,faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { ProfileServiceService } from '../../../profile/services/profile-service.service';
@@ -30,9 +30,12 @@ export class MenuComponent implements OnInit {
   val: string = '';
   AllPost: any;
   nuevas: number = 0;
-
+  ver:boolean=true;
+  nver:boolean=false;
   faBell = faBell;
+  faUserCheck=faUserCheck;
   notification: any = [];
+  dataUser: any;
 
   constructor(
     library: FaIconLibrary,
@@ -64,6 +67,7 @@ export class MenuComponent implements OnInit {
     this.translate.use(this.langs[0].alias);
     this.getProfile();
     this.getNotificacion();
+    this.getUser();
   }
 
   async onLogout() {
@@ -95,6 +99,14 @@ export class MenuComponent implements OnInit {
       this.profile = resp.data;
     } else {
      // console.log('no se encontraron datos');
+    }
+  }
+
+  async getUser() {
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+
+    if (resp?.data.length > 0) {
+      this.dataUser = resp?.data[0];
     }
   }
 

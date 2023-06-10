@@ -18,6 +18,7 @@ import { BilleteraComponent } from './billetera/components/billetera/billetera.c
 import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
 import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
+import {PrivacyComponent} from './profile/components/privacy/privacy.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
 import { ProfesionalsComponent } from './friends/components/profesionals/profesionals.component';
@@ -76,6 +77,7 @@ const routes: Routes = [
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
+  { path: 'privacy', component: PrivacyComponent },
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },

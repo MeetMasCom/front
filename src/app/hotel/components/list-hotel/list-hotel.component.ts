@@ -144,30 +144,24 @@ comment:any;
 
         } 
         if (this.dataHotel.state === 1) {
-          console.log("estado",this.dataHotel.state);
           this.dataHotel = response.data[0];
          this.RegisterP.abrir();
         } 
         if (this.dataHotel.state === 2) {
-          console.log("estado",this.dataHotel.state);
           this.dataHotel = response.data[0];
           this.ValidateH.abrir();
         }
         if (this.dataHotel.state === 3) {
-          console.log("estado",this.dataHotel.state);
           this.router.navigate(['/myHotel', id]);
         }
         if (this.dataHotel.state === 4) {
-          console.log("estado",this.dataHotel.state);
          this.ChangeP.abrir();
         }
         if (this.dataHotel.state === 5) {
-          console.log("estado",this.dataHotel.state);
           this.dataPoliciesModal.abrir();
         }
       }
     } catch (error: any) {
-      console.log("sale por catch");
       console.log('error', error.error);
     }
   }

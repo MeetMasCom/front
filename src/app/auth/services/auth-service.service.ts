@@ -49,6 +49,7 @@ export class AuthServiceService {
     return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
   }
 
+  
   validateUserEmail(param: string): Observable<any> {
     return this.httpCLient.get(
       `${this.constante.API_SERVER}/user/validate/${param}`

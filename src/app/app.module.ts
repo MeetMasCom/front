@@ -89,6 +89,7 @@ import { RefersComponent } from './user/components/refers/refers.component';
 import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
+import { PrivacyComponent } from './profile/components/privacy/privacy.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -153,7 +154,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RefersComponent,
     FeesComponent,
     PoliticsComponent,
-    AgreementsComponent
+    AgreementsComponent,
+    PrivacyComponent
   ],
   imports: [
     CKEditorModule,

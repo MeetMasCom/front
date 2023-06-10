@@ -68,6 +68,19 @@ export class UserServiceService {
     );
   }
 
+  updateDNI(id: string, doc:File, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const fd = new FormData();
+    fd.append('archivo', doc);
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/updateDni/${id}`,
+      fd
+    );
+  }
+
   updateUser(form: any, id: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,

@@ -314,7 +314,7 @@ export class WalletCompanyComponent implements OnInit {
   async ngOnInit() {
     try {
       const response = await lastValueFrom(
-        this.adminService.getAllBilletera()
+        this.adminService.getAllBilleteraE()
       );
 
       if (response.data.length > 0) {

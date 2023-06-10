@@ -78,4 +78,8 @@ export class SharedserviceService {
       body
     );
   }
+
+  getToken() {
+    return sessionStorage.getItem('token');
+  }
 }

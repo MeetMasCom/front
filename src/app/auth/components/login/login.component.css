@@ -12,8 +12,8 @@ a {
     min-height: 2vw;
     border: 1px solid #737373;
     border-radius: 20px;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
+    /* margin-top: 1vw; */
+    /* margin-bottom: 1vw; */
     background: #f9a21e;
   }
 }
@@ -31,8 +31,8 @@ a {
     min-height: 8vw;
     border: 1px solid #737373;
     border-radius: 20px;
-    margin-top: 2.5vw;
-    margin-bottom: 4vw;
+    /* margin-top: 2.5vw; */
+    /* margin-bottom: 4vw; */
     background: #f9a21e;
   }
 }
@@ -44,8 +44,8 @@ a {
     min-height: 5vw;
     border: 1px solid #737373;
     border-radius: 20px;
-    margin-top: 2.5vw;
-    margin-bottom: 2.5vw;
+    /* margin-top: 2.5vw; */
+    /* margin-bottom: 2.5vw; */
     background: #f9a21e;
   }
 }

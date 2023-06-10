@@ -1,21 +1,7 @@
-/*styles*/
-
-h5 {
-  margin-top: 12vw;
-  margin-bottom: 15vw;
-}
-
-.alert {
-  top: -10vw;
-  width: 20vw;
-  left: 40vw;
-  text-align: center;
-}
-
-/*PHONE*/
-@media only screen and (min-width: 300px) and (max-width: 600px) {
-  .alert {
-    width: 40vw;
-    left: 30vw;
-  }
+.input-btn {
+  min-height: 2vw;
+  border: 1px solid #737373;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  background: #f9a21e;
 }

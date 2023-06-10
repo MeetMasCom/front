@@ -11,7 +11,7 @@ export class AuthServiceService {
   constructor(
     private httpCLient: HttpClient,
     public constante: ConstantsSystem
-  ) {}
+  ) { }
 
   register(user: User, profile: string, sponsor: string): Observable<any> {
     return this.httpCLient.post(`${this.constante.API_SERVER}/user`, {
@@ -87,6 +87,15 @@ export class AuthServiceService {
   getCatalog(param: string): Observable<any> {
     return this.httpCLient.get(
       `${this.constante.API_SERVER}/catalogue/options?code=${param}`
+    );
+  }
+
+  updateAgreements(user: string): Observable<any> {
+    return this.httpCLient.put(
+      `${this.constante.API_SERVER}/user/agreements/${user}`,
+      {
+        agreements: true,
+      }
     );
   }
 }

@@ -55,7 +55,7 @@ export class AdminServiceService {
     return this.http.post(`${this.constante.API_SERVER}/billetera/createBilleteraE`, form);
   }
 
-  getAllBilletera(): Observable<any> {
+  getAllBilleteraE(): Observable<any> {
     return this.http.get(`${this.constante.API_SERVER}/billetera`);
   }
 

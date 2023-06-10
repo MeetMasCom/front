@@ -91,6 +91,8 @@ import { WalletCompanyComponent } from './admin/components/wallet-company/wallet
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { BalanceComponent } from './finance/components/balance/balance.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -172,6 +174,7 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
         deps: [HttpClient],
       },
     }),
+    BrowserAnimationsModule, // required animations module
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -197,7 +200,9 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
         { name: 'url', validation: urlValidator },
       ],
     }),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    ToastrModule.forRoot(), // ToastrModule added
+
   ],
   providers: [
     AuthServiceService,

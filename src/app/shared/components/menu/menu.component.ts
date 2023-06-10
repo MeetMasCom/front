@@ -53,7 +53,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     if (sessionStorage.getItem('token')!) {
-      this.token = JSON.parse(sessionStorage.getItem('token')!);
+      this.token = sessionStorage.getItem('token')!;
     }
     if (sessionStorage.getItem('user')!) {
       this.user = sessionStorage.getItem('user')!;

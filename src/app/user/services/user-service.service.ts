@@ -10,7 +10,7 @@ export class UserServiceService {
   constructor(
     private httpCLient: HttpClient,
     public constante: ConstantsSystem
-  ) {}
+  ) { }
 
   getCatalog(param: string): Observable<any> {
     return this.httpCLient.get(
@@ -205,6 +205,12 @@ export class UserServiceService {
   getAllReferes(id: string): Observable<any> {
     return this.httpCLient.get(
       `${this.constante.API_SERVER}/user/refers/${id}`
+    );
+  }
+
+  getInfoUser(id: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/${id}`
     );
   }
 }

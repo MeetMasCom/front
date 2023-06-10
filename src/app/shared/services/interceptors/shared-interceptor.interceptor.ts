@@ -24,6 +24,17 @@ export class SharedInterceptorInterceptor implements HttpInterceptor {
       this.sharedLibService.setIsloading(true);
     }
     this.countRequest++;
+
+
+    const token = this.sharedLibService.getToken();
+    if (token != null) {
+      if (!req.headers.has("service")) {
+        req = req.clone({
+          headers: req.headers.set("Authorization", `Bearer ${token}`),
+        });
+      }
+    }
+
     return next.handle(req).pipe(
       finalize(() => {
         this.countRequest--;

@@ -1,6 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormlyFieldConfig } from "@ngx-formly/core";
+import { FinanceServiceService } from "../../services/finance-service.service";
+import { AdminServiceService } from "src/app/admin/services/admin-service.service";
+import { WalletI } from "src/app/shared/interfaces/wallet.interface";
+import { RechargeI } from "../../interfaces/balanceUser";
+import { lastValueFrom } from "rxjs";
+import { ModalAlertsComponent } from "src/app/shared/components/modal-alerts/modal-alerts.component";
 
 @Component({
   selector: 'app-balance',
@@ -8,14 +14,12 @@ import { FormlyFieldConfig } from "@ngx-formly/core";
   styleUrls: ['./balance.component.css'],
 })
 export class BalanceComponent {
-
-
-  balances: any[] = [{
-    code: "USD",
-    price: 2,
-    name: "USD"
-  }]
-
+  @ViewChild('successCreateM')
+  successCreateM!: ModalAlertsComponent;
+  @ViewChild('failCreateM')
+  failCreateM!: ModalAlertsComponent;
+  balances: any[] = [];
+  wallets: WalletI[] = [];
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [
@@ -23,7 +27,7 @@ export class BalanceComponent {
       fieldGroupClassName: 'd-flex flex-row ',
       fieldGroup: [
         {
-          key: 'Dirección/Correo',
+          key: 'dir',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -33,7 +37,7 @@ export class BalanceComponent {
           },
         },
         {
-          key: 'N° Documento',
+          key: 'hash',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -48,7 +52,7 @@ export class BalanceComponent {
       fieldGroupClassName: 'd-flex flex-row justify-content-between',
       fieldGroup: [
         {
-          key: 'valor',
+          key: 'amount',
           className: 'w-100 mx-2',
           type: 'input',
           props: {
@@ -61,7 +65,7 @@ export class BalanceComponent {
           }
         },
         {
-          key: 'detalle',
+          key: 'detail',
           className: 'w-100 mx-2',
           type: 'input',
           props: {
@@ -72,19 +76,71 @@ export class BalanceComponent {
         },
       ]
     },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'walletId',
+          className: 'w-100 mx-2',
+          type: 'select',
+          props: {
+            label: 'Billetera',
+            placeholder: 'Billetera',
+            required: true,
+            options: [],
+          },
+        },
+      ]
+    },
   ];
+  message = '';
 
-  constructor(
 
+  constructor(private financeServiceService: FinanceServiceService, private aminServiceService: AdminServiceService
   ) { }
 
   ngOnInit(): void {
-
+    this.getFinance();
+    this.getWalletE();
   }
 
-  onSubmit(item: any) {
-
+  getFinance() {
+    const user = sessionStorage.getItem('id')
+    this.financeServiceService.getAllByUser(user!).subscribe(res => {
+      this.balances = res.data
+    })
   }
 
+  getWalletE() {
+    this.aminServiceService.getAllBilleteraE().subscribe(res => {
+      this.wallets = res.data,
+        this.fields[2].fieldGroup![0].props!.options = this.wallets.map(f => {
+          return {
+            label: f.alias,
+            value: f._id
+          }
+        });
+    })
+  }
+
+  async onSubmit(item: RechargeI) {
+    try {
+      const response = await lastValueFrom(
+        this.financeServiceService.rechargeBalance(item)
+      );
+
+      if (response.data !== null) {
+        this.message = response.message;
+        this.successCreateM.abrir();
+      }
+    } catch (error: any) {
+      this.message = error.error.message;
+      this.failCreateM.abrir();
+    }
+  }
+
+  onRedirigir() {
+    location.reload();
+  }
 
 }

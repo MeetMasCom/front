@@ -34,3 +34,7 @@ body {
   background: #eeeeed;
   font-family: Inter;
 }
+
+.toast-success {
+  background-color: #f9a21e !important;
+}

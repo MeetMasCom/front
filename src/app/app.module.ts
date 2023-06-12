@@ -93,6 +93,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { BalanceComponent } from './finance/components/balance/balance.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -163,7 +164,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     PoliticsComponent,
     AgreementsComponent,
     WalletCompanyComponent,
-    BalanceComponent
+    BalanceComponent,
+    AdminRechargsComponent
   ],
   imports: [
     CKEditorModule,

@@ -5,4 +5,9 @@ export interface RechargeI {
     detail: string
     walletId: string
     userId: string;
+    status: number;
+    statusDetail?: string;
+    user?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }

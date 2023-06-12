@@ -38,6 +38,7 @@ import { PoliticsComponent } from './shared/components/politics/politics.compone
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
 import { BalanceComponent } from './finance/components/balance/balance.component';
+import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'administradores', component: AdminsComponent },
   { path: 'membresias', component: AdminMembershipComponent },
   { path: 'billeteraE', component: WalletCompanyComponent },
+  { path: 'recargasE', component: AdminRechargsComponent },
 
   //perfil
   { path: 'myProfile', component: MyProfileComponent },

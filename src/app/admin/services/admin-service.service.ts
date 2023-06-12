@@ -75,5 +75,9 @@ export class AdminServiceService {
     );
   }
 
+  getAllRechargs(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/balanceCompany/rechargs`);
+  }
+
 
 }

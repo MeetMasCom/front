@@ -12,7 +12,7 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="member-profile-tab" data-bs-toggle="pill" data-bs-target="#member-profile"
           type="button" role="tab" aria-controls="member-profile" aria-selected="false">
-          Recargar
+          Recargas
           <fa-icon [icon]="['fas', 'plus']"></fa-icon>
         </button>
       </li>
@@ -36,10 +36,6 @@
                   <td>{{ item.name }}</td>
                   <td>{{ item.price }}</td>
                   <td class="text-center">
-
-                    <!-- <button title="Retirar" type="button" class="btn btn-outline-danger mx-1">
-                  <fa-icon [icon]="['fas', 'money-bill-transfer']"></fa-icon>
-                </button> -->
                     <button title="Ver movimientos" type="button" data-bs-toggle="modal" data-bs-target="#transactions"
                       class="btn btn-outline-info mx-1">
                       <fa-icon [icon]="['fas', 'eye']"></fa-icon>
@@ -58,42 +54,37 @@
       </div>
       <div class="tab-pane fade show bg-white p-3" id="member-profile" role="tabpanel"
         aria-labelledby="member-profile-tab">
-        <div *ngIf="balances.length == 0">
+        <div class="mt-3 mb-3">
+          <h2>Historial recargas</h2>
+        </div>
+        <div>
           <div class="d-flex justify-content-end">
             <input type="submit" class="btn" value="Recargar" data-bs-toggle="modal" data-bs-target="#recharge"
               [ngClass]="'input-btn'" />
           </div>
         </div>
-
         <div class="table-responsive">
           <table aria-describedby="" class="table text-center">
             <thead>
               <tr>
-                <th scope="col">Moneda</th>
-                <th scope="col">Saldo</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">Hash</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha Act.</th>
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngIf="balances.length > 0">
-                <tr *ngFor="let item of balances">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.price }}</td>
-                  <td class="text-center">
-
-                    <!-- <button title="Retirar" type="button" class="btn btn-outline-danger mx-1">
-                  <fa-icon [icon]="['fas', 'money-bill-transfer']"></fa-icon>
-                </button> -->
-                    <button title="Ver movimientos" type="button" data-bs-toggle="modal" data-bs-target="#transactions"
-                      class="btn btn-outline-info mx-1">
-                      <fa-icon [icon]="['fas', 'eye']"></fa-icon>
-                    </button>
-                  </td>
+              <ng-container *ngIf="rechargs.length > 0">
+                <tr *ngFor="let item of rechargs">
+                  <td>{{ item.hash }}</td>
+                  <td>{{ item.amount | currency : "USD" }}</td>
+                  <td>{{ item.statusDetail }}</td>
+                  <td>{{ item.updatedAt | date }}</td>
                 </tr>
               </ng-container>
-              <ng-container *ngIf="balances.length === 0">
+              <ng-container *ngIf="rechargs.length === 0">
                 <tr class="text-center">
-                  <td class="text-center" colspan="4">No existe información</td>
+                  <td class="text-center" colspan="5">No existe información</td>
                 </tr>
               </ng-container>
             </tbody>

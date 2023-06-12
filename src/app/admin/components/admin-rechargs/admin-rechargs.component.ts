@@ -1,26 +1,26 @@
-import { Component, ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { FormlyFieldConfig } from "@ngx-formly/core";
-import { FinanceServiceService } from "../../services/finance-service.service";
-import { AdminServiceService } from "src/app/admin/services/admin-service.service";
-import { WalletI } from "src/app/shared/interfaces/wallet.interface";
-import { RechargeI } from "../../interfaces/balanceUser";
-import { lastValueFrom } from "rxjs";
-import { ModalAlertsComponent } from "src/app/shared/components/modal-alerts/modal-alerts.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { AdminServiceService } from '../../services/admin-service.service';
+import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+import { RechargeI } from 'src/app/finance/interfaces/balanceUser';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
 
 @Component({
-  selector: 'app-balance',
-  templateUrl: './balance.component.html',
-  styleUrls: ['./balance.component.css'],
+  selector: 'app-admin-rechargs',
+  templateUrl: './admin-rechargs.component.html',
+  styleUrls: ['./admin-rechargs.component.css'],
 })
-export class BalanceComponent {
+export class AdminRechargsComponent implements OnInit {
   @ViewChild('successCreateM')
   successCreateM!: ModalAlertsComponent;
   @ViewChild('failCreateM')
   failCreateM!: ModalAlertsComponent;
-  balances: any[] = [];
-  rechargs: RechargeI[] = [];
-  wallets: WalletI[] = [];
+
+
+  message = '';
+  data: RechargeI[] = [];
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [
@@ -35,6 +35,7 @@ export class BalanceComponent {
             label: 'Dirección/Correo',
             placeholder: 'Dirección/Correo',
             required: true,
+            disabled: true,
           },
         },
         {
@@ -45,6 +46,7 @@ export class BalanceComponent {
             label: 'N° Documento',
             placeholder: 'N° Documento',
             required: true,
+            disabled: true,
           },
         }
       ]
@@ -60,6 +62,7 @@ export class BalanceComponent {
             label: 'Valor',
             placeholder: 'Valor',
             required: true,
+            disabled: true,
           },
           validators: {
             validation: ['price']
@@ -73,6 +76,7 @@ export class BalanceComponent {
             label: 'Detalle',
             placeholder: 'Detalle',
             required: true,
+            disabled: true,
           },
         },
       ]
@@ -88,45 +92,41 @@ export class BalanceComponent {
             label: 'Billetera',
             placeholder: 'Billetera',
             required: true,
+            disabled: true,
             options: [],
           },
         },
       ]
     },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'remark',
+          className: 'w-100 mx-2',
+          type: 'textarea',
+          props: {
+            label: 'Observación',
+            placeholder: 'Observación',
+            required: false,
+            rows: 4
+          },
+        },
+      ]
+    },
   ];
-  message = '';
+  wallets: WalletI[] = [];
 
 
-  constructor(private financeServiceService: FinanceServiceService, private aminServiceService: AdminServiceService
-  ) { }
+  constructor(private adminService: AdminServiceService) { }
 
-  ngOnInit(): void {
-    this.getFinance();
+  async ngOnInit() {
     this.getWalletE();
-  }
-
-  getFinance() {
-    const user = sessionStorage.getItem('id')
-    this.financeServiceService.getAllByUser(user!).subscribe(res => {
-      this.rechargs = res.data.map((f: RechargeI) => {
-        switch (f.status) {
-          case 0:
-            f.statusDetail = 'Enviado';
-            break;
-          case 1:
-            f.statusDetail = 'Aprobado';
-            break;
-          case 2:
-            f.statusDetail = 'Rechazodo';
-            break;
-        }
-        return f;
-      })
-    })
+    await this.getRechargs();
   }
 
   getWalletE() {
-    this.aminServiceService.getAllBilleteraE().subscribe(res => {
+    this.adminService.getAllBilleteraE().subscribe(res => {
       this.wallets = res.data,
         this.fields[2].fieldGroup![0].props!.options = this.wallets.map(f => {
           return {
@@ -137,24 +137,31 @@ export class BalanceComponent {
     })
   }
 
-  async onSubmit(item: RechargeI) {
+
+  async getRechargs() {
     try {
       const response = await lastValueFrom(
-        this.financeServiceService.rechargeBalance(item)
+        this.adminService.getAllRechargs()
       );
 
-      if (response.data !== null) {
-        this.message = response.message;
-        this.successCreateM.abrir();
+      if (response.data.length > 0) {
+        this.data = response.data;
       }
     } catch (error: any) {
-      this.message = error.error.message;
-      this.failCreateM.abrir();
+      this.data = [];
     }
   }
 
   onRedirigir() {
     location.reload();
+  }
+
+  onSubmit(data: RechargeI) {
+
+  }
+
+  setRecharg(item: RechargeI) {
+    this.model = item;
   }
 
 }

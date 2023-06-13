@@ -4,7 +4,7 @@ import { FormlyFieldConfig } from "@ngx-formly/core";
 import { FinanceServiceService } from "../../services/finance-service.service";
 import { AdminServiceService } from "src/app/admin/services/admin-service.service";
 import { WalletI } from "src/app/shared/interfaces/wallet.interface";
-import { RechargeI } from "../../interfaces/balanceUser";
+import { BalanceUserI, RechargeI } from "../../interfaces/balanceUser";
 import { lastValueFrom } from "rxjs";
 import { ModalAlertsComponent } from "src/app/shared/components/modal-alerts/modal-alerts.component";
 
@@ -18,7 +18,7 @@ export class BalanceComponent {
   successCreateM!: ModalAlertsComponent;
   @ViewChild('failCreateM')
   failCreateM!: ModalAlertsComponent;
-  balances: any[] = [];
+  balances: BalanceUserI[] = [];
   rechargs: RechargeI[] = [];
   wallets: WalletI[] = [];
   form = new FormGroup({});
@@ -102,6 +102,7 @@ export class BalanceComponent {
 
   ngOnInit(): void {
     this.getFinance();
+    this.getBalance();
     this.getWalletE();
   }
 
@@ -117,11 +118,18 @@ export class BalanceComponent {
             f.statusDetail = 'Aprobado';
             break;
           case 2:
-            f.statusDetail = 'Rechazodo';
+            f.statusDetail = 'Rechazado';
             break;
         }
         return f;
       })
+    })
+  }
+
+  getBalance() {
+    const user = sessionStorage.getItem('id')
+    this.financeServiceService.getBalanceByUser(user!).subscribe(res => {
+      this.balances = res.data;
     })
   }
 

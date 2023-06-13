@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { AdminServiceService } from '../../services/admin-service.service';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
-import { RechargeI } from 'src/app/finance/interfaces/balanceUser';
+import { RechargeI, ReviewRechargeI } from 'src/app/finance/interfaces/balanceUser';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
@@ -17,7 +17,6 @@ export class AdminRechargsComponent implements OnInit {
   successCreateM!: ModalAlertsComponent;
   @ViewChild('failCreateM')
   failCreateM!: ModalAlertsComponent;
-
 
   message = '';
   data: RechargeI[] = [];
@@ -117,7 +116,6 @@ export class AdminRechargsComponent implements OnInit {
   ];
   wallets: WalletI[] = [];
 
-
   constructor(private adminService: AdminServiceService) { }
 
   async ngOnInit() {
@@ -156,8 +154,32 @@ export class AdminRechargsComponent implements OnInit {
     location.reload();
   }
 
-  onSubmit(data: RechargeI) {
+  onSubmit(data: RechargeI, status: number) {
 
+    if (status == 2) {
+      this.fields[3].fieldGroup![0].props!.required = true;
+    } else {
+      this.fields[3].fieldGroup![0].props!.required = false;
+    }
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const payload: ReviewRechargeI = {
+      id: data.id!,
+      remark: data.remark!,
+      status
+    }
+    this.adminService.reviewRecharg(payload).subscribe({
+      next: () => {
+        this.successCreateM.abrir();
+      },
+      error: () => {
+        this.failCreateM.abrir();
+      }
+    });
   }
 
   setRecharg(item: RechargeI) {

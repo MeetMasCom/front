@@ -25,6 +25,7 @@
           <table aria-describedby="" class="table text-center">
             <thead>
               <tr>
+                <th scope="col">Billetera</th>
                 <th scope="col">Moneda</th>
                 <th scope="col">Saldo</th>
                 <th scope="col">Acciones</th>
@@ -33,8 +34,9 @@
             <tbody>
               <ng-container *ngIf="balances.length > 0">
                 <tr *ngFor="let item of balances">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.price }}</td>
+                  <td>{{ item.alias }}</td>
+                  <td>{{ item.sigla }}</td>
+                  <td>{{ item.balance }}</td>
                   <td class="text-center">
                     <button title="Ver movimientos" type="button" data-bs-toggle="modal" data-bs-target="#transactions"
                       class="btn btn-outline-info mx-1">
@@ -70,6 +72,7 @@
                 <th scope="col">Hash</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Comentario</th>
                 <th scope="col">Fecha Act.</th>
               </tr>
             </thead>
@@ -79,6 +82,7 @@
                   <td>{{ item.hash }}</td>
                   <td>{{ item.amount | currency : "USD" }}</td>
                   <td>{{ item.statusDetail }}</td>
+                  <td>{{ item.remark }}</td>
                   <td>{{ item.updatedAt | date }}</td>
                 </tr>
               </ng-container>
@@ -129,29 +133,7 @@
         </div>
         <div class="modal-body">
           <div class="table-responsive">
-            <table aria-describedby="" class="table text-center">
-              <thead>
-                <tr>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Detalle</th>
-                  <th scope="col">Valor</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container *ngIf="balances.length > 0">
-                  <tr *ngFor="let item of balances">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.price }}</td>
-                  </tr>
-                </ng-container>
-                <ng-container *ngIf="balances.length === 0">
-                  <tr class="text-center">
-                    <td class="text-center" colspan="4">No existe información</td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
+
           </div>
         </div>
       </div>

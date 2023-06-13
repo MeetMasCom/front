@@ -19,6 +19,10 @@ export class FinanceServiceService {
     return this.httpCLient.get<any>(`${this.constante.API_SERVER}/balanceUser/${id}`);
   }
 
+  getBalanceByUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/balanceUser/user/${id}`);
+  }
+
   rechargeBalance(data: RechargeI): Observable<any> {
     data.userId = sessionStorage.getItem('id')!;
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/balanceUser/recharge`, data);

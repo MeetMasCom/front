@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConstantsSystem } from '../../utils/constants-system';
 import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
+import { ReviewRechargeI } from 'src/app/finance/interfaces/balanceUser';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +67,6 @@ export class AdminServiceService {
     );
   }
 
-
   deleteWallet(id: string, item: WalletI): Observable<any> {
     item.estado = !item.estado;
     return this.http.post(
@@ -79,5 +79,11 @@ export class AdminServiceService {
     return this.http.get(`${this.constante.API_SERVER}/balanceCompany/rechargs`);
   }
 
+  reviewRecharg(item: ReviewRechargeI): Observable<any> {
+    return this.http.post(
+      `${this.constante.API_SERVER}/balanceUser/review-recharge`,
+      item
+    );
+  }
 
 }

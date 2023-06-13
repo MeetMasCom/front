@@ -58,9 +58,6 @@
   <app-footer></app-footer>
 </div>
 
-
-
-
 <!-- RECARGA -->
 <div class="modal" tabindex="-1" id="recharge">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -73,8 +70,10 @@
         <form [formGroup]="form">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
           <div class="d-flex justify-content-center align-items-center ">
-            <input type="button" class="btn mx-1" value="Aprobar" [disabled]="form.invalid" [ngClass]="'input-btn'" />
-            <input type="button" class="btn btn-danger mx-1" value="Rechazar" [disabled]="form.invalid" />
+            <input type="button" (click)="onSubmit(model,1)" class="btn mx-1" value="Aprobar" [disabled]="form.invalid"
+              [ngClass]="'input-btn'" />
+            <input type="button" (click)="onSubmit(model,2)" class="btn btn-danger mx-1" value="Rechazar"
+              [disabled]="form.invalid" />
           </div>
         </form>
       </div>

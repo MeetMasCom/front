@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
@@ -39,19 +40,25 @@ export class UserDataComponent implements OnInit {
   showPass1 = false;
   showPass2 = false;
   msj = '';
+  userVerify=false;
+  id_user: string='';
+  dataU: any;
+  verify: any;
+  selectedFile: any;
 
   constructor(
     public userService: UserServiceService,
+    public profileService: ProfileServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
   async ngOnInit() {
-    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);      
     this.activatedRoute.params.subscribe((params) => {
       this.estado = params['estado'];
     });
-
+   
     await this.getStateCivil();
     await this.getPolicies();
     await this.getDrinks();
@@ -70,7 +77,20 @@ export class UserDataComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+    this.getUser();
   }
+
+
+
+  async getUser() {
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+
+    if (resp?.data.length > 0) {
+      this.dataU = resp?.data[0];      
+      this.verify=this.dataU.verify;
+      }
+    }
+  
 
   async onUpdate(form: any) {
     try {
@@ -373,5 +393,30 @@ export class UserDataComponent implements OnInit {
     } else {
       this.recoverWarningUD.abrir();
     }
+  }
+
+  verificarUser(){
+    this.showPass1 = false;
+    this.showPass2 = false;
+    this.verify;
+  }
+
+  async onRegisterDni(form:any){
+    try {
+      form.value.huser_id = this.id;
+      const resp = await lastValueFrom(
+        this.userService.updateDNI(this.id,this.selectedFile,this.token)
+      );
+      this.successPModal.abrir();
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.errMsj = error.error.message;
+      this.failPModal.abrir();
+    }
+  }
+
+
+  onFileSelected(event:any){
+    this.selectedFile = event.target.files[0];
   }
 }

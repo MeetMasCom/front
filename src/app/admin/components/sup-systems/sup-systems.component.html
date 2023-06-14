@@ -53,36 +53,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Jorge Chuto</td>
-                <td>jorge@gmail.com</td>
+              <ng-container *ngFor="let user of dataUsers">
+              <tr>              
+                <td>{{user.userName}}</td>
+                <td>{{user.email}}</td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-outline-success">
+                  <button type="button" class="btn ver" (click)="detailUser(user._id)">
                     <fa-icon [icon]="['far', 'square-check']"></fa-icon>
                     Verificar
                   </button>
                 </td>
               </tr>
-              <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td class="text-center">
-                  <button type="button" class="btn btn-outline-success">
-                    <fa-icon [icon]="['far', 'square-check']"></fa-icon>
-                    Verificar
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Larry the Bird</td>
-                <td>Larry the Bird</td>
-                <td class="text-center">
-                  <button type="button" class="btn btn-outline-success">
-                    <fa-icon [icon]="['far', 'square-check']"></fa-icon>
-                    Verificar
-                  </button>
-                </td>
-              </tr>
+            </ng-container>
+              
             </tbody>
           </table>
         </div>
@@ -107,39 +90,22 @@
               </tr>
             </thead>
             <tbody>
+              <ng-container *ngFor="let spam of dataSpam">
               <tr>
-                <td>Jorge Chuto</td>
-                <td>jorge@gmail.com</td>
-                <td>11/05/2023</td>
+                <ng-container *ngFor="let userS of spam.userSpam">
+                <td>{{userS.userName}}</td>
+                <td>{{userS.email}}</td>
+                <td>{{spam.created_at | date: 'dd/MM/yyyy'}}</td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-outline-primary">
+                  <button type="button" class="btn ver " (click)="detailSpam(spam._id)">
                     <fa-icon [icon]="['far', 'eye']"></fa-icon>
                     Ver
                   </button>
                 </td>
+              </ng-container>
               </tr>
-              <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>11/05/2023</td>
-                <td class="text-center">
-                  <button type="button" class="btn btn-outline-primary">
-                    <fa-icon [icon]="['far', 'eye']"></fa-icon>
-                    Ver
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Larry the Bird</td>
-                <td>Larry the Bird</td>
-                <td>11/05/2023</td>
-                <td class="text-center">
-                  <button type="button" class="btn btn-outline-primary">
-                    <fa-icon [icon]="['far', 'eye']"></fa-icon>
-                    Ver
-                  </button>
-                </td>
-              </tr>
+            </ng-container>
+              
             </tbody>
           </table>
         </div>
@@ -147,6 +113,30 @@
     </div>
   </div>
 </div>
+
+<!-- modal para el registro del hotel -->
+
+
 <div class="col-12 position-absolute mt-4 pt-3">
-  <app-footer></app-footer>
+ 
 </div>
+
+<app-mmodal
+  [idModal]="'userVerify'"
+  [tipo]="18"
+  [title]="'Verificar Usuario'"
+  [userV]="this.dataUserid"
+  (onVerifyUser)="verificar($event)"
+  (onDownloadDoc)="download($event)"
+  #userVerify>  
+</app-mmodal>
+
+<app-mmodal
+  [idModal]="'detalleSpam'"
+  [tipo]="19"
+  [title]="'Denuncia Spam'"
+  [detalle]="this.detailS"
+  #detalleSpam>  
+</app-mmodal>
+
+<app-footer></app-footer>

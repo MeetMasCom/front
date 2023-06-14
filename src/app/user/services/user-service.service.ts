@@ -10,7 +10,7 @@ export class UserServiceService {
   constructor(
     private httpCLient: HttpClient,
     public constante: ConstantsSystem
-  ) {}
+  ) { }
 
   getCatalog(param: string): Observable<any> {
     return this.httpCLient.get(
@@ -65,6 +65,19 @@ export class UserServiceService {
         identification: form.value.identification,
       },
       { headers: headers }
+    );
+  }
+
+  updateDNI(id: string, doc:File, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const fd = new FormData();
+    fd.append('archivo', doc);
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/updateDni/${id}`,
+      fd
     );
   }
 
@@ -186,6 +199,11 @@ export class UserServiceService {
     );
   }
 
+  getCurrentMembership(id: string): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/membsership/membership-user/${id}`);
+  }
+
+
   getAllMembership(): Observable<any> {
     return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
   }
@@ -205,6 +223,12 @@ export class UserServiceService {
   getAllReferes(id: string): Observable<any> {
     return this.httpCLient.get(
       `${this.constante.API_SERVER}/user/refers/${id}`
+    );
+  }
+
+  getInfoUser(id: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/${id}`
     );
   }
 }

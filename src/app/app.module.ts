@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   HttpClient,
@@ -19,6 +19,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConstantsSystem } from './utils/constants-system';
 import { ClipboardModule } from 'ngx-clipboard';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 //services
 import { AuthServiceService } from './auth/services/auth-service.service';
@@ -66,8 +67,6 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
@@ -85,10 +84,29 @@ import { AdminMembershipComponent } from './admin/components/admin-membership/ad
 import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 import { SponsorComponent } from './user/components/sponsor/sponsor.component';
 import { RefersComponent } from './user/components/refers/refers.component';
+import { FeesComponent } from './shared/components/fees/fees.component';
+import { PoliticsComponent } from './shared/components/politics/politics.component';
+import { AgreementsComponent } from './shared/components/agreements/agreements.component';
+import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { BalanceComponent } from './finance/components/balance/balance.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
+import { PrivacyComponent } from './profile/components/privacy/privacy.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
+export function numberValidator(control: AbstractControl): ValidationErrors | null {
+  return /^\d+(?:\.\d{1,2})?$/.test(control.value) ? null : { 'price': true };
+}
+
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+  return /^(https?|ftp):\/\/(www\.)?([^\s\/$.?#].[^\s]*)\.[^\s]{2,}$/.test(control.value) ? null : { 'url': true };
+}
+
 
 @NgModule({
   declarations: [
@@ -123,10 +141,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MenuadminComponent,
     AdminsComponent,
     BilleteraComponent,
-    BilleteraEmpresaComponent,
-    UpdateBilleteraEComponent,
     SupSalesComponent,
-    UpdateBilleteraEComponent,
     AdminsComponent,
     SupSystemsComponent,
     SupNoticesComponent,
@@ -147,8 +162,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserMembershipComponent,
     SponsorComponent,
     RefersComponent,
+    FeesComponent,
+    PoliticsComponent,
+    AgreementsComponent,
+    WalletCompanyComponent,
+    BalanceComponent,
+    AdminRechargsComponent,
+    PrivacyComponent
   ],
   imports: [
+    CKEditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -156,6 +179,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    BrowserAnimationsModule, // required animations module
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -169,6 +193,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     NgMultiSelectDropDownModule.forRoot(),
     ClipboardModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'Campo Obligatorio' },
+        { name: 'price', message: 'Valor no válido' },
+        { name: 'url', message: 'Valor no válido' },
+      ],
+      validators: [
+        { name: 'price', validation: numberValidator },
+        { name: 'url', validation: urlValidator },
+      ],
+    }),
+    FormlyBootstrapModule,
+    ToastrModule.forRoot(), // ToastrModule added
+
   ],
   providers: [
     AuthServiceService,

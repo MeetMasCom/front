@@ -3,6 +3,8 @@ import { UserServiceService } from '../../services/user-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+import * as moment from 'moment';
+moment.locale("es");
 
 @Component({
   selector: 'app-user-membership',
@@ -14,19 +16,37 @@ export class UserMembershipComponent implements OnInit {
   @ViewChild('successBuyM') successBuyM!: ModalAlertsComponent;
   @ViewChild('failBuyM') failBuyM!: ModalAlertsComponent;
 
-  membresias: any = [];
+  membresias!: any[];
   user: any;
   message = '';
+  currentMembership!: any;
   selectItem: any;
+  validDate!: string
 
   constructor(
     private userService: UserServiceService,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('data')!);
     await this.getMembership();
+    await this.getCurrentMembership();
+  }
+
+  async getCurrentMembership() {
+    try {
+      const response = await lastValueFrom(this.userService.getCurrentMembership(this.user._id));
+
+      if (response.data == null) {
+        this.currentMembership = this.membresias.find((f: any) => f.code == 'BRONCE');
+      } else {
+        this.currentMembership = response.data;
+        this.validDate = moment(response.data.createdAt).add(1, 'months').format('LLLL');
+      }
+    } catch (error: any) {
+      this.currentMembership = null;
+    }
   }
 
   async getMembership() {
@@ -34,11 +54,13 @@ export class UserMembershipComponent implements OnInit {
       const response = await lastValueFrom(this.userService.getAllMembership());
 
       if (response.data.length > 0) {
+        let membership: any = [];
         response.data.map((item: any) => {
           if (item.state) {
-            this.membresias.push(item);
+            membership.push(item);
           }
         });
+        this.membresias = membership;
       }
     } catch (error: any) {
       this.membresias = [];
@@ -46,7 +68,6 @@ export class UserMembershipComponent implements OnInit {
   }
 
   onSelectMembership(item: any) {
-    console.log('item', item);
     this.selectItem = item;
     this.infoBuyMembership.abrir();
   }
@@ -56,8 +77,6 @@ export class UserMembershipComponent implements OnInit {
       const response = await lastValueFrom(
         this.userService.buyMembership(this.user._id, this.selectItem._id)
       );
-      console.log('resp', response);
-
       if (response.data !== null) {
         this.message = response.message;
         this.successBuyM.abrir();
@@ -69,6 +88,6 @@ export class UserMembershipComponent implements OnInit {
   }
 
   onRedirigir() {
-    this.router.navigate(['/home']);
+    location.reload();
   }
 }

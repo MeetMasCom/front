@@ -205,4 +205,6 @@ export class RegisterComponent implements OnInit {
       this.generos = [];
     }
   }
+
+
 }

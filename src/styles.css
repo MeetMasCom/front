@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  overflow-x: hidden !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   cursor: pointer;
@@ -25,4 +33,8 @@
 body {
   background: #eeeeed;
   font-family: Inter;
+}
+
+.toast-success {
+  background-color: #f9a21e !important;
 }

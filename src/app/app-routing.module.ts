@@ -15,9 +15,8 @@ import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-la
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
+import {PrivacyComponent} from './profile/components/privacy/privacy.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
 import { ProfesionalsComponent } from './friends/components/profesionals/profesionals.component';
@@ -35,6 +34,12 @@ import { AdminMembershipComponent } from './admin/components/admin-membership/ad
 import { UserMembershipComponent } from './user/components/user-membership/user-membership.component';
 import { SponsorComponent } from './user/components/sponsor/sponsor.component';
 import { RefersComponent } from './user/components/refers/refers.component';
+import { FeesComponent } from './shared/components/fees/fees.component';
+import { PoliticsComponent } from './shared/components/politics/politics.component';
+import { AgreementsComponent } from './shared/components/agreements/agreements.component';
+import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
+import { BalanceComponent } from './finance/components/balance/balance.component';
+import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -64,15 +69,16 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
   { path: 'membresias', component: AdminMembershipComponent },
-
-  //billetera
-  { path: 'myBilletera', component: BilleteraComponent },
-  { path: 'billetera', component: BilleteraEmpresaComponent },
-  { path: 'updateBilletera/:id', component: UpdateBilleteraEComponent },
+  { path: 'billeteraE', component: WalletCompanyComponent },
+  { path: 'recargasE', component: AdminRechargsComponent },
 
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
+  { path: 'privacy', component: PrivacyComponent },
+
+  // finance
+  { path: 'finanzas', component: BalanceComponent },
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },
@@ -82,8 +88,6 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent },
   { path: 'languages', component: LanguagesComponent },
   { path: 'billetera', component: BilleteraComponent },
-  { path: 'billeteraE', component: BilleteraEmpresaComponent },
-  { path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent },
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },
@@ -91,6 +95,11 @@ const routes: Routes = [
   { path: 'usuarioMembresia', component: UserMembershipComponent },
   { path: 'sponsor', component: SponsorComponent },
   { path: 'referidos', component: RefersComponent },
+  { path: 'fees', component: FeesComponent },
+  { path: 'politicas', component: PoliticsComponent },
+  { path: 'acuerdo', component: AgreementsComponent },
+  { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
+
 ];
 
 @NgModule({

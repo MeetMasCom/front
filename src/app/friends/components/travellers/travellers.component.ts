@@ -49,7 +49,6 @@ export class TravellersComponent {
 
     if (resp?.data.length > 0) {
       this.AllPost = resp?.data;
-      console.log("post", this.AllPost);
     }
   }
 

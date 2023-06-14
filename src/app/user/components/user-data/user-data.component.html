@@ -20,6 +20,11 @@
             Cambiar Contraseña
           </a>
         </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link btn border-0" (click)="verificarUser()">
+            Verificar Usuario
+          </a>
+        </li>
       </ul>
     </div>
     <div
@@ -32,7 +37,7 @@
       <div class="container">
         <form
           #fmrUpdateBasic="ngForm"
-          (ngSubmit)="onUpdateBasic(fmrUpdateBasic)"
+          (ngSubmit)="onUpdateBasic(fmrUpdateBasic)" aria-disabled
         >
           <div class="col-12 containerInput mt-2 mb-3">
             <div class="form-group col-md-6 col-sm-12 p-2">
@@ -1153,6 +1158,51 @@
         </form>
       </div>
     </ng-container>
+
+
+    <ng-container *ngIf="this.verify===false">
+      <p>Ingrese el documento de identidad</p>
+      <form
+            #fmrRegisterDNI="ngForm"
+            (ngSubmit)="onRegisterDni(fmrRegisterDNI)"
+          >
+        <div class="form-group mt-4">
+          <label class="form-label">Cargar Documento / DNI</label>
+          <input
+            type="file"
+            class="form-control"
+            id="hdoc"
+            required
+            ngModel
+            name="hdoc"
+            #hdoc="ngModel"
+            (change)="onFileSelected($event)"
+            [ngClass]="'input'"
+          />
+          <div
+            *ngIf="hdoc.invalid && (hdoc.dirty || hdoc.touched)"
+            class="text-danger form-group position-absolute"
+          >
+            <small class="form-group" *ngIf="hdoc.errors?.['required']">
+              Campo requerido.
+            </small>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn"
+              value="GUARDAR"
+              [ngClass]="'input-btn'"
+            />
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    
+    
   </div>
 
   <div class="col col-md-3 col-sm-12 float-left">

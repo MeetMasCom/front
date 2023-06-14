@@ -94,6 +94,8 @@ import { BalanceComponent } from './finance/components/balance/balance.component
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
+import { PrivacyComponent } from './profile/components/privacy/privacy.component';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -165,7 +167,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     AgreementsComponent,
     WalletCompanyComponent,
     BalanceComponent,
-    AdminRechargsComponent
+    AdminRechargsComponent,
+    PrivacyComponent
   ],
   imports: [
     CKEditorModule,

@@ -9,7 +9,7 @@ import { ReviewRechargeI } from 'src/app/finance/interfaces/balanceUser';
   providedIn: 'root',
 })
 export class AdminServiceService {
-  constructor(private http: HttpClient, public constante: ConstantsSystem) { }
+  constructor(private http: HttpClient, public constante: ConstantsSystem, private httpCLient: HttpClient,) { }
 
   createMembership(form: any): Observable<any> {
     const body = {
@@ -86,4 +86,57 @@ export class AdminServiceService {
     );
   }
 
+  createAdmin(form: any, rol: any): Observable<any> {
+    console.log(" formulario servicio", form.value);
+    const body = {
+      userName: form.value.userAdmin,
+      email: form.value.emailAdmin,
+      password: form.value.passAdmin,
+      rol: rol,
+    };
+    console.log("servicio", body);
+    return this.http.post(`${this.constante.API_SERVER}/admin/adminRegister`, body);
+  }
+
+  getAdmin(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/admin/`);
+  }
+
+  getUserVerify(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/profile/userVerify`);
+  }
+
+
+  verifyUser(id: string, verify: boolean): Observable<any> {
+    const body = {
+      verify: verify
+    };
+    return this.http.post(`${this.constante.API_SERVER}/user/verifyUser/${id}`, body);
+  }
+
+  getAllSpam(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/spam/getAllSpam`);
+  }
+
+  getDetailSpam(id: string): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/spam/getDetailSpam/${id}`);
+  }
+
+
+  login(user: any): Observable<any> {
+    return this.httpCLient.post(`${this.constante.API_SERVER}/admin/login`, {
+      userName: user.userAdmin,
+      password: user.passAdmin,
+    });
+  }
+
+  validateOtp(otp: any, userName: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/admin/valid-login`,
+      {
+        userName: userName,
+        otp: otp,
+      }
+    );
+  }
 }

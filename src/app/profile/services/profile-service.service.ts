@@ -177,4 +177,33 @@ export class ProfileServiceService {
     );
   }
 
+
+   registerSpam(
+    id: string,form:any, idSpam:string
+  ): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/spam/addSpam`,
+      {
+        user_id: id,
+        user_spam:idSpam,
+        title:form.value.stitulo,
+        message: form.value.smensaje,
+      }
+    );
+  }
+
+
+  getSpamUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/spam/getByIdSpam/${id}`
+    );
+  }
+
+    
+  validateUserEmail(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/user/validate/${param}`
+    );
+  }
+
 }

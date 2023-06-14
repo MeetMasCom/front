@@ -45,6 +45,9 @@ export class MmodalComponent {
   @Input() entradas: any = [];
   @Input() notification: any = [];
   @Input() estado: any;
+  @Input() userV: any = [];
+  @Input() detalle: any = [];
+  
   faShield = faShield;
   faFile = faFile;
 
@@ -72,7 +75,7 @@ export class MmodalComponent {
   @Output() AddProfile: EventEmitter<any> = new EventEmitter();
   @Output() AddSocialN: EventEmitter<any> = new EventEmitter();
   @Output() changeRadio: EventEmitter<any> = new EventEmitter();
-
+  @Output() onVerifyUser: EventEmitter<any> = new EventEmitter();
 
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
@@ -181,7 +184,10 @@ export class MmodalComponent {
   }
 
   onRadioChange(event:any){
-    console.log("notificacion",event);
     this.changeRadio.emit(event);
+  }
+
+  VerifyUser(event:any){
+    this.onVerifyUser.emit(event);
   }
 }

@@ -2100,108 +2100,329 @@
               <div class="col-md-8">
                 <ul class="list-group list-unstyled">
                   <div *ngFor="let noti of notification">
-                  
-                    <ng-container *ngIf="noti.state===0">
-                      <li class="list-group-item noti " >
-                      <div class="container "  >
-                        <div class="row noti p-2">
-                          <div class="col-md-2">
-                            <ng-container *ngIf="noti.user[0].image !== ''">
-                              <img
-                                [src]="
-                                  'data:image/png;base64,' + noti.user[0].image
-                                "
-                                width="40vw"
-                                height="40vw"
-                                alt="..."
-                                class="img-fluid rounded-circle"
-                              />
-                            </ng-container>
-                            <ng-container *ngIf="noti.user[0].image === ''">
-                              <img
-                                [src]="'../../../../assets/user.png'"
-                                width="40vw"
-                                height="40vw"
-                                alt="..."
-                                class="img-fluid rounded-circle"
-                              />
-                            </ng-container>
-                          </div>
-                          <div class="col-md-8">
-                            El usuario {{ noti.user[0].userName }} le dio me gusta
-                            a tú publicación
-                          </div>
-                          <ng-container *ngIf="noti.state===0">
+                    <ng-container *ngIf="noti.state === 0">
+                      <li class="list-group-item noti">
+                        <div class="container">
+                          <div class="row noti p-2">
                             <div class="col-md-2">
-                              <input
-                                class="form-check-input me-1"
-                                type="radio"
-                                
-                                alt="leído"
-                                aria-label="..."
-                                (change)="onRadioChange(noti._id)"
-                              />
+                              <ng-container *ngIf="noti.user[0].image !== ''">
+                                <img
+                                  [src]="
+                                    'data:image/png;base64,' +
+                                    noti.user[0].image
+                                  "
+                                  width="40vw"
+                                  height="40vw"
+                                  alt="..."
+                                  class="img-fluid rounded-circle"
+                                />
+                              </ng-container>
+                              <ng-container *ngIf="noti.user[0].image === ''">
+                                <img
+                                  [src]="'../../../../assets/user.png'"
+                                  width="40vw"
+                                  height="40vw"
+                                  alt="..."
+                                  class="img-fluid rounded-circle"
+                                />
+                              </ng-container>
                             </div>
-                          </ng-container>                        
+                            <div class="col-md-8">
+                              El usuario {{ noti.user[0].userName }} le dio me
+                              gusta a tú publicación
+                            </div>
+                            <ng-container *ngIf="noti.state === 0">
+                              <div class="col-md-2">
+                                <input
+                                  class="form-check-input me-1"
+                                  type="radio"
+                                  alt="leído"
+                                  aria-label="..."
+                                  (change)="onRadioChange(noti._id)"
+                                />
+                              </div>
+                            </ng-container>
+                          </div>
                         </div>
-                      </div>
-                    </li>
+                      </li>
                     </ng-container>
-                    <ng-container *ngIf="noti.state===1">
+                    <ng-container *ngIf="noti.state === 1">
                       <li>
-                      <div class="container"  >
-                        <div class="row rounded-pill p-2">
-                          <div class="col-md-2">
-                            <ng-container *ngIf="noti.user[0].image !== ''">
-                              <img
-                                [src]="
-                                  'data:image/png;base64,' + noti.user[0].image
-                                "
-                                width="40vw"
-                                height="40vw"
-                                alt="..."
-                                class="img-fluid rounded-circle"
-                              />
-                            </ng-container>
-                            <ng-container *ngIf="noti.user[0].image === ''">
-                              <img
-                                [src]="'../../../../assets/user.png'"
-                                width="40vw"
-                                height="40vw"
-                                alt="..."
-                                class="img-fluid rounded-circle"
-                              />
-                            </ng-container>
-                          </div>
-                          <div class="col-md-8">
-                            El usuario {{ noti.user[0].userName }} le dio me gusta
-                            a tú publicación
-                          </div>
-                          <ng-container *ngIf="noti.state===0">
+                        <div class="container">
+                          <div class="row rounded-pill p-2">
                             <div class="col-md-2">
-                              <input
-                                class="form-check-input me-1"
-                                type="radio"
-                                
-                                alt="leído"
-                                aria-label="..."
-                                (change)="onRadioChange(noti._id)"
-                              />
+                              <ng-container *ngIf="noti.user[0].image !== ''">
+                                <img
+                                  [src]="
+                                    'data:image/png;base64,' +
+                                    noti.user[0].image
+                                  "
+                                  width="40vw"
+                                  height="40vw"
+                                  alt="..."
+                                  class="img-fluid rounded-circle"
+                                />
+                              </ng-container>
+                              <ng-container *ngIf="noti.user[0].image === ''">
+                                <img
+                                  [src]="'../../../../assets/user.png'"
+                                  width="40vw"
+                                  height="40vw"
+                                  alt="..."
+                                  class="img-fluid rounded-circle"
+                                />
+                              </ng-container>
                             </div>
-                          </ng-container>                        
+                            <div class="col-md-8">
+                              El usuario {{ noti.user[0].userName }} le dio me
+                              gusta a tú publicación
+                            </div>
+                            <ng-container *ngIf="noti.state === 0">
+                              <div class="col-md-2">
+                                <input
+                                  class="form-check-input me-1"
+                                  type="radio"
+                                  alt="leído"
+                                  aria-label="..."
+                                  (change)="onRadioChange(noti._id)"
+                                />
+                              </div>
+                            </ng-container>
+                          </div>
                         </div>
-                      </div>
-                    </li>
+                      </li>
                     </ng-container>
-                    
-                  
-                </div>
+                  </div>
                 </ul>
 
                 <div class="col-md-2"></div>
               </div>
             </div>
           </div>
+        </ng-container>
+
+        <!--Verificar usuario-->
+        <ng-container *ngIf="tipo === 18">
+          <ng-container *ngIf="userV.length !== null">
+            <div class="row p-4">
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-5 form-group">
+                    <label class="form-label mb-3">Usuario</label>
+                  </div>
+                  <div class="col-md-7 form-group">
+                    <label class="form-label mb-3">{{ userV.userName }}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 form-group">
+                    <label class="form-label mb-3">Nombres:</label>
+                  </div>
+                  <div class="col-md-7 form-group">
+                    <label class="form-label mb-3">{{ userV.firstname }}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 form-group">
+                    <label class="form-label mb-3">Apellidos:</label>
+                  </div>
+                  <div class="col-md-7 form-group">
+                    <label class="form-label mb-3">{{ userV.lastname }}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 form-group">
+                    <label class="form-label mb-3">Correo</label>
+                  </div>
+                  <div class="col-md-7 form-group">
+                    <label class="form-label mb-3">{{ userV.email }}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 form-group">
+                    <label class="form-label mb-3">Documento</label>
+                  </div>
+                  <div class="col-md-7 form-group">
+                    <button (click)="onDownload(userV.dni)">
+                      <fa-icon
+                        class="fa-light fa-file-pdf fa-2xl"
+                        [icon]="faFile"
+                      ></fa-icon>
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group text-center">
+                      <input
+                        type="submit"
+                        class="btn"
+                        (click)="VerifyUser(userV._id)"
+                        value="VERIFICAR"
+                        [ngClass]="'input-btn'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+               
+                
+              </div>
+             
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--Detalle de la denuncia Spam-->
+        <ng-container *ngIf="tipo === 19">
+          <ng-container *ngIf="detalle?.length !== null">
+            <ng-container *ngFor="let spam of detalle">
+              <div class="row">
+                <div class="col p-3">
+                  <div
+                    class="d-flex justify-content-center align-items-center enviar"
+                  >
+                    <h6 class="mt-2">Usuario Denunciante</h6>
+                  </div>
+                  <ng-container *ngFor="let userD of spam.userD">
+                    <div class="row p-2">
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <ng-container *ngIf="userD.image !== ''">
+                          <img
+                            [src]="'data:image/jpeg;base64,' + userD.image"
+                            width="100px"
+                            height="100px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                        <ng-container *ngIf="userD.image === ''">
+                          <img
+                            [src]="'../../../../assets/user.png'"
+                            width="100px"
+                            height="100px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Usuario : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userD.userName }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Nombres : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userD.firstname }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Apellidos : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userD.lastname }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Email : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userD.email }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="col p-3">
+                  <div
+                    class="d-flex justify-content-center align-items-center enviar"
+                  >
+                    <h6 class="mt-2">Usuario Denunciado</h6>
+                  </div>
+                  <ng-container *ngFor="let userS of spam.userSpam">
+                    <div class="row p-2">
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <ng-container *ngIf="userS.image !== ''">
+                          <img
+                            [src]="'data:image/jpeg;base64,' + userS.image"
+                            width="100px"
+                            height="100px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                        <ng-container *ngIf="userS.image === ''">
+                          <img
+                            [src]="'../../../../assets/user.png'"
+                            width="100px"
+                            height="100px"
+                            alt="..."
+                            class="rounded-circle"
+                          />
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Usuario : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userS.userName }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Nombres : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userS.firstname }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Apellidos : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userS.lastname }}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label class="mb-3">Email : </label>
+                        </div>
+                        <div class="col-md-7">
+                          <label class="mb-3">{{ userS.email }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div><hr>
+              <div class="row p-4">
+                <label class="mb-3"> Motivo: {{ spam.title }}<br /> </label>
+                <label class="mb-3"> Mensaje: {{ spam.message }}<br /> </label>
+              </div>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </div>
     </div>

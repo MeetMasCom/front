@@ -306,6 +306,7 @@ export class ModalAlertsComponent {
   public Editor = ClassicEditor;
 
   abrir() {
+    console.log("llega",this.descripcion);
     this.modalButton.nativeElement.click();
   }
 

@@ -51,7 +51,7 @@ export class OtpComponent implements OnInit {
           sessionStorage.setItem('data', JSON.stringify(response.data.user));
           sessionStorage.setItem('user', response.data.user.userName);
           sessionStorage.setItem('id', response.data.user._id);
-          sessionStorage.setItem('token', JSON.stringify(response.data.token));
+          sessionStorage.setItem('token', response.data.token);
 
           this.message = response.message;
           this.exitoModal.abrir();
@@ -67,7 +67,7 @@ export class OtpComponent implements OnInit {
           sessionStorage.setItem('user', response.data.user.userName);
           sessionStorage.setItem('id', response.data.user._id);
           sessionStorage.setItem('rol', response.data.rol);
-          sessionStorage.setItem('token', JSON.stringify(response.data.token));
+          sessionStorage.setItem('token', response.data.token);
 
           this.message = response.message;
           this.exitoModal.abrir();

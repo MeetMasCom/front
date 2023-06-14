@@ -186,6 +186,11 @@ export class UserServiceService {
     );
   }
 
+  getCurrentMembership(id: string): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/membsership/membership-user/${id}`);
+  }
+
+
   getAllMembership(): Observable<any> {
     return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
   }

@@ -27,4 +27,8 @@ export class FinanceServiceService {
     data.userId = sessionStorage.getItem('id')!;
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/balanceUser/recharge`, data);
   }
+
+  getDetail(userId: string, walletId: string): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/recordsTransactions?userId=${userId}&walletId=${walletId}`);
+  }
 }

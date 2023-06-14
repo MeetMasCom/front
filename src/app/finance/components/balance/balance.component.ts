@@ -4,7 +4,7 @@ import { FormlyFieldConfig } from "@ngx-formly/core";
 import { FinanceServiceService } from "../../services/finance-service.service";
 import { AdminServiceService } from "src/app/admin/services/admin-service.service";
 import { WalletI } from "src/app/shared/interfaces/wallet.interface";
-import { BalanceUserI, RechargeI } from "../../interfaces/balanceUser";
+import { BalanceUserI, RechargeI, RecordsI } from "../../interfaces/balanceUser";
 import { lastValueFrom } from "rxjs";
 import { ModalAlertsComponent } from "src/app/shared/components/modal-alerts/modal-alerts.component";
 
@@ -95,7 +95,7 @@ export class BalanceComponent {
     },
   ];
   message = '';
-
+  records: RecordsI[] = []
 
   constructor(private financeServiceService: FinanceServiceService, private aminServiceService: AdminServiceService
   ) { }
@@ -163,6 +163,22 @@ export class BalanceComponent {
 
   onRedirigir() {
     location.reload();
+  }
+
+  async getDetail(data: BalanceUserI) {
+    try {
+      this.records = [];
+      const user = sessionStorage.getItem('id')
+      const response = await lastValueFrom(
+        this.financeServiceService.getDetail(user!, data.walletId)
+      );
+
+      if (response.data !== null) {
+        this.records = response.data;
+      }
+    } catch (error: any) {
+      this.records = [];
+    }
   }
 
 }

@@ -1,38 +1,44 @@
 <app-menu></app-menu>
 <div class="w-100 d-flex mb-5 flex-column align-items-center justify-content-center">
-  <div class="col-md-12 col-sm-12 card vacio">
-    <div class="card-body text-justify">
-      <h5 *ngIf="user.type === 0">Su membresía actual es BRONCE</h5>
-      <h5 *ngIf="user.type === 1">Su membresía actual es PLATA</h5>
-      <h5 *ngIf="user.type === 2">Su membresía actual es ORO</h5>
-      <h5 *ngIf="user.type === 3">Su membresía actual es DIAMANTE</h5>
+  <div *ngIf="currentMembership" class="col-md-12 col-sm-12 card vacio">
+    <div class="card-body text-center">
+      <h5>Su membresía actual es {{currentMembership.name}}</h5>
+      <span *ngIf="validDate">Válido hasta el: <b> {{validDate}} </b></span>
     </div>
   </div>
-  <div *ngIf="membresias.length > 0">
-    <div class="w-100 d-flex flex-wrap justify-content-center ">
-      <div *ngFor="let item of membresias" class="card p-0 mx-2 d-flex justify-content-center">
-        <div class="card-header text-center text-white p-2 m-0 bg-warning">
-          <h3>{{ item.name | uppercase }}</h3>
-        </div>
-        <div class="card-body">
-          <div [innerHTML]="item.description"></div>
-          <div class="text-center mt-1 fs-4 fw-bold w-100 text-warning">{{ item.price | currency }}</div>
-        </div>
-        <div class="card-footer d-flex aling-items-center justify-content-center">
-          <button class="btn btn-warning text-white" type="button" (click)="onSelectMembership(item)">
-            COMPRAR
-          </button>
+
+  <ng-container *ngIf="membresias">
+    <div *ngIf="membresias.length > 0">
+      <div class="w-100 d-flex flex-wrap justify-content-center ">
+        <div *ngFor="let item of membresias" class="card p-0 mx-2 d-flex justify-content-center">
+          <div class="card-header text-center text-white p-2 m-0 bg-warning">
+            <h3>{{ item.name | uppercase }}</h3>
+          </div>
+          <div class="card-body">
+            <div [innerHTML]="item.description"></div>
+            <div *ngIf="item.code != 'BRONCE'" class="text-center mt-1 fs-4 fw-bold w-100 text-warning">{{ item.price |
+              currency }}</div>
+            <div *ngIf="item.code == 'BRONCE'" class="text-center mt-1 fs-4 fw-bold w-100 text-warning">{{'0' |
+              currency}}</div>
+          </div>
+          <div *ngIf="item.code != 'BRONCE'" class="card-footer d-flex aling-items-center justify-content-center">
+            <button class="btn btn-warning text-white" type="button" (click)="onSelectMembership(item)">
+              COMPRAR
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div *ngIf="membresias.length === 0">
-    <div class="col-md-12 col-sm-12 card vacio">
-      <div class="card-body text-center">
-        <h4>No hay membresías disponibles</h4>
+    <div *ngIf="membresias.length === 0">
+      <div class="col-md-12 col-sm-12 card vacio">
+        <div class="card-body text-center">
+          <h4>No hay membresías disponibles</h4>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+  <br><br>
+
 </div>
 
 <div class="w-100 position-fixed bottom-0 ">

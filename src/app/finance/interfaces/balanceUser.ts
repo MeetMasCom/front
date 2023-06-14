@@ -30,3 +30,17 @@ export interface BalanceUserI {
     createdAt?: string;
     updatedAt?: string;
 }
+
+export interface RecordsI {
+    _id: string;
+    walletId: string;
+    userId: string;
+    detail: string;
+    typeTransaction: string;
+    referValue: number;
+    companyValue: number;
+    value: number;
+    status: boolean;
+    createdAt: string;
+    updatedAt: string;
+}

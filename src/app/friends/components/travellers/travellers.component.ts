@@ -22,6 +22,7 @@ export class TravellersComponent {
   Post: any;
   imageBase64: string = '';
   profile: any;
+  user: string='';
   constructor(
     private friendsService: FriendsServiceService,
     private profileService: ProfileServiceService,
@@ -32,6 +33,9 @@ export class TravellersComponent {
 
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
+    if (sessionStorage.getItem('user')!) {
+      this.user = sessionStorage.getItem('user')!;
+    }
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
       this.activatedRoute.params.subscribe(async (params) => {        
@@ -71,11 +75,14 @@ export class TravellersComponent {
     this.postdetailModal.abrir();
   }
 
-  verPerfil(user:String){
+  verPerfil(user:String){    
     const param1 = user;
     const param2 = this.profile;
-    this.router.navigate(['/userProfile'], {
-      queryParams: { param1, param2 }
-    });
+    // if(this.id===user){
+    //   this.router.navigate(['/',this.user]);
+    // }
+      this.router.navigate(['/userProfile'], {
+        queryParams: { param1, param2 }
+      })
   }
 }

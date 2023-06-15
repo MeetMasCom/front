@@ -82,8 +82,8 @@ export class MmodalComponent {
   @Output() onUpdateAdmin: EventEmitter<any> = new EventEmitter();
   @Output() onDeclineAds: EventEmitter<any> = new EventEmitter();
   @Output() onValidateAds: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateProfile: EventEmitter<any> = new EventEmitter();
   
-
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -217,5 +217,10 @@ export class MmodalComponent {
 
   ValidateAds(event:any){
   this.onValidateAds.emit(event);
+  }
+
+
+  updateProfile(event:any){
+      this.onUpdateProfile.emit(event);
   }
 }

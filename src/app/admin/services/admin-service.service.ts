@@ -199,4 +199,36 @@ updateAdmin(id:string,form:any): Observable<any> {
   return this.http.post(`${this.constante.API_SERVER}/admin/updateAdmin/${id}`,body);
 }
 
+getAllProfiles(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/profile/getAllProfile`);
+}
+
+getProfileById(id:string): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/profile/profileById/${id}`);
+}
+
+registerProfile(form:any): Observable<any> {
+  const body = {
+   name: form.value.pname,
+   description: form.value.pdescription,
+ }; 
+ return this.http.post(`${this.constante.API_SERVER}/profile/createProfile`, body)
+}
+
+updateStateProfile(id:string,state:any): Observable<any> {
+  const body = {
+   state: state,
+ }; 
+ console.log(body);
+ return this.http.post(`${this.constante.API_SERVER}/profile/updateStateProfile/${id}`, body)
+}
+
+updateProfile(id:string,form:any): Observable<any> {
+  const body = {
+   name: form.value.pname,
+   description: form.value.pdescription,
+ }; 
+ return this.http.post(`${this.constante.API_SERVER}/profile/updateProfile/${id}`, body)
+}
+
 }

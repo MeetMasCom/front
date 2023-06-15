@@ -39,6 +39,7 @@ import { RefersComponent } from './user/components/refers/refers.component';
 import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
+import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
   { path: 'membresias', component: AdminMembershipComponent },
+  { path: 'profiles', component: ProfilesComponent },
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },

@@ -2057,9 +2057,15 @@
                       <option value="" disabled>
                         --Seleccione un perfil--
                       </option>
-                      <option *ngFor="let p of profile" [value]="p._id">
-                        {{ p.name }}
-                      </option>
+                      
+                        <ng-container *ngFor="let p of profile">
+                          <ng-container *ngIf="(p.name !== 'Personal')&&(p.state===0) ">
+                          <option  [value]="p._id">
+                            {{ p.name }}
+                          </option>
+                        </ng-container>
+                      </ng-container>
+                     
                     </select>
                     <div
                       *ngIf="
@@ -3117,6 +3123,91 @@
                 </div>
               </div>
             </form>
+          </ng-container>
+        </ng-container>
+
+        <!--Modificar la informacion del perfil-->
+        <ng-container *ngIf="tipo === 23">
+          <ng-container *ngIf="detalle?.length !== null">
+            <form
+            #frmUpdateProfile="ngForm"
+            class="form form-horizontal"
+            (ngSubmit)="updateProfile(frmUpdateProfile)"
+          >
+            <div class="form-body">
+              <div class="row">
+                <div class="col-md-4 mt-4">
+                  <label> Nombre: </label>
+                </div>
+                <div class="col-md-8 form-group mt-4">
+                  <div class="position-relative has-icon-left">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre"
+                      id="pname"
+                      name="pname"
+                      required
+                      ngModel="{{ detalle.name }}"
+                      #pname="ngModel"
+                      [ngClass]="'input'"
+                    />
+                    <div
+                      *ngIf="pname.invalid && (pname.dirty || pname.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="pname.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-4">
+                  <label> Descripcion: </label>
+                </div>
+                <div class="col-md-8 form-group mt-4">
+                  <div class="position-relative has-icon-left">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Descripción"
+                      id="pdescription"
+                      name="pdescription"
+                      required
+                      ngModel="{{ detalle.description }}"
+                      #pdescription="ngModel"
+                      [ngClass]="'input'"
+                    ></textarea>
+                    <div
+                      *ngIf="pdescription.invalid && (pdescription.dirty || pdescription.touched)"
+                      class="text-danger form-group position-absolute"
+                    >
+                      <small
+                        class="form-group"
+                        *ngIf="pdescription.errors?.['required']"
+                      >
+                        Campo requerido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+               
+                <br /><br />
+                <div class="col-12 d-flex justify-content-end p-4">
+                  <input
+                    class="btn float-right nuevo"
+                    type="submit"
+                    value="Registrar"
+                    [ngClass]="'input-btn'"
+                    [disabled]="!frmUpdateProfile['valid']"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
           </ng-container>
         </ng-container>
       </div>

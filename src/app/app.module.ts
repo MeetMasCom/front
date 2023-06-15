@@ -91,6 +91,7 @@ import { PoliticsComponent } from './shared/components/politics/politics.compone
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 import { PrivacyComponent } from './profile/components/privacy/privacy.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -157,7 +158,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PoliticsComponent,
     AgreementsComponent,
     PrivacyComponent,
-    NotificationComponent
+    NotificationComponent,
+    ProfilesComponent
   ],
   imports: [
     CKEditorModule,

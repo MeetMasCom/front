@@ -13,7 +13,9 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 export class NoticesComponent implements OnInit {
   @ViewChild('successNotices') successNotices!: ModalAlertsComponent;
   @ViewChild('failNotices') failNotices!: ModalAlertsComponent;
-
+  @ViewChild('failBilletera') failBilletera!: ModalAlertsComponent;
+  @ViewChild('failSaldo') failSaldo!: ModalAlertsComponent;
+  
   //listas
   ageList: any = [];
   profsList: any = [];
@@ -190,6 +192,7 @@ export class NoticesComponent implements OnInit {
   }
 
   async onRegister(form: any) {
+
     const auxAge: any = [];
     const auxJob: any = [];
     const auxPais: any = [];
@@ -249,30 +252,46 @@ export class NoticesComponent implements OnInit {
     };
 
     try {
-      if (!this.auxItem) {
-        const response = await lastValueFrom(
-          this.userService.createAds(form, this.user_id, this.imgAb64, listas)
-        );
 
-        if (response.data !== null) {
-          this.successNotices.abrir();
-        }
+      const response = await lastValueFrom(
+        this.userService.getBilleteras( this.user_id)
+      );
+  
+      console.log(response.data);
+      if(response.data!.length>0){
+  
+  ///////////////////
+  if (!this.auxItem) {
+    const response = await lastValueFrom(
+      this.userService.createAds(form, this.user_id, this.imgAb64, listas)
+    );
+  
+    if (response.data !== null) {
+      this.successNotices.abrir();
+    }
+  }
+  
+  if (this.auxItem) {
+    if (!this.imgAb64) {
+      this.imgAb64 = this.item.image;
+    }
+  
+    const response = await lastValueFrom(
+      this.userService.updateAds(form, this.imgAb64, listas, this.item._id)
+    );
+  
+    if (response.data !== null) {
+      sessionStorage.removeItem('item');
+      this.successNotices.abrir();
+    }
+  }
+  //////////////////
+  
+      }else{
+        this.failBilletera.abrir();
       }
-
-      if (this.auxItem) {
-        if (!this.imgAb64) {
-          this.imgAb64 = this.item.image;
-        }
-
-        const response = await lastValueFrom(
-          this.userService.updateAds(form, this.imgAb64, listas, this.item._id)
-        );
-
-        if (response.data !== null) {
-          sessionStorage.removeItem('item');
-          this.successNotices.abrir();
-        }
-      }
+  
+      
     } catch (error: any) {
       console.log(error.error);
       this.failNotices.abrir();

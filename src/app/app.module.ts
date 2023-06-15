@@ -90,6 +90,7 @@ import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 import { PrivacyComponent } from './profile/components/privacy/privacy.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -155,7 +156,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeesComponent,
     PoliticsComponent,
     AgreementsComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    NotificationComponent
   ],
   imports: [
     CKEditorModule,

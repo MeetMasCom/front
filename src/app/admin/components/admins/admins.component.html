@@ -66,11 +66,19 @@
                 </ng-container>
               </td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-outline-danger mx-2">
-                    <fa-icon [icon]="['fas', 'ban']"></fa-icon>
-                    Deshabilitar
-                  </button>
-                  <button type="button" class="btn btn-outline-primary">
+                  <ng-container *ngIf="admin.state===0">
+                    <button type="button" class="btn btn-outline-danger mx-2" (click)="disable(admin._id)">
+                      <fa-icon [icon]="['fas', 'ban']"></fa-icon>
+                      Deshabilitar
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="admin.state===1">
+                    <button type="button" class="btn btn-outline-success mx-2" (click)="enable(admin._id)">
+                      <fa-icon [icon]="['fas', 'ban']"></fa-icon>
+                      Habilitar
+                    </button>
+                  </ng-container >
+                  <button type="button" class="btn btn-outline-primary" (click)="detailAdmin(admin._id)">
                     <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                     Actualizar
                   </button>
@@ -198,3 +206,12 @@
 <div class="col-12 position-absolute mt-4 pt-3">
   <app-footer></app-footer>
 </div>
+
+<app-mmodal
+  [idModal]="'updateAdministrador'"
+  [tipo]="22"
+  [title]="'Actualizar datos'"
+  [detalle]="this.adminDetail"
+  (onUpdateAdmin)="updateAdmin($event)"
+  #updateAdministrador>  
+</app-mmodal>

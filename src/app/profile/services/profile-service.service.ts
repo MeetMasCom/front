@@ -153,6 +153,7 @@ export class ProfileServiceService {
 
 
   addLike(user_id:string,userlike:string,val:boolean) {
+    console.log("servicio");
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/like/addLike`,
       {
@@ -169,7 +170,13 @@ export class ProfileServiceService {
     );
   }
 
-  updateNotification(id: string): Observable<any> {
+  getNotificationUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/notification/getNotificationByIdUser/${id}`
+    );
+  }
+
+  updateNotificationLike(id: string): Observable<any> {
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/like/updateLike/${id}`,{
         state:1
@@ -177,6 +184,13 @@ export class ProfileServiceService {
     );
   }
 
+  updateNotification(id: string): Observable<any> {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/notification/updateNotification/${id}`,{
+        state:1
+      }
+    );
+  }
 
    registerSpam(
     id: string,form:any, idSpam:string

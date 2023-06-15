@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProfileServiceService } from '../../services/profile-service.service';
+import { AdminServiceService } from '../../../admin/services/admin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConstantsSystem } from 'src/app/utils/constants-system';
 import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +29,7 @@ gender:string='';
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem,
+    private adminService: AdminServiceService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +57,6 @@ gender:string='';
       const resp1 = await lastValueFrom(this.profileService.getUserGender(this.gender));
       if (resp1?.data.length > 0) {
         this.userGender = resp1.data;
-       console.log("usuarios por genero",this.userGender);
         }
         const resp2 = await lastValueFrom(this.profileService.getUserOnline(this.gender));
       if (resp2?.data.length > 0) {
@@ -88,19 +89,23 @@ gender:string='';
     async follower(idSeguidor:string){
       const resp = await lastValueFrom(this.profileService.addFollowers(this.id,idSeguidor));
       if (resp?.data.length > 0) {
-        console.log("usuario agregado a seguidos");
+        //console.log("usuario agregado a seguidos");
         }
 
         const resp1 = await lastValueFrom(this.profileService.addFollowing(idSeguidor,this.id));
       if (resp1?.data.length > 0) {
-        console.log("usuario agregado a seguidores");
+       // console.log("usuario agregado a seguidores");
         }
     }
 
     async addLike(idUserLike:string,val:boolean){
       const resp = await lastValueFrom(this.profileService.addLike(this.id,idUserLike,val));
-      if (resp?.data.length > 0) {
-        console.log("usuario agregado a seguidos");
+      if (resp !==null) {
+        const message='Le dio me gusta a tú publicación';
+        const resp1 = await lastValueFrom(this.adminService.addNotification(this.id,idUserLike,message));
+      if (resp1 !== null) {   
+        location.reload();
+      }
         }
 
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
+import { AdminServiceService } from '../../../admin/services/admin-service.service';
 import { lastValueFrom } from 'rxjs';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
@@ -60,13 +61,14 @@ export class NoticesComponent implements OnInit {
   auxLink1 = '';
   auxLink2 = '';
   auxPackage = '';
+  allPackage: any;
 
-  constructor(private userService: UserServiceService) {}
+  constructor(private userService: UserServiceService, private adminService: AdminServiceService) {}
 
   async ngOnInit() {
     this.user_id = sessionStorage.getItem('id')!;
     this.item = JSON.parse(sessionStorage.getItem('item')!);
-
+    this.getPackageAds();
     await this.getJobs();
     await this.onGetCountry();
     await this.getGenero();
@@ -199,7 +201,7 @@ export class NoticesComponent implements OnInit {
     const auxType: any = [];
 
     this.selectedAge.map((x: any) => {
-      auxAge.push(x.item_id);
+      auxAge.push(x);
     });
 
     this.selectedProfs.map((x: any) => {
@@ -211,7 +213,7 @@ export class NoticesComponent implements OnInit {
     });
 
     this.selectedLanguage.map((x: any) => {
-      auxIdioma.push(x.item_id);
+      auxIdioma.push(x);
     });
 
     this.selectedHobbies.map((x: any) => {
@@ -553,4 +555,14 @@ export class NoticesComponent implements OnInit {
     this.selectedDependency.filter((element: any) => element !== item.item_id);
   }
   //#endregion
+
+
+  async getPackageAds(){
+    const resp = await lastValueFrom(this.adminService.getPackageActive());
+     if (resp !== null) {
+      this.allPackage = resp.data;
+     } else {
+       console.log('no se encontraron datos');
+     }
+  }
 }

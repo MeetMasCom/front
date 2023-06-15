@@ -81,7 +81,7 @@ const routes: Routes = [
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },
-  { path: 'travellers/:id', component: TravellersComponent },
+  { path: 'travel/:id', component: TravellersComponent },
   { path: 'profesionals', component: ProfesionalsComponent },
   { path: 'businessmen', component: BusinessmenComponent },
   { path: 'students', component: StudentsComponent },

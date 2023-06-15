@@ -19,6 +19,11 @@
   height: 30px !important;
 }
 
+.noti{
+  background-color: #f9a21e;
+  color: #ffffff;
+}
+
 @media only screen and (min-width: 1001px) {
   .icon {
     padding-inline-start: 4%;

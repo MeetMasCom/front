@@ -2093,7 +2093,7 @@
         </ng-container>
 
         <!--Notificaciones de likes-->
-        <ng-container *ngIf="tipo === 17">
+        <!-- <ng-container *ngIf="tipo === 17">
           <div class="form-body">
             <div class="row">
               <div class="col-md-2"></div>
@@ -2199,14 +2199,13 @@
               </div>
             </div>
           </div>
-        </ng-container>
+        </ng-container> -->
 
         <!--Verificar usuario-->
         <ng-container *ngIf="tipo === 18">
           <ng-container *ngIf="userV.length !== null">
             <div class="row p-4">
-              <div class="col-md-3">
-              </div>
+              <div class="col-md-3"></div>
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-5 form-group">
@@ -2266,13 +2265,7 @@
                     </div>
                   </div>
                 </div>
-                
-                
-                
-               
-                
               </div>
-             
             </div>
           </ng-container>
         </ng-container>
@@ -2416,12 +2409,714 @@
                     </div>
                   </ng-container>
                 </div>
-              </div><hr>
+              </div>
+              <hr />
               <div class="row p-4">
                 <label class="mb-3"> Motivo: {{ spam.title }}<br /> </label>
                 <label class="mb-3"> Mensaje: {{ spam.message }}<br /> </label>
               </div>
             </ng-container>
+
+            <!--Formulario para registrar el mensaje-->
+
+            <div class="row p-4">
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree1"
+                      aria-expanded="false"
+                      aria-controls="collapseThree1"
+                    >
+                      Validar Denuncia
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseThree1"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <form
+                        #fmrRegisterMessage="ngForm"
+                        class="form form-horizontal"
+                        (ngSubmit)="registerMessage(fmrRegisterMessage)"
+                      >
+                        <div class="form-body">
+                          <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label> Mensaje: </label>
+                            </div>
+                            <div class="col-md-12 form-group p-2">
+                              <div class="position-relative has-icon-left">
+                                <textarea
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Mensaje"
+                                  id="mensajeSpam"
+                                  name="mensajeSpam"
+                                  required
+                                  ngModel
+                                  #mensajeSpam="ngModel"
+                                ></textarea>
+
+                                <div
+                                  *ngIf="
+                                    mensajeSpam.invalid &&
+                                    (mensajeSpam.dirty || mensajeSpam.touched)
+                                  "
+                                  class="text-danger form-group position-absolute"
+                                >
+                                  <small
+                                    class="form-group"
+                                    *ngIf="mensajeSpam.errors?.['required']"
+                                  >
+                                    Campo requerido.
+                                  </small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                              <input
+                                class="btn enviar"
+                                type="submit"
+                                value="Enviar"
+                                [disabled]="!fmrRegisterMessage['valid']"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--Detalle del anuncio-->
+        <ng-container *ngIf="tipo === 20">
+          <ng-container *ngIf="detalleA?.length !== null">
+            <ng-container *ngFor="let ads of detalleA">
+              <div class="card">
+                <div
+                  class="d-flex justify-content-center align-items-center enviar rounded-top"
+                >
+                  <h6 class="mt-1">Datos del usuario</h6>
+                </div>
+                <div class="row p-3">
+                  <div class="col-md-3">
+                    <label class="mb-3">Usuario : </label>
+                  </div>
+                  <div class="col">
+                    <label class="mb-3">{{ ads.userName }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="mb-3">Email : </label>
+                  </div>
+                  <div class="col">
+                    <label class="mb-3">{{ ads.email }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="mb-3">Nombres : </label>
+                  </div>
+                  <div class="col">
+                    <label class="mb-3">{{ ads.firtsname }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="mb-3">Apellidos : </label>
+                  </div>
+                  <div class="col">
+                    <label class="mb-3">{{ ads.lastname }}</label>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="card">
+                <div
+                  class="d-flex justify-content-center align-items-center enviar rounded-top"
+                >
+                  <h6 class="mt-1">Paquete de anuncios</h6>
+                </div>
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Nombre : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.namePackage }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Descripción : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.descriptionPackage }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Número de Visitas : </label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="mb-3">{{ ads.visitPackage }}</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="mb-3">Valor del Paquete : </label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="mb-3">{{ ads.valPackage }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="card">
+                <div
+                  class="d-flex justify-content-center align-items-center enviar rounded-top"
+                >
+                  <h6 class="mt-1">Detalle del anuncio</h6>
+                </div>
+                <div class="p-3">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Título : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.title }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Descripción : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.description }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Edad : </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.age.length === 1">
+                        <label class="mb-3">{{ ads.age[0].item_text }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.age.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let age of ads.age" value>
+                            {{ age.item_text }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Profesión : </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.job.length === 1">
+                        <label class="mb-3">{{ ads.job.name }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.job.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let job of ads.job" value>
+                            {{ job.name }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div> -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Pais : </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.country.length === 1">
+                        <label class="mb-3">{{ ads.country[0].name }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.country.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let country of ads.country" value>
+                            {{ country.name }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Enlace Anuncio : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.link_ads }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Enlace Conversión : </label>
+                    </div>
+                    <div class="col">
+                      <label class="mb-3">{{ ads.link_conversion }}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Idioma : </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.language.length === 1">
+                        <label class="mb-3">{{
+                          ads.languaje[0].item_text
+                        }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.language.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let language of ads.language" value>
+                            {{ language.item_text }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Pasatiempos : </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.hobbies.length === 1">
+                        <label class="mb-3">{{ ads.hobbies }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.hobbies.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let hobbies of ads.hobbies" value>
+                            {{ hobbies }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Sexo: </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.gender.length === 1">
+                        <label class="mb-3">{{ ads.gender.name }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.gender.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let gender of ads.gender" value>
+                            {{ gender.name }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div> -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Religión: </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.religion.length === 1">
+                        <label class="mb-3">{{ ads.religion}}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.religion.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let religion of ads.religion" value>
+                            {{ religion }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Jornada Laboral: </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.journal.length === 1">
+                        <label class="mb-3">{{ ads.journal }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.journal.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option *ngFor="let journal of ads.journal" value>
+                            {{ journal }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-3">Tipo de dependencia: </label>
+                    </div>
+                    <div class="col">
+                      <ng-container *ngIf="ads.type_dependency.length === 1">
+                        <label class="mb-3">{{ ads.type_dependency[0] }}</label>
+                      </ng-container>
+                      <ng-container *ngIf="ads.type_dependency.length > 1">
+                        <select name="" id="" class="form-select">
+                          <option
+                            *ngFor="let dependency of ads.type_dependency"
+                            value
+                          >
+                            {{ dependency }}
+                          </option>
+                        </select>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="d-flex justify-content-center p-2">
+                      <input
+                        class="btn enviar p-3"
+                        type="button"
+                        value="Aprobar"
+                        (click)="ValidateAds(ads._id)"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="col-md-6 d-flex justify-content-center p-2">
+                  <div class="row">
+                  <div class="accordion" id="accordionExample1">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button
+                          class="btn enviar accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseThree"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          Devolver Anuncio
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseThree"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample1"
+                      >
+                        <div class="accordion-body">
+                          <form
+                            #fmrRechazarAds="ngForm"
+                            class="form form-horizontal"
+                            (ngSubmit)="rechazarAds(fmrRechazarAds)"
+                          >
+                            <div class="form-body">
+                              <div class="row">
+                                <div class="col-md-12 form-group">
+                                  <label> Comentario: </label>
+                                </div>
+                                <div class="col-12 form-group p-2">
+                                  <div class="position-relative has-icon-left">
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="Detalle de la devolución del anuncio"
+                                      id="descriptionAds"
+                                      name="descriptionAds"
+                                      required
+                                      ngModel
+                                      #descriptionAds="ngModel"
+                                      [ngClass]="'input'"
+                                    ></textarea>
+
+                                    <div
+                                      *ngIf="
+                                        descriptionAds.invalid &&
+                                        (descriptionAds.dirty ||
+                                          descriptionAds.touched)
+                                      "
+                                      class="text-danger form-group position-absolute"
+                                    >
+                                      <small
+                                        class="form-group"
+                                        *ngIf="descriptionAds.errors?.['required']"
+                                      >
+                                        Campo requerido.
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                  <input
+                                    type="button"
+                                    class="btn btn-warning nuevo"
+                                    type="submit"
+                                    value="Enviar"
+                                    [disabled]="!fmrRechazarAds['valid']"
+                                    [ngClass]="'input-btn'"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <!--Modificar el paquete de anuncios-->
+        <ng-container *ngIf="tipo === 21">
+          <ng-container *ngIf="detalle?.length !== null">
+            <form
+              #frmRegisterAds="ngForm"
+              class="form form-horizontal"
+              (ngSubmit)="updatePackage(frmRegisterAds)"
+            >
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-md-4 mt-4">
+                    <label> Nombre: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre"
+                        id="pname"
+                        name="pname"
+                        required
+                        ngModel="{{ detalle.name }}"
+                        #pname="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="pname.invalid && (pname.dirty || pname.touched)"
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="pname.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-4">
+                    <label> Descripcion: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Descripción"
+                        id="pdescription"
+                        name="pdescription"
+                        required
+                        ngModel="{{ detalle.description }}"
+                        #pdescription="ngModel"
+                        [ngClass]="'input'"
+                      ></textarea>
+                      <div
+                        *ngIf="
+                          pdescription.invalid &&
+                          (pdescription.dirty || pdescription.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="pdescription.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-4">
+                    <label> Número de visitas: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Número de visitas"
+                        id="pvisit"
+                        name="pvisit"
+                        required
+                        ngModel="{{ detalle.visit }}"
+                        #pvisit="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="
+                          pvisit.invalid && (pvisit.dirty || pvisit.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="pvisit.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-4">
+                    <label> Valor: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Número de visitas"
+                        id="pval"
+                        name="pval"
+                        required
+                        ngModel="{{ detalle.valor }}"
+                        #pval="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="pval.invalid && (pval.dirty || pval.touched)"
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="pval.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <br /><br />
+                  <div class="col-12 d-flex justify-content-end p-4">
+                    <input
+                      class="btn float-right nuevo"
+                      type="submit"
+                      value="Actualizar"
+                      [ngClass]="'input-btn'"
+                      [disabled]="!frmRegisterAds['valid']"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-container>
+        </ng-container>
+
+        <!--Modificar datos del administrador-->
+        <ng-container *ngIf="tipo === 22">
+          <ng-container *ngIf="detalle?.length !== null">
+            <form
+              #frmUpdateAdmin="ngForm"
+              class="form form-horizontal"
+              (ngSubmit)="updateAdmin(frmUpdateAdmin)"
+            >
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-md-4 mt-4">
+                    <label> Nombre de Usuario: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre de usuario"
+                        id="nameAdmin"
+                        name="nameAdmin"
+                        required
+                        ngModel="{{ detalle.userName }}"
+                        #nameAdmin="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="
+                          nameAdmin.invalid &&
+                          (nameAdmin.dirty || nameAdmin.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="nameAdmin.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 mt-4">
+                    <label> Correo Electrónico: </label>
+                  </div>
+                  <div class="col-md-8 form-group mt-4">
+                    <div class="position-relative has-icon-left">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre de usuario"
+                        id="emailAdmin"
+                        name="emailAdmin"
+                        required
+                        ngModel="{{ detalle.email }}"
+                        #emailAdmin="ngModel"
+                        [ngClass]="'input'"
+                      />
+                      <div
+                        *ngIf="
+                          emailAdmin.invalid &&
+                          (emailAdmin.dirty || emailAdmin.touched)
+                        "
+                        class="text-danger form-group position-absolute"
+                      >
+                        <small
+                          class="form-group"
+                          *ngIf="emailAdmin.errors?.['required']"
+                        >
+                          Campo requerido.
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br /><br />
+                  <div class="col-12 d-flex justify-content-end p-4">
+                    <input
+                      class="btn float-right nuevo"
+                      type="submit"
+                      value="Actualizar"
+                      [ngClass]="'input-btn'"
+                      [disabled]="!frmUpdateAdmin['valid']"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
           </ng-container>
         </ng-container>
       </div>

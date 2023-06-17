@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: auto;
 }
 
 .text-danger {
-  margin-top: -2vw;
-  margin-bottom: 1vw;
+  /* margin-top: -2vw; */
+  /* margin-bottom: 1vw; */
 }
 
 .slider {
@@ -85,7 +86,6 @@
   min-height: 2vw;
   border: 1px solid #737373;
   border-radius: 5px;
-  margin-bottom: 1vw;
 }
 
 .input-btn {
@@ -103,7 +103,6 @@
   min-height: 2vw;
   border: 1px solid #737373;
   border-radius: 5px;
-  margin-bottom: 1vw;
 }
 
 a {
@@ -133,7 +132,6 @@ a {
   .input {
     width: 80vw;
     min-height: 8vw;
-    margin-bottom: 2.5vw;
   }
 
   .input-btn {
@@ -146,7 +144,6 @@ a {
   .select {
     width: 80vw;
     min-height: 8vw;
-    margin-bottom: 2.5vw;
   }
 }
 

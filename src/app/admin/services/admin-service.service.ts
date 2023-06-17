@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConstantsSystem } from '../../utils/constants-system';
-import { LoginAdmin } from '../interfaces/admin';
+import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
+import { ReviewRechargeI } from 'src/app/finance/interfaces/balanceUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminServiceService {
-  constructor(private http: HttpClient, public constante: ConstantsSystem, private httpCLient: HttpClient,) {}
+  constructor(private http: HttpClient, public constante: ConstantsSystem, private httpCLient: HttpClient,) { }
 
   createMembership(form: any): Observable<any> {
     const body = {
@@ -50,7 +51,42 @@ export class AdminServiceService {
     );
   }
 
-  createAdmin(form: any,rol:any): Observable<any> {
+
+  createWalletE(form: any): Observable<any> {
+    return this.http.post(`${this.constante.API_SERVER}/billetera/createBilleteraE`, form);
+  }
+
+  getAllBilleteraE(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/billetera`);
+  }
+
+  updateWallet(id: string, item: WalletI): Observable<any> {
+    return this.http.post(
+      `${this.constante.API_SERVER}/billetera/updateBilleteraE/${id}`,
+      item
+    );
+  }
+
+  deleteWallet(id: string, item: WalletI): Observable<any> {
+    item.estado = !item.estado;
+    return this.http.post(
+      `${this.constante.API_SERVER}/billetera/updateBilleteraE/${id}`,
+      item
+    );
+  }
+
+  getAllRechargs(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/balanceCompany/rechargs`);
+  }
+
+  reviewRecharg(item: ReviewRechargeI): Observable<any> {
+    return this.http.post(
+      `${this.constante.API_SERVER}/balanceUser/review-recharge`,
+      item
+    );
+  }
+
+  createAdmin(form: any, rol: any): Observable<any> {
     console.log(" formulario servicio", form.value);
     const body = {
       userName: form.value.userAdmin,
@@ -64,13 +100,13 @@ export class AdminServiceService {
   getAdmin(): Observable<any> {
     return this.http.get(`${this.constante.API_SERVER}/admin/`);
   }
-    
+
   getUserVerify(): Observable<any> {
     return this.http.get(`${this.constante.API_SERVER}/profile/userVerify`);
   }
 
 
-  verifyUser(id:string,verify:boolean): Observable<any> {    
+  verifyUser(id: string, verify: boolean): Observable<any> {
     const body = {
       verify: verify
     };
@@ -81,7 +117,7 @@ export class AdminServiceService {
     return this.http.get(`${this.constante.API_SERVER}/spam/getAllSpam`);
   }
 
-  getDetailSpam(id:string): Observable<any> {
+  getDetailSpam(id: string): Observable<any> {
     return this.http.get(`${this.constante.API_SERVER}/spam/getDetailSpam/${id}`);
   }
 

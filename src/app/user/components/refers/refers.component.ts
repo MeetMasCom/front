@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { lastValueFrom } from 'rxjs';
+import { ReferralsI } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-refers',
@@ -8,10 +9,10 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./refers.component.css'],
 })
 export class RefersComponent implements OnInit {
-  referidos: any = [];
+  referidos: ReferralsI[] = [];
   idU = '';
 
-  constructor(private userService: UserServiceService) {}
+  constructor(private userService: UserServiceService) { }
 
   async ngOnInit() {
     this.idU = sessionStorage.getItem('id')!;

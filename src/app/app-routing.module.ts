@@ -15,8 +15,6 @@ import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-la
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import {PrivacyComponent} from './profile/components/privacy/privacy.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
@@ -39,6 +37,9 @@ import { RefersComponent } from './user/components/refers/refers.component';
 import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
+import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
+import { BalanceComponent } from './finance/components/balance/balance.component';
+import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
 
@@ -70,6 +71,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'administradores', component: AdminsComponent },
   { path: 'membresias', component: AdminMembershipComponent },
+  { path: 'billeteraE', component: WalletCompanyComponent },
+  { path: 'recargasE', component: AdminRechargsComponent },
   { path: 'profiles', component: ProfilesComponent },
 
   //billetera
@@ -83,6 +86,9 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'match', component: LikesComponent },
 
+  // finance
+  { path: 'finanzas', component: BalanceComponent },
+
   //amigos
   { path: 'friends', component: StartFriendsComponent },
   { path: 'travel/:id', component: TravellersComponent },
@@ -91,8 +97,6 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent },
   { path: 'languages', component: LanguagesComponent },
   { path: 'billetera', component: BilleteraComponent },
-  { path: 'billeteraE', component: BilleteraEmpresaComponent },
-  { path: 'updateBilleteraE/:id', component: UpdateBilleteraEComponent },
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
   { path: 'supAnuncios', component: SupNoticesComponent },

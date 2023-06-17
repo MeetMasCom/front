@@ -186,6 +186,8 @@
               <li>
                 <a class="dropdown-item" href="referidos">Mis Referidos</a>
               </li>
+              <li><a class="dropdown-item" href="finanzas">Mis Finanzas</a></li>
+              <li><a class="dropdown-item">Mis Amigos</a></li>
               <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item" href="match">Mis Amigos</a></li>
               <li>
@@ -266,6 +268,8 @@
       </div>
     </div>
   </nav>
+  <div *ngIf="token !== ''">
+    <!-- <app-search></app-search> -->
   <div *ngIf="token !== ''" class="d-none" >
     <app-search></app-search>
   </div>

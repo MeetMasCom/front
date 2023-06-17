@@ -67,6 +67,8 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import {BilleteraEmpresaComponent} from './billetera/components/billetera-empresa/billetera-empresa.component';
+import {UpdateBilleteraEComponent} from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
@@ -144,6 +146,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     MenuadminComponent,
     AdminsComponent,
     BilleteraComponent,
+    BilleteraEmpresaComponent,
+    UpdateBilleteraEComponent,
     SupSalesComponent,
     AdminsComponent,
     SupSystemsComponent,
@@ -171,7 +175,6 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     WalletCompanyComponent,
     BalanceComponent,
     AdminRechargsComponent,
-    PrivacyComponent
     PrivacyComponent,
     NotificationComponent,
     ProfilesComponent,

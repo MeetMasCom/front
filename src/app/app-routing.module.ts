@@ -42,6 +42,8 @@ import { BalanceComponent } from './finance/components/balance/balance.component
 import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },

@@ -101,8 +101,7 @@ export class MyProfileComponent {
         const elemento = this.myProfile[i].profile_id;
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
-        );;
-        console.log("perfiles usuario", this.profileService)
+        );
 
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;

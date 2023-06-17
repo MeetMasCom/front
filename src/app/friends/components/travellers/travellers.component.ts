@@ -22,7 +22,7 @@ export class TravellersComponent {
   Post: any;
   imageBase64: string = '';
   profile: any;
-  user: string='';
+  username: string='';
   constructor(
     private friendsService: FriendsServiceService,
     private profileService: ProfileServiceService,
@@ -34,7 +34,7 @@ export class TravellersComponent {
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
     if (sessionStorage.getItem('user')!) {
-      this.user = sessionStorage.getItem('user')!;
+      this.username = sessionStorage.getItem('user')!;
     }
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
@@ -78,11 +78,12 @@ export class TravellersComponent {
   verPerfil(user:String){    
     const param1 = user;
     const param2 = this.profile;
-    // if(this.id===user){
-    //   this.router.navigate(['/',this.user]);
-    // }
+     if(this.id===user){
+       this.router.navigate(['/myProfile']);
+     }else{    
       this.router.navigate(['/userProfile'], {
         queryParams: { param1, param2 }
       })
+    }
   }
 }

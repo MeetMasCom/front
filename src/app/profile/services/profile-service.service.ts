@@ -62,11 +62,12 @@ export class ProfileServiceService {
   }
 
   addProfile(id: string, form: any) {
-    console.log(form);
+    console.log(form.value);
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/profile/addProfile/${id}`,
       {
-        profile: form.aprofile,
+        profile_id:form.value.aprofile,
+        username:form.value.userNameP
       }
     );
   }
@@ -220,4 +221,17 @@ export class ProfileServiceService {
     );
   }
 
+
+  //usuarios a los que di like
+  getMyLikes(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getMyLike/${id}`);
+  }
+
+
+  //usuarios que me dieron like
+  getLikesUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getByIdLike/${id}`);
+  }
 }

@@ -56,6 +56,11 @@ export class MyProfileComponent {
   followers:number=0;
   followings:number=0;
   notification: any;
+  myLikes: any;
+  LikesUser: any;
+  cMyLike=0;
+  cLikeUser=0;
+ valPerfil: any = [];
 
   constructor(
     private profileService: ProfileServiceService,
@@ -73,6 +78,8 @@ export class MyProfileComponent {
       this.id = sessionStorage.getItem('id')!;
       this.getUser();
       this.getProfile();
+      this.getmyLikes();
+      this.getLikesUser();
 
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
@@ -91,11 +98,11 @@ export class MyProfileComponent {
       this.imageBase64 = 'data:image/png;base64,' + '' + this.img;
       this.myProfile = this.dataUser.profile;
       for (let i = 0; i < this.myProfile.length; i++) {
-        const elemento = this.myProfile[i];
+        const elemento = this.myProfile[i].profile_id;
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
-
-        );
+        );;
+        console.log("perfiles usuario", this.profileService)
 
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;
@@ -109,14 +116,7 @@ export class MyProfileComponent {
   }
 
   async getPostUser() {
-    // const resp = await lastValueFrom(
-    //   this.profileService.getPostByIdUser(this.id)
-    // );
-    // if (resp.data.length > 0) {
-    //   this.Post = resp.data;
-    // } else {
-    //   console.log('no se encontraron publicaciones');
-    // }
+  
     const resp = await lastValueFrom(
       this.profileService.getProfileUserPost(this.id, this.val)
     );
@@ -203,8 +203,13 @@ export class MyProfileComponent {
 
   async AddProfile(event: any) {
     try {
+      
+      this.valPerfil.push({
+        profile_id: event.value.aprofile,
+        username: event.value.userNameP,
+      });
       const resp = await lastValueFrom(
-        this.profileService.addProfile(this.id, event.value)
+        this.profileService.addProfile(this.id, event)
       );
       if (resp.data.length > 0) {
         this.profile = resp.data;
@@ -214,6 +219,8 @@ export class MyProfileComponent {
       console.log('error', error.error);
       this.message = error.error.message;
       this.mperfil.abrir();
+      this.valPerfil=[];
+     // location.reload();
     }
   }
 
@@ -286,7 +293,26 @@ export class MyProfileComponent {
     } else {
       console.log('no se encontraron datos');
     }
-
-
   }
+
+  async getmyLikes() {
+    const resp = await lastValueFrom(
+      this.profileService.getMyLikes(this.id)
+    );
+    if (resp.data) {
+      this.myLikes = resp.data;
+      this.cMyLike=this.myLikes.length;
+    } 
+  }
+
+  async getLikesUser() {
+    const resp = await lastValueFrom(
+      this.profileService.getLikesUser(this.id)
+    );
+    if (resp.data) {
+      this.LikesUser = resp.data;
+      this.cLikeUser=this.LikesUser.length;
+    } 
+  }
+
 }

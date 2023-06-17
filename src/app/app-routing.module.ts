@@ -40,6 +40,7 @@ import { FeesComponent } from './shared/components/fees/fees.component';
 import { PoliticsComponent } from './shared/components/politics/politics.component';
 import { AgreementsComponent } from './shared/components/agreements/agreements.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
+import { LikesComponent } from './profile/components/likes/likes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'privacy', component: PrivacyComponent },
+  { path: 'match', component: LikesComponent },
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },

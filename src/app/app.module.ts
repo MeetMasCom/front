@@ -92,6 +92,7 @@ import { AgreementsComponent } from './shared/components/agreements/agreements.c
 import { PrivacyComponent } from './profile/components/privacy/privacy.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
+import { LikesComponent } from './profile/components/likes/likes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -159,7 +160,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AgreementsComponent,
     PrivacyComponent,
     NotificationComponent,
-    ProfilesComponent
+    ProfilesComponent,
+    LikesComponent
   ],
   imports: [
     CKEditorModule,

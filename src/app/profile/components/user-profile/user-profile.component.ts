@@ -52,10 +52,10 @@ file!: File;
         this.id_user = params['param1'];
         this.profile = params['param2'];
          console.log("user",this.id_user);
-         if(this.id===this.id_user){
-          // this.router.navigate(['/',this.user])
-            this.router.navigate(['/myProfile'])
-         }
+        //  if(this.id===this.id_user){
+        //   // this.router.navigate(['/',this.user])
+        //     this.router.navigate(['/myProfile'])
+        //  }
         this.getUser();
         //this.getPostUser();
         this.getPostUserProfile();

@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
   generos: any = [];
   preferencias: any = [];
   user = '';
+  valPerfil: any=[];
 
   constructor(
     private router: Router,
@@ -79,10 +80,14 @@ export class RegisterComponent implements OnInit {
   async onRegister(form: any) {
     this.profile_id = '646c1e9ec29b09413fcb3887';
     const response = grecaptcha.getResponse();
+    this.valPerfil.push({
+      profile_id: this.profile_id,
+      username: form.value.userName,
+    });
     if (response !== '') {
       try {
         const resp = await lastValueFrom(
-          this.userService.register(form.value, this.profile_id, this.user)
+          this.userService.register(form.value, this.valPerfil, this.user)
         );
         if (resp.data !== null) {
           sessionStorage.setItem('user', JSON.stringify(resp.data));

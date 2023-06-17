@@ -125,6 +125,9 @@
                               <p class="card-text">{{ user.description }}</p>
                               <div class="container">
                                 <div class="row">
+                                  <ng-container>
+
+                                  </ng-container>
                                   <div
                                     class="col d-flex justify-content-center align-items-center"
                                   >
@@ -157,7 +160,7 @@
         </div>
 
         <div
-          class="tab-pane fade show active"
+          class="tab-pane fade show"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
@@ -269,7 +272,7 @@
 
 
         <div
-          class="tab-pane fade show active"
+          class="tab-pane fade show"
           id="pills-active"
           role="tabpanel"
           aria-labelledby="pills-active-tab"
@@ -388,3 +391,13 @@
   </div>
 </div>
 <app-footer></app-footer>
+
+
+<app-modal-alerts
+  [idModal]="'errorMatch'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Actividad ya realizada'"
+  [descripcion]="'Ya hiciste match con este usuario'"
+  [tipo]="0"
+  #errorMatch
+></app-modal-alerts>

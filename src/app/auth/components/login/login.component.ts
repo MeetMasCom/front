@@ -45,11 +45,13 @@ export class LoginComponent implements OnInit {
       if (response.data !== null) {
         this.message = response.data;
         this.modalCredencialSuccess.abrir();
+        //$('.modal-backdrop').remove();
       }
     } catch (error: any) {
       this.message = error.error.message;
       this.modalCredencialFail.abrir();
     }
+
   }
 
   onUser() {

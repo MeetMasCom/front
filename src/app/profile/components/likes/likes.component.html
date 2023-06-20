@@ -42,9 +42,9 @@
         >
           <div class="row">
             <div class="col-md-12">
-              <ng-container *ngIf="this.myLikes?.length > 0">
+              <ng-container *ngIf="this.misLikes?.length > 0">
                 <div class="row d-flex justify-content-center">
-                  <div class="col-md-6 p-3" *ngFor="let like of this.myLikes">
+                  <div class="col-md-6 p-3" *ngFor="let like of this.misLikes">
                     <div class="contenido rounded p-3">
                       <ng-container *ngFor="let user of like.user">
                         <div class="container">
@@ -89,7 +89,7 @@
                   </div>
                 </div></ng-container
               >
-              <ng-container *ngIf="this.myLikes?.length === 0">
+              <ng-container *ngIf="this.misLikes?.length === 0">
                 <h5>No tienes match</h5>
               </ng-container>
             </div>
@@ -104,9 +104,9 @@
         >
         <div class="row">
             <div class="col-md-12">
-              <ng-container *ngIf="this.likeUser?.length > 0">
+              <ng-container *ngIf="this.userLike?.length > 0">
                 <div class="row d-flex justify-content-center">
-                  <div class="col-md-6 p-3" *ngFor="let like of this.likeUser">
+                  <div class="col-md-6 p-3" *ngFor="let like of this.userLike">
                     <div class="contenido rounded p-3">
                       <ng-container *ngFor="let user of like.user">
                         <div class="container">
@@ -151,7 +151,7 @@
                   </div>
                 </div></ng-container
               >
-              <ng-container *ngIf="this.myLikes?.length === 0">
+              <ng-container *ngIf="this.userLike?.length === 0">
                 <h5>No tienes match</h5>
               </ng-container>
             </div>

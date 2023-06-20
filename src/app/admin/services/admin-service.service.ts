@@ -267,4 +267,10 @@ updateProfile(id:string,form:any): Observable<any> {
  return this.http.post(`${this.constante.API_SERVER}/profile/updateProfile/${id}`, body)
 }
 
+getUserSocials(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/user/userSocialAgreements`);
+}
+
+
+
 }

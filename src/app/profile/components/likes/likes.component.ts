@@ -20,9 +20,14 @@ export class LikesComponent {
   api: string='';
   id: string='';
   token: any;
-  myLikes: any;
+  myLikes: any=[];
   getLUser: any;
   likeUser: any;
+  misLikes:any=[];
+  userLike:any=[];
+  type: any;
+  fechaActual: Date;
+  dataUser: any;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -30,7 +35,9 @@ export class LikesComponent {
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem,
     private adminService: AdminServiceService
-  ) {}
+  ) {
+    this.fechaActual = new Date();
+  }
 
   ngOnInit(): void {
     this.user_data = JSON.parse(sessionStorage.getItem('data')!);
@@ -38,10 +45,9 @@ export class LikesComponent {
     this.api = this.constante.API_IMAGES;
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
- 
+      this.getUser();
       this.getmyLikes();
-      this.getLikesUser();
-      
+      this.getLikesUser();      
 
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
@@ -51,18 +57,68 @@ export class LikesComponent {
     }
   }
 
+  async getUser() {
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+
+    if (resp?.data.length > 0) {
+      this.dataUser = resp?.data[0];
+      this.type=this.dataUser.type;
+    }
+  }
+
+calcularDias(otraFecha:Date){
+  const milisegundosPorDia = 24 * 60 * 60 * 1000; // Cantidad de milisegundos en un día
+    const diferenciaEnMilisegundos = this.fechaActual.getTime() - otraFecha.getTime();
+    const diferenciaEnDias = Math.floor(diferenciaEnMilisegundos / milisegundosPorDia);
+    return diferenciaEnDias
+}
+
+
   async getmyLikes() {
+    this.misLikes;
     const resp = await lastValueFrom(this.profileService.getMyLikes(this.id));
     if (resp.data) {
       this.myLikes = resp.data;
-      console.log(this.myLikes);
+      this.myLikes.forEach((element:any) => {
+      const otraFecha= new Date(element.created_at);
+      const dias=this.calcularDias(otraFecha);
+      if((this.type===0)&&(dias <= 1)){
+        this.misLikes.push(element);
+      }
+      if((this.type===1)&&(dias===2)){
+        this.misLikes.push(element);
+      }
+      if((this.type===2)&&(dias===3)){
+        this.misLikes.push(element);
+      }
+      if((this.type===4)&&(dias===4)){
+        this.misLikes.push(element);
+      }
+    });
     }
   }
 
   async getLikesUser() {
+    this.userLike;
     const resp = await lastValueFrom(this.profileService.getLikesUser(this.id));
     if (resp.data) {
       this.likeUser = resp.data;
+      this.likeUser.forEach((element:any) => {
+        const otraFecha= new Date(element.created_at);
+        const dias=this.calcularDias(otraFecha);
+        if((this.type===0)&&(dias <= 1)){
+          this.userLike.push(element);
+        }
+        if((this.type===1)&&(dias===2)){
+          this.userLike.push(element);
+        }
+        if((this.type===2)&&(dias===3)){
+          this.userLike.push(element);
+        }
+        if((this.type===4)&&(dias===4)){
+          this.userLike.push(element);
+        }
+      });
     }
   }
 

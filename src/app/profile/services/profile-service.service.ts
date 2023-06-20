@@ -234,4 +234,14 @@ export class ProfileServiceService {
     return this.httpCLient.get<any>(
       `${this.constante.API_SERVER}/like/getByIdLike/${id}`);
   }
+
+
+  updateSocialAgreements(id: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/updateSocialAgreements/${id}`,
+      {
+        socialAgreements: true,
+      }
+    );
+  }
 }

@@ -100,6 +100,7 @@ import { PrivacyComponent } from './profile/components/privacy/privacy.component
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
+import { SocialUserComponent } from './admin/components/social-user/social-user.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -178,7 +179,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     PrivacyComponent,
     NotificationComponent,
     ProfilesComponent,
-    LikesComponent
+    LikesComponent,
+    SocialUserComponent
   ],
   imports: [
     CKEditorModule,

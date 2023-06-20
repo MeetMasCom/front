@@ -68,7 +68,7 @@ export class UserServiceService {
     );
   }
 
-  updateDNI(id: string, doc:File, token: string): Observable<any> {
+  updateDNI(id: string, doc: File, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
@@ -208,10 +208,11 @@ export class UserServiceService {
     return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
   }
 
-  buyMembership(idUser: string, idMem: string): Observable<any> {
+  buyMembership(idUser: string, idMem: string, walletId: string): Observable<any> {
     const body = {
       userId: idUser,
       membershipId: idMem,
+      walletId
     };
 
     return this.httpCLient.post(

@@ -137,8 +137,8 @@
           </div>
         </div>
         <div class="row mt-2 d-flex align-items-center">
-          <div class="col-md-2 float-left">Siguiendo {{this.followings}}</div>
-          <div class="col-md-3 float-left">Seguidores {{this.followers}}</div>
+          <div class="col-md-2 float-left">Me gusta {{this.cMyLike}}</div>
+          <div class="col-md-3 float-left">Les gusta {{this.cLikeUser}}</div>
           <div class="col-md-3 float-left">
             <select
               #selectElement
@@ -153,6 +153,7 @@
               #aprofile="ngModel"
               [ngClass]="'input'"
             >
+            
               <option selected *ngFor="let p of perfil" [value]="p._id">
                 {{ p.name }}
               </option>
@@ -322,7 +323,7 @@
   [idModal]="'mperfil'"
   [icono]="'./assets/img/warning.png'"
   [titulo]="'Perfil ya registrado'"
-  [descripcion]="message"
+  [descripcion]="'Ya cuenta con el perfil seleccionado'"
   [tipo]="0"
   #mperfil
 ></app-modal-alerts>

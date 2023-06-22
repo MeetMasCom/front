@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -8,6 +8,7 @@ import { AdminServiceService } from '../../services/admin-service.service';
 import { lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConstantsSystem } from 'src/app/utils/constants-system';
+import { MmodalComponent } from 'src/app/shared/components/mmodal/mmodal.component';
 
 @Component({
   selector: 'app-admins',
@@ -15,18 +16,24 @@ import { ConstantsSystem } from 'src/app/utils/constants-system';
   styleUrls: ['./admins.component.css'],
 })
 export class AdminsComponent implements OnInit {
+
+  @ViewChild('updateAdministrador') updateAdministrador!: MmodalComponent;
+
   dropdownSettings: IDropdownSettings = {};
   rolList: any = [];
   selectedRol: any = [];
   dataAdmin: any;
+  adminDetail: any;
+  idAdmin: any;
 
-  constructor(library: FaIconLibrary,private adminService: AdminServiceService,
+  constructor(
+    library: FaIconLibrary,
+    private adminService: AdminServiceService,
     private router: Router,
-    public constante: ConstantsSystem) {
+    public constante: ConstantsSystem
+  ) {
     library.addIconPacks(fas, far, fab);
   }
-
-  
 
   ngOnInit() {
     this.selectedRol = [];
@@ -66,40 +73,84 @@ export class AdminsComponent implements OnInit {
   }
 
   async onRegisterAdmin(form: any) {
-
     console.log('form', form.value);
     console.log('item', this.selectedRol);
 
     const resp = await lastValueFrom(
-      this.adminService.createAdmin(
-        form, this.selectedRol
-      )
+      this.adminService.createAdmin(form, this.selectedRol)
     );
 
-    if(resp!== null){
+    if (resp !== null) {
       location.reload();
+    } else {
+      console.log('error en el registro');
     }
-    else{
-      console.log("error en el registro");
-    }
-
   }
 
   async getAdmin() {
+    const resp = await lastValueFrom(this.adminService.getAdmin());
 
+    if (resp !== null) {
+      this.dataAdmin = resp.data;
+      console.log('dataAdmin', this.dataAdmin);
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
 
+  async enable(id: string) {
+    const state = 0;
     const resp = await lastValueFrom(
-      this.adminService.getAdmin()
+      this.adminService.updateStateAdmin(id, state)
     );
 
-    if(resp!== null){
-      this.dataAdmin=resp.data;
-      console.log("dataAdmin",this.dataAdmin);
+    if (resp !== null) {
+      location.reload();
+    } else {
+      console.log('no se encontraron datos');
     }
-
-    else{
-      console.log("no se encontraron datos");
-    }
-
   }
+
+  async disable(id: string) {
+    const state = 1;
+    const resp = await lastValueFrom(
+      this.adminService.updateStateAdmin(id, state)
+    );
+
+    if (resp !== null) {
+      location.reload();
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
+  async detailAdmin(id: string) {
+    const state = 1;
+    const resp = await lastValueFrom(
+      this.adminService.getAdminById(id)
+    );
+
+    if (resp !== null) {
+      this.adminDetail=resp.data[0];
+      this.idAdmin=this.adminDetail._id;
+      this.updateAdministrador.abrir();
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+
+
+  async updateAdmin(event:any){
+    const state = 1;
+    const resp = await lastValueFrom(
+      this.adminService.updateAdmin(this.idAdmin,event)
+    );
+
+    if (resp !== null) {
+     location.reload();
+    } else {
+      console.log('no se encontraron datos');
+    }
+  }
+  
 }

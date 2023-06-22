@@ -1,115 +1,115 @@
 <app-menu></app-menu>
-<div class="d-flex contAll">
-  <div class="d-flex flex-column container justify-content-start mt-4">
-    <ul class="nav nav-tabs mb-3 border-0" id="pills-tab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link active"
-          id="ads-home-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#ads-home"
-          type="button"
-          role="tab"
-          aria-controls="ads-home"
-          aria-selected="true"
+<div  style="min-height: 36vw">
+  <div class="d-flex contAll">
+    <div class="d-flex flex-column container justify-content-start mt-4">
+      <ul class="nav nav-tabs mb-3 border-0" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="ads-home-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#ads-home"
+            type="button"
+            role="tab"
+            aria-controls="ads-home"
+            aria-selected="true"
+          >
+            Ingresar
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="ads-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#ads-profile"
+            type="button"
+            role="tab"
+            aria-controls="ads-profile"
+            aria-selected="false"
+          >
+            Activos
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="ads-rev-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#ads-rev"
+            type="button"
+            role="tab"
+            aria-controls="ads-rev"
+            aria-selected="false"
+          >
+            En revisión
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="ads-dev-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#ads-dev"
+            type="button"
+            role="tab"
+            aria-controls="ads-dev"
+            aria-selected="false"
+          >
+            Devueltos
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="ads-home"
+          role="tabpanel"
+          aria-labelledby="admin-home-tab"
         >
-          Ingresar
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="ads-profile-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#ads-profile"
-          type="button"
-          role="tab"
-          aria-controls="ads-profile"
-          aria-selected="false"
-        >
-          Activos
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="ads-rev-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#ads-rev"
-          type="button"
-          role="tab"
-          aria-controls="ads-rev"
-          aria-selected="false"
-        >
-          En revisión
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link"
-          id="ads-dev-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#ads-dev"
-          type="button"
-          role="tab"
-          aria-controls="ads-dev"
-          aria-selected="false"
-        >
-          Devueltos
-        </button>
-      </li>
-    </ul>
-    <div class="tab-content" id="pills-tabContent">
-      <div
-        class="tab-pane fade show active"
-        id="ads-home"
-        role="tabpanel"
-        aria-labelledby="admin-home-tab"
-      >
-        <div class="d-flex flex-column central mb-5 p-3">
-          <app-notices></app-notices>
+          <div class="d-flex flex-column central mb-5 p-3">
+            <app-notices></app-notices>
+          </div>
         </div>
-      </div>
-      <div
-        class="tab-pane fade"
-        id="ads-profile"
-        role="tabpanel"
-        aria-labelledby="ads-profile-tab"
-      >
-        <app-notices-type [type]="0" [data]="adsActive"></app-notices-type>
-      </div>
-      <div
-        class="tab-pane fade"
-        id="ads-rev"
-        role="tabpanel"
-        aria-labelledby="ads-rev-tab"
-      >
-        <app-notices-type
-          [type]="1"
-          [data]="adsReview"
-          (sendId)="onDelete($event)"
-          (sendItem)="onUpdate($event)"
-        ></app-notices-type>
-      </div>
-      <div
-        class="tab-pane fade"
-        id="ads-dev"
-        role="tabpanel"
-        aria-labelledby="ads-dev-tab"
-      >
-        <app-notices-type
-          [type]="2"
-          [data]="adsReturn"
-          (sendId)="onDelete($event)"
-          (sendItem)="onUpdate($event)"
-        ></app-notices-type>
+        <div
+          class="tab-pane fade"
+          id="ads-profile"
+          role="tabpanel"
+          aria-labelledby="ads-profile-tab"
+        >
+          <app-notices-type [type]="0" [data]="adsActive"></app-notices-type>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="ads-rev"
+          role="tabpanel"
+          aria-labelledby="ads-rev-tab"
+        >
+          <app-notices-type
+            [type]="1"
+            [data]="adsReview"
+            (sendId)="onDelete($event)"
+            (sendItem)="onUpdate($event)"
+          ></app-notices-type>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="ads-dev"
+          role="tabpanel"
+          aria-labelledby="ads-dev-tab"
+        >
+          <app-notices-type
+            [type]="2"
+            [data]="adsReturn"
+            (sendId)="onDelete($event)"
+            (sendItem)="onUpdate($event)"
+          ></app-notices-type>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="col-12 position-absolute mt-2 pt-2">
-  <app-footer></app-footer>
-</div>
+<app-footer></app-footer>
 
 <app-modal-alerts
   [idModal]="'exitoDeleteAdsRev'"

@@ -47,6 +47,7 @@ export class MmodalComponent {
   @Input() estado: any;
   @Input() userV: any = [];
   @Input() detalle: any = [];
+  @Input() detalleA: any = [];
   
   faShield = faShield;
   faFile = faFile;
@@ -76,7 +77,13 @@ export class MmodalComponent {
   @Output() AddSocialN: EventEmitter<any> = new EventEmitter();
   @Output() changeRadio: EventEmitter<any> = new EventEmitter();
   @Output() onVerifyUser: EventEmitter<any> = new EventEmitter();
-
+  @Output() onRegisterMessage: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdatePackage: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateAdmin: EventEmitter<any> = new EventEmitter();
+  @Output() onDeclineAds: EventEmitter<any> = new EventEmitter();
+  @Output() onValidateAds: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateProfile: EventEmitter<any> = new EventEmitter();
+  
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -189,5 +196,31 @@ export class MmodalComponent {
 
   VerifyUser(event:any){
     this.onVerifyUser.emit(event);
+  }
+
+
+  registerMessage(event:any){
+    this.onRegisterMessage.emit(event);
+  }
+
+  updatePackage(event:any){
+    this.onUpdatePackage.emit(event);
+  }
+
+  updateAdmin(event:any){
+    this.onUpdateAdmin.emit(event);
+  }
+
+  rechazarAds(event:any){
+    this.onDeclineAds.emit(event);
+  }
+
+  ValidateAds(event:any){
+  this.onValidateAds.emit(event);
+  }
+
+
+  updateProfile(event:any){
+      this.onUpdateProfile.emit(event);
   }
 }

@@ -63,3 +63,9 @@
 .noti{
   background-color: bisque;
 }
+
+
+.accordion-button:not(.collapsed) {
+  color: black;
+}
+

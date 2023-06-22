@@ -249,10 +249,8 @@
           [(ngModel)]="auxPackage"
         >
           <option value="" disabled selected>Seleccione una opción</option>
-          <option value="50">50 visitas</option>
-          <option value="100">100 visitas</option>
-          <option value="500">500 visitas</option>
-          <option value="1000">1000 visitas</option>
+
+          <option *ngFor="let option of allPackage" [value]="option._id">{{option.name}} -- {{option.visit}} visitas -- $ {{option.valor}}</option>
         </select>
       </div>
     </div>
@@ -290,3 +288,24 @@
   (successModal)="onSuccess()"
   #failNotices
 ></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failBilletera'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="''"
+  [descripcion]="'No cuenta con billeteras disponibles'"
+  [tipo]="0"
+  (successModal)="onSuccess()"
+  #failBilletera
+></app-modal-alerts>
+
+<app-modal-alerts
+  [idModal]="'failSaldo'"
+  [icono]="'./assets/img/fail.png'"
+  [titulo]="''"
+  [descripcion]="'Su saldo es insuficiente para contratar el paquete selccionado'"
+  [tipo]="0"
+  (successModal)="onSuccess()"
+  #failSaldo
+></app-modal-alerts>
+

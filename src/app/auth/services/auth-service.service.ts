@@ -13,7 +13,7 @@ export class AuthServiceService {
     public constante: ConstantsSystem
   ) { }
 
-  register(user: User, profile: string, sponsor: string): Observable<any> {
+  register(user: User, profile: any, sponsor: string): Observable<any> {
     return this.httpCLient.post(`${this.constante.API_SERVER}/user`, {
       userName: user.userName,
       email: user.email,

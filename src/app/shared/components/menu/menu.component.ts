@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas, faMessage, faBell,faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import { fas, faMessage, faBell, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { ProfileServiceService } from '../../../profile/services/profile-service.service';
@@ -17,7 +17,6 @@ import { MmodalComponent } from '../mmodal/mmodal.component';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  @ViewChild('mnotification') mnotification!: MmodalComponent;
   token: string = '';
   user: string = '';
   id: string = '';
@@ -30,12 +29,14 @@ export class MenuComponent implements OnInit {
   val: string = '';
   AllPost: any;
   nuevas: number = 0;
-  ver:boolean=true;
-  nver:boolean=false;
+  ver: boolean = true;
+  nver: boolean = false;
   faBell = faBell;
-  faUserCheck=faUserCheck;
+  faUserCheck = faUserCheck;
   notification: any = [];
   dataUser: any;
+  public mostrarVentanaNotificaciones: boolean = false;
+  verify: any;
 
   constructor(
     library: FaIconLibrary,
@@ -68,6 +69,7 @@ export class MenuComponent implements OnInit {
     this.getProfile();
     this.getNotificacion();
     this.getUser();
+
   }
 
   async onLogout() {
@@ -98,15 +100,17 @@ export class MenuComponent implements OnInit {
     if (resp.data.length > 0) {
       this.profile = resp.data;
     } else {
-     // console.log('no se encontraron datos');
+      // console.log('no se encontraron datos');
     }
   }
 
   async getUser() {
-    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
-
-    if (resp?.data.length > 0) {
-      this.dataUser = resp?.data[0];
+    if (this.id) {
+      const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+      if (resp?.data.length > 0) {
+        this.dataUser = resp?.data[0];
+        this.verify = this.dataUser.verify;
+      }
     }
   }
 
@@ -115,34 +119,60 @@ export class MenuComponent implements OnInit {
     this.translate.use(lang.alias);
   }
 
+  // async getNotificacion() {
+  //   const resp = await lastValueFrom(
+  //     this.profileService.getNotification(this.id)
+  //   );
+  //   if (resp.data.length > 0) {
+  //     this.notification = resp.data;
+
+  //     this.notification.forEach((element: any, index: any) => {
+  //       if (element.state === 0) {
+  //         this.nuevas++;
+  //         console.log("nuevas",this.nuevas);
+  //       }
+
+  //     });
+  //   } else {
+  //     //console.log('no se encontraron datos');
+  //   }
+  // }
+
+
   async getNotificacion() {
-    const resp = await lastValueFrom(
-      this.profileService.getNotification(this.id)
-    );
-    if (resp.data.length > 0) {
-      this.notification = resp.data;
+    if (this.id) {
 
-      this.notification.forEach((element: any, index: any) => {
-        if (element.state === 0) {
-          this.nuevas++;
-        }
-      });
-    } else {
-      //console.log('no se encontraron datos');
+      const resp = await lastValueFrom(
+        this.profileService.getNotificationUser(this.id)
+      );
+      if (resp.data.length > 0) {
+        this.notification = resp.data;
+        this.notification.forEach((element: any, index: any) => {
+          if (element.state === 0) {
+            this.nuevas++;
+          }
+        });
+      }
     }
-  }
-
-  notificaciones() {
-    this.mnotification.abrir();
   }
 
   async updateLike(event: any) {
     await lastValueFrom(this.profileService.updateNotification(event));
-
     location.reload();
   }
 
   onRegister() {
     this.router.navigate(['/registro', '']);
+  }
+
+  VentanaNotificaciones() {
+    if (this.mostrarVentanaNotificaciones === true) {
+      this.mostrarVentanaNotificaciones = false;
+      location.reload();
+    }
+    if (this.mostrarVentanaNotificaciones === false) {
+      this.mostrarVentanaNotificaciones = true;
+
+    }
   }
 }

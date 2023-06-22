@@ -125,12 +125,16 @@
                               <p class="card-text">{{ user.description }}</p>
                               <div class="container">
                                 <div class="row">
+                                  <ng-container>
+
+                                  </ng-container>
                                   <div
                                     class="col d-flex justify-content-center align-items-center"
                                   >
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleCheck"
+                                      (click)="addLike(user._id, true)"
                                     ></fa-icon>
                                   </div>
                                   <div
@@ -139,6 +143,7 @@
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleXmark"
+                                      (click)="addLike(user._id, false)"
                                     ></fa-icon>
                                   </div>
                                 </div>
@@ -155,7 +160,7 @@
         </div>
 
         <div
-          class="tab-pane fade show active"
+          class="tab-pane fade show"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
@@ -240,6 +245,7 @@
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleCheck"
+                                      (click)="addLike(user._id, true)"
                                     ></fa-icon>
                                   </div>
                                   <div
@@ -248,6 +254,7 @@
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleXmark"
+                                      (click)="addLike(user._id, false)"
                                     ></fa-icon>
                                   </div>
                                 </div>
@@ -265,7 +272,7 @@
 
 
         <div
-          class="tab-pane fade show active"
+          class="tab-pane fade show"
           id="pills-active"
           role="tabpanel"
           aria-labelledby="pills-active-tab"
@@ -350,6 +357,7 @@
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleCheck"
+                                      (click)="addLike(user._id, true)"
                                     ></fa-icon>
                                   </div>
                                   <div
@@ -358,6 +366,7 @@
                                     <fa-icon
                                       class="fa-3x"
                                       [icon]="faCircleXmark"
+                                      (click)="addLike(user._id, false)"
                                     ></fa-icon>
                                   </div>
                                 </div>
@@ -382,3 +391,13 @@
   </div>
 </div>
 <app-footer></app-footer>
+
+
+<app-modal-alerts
+  [idModal]="'errorMatch'"
+  [icono]="'./assets/img/warning.png'"
+  [titulo]="'Actividad ya realizada'"
+  [descripcion]="'Ya hiciste match con este usuario'"
+  [tipo]="0"
+  #errorMatch
+></app-modal-alerts>

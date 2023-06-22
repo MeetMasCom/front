@@ -94,7 +94,6 @@ export class AdminServiceService {
       password: form.value.passAdmin,
       rol: rol,
     };
-    console.log("servicio", body);
     return this.http.post(`${this.constante.API_SERVER}/admin/adminRegister`, body);
   }
 
@@ -139,4 +138,139 @@ export class AdminServiceService {
       }
     );
   }
+
+  getAllAds(): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/ads/ads`);
+  }
+
+  getAdsById(id:string): Observable<any> {
+    return this.http.get(`${this.constante.API_SERVER}/ads/getByIdAds/${id}`);
+  }
+
+  updateStateAds(id:string,message:any,state:number): Observable<any> {
+    const body = {
+      state:state,
+      comentary:message,
+    }; 
+    return this.http.post(`${this.constante.API_SERVER}/ads/updateStateAds/${id}`,body);
+  }
+
+  
+  addMessageSpam(id:string,form:any): Observable<any> {
+    const state=1;
+     const body = {
+      notification: form.value.mensajeSpam,
+      state: state,
+    }; 
+    return this.http.post(`${this.constante.API_SERVER}/spam/updateSpam/${id}`, body)
+}
+
+addNotification(id:string,userNot:string,message:string): Observable<any> {
+   const body = {
+    user_id:id,
+    user_notification: userNot,
+    message: message,
+  };
+  console.log(body);
+  return this.http.post(`${this.constante.API_SERVER}/notification/addNotification`, body)
+}
+
+registerPaqueteAds(form:any): Observable<any> {
+   const body = {
+    name: form.value.pname,
+    description: form.value.pdescription,
+    visit:form.value.pvisit,
+    valor:form.value.pval
+  }; 
+  return this.http.post(`${this.constante.API_SERVER}/package/addPackage`, body)
+}
+
+getAllPackage(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/package/getAllPackage`);
+}
+
+getPackageById(id:string): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/package/getByIdPackage/${id}`);
+}
+
+
+getPackageActive(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/package/getActivePackage`);
+}
+
+updatePackage(id:string,form:any): Observable<any> {
+  const body = {
+    name: form.value.pname,
+    description: form.value.pdescription,
+    visit:form.value.pvisit,
+    valor:form.value.pval,
+  }; 
+  return this.http.post(`${this.constante.API_SERVER}/package/updatePackage/${id}`,body);
+}
+
+updateStatePackage(id:string,state:number): Observable<any> {
+  const body = {
+    state:state,
+  }; 
+  return this.http.post(`${this.constante.API_SERVER}/package/updateSate/${id}`,body);
+}
+
+updateStateAdmin(id:string,state:number): Observable<any> {
+  const body = {
+    state:state,
+  }; 
+  return this.http.post(`${this.constante.API_SERVER}/admin/updateState/${id}`,body);
+}
+
+getAdminById(id:string): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/admin/getByIdAdmin/${id}`);
+}
+
+updateAdmin(id:string,form:any): Observable<any> {
+  const body = {
+    userName: form.value.nameAdmin,
+    email: form.value.emailAdmin,
+   
+  }; 
+  return this.http.post(`${this.constante.API_SERVER}/admin/updateAdmin/${id}`,body);
+}
+
+getAllProfiles(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/profile/getAllProfile`);
+}
+
+getProfileById(id:string): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/profile/profileById/${id}`);
+}
+
+registerProfile(form:any): Observable<any> {
+  const body = {
+   name: form.value.pname,
+   description: form.value.pdescription,
+ }; 
+ return this.http.post(`${this.constante.API_SERVER}/profile/createProfile`, body)
+}
+
+updateStateProfile(id:string,state:any): Observable<any> {
+  const body = {
+   state: state,
+ }; 
+ console.log(body);
+ return this.http.post(`${this.constante.API_SERVER}/profile/updateStateProfile/${id}`, body)
+}
+
+updateProfile(id:string,form:any): Observable<any> {
+  const body = {
+   name: form.value.pname,
+   description: form.value.pdescription,
+ }; 
+ return this.http.post(`${this.constante.API_SERVER}/profile/updateProfile/${id}`, body)
+}
+
+getUserSocials(): Observable<any> {
+  return this.http.get(`${this.constante.API_SERVER}/user/userSocialAgreements`);
+}
+
+
+
 }

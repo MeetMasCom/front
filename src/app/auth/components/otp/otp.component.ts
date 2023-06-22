@@ -23,9 +23,9 @@ export class OtpComponent implements OnInit {
   message: string = '';
 
   constructor(public userService: AuthServiceService, private router: Router,
-    public adminService: AdminServiceService) { }
+          public adminService: AdminServiceService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   abrir() {
     this.modalOtpButton.nativeElement.click();
@@ -42,38 +42,38 @@ export class OtpComponent implements OnInit {
   async validateOtp() {
 
     try {
-      if (this.tipo === 0) {
+      if(this.tipo===0){
         const response = await lastValueFrom(
           this.userService.validateOtp(parseInt(this.otp), this.userN)
         );
-
+  
         if (response.data !== null) {
           sessionStorage.setItem('data', JSON.stringify(response.data.user));
           sessionStorage.setItem('user', response.data.user.userName);
           sessionStorage.setItem('id', response.data.user._id);
-          sessionStorage.setItem('token', response.data.token);
-
+          sessionStorage.setItem('token', JSON.stringify(response.data.token));
+  
           this.message = response.message;
           this.exitoModal.abrir();
         }
       }
-      if (this.tipo === 1) {
+      if(this.tipo===1){
         const response = await lastValueFrom(
           this.adminService.validateOtp(parseInt(this.otp), this.userN)
         );
-
+  
         if (response.data !== null) {
           sessionStorage.setItem('data', JSON.stringify(response.data.user));
           sessionStorage.setItem('user', response.data.user.userName);
           sessionStorage.setItem('id', response.data.user._id);
           sessionStorage.setItem('rol', response.data.rol);
-          sessionStorage.setItem('token', response.data.token);
-
+          sessionStorage.setItem('token', JSON.stringify(response.data.token));
+  
           this.message = response.message;
           this.exitoModal.abrir();
         }
       }
-
+      
     } catch (error: any) {
       console.log('error', error.error);
       this.message = error.error.message;
@@ -82,13 +82,13 @@ export class OtpComponent implements OnInit {
   }
 
   onRedirigir() {
-    if (this.tipo === 0) {
+    if(this.tipo===0){
       this.router.navigate(['/home']);
     }
-    if (this.tipo === 1) {
+    if (this.tipo===1){
       this.router.navigate(['/dashboard']);
     }
-
+    
   }
 
   onFail() {

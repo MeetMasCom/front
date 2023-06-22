@@ -30,6 +30,7 @@ imageBase64:string='';
 file!: File;
   profile: any;
   PostD: any;
+  user: string='';
 
   constructor(
     private profileService: ProfileServiceService,
@@ -41,16 +42,20 @@ file!: File;
 
   ngOnInit(): void {
     this.api = this.constante.API_IMAGES;
+    if (sessionStorage.getItem('user')!) {
+      this.user = sessionStorage.getItem('user')!;
+    }
     if (sessionStorage.getItem('id')!) {
-      this.id = sessionStorage.getItem('id')!;
+      //this.id = sessionStorage.getItem('id')!;
       this.activatedRoute.queryParams.subscribe(async (params) => {
         
         this.id_user = params['param1'];
         this.profile = params['param2'];
          console.log("user",this.id_user);
-        if(this.id===this.id_user){
-          this.router.navigate(['/myProfile']);
-        }
+        //  if(this.id===this.id_user){
+        //   // this.router.navigate(['/',this.user])
+        //     this.router.navigate(['/myProfile'])
+        //  }
         this.getUser();
         //this.getPostUser();
         this.getPostUserProfile();
@@ -69,8 +74,7 @@ file!: File;
       this.dataUser = resp?.data[0];
       this.img=this.dataUser.image;
       this.imageBase64= 'data:image/png;base64,'+''+this.img // Aquí colocas tu cadena Base64
-      
-   
+      console.log(this.dataUser);   
     }
   }
   

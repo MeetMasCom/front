@@ -62,11 +62,12 @@ export class ProfileServiceService {
   }
 
   addProfile(id: string, form: any) {
-    console.log(form);
+    console.log(form.value);
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/profile/addProfile/${id}`,
       {
-        profile: form.aprofile,
+        profile_id:form.value.aprofile,
+        username:form.value.userNameP
       }
     );
   }
@@ -153,6 +154,7 @@ export class ProfileServiceService {
 
 
   addLike(user_id:string,userlike:string,val:boolean) {
+    console.log("servicio");
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/like/addLike`,
       {
@@ -169,7 +171,13 @@ export class ProfileServiceService {
     );
   }
 
-  updateNotification(id: string): Observable<any> {
+  getNotificationUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/notification/getNotificationByIdUser/${id}`
+    );
+  }
+
+  updateNotificationLike(id: string): Observable<any> {
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/like/updateLike/${id}`,{
         state:1
@@ -177,6 +185,13 @@ export class ProfileServiceService {
     );
   }
 
+  updateNotification(id: string): Observable<any> {
+    return this.httpCLient.post<any>(
+      `${this.constante.API_SERVER}/notification/updateNotification/${id}`,{
+        state:1
+      }
+    );
+  }
 
    registerSpam(
     id: string,form:any, idSpam:string
@@ -206,4 +221,27 @@ export class ProfileServiceService {
     );
   }
 
+
+  //usuarios a los que di like
+  getMyLikes(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getMyLike/${id}`);
+  }
+
+
+  //usuarios que me dieron like
+  getLikesUser(id: string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getByIdLike/${id}`);
+  }
+
+
+  updateSocialAgreements(id: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/user/updateSocialAgreements/${id}`,
+      {
+        socialAgreements: true,
+      }
+    );
+  }
 }

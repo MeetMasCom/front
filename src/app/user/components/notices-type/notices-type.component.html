@@ -21,7 +21,9 @@
                 {{ item.description }}
               </p>
               <strong>Paquete Comprado</strong>
-              <p class="card-text">{{ item.package }} visitas</p>
+              <p class="card-text">{{ item.package[0].visit }} visitas</p>
+              <strong>Valor del paquete</strong>
+              <p class="card-text">$ {{ item.package[0].valor }}</p>
             </div>
           </div>
         </div>

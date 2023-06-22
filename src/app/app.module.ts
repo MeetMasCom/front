@@ -67,6 +67,8 @@ import { SupSystemsComponent } from './admin/components/sup-systems/sup-systems.
 import { SupSalesComponent } from './admin/components/sup-sales/sup-sales.component';
 import { SupNoticesComponent } from './admin/components/sup-notices/sup-notices.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
+import {BilleteraEmpresaComponent} from './billetera/components/billetera-empresa/billetera-empresa.component';
+import {UpdateBilleteraEComponent} from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
@@ -95,6 +97,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 import { PrivacyComponent } from './profile/components/privacy/privacy.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
+import { ProfilesComponent } from './admin/components/profiles/profiles.component';
+import { LikesComponent } from './profile/components/likes/likes.component';
+import { SocialUserComponent } from './admin/components/social-user/social-user.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -141,6 +147,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     MenuadminComponent,
     AdminsComponent,
     BilleteraComponent,
+    BilleteraEmpresaComponent,
+    UpdateBilleteraEComponent,
     SupSalesComponent,
     AdminsComponent,
     SupSystemsComponent,
@@ -168,7 +176,11 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     WalletCompanyComponent,
     BalanceComponent,
     AdminRechargsComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    NotificationComponent,
+    ProfilesComponent,
+    LikesComponent,
+    SocialUserComponent
   ],
   imports: [
     CKEditorModule,

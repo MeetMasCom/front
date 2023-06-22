@@ -109,14 +109,16 @@ a {
   text-decoration: none;
 }
 
+
 /*PHONE*/
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .register {
     margin-inline-start: 5%;
     position: absolute;
-    width: 90%;
+    width: 80%;
   }
 
+  
   .banner {
     display: none;
   }
@@ -154,6 +156,7 @@ a {
     margin-top: 4%;
     margin-bottom: 4%;
   }
+
 
   .banner img {
     width: 90%;

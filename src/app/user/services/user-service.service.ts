@@ -232,4 +232,11 @@ export class UserServiceService {
       `${this.constante.API_SERVER}/user/${id}`
     );
   }
+
+  getBilleteras(id: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/billeteraU/getByIdUserBilleteraU/${id}`
+    );
+  }
+
 }

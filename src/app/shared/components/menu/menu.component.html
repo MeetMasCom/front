@@ -57,11 +57,11 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li *ngFor="let p of profile">
-                <ng-container *ngIf="p.name !== 'Personal'">
+                <ng-container *ngIf="(p.name !== 'Personal') ">
                   <a
                     class="dropdown-item"
                     travellers
-                    [routerLink]="'/travellers/' + p._id"
+                    [routerLink]="'/travel/' + p._id"
                     >{{ p.name }}</a
                   >
                 </ng-container>
@@ -83,15 +83,32 @@
             "menu.flowers" | translate
           }}</a>
 
-          <a class="border-0 nav-item nav-link" href="home">
-            <fa-icon [icon]="faBell"></fa-icon>
-          </a>
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
           }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
           }}</a>
+
+          <button (click)="VentanaNotificaciones()" class="border-0 nav-item nav-link">
+            <fa-icon [icon]="faBell">             
+            </fa-icon>
+            <ng-container *ngIf="nuevas !== 0">
+              <span
+                class="position-absolute
+                 translate-middle badge rounded-pill noti"
+              >
+                {{ nuevas }}
+                <span class="visually-hidden"></span>
+              </span>
+            </ng-container>
+          </button>
+          <div *ngIf="mostrarVentanaNotificaciones===true">
+            <div class="position-absolute mt-4">
+              <app-notification></app-notification>
+            </div>            
+          </div>
+          
           <!-- <a class="border-0 nav-item nav-link" href="#">
             <fa-icon [icon]="faBell"></fa-icon>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -100,7 +117,7 @@
             </span>
           </a> -->
 
-          <button
+          <!-- <button
             type="button"
             class="btn nuevo position-relative"
             (click)="notificaciones()"
@@ -114,7 +131,7 @@
                 <span class="visually-hidden"></span>
               </span>
             </ng-container>
-          </button>
+          </button> -->
 
           <a class="border-0 nav-item nav-link" href="messages">
             <fa-icon [icon]="['fas', 'message']"></fa-icon>
@@ -130,17 +147,36 @@
               aria-expanded="false"
             >
              
-              <ng-container *ngIf="this.dataUser.verify === true">
-                <fa-icon [icon]="faUserCheck"></fa-icon>
+              <ng-container *ngIf="(this.verify === true) && (this.dataUser.type === 0) ">
+                <fa-icon [icon]="faUserCheck" style="color:#CD7F32"></fa-icon>
               </ng-container>
-              <ng-container *ngIf="this.dataUser.verify === false ">
-                <fa-icon [icon]="['fas', 'user']"></fa-icon>
+              <ng-container *ngIf="(this.verify === true) && (this.dataUser.type === 1) ">
+                <fa-icon [icon]="faUserCheck" style="color:#C0C0C0"></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="(this.verify === true) && (this.dataUser.type === 2) ">
+                <fa-icon [icon]="faUserCheck" style="color:#EABE3F"></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="(this.verify === true) && (this.dataUser.type === 3) ">
+                <fa-icon [icon]="faUserCheck" style="color:#5DADE2"></fa-icon>
+              </ng-container>
+
+              <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===0) ">
+                <fa-icon [icon]="['fas', 'user']" style="color:#CD7F32" ></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===1) ">
+                <fa-icon [icon]="['fas', 'user']" style="color:#C0C0C0" ></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===2) ">
+                <fa-icon [icon]="['fas', 'user']" style="color:#EABE3F" ></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===3) ">
+                <fa-icon [icon]="['fas', 'user']" style="color:#5DADE2" ></fa-icon>
               </ng-container>
               {{ "menu.saludo" | translate }} {{ user }}
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="myProfile">Mi Perfil</a></li>
+              <li><a class="dropdown-item" href="/myProfile">Mi Perfil</a></li>
               <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
               <li><a class="dropdown-item" href="privacy">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
@@ -152,6 +188,8 @@
               </li>
               <li><a class="dropdown-item" href="finanzas">Mis Finanzas</a></li>
               <li><a class="dropdown-item">Mis Amigos</a></li>
+              <li><a class="dropdown-item">Mis Finanzas</a></li>
+              <li><a class="dropdown-item" href="match">Mis Amigos</a></li>
               <li>
                 <a class="dropdown-item" href="myBilletera">Mi Billetera</a>
               </li>
@@ -232,6 +270,8 @@
   </nav>
   <div *ngIf="token !== ''">
     <!-- <app-search></app-search> -->
+  <div *ngIf="token !== ''" class="d-none" >
+    <app-search></app-search>
   </div>
 </div>
 
@@ -239,12 +279,4 @@
 <app-login></app-login>
 
 <!--Alert-->
-<app-mmodal
-  [idModal]="'mnotification'"
-  [tipo]="17"
-  [notification]="notification"
-  [title]="'Notificaciones'"
-  (changeRadio)="updateLike($event)"
-  #mnotification
->
-</app-mmodal>
+

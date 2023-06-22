@@ -25,6 +25,9 @@ export class SupSystemsComponent {
   api = '';
   dataSpam: any;
   detailS: any;
+  user_data: any;
+  id: string='';
+  idDetalle: string='';
 
   constructor(
     library: FaIconLibrary,
@@ -38,9 +41,18 @@ export class SupSystemsComponent {
   }
 
   ngOnInit() {
-    this.getUserVerify();
-    this.getAllSpam();
-    this.api = this.constante.API_IMAGES;
+    this.user_data = JSON.parse(sessionStorage.getItem('data')!);
+
+    if (sessionStorage.getItem('id')!) {
+      this.id = sessionStorage.getItem('id')!;
+      this.getUserVerify();
+      this.getAllSpam();
+      this.api = this.constante.API_IMAGES;
+    }
+    else{
+      this.router.navigate(['/admin']);
+    }
+   
   }
 
   async getUserVerify() {
@@ -76,10 +88,10 @@ export class SupSystemsComponent {
   }
 
   async detailSpam(id:string){
+    this.idDetalle=id;
     const resp = await lastValueFrom(this.adminService.getDetailSpam(id));
     if (resp !== null) {
-      this.detailS = resp.data;  
-      console.log("detalle", this.detailS);        
+      this.detailS = resp.data;         
       this.detalleSpam.abrir();
     } else {
       //console.log('no se encontraron datos');
@@ -106,4 +118,18 @@ export class SupSystemsComponent {
       console.log('no se encontraron datos');
     }    
   }
+
+  async registerMessage(event:any){
+    const resp = await lastValueFrom(this.adminService.addMessageSpam(this.idDetalle,event));
+    if (resp !== null) {   
+      const message=event.form.value.mensajeSpam;  
+      const resp1 = await lastValueFrom(this.adminService.addNotification(this.id,this.detailS[0].user_spam,message));
+      if (resp1 !== null) {   
+        location.reload();
+      }
+    } else {
+      console.log('no se encontraron datos');
+    }    
+  }
+
 }

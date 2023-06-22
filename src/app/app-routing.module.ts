@@ -16,7 +16,7 @@ import { DashboardComponent } from './admin/components/dashboard/dashboard.compo
 import { AdminsComponent } from './admin/components/admins/admins.component';
 import { BilleteraComponent } from './billetera/components/billetera/billetera.component';
 import { MyProfileComponent } from './profile/components/my-profile/my-profile.component';
-import {PrivacyComponent} from './profile/components/privacy/privacy.component';
+import { PrivacyComponent } from './profile/components/privacy/privacy.component';
 import { StartFriendsComponent } from './friends/components/start-friends/start-friends.component';
 import { TravellersComponent } from './friends/components/travellers/travellers.component';
 import { ProfesionalsComponent } from './friends/components/profesionals/profesionals.component';
@@ -40,6 +40,11 @@ import { AgreementsComponent } from './shared/components/agreements/agreements.c
 import { WalletCompanyComponent } from './admin/components/wallet-company/wallet-company.component';
 import { BalanceComponent } from './finance/components/balance/balance.component';
 import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
+import { ProfilesComponent } from './admin/components/profiles/profiles.component';
+import { LikesComponent } from './profile/components/likes/likes.component';
+import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
+import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
+import { SocialUserComponent } from './admin/components/social-user/social-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -71,18 +76,26 @@ const routes: Routes = [
   { path: 'membresias', component: AdminMembershipComponent },
   { path: 'billeteraE', component: WalletCompanyComponent },
   { path: 'recargasE', component: AdminRechargsComponent },
+  { path: 'profiles', component: ProfilesComponent },
+  { path: 'userSocials', component: SocialUserComponent },
+
+  //billetera
+  { path: 'myBilletera', component: BilleteraComponent },
+  { path: 'billetera', component: BilleteraEmpresaComponent },
+  { path: 'updateBilletera/:id', component: UpdateBilleteraEComponent },
 
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'privacy', component: PrivacyComponent },
+  { path: 'match', component: LikesComponent },
 
   // finance
   { path: 'finanzas', component: BalanceComponent },
 
   //amigos
   { path: 'friends', component: StartFriendsComponent },
-  { path: 'travellers/:id', component: TravellersComponent },
+  { path: 'travel/:id', component: TravellersComponent },
   { path: 'profesionals', component: ProfesionalsComponent },
   { path: 'businessmen', component: BusinessmenComponent },
   { path: 'students', component: StudentsComponent },
@@ -99,11 +112,10 @@ const routes: Routes = [
   { path: 'politicas', component: PoliticsComponent },
   { path: 'acuerdo', component: AgreementsComponent },
   { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

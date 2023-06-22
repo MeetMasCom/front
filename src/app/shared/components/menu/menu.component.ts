@@ -17,7 +17,6 @@ import { MmodalComponent } from '../mmodal/mmodal.component';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  @ViewChild('mnotification') mnotification!: MmodalComponent;
   token: string = '';
   user: string = '';
   id: string = '';
@@ -36,6 +35,8 @@ export class MenuComponent implements OnInit {
   faUserCheck=faUserCheck;
   notification: any = [];
   dataUser: any;
+  public mostrarVentanaNotificaciones: boolean = false;
+  verify: any;
 
   constructor(
     library: FaIconLibrary,
@@ -66,8 +67,9 @@ export class MenuComponent implements OnInit {
     }
     this.translate.use(this.langs[0].alias);
     this.getProfile();
-    this.getNotificacion();
+   this.getNotificacion();
     this.getUser();
+    
   }
 
   async onLogout() {
@@ -107,6 +109,7 @@ export class MenuComponent implements OnInit {
 
     if (resp?.data.length > 0) {
       this.dataUser = resp?.data[0];
+      this.verify=this.dataUser.verify;
     }
   }
 
@@ -115,13 +118,32 @@ export class MenuComponent implements OnInit {
     this.translate.use(lang.alias);
   }
 
+  // async getNotificacion() {
+  //   const resp = await lastValueFrom(
+  //     this.profileService.getNotification(this.id)
+  //   );
+  //   if (resp.data.length > 0) {
+  //     this.notification = resp.data;
+
+  //     this.notification.forEach((element: any, index: any) => {
+  //       if (element.state === 0) {
+  //         this.nuevas++;
+  //         console.log("nuevas",this.nuevas);
+  //       }
+       
+  //     });
+  //   } else {
+  //     //console.log('no se encontraron datos');
+  //   }
+  // }
+
+
   async getNotificacion() {
     const resp = await lastValueFrom(
-      this.profileService.getNotification(this.id)
+      this.profileService.getNotificationUser(this.id)
     );
     if (resp.data.length > 0) {
       this.notification = resp.data;
-
       this.notification.forEach((element: any, index: any) => {
         if (element.state === 0) {
           this.nuevas++;
@@ -132,17 +154,25 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  notificaciones() {
-    this.mnotification.abrir();
-  }
+ 
 
   async updateLike(event: any) {
     await lastValueFrom(this.profileService.updateNotification(event));
-
     location.reload();
   }
 
   onRegister() {
     this.router.navigate(['/registro', '']);
+  }
+
+  VentanaNotificaciones(){
+    if(this.mostrarVentanaNotificaciones===true){
+      this.mostrarVentanaNotificaciones=false;
+      location.reload();
+    }
+    if(this.mostrarVentanaNotificaciones===false){
+      this.mostrarVentanaNotificaciones=true;
+      
+    }
   }
 }

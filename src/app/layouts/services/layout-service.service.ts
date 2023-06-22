@@ -7,15 +7,14 @@ import { ConstantsSystem } from '../../utils/constants-system';
   providedIn: 'root',
 })
 export class LayoutServiceService {
+  http: any;
   constructor(
     private httpCLient: HttpClient,
     public constante: ConstantsSystem
   ) {}
 
-  onGetAds(id: string): Observable<any> {
-    return this.httpCLient.get(`${this.constante.API_SERVER}/ads/getAdsById`, {
-      params: { id: id },
-    });
+  onGetAds(id:string): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/ads/getAdsById/${id}`);
   }
 
   deleteAds(id: string): Observable<any> {

@@ -4,6 +4,11 @@ body {
   overflow-x: hidden !important;
 }
 
+.modal-backdrop {
+  background-color: transparent !important;
+  z-index: unset !important;
+}
+
 .text-justify {
   text-align: justify !important;
 }

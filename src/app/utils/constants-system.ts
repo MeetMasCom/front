@@ -13,7 +13,5 @@ export class ConstantsSystem {
 
     this.API_IMAGES = 'http://localhost:8000/';
     //this.API_IMAGES = 'http://meetmas.com/';
-
-
   }
 }

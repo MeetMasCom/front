@@ -1,334 +1,187 @@
 <app-menu></app-menu>
-<div class="d-flex justify-content-center align-items-center w-100 register">
-  <div class="row">
-    <div class="col-6 bg-white w-100">
-      <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
-        <div class="mt-3 p-2">
-          <div class="my-3">
+<div class="row mb-5">
+  <div class="col-12 col-md-3"></div>
+  <div class="col-12 col-md-6">
+    <div class="d-flex justify-content-center align-items-center bg-white">
+      <div class="row p-2">
+        <form #frmREgister="ngForm" (ngSubmit)="onRegister(frmREgister)">
+          <div class="col-12 my-3">
             <h2 class="text-center fw-bold">Registro</h2>
           </div>
 
-          <div class=" row w-100 d-flex justify-content-center mb-3">
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label">País</label>
-              <select
-                class="form-select d-flex"
-                id="country"
-                required
-                ngModel
-                name="country"
-                #country="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of countries" [value]="item._id">
-                  {{ item.name }}
-                </option>
-              </select>
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label">País</label>
+            <select class="form-select d-flex" id="country" required ngModel name="country" #country="ngModel"
+              [ngClass]="'select'">
+              <option value="" selected disabled>
+                Seleccione una opción
+              </option>
+              <option *ngFor="let item of countries" [value]="item._id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" placeholder="" id="dateBirth" required ngModel name="dateBirth"
+              #dateBirth="ngModel" [ngClass]="'input'" (ngModelChange)="onValidateDateBirth($event)" />
+            <div *ngIf="
+                      dateBirth.invalid && (dateBirth.dirty || dateBirth.touched)
+                    " class="text-danger d-flex flex-column">
+              <small *ngIf="dateBirth.errors?.['required']">
+                Seleccione una fecha
+              </small>
             </div>
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label">Fecha de nacimiento</label>
-              <input
-                type="date"
-                class="form-control"
-                placeholder=""
-                id="dateBirth"
-                required
-                ngModel
-                name="dateBirth"
-                #dateBirth="ngModel"
-                [ngClass]="'input'"
-                (ngModelChange)="onValidateDateBirth($event)"
-              />
-              <div
-                *ngIf="
-                  dateBirth.invalid && (dateBirth.dirty || dateBirth.touched)
-                "
-                class="text-danger d-flex flex-column"
-              >
-                <small *ngIf="dateBirth.errors?.['required']">
-                  Seleccione una fecha
-                </small>
-              </div>
-              <div
-                *ngIf="errordate !== ''"
-                class="text-danger d-flex flex-column"
-              >
-                <small>
-                  {{ errordate }}
-                </small>
+            <div *ngIf="errordate !== ''" class="text-danger d-flex flex-column">
+              <small>
+                {{ errordate }}
+              </small>
+            </div>
+          </div>
+
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label"> Nombre de usuario</label>
+            <input id="userName" type="text" class="form-control" placeholder="Nombre de usuario" required ngModel
+              name="userName" pattern="[A-Za-z0-9]+" #userName="ngModel" [ngClass]="'input'"
+              (change)="onValidateUserName(userName.value)" />
+            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+              class="text-danger d-flex flex-column">
+              <small *ngIf="userName.errors?.['required']">
+                Ingrese el nombre de usuario
+              </small>
+              <small *ngIf="userName.errors?.['pattern']">
+                Nombre de usuario no válido
+              </small>
+            </div>
+            <div *ngIf="statusUserName" class="text-danger">
+              Nombre de usuario ya registrado
+            </div>
+          </div>
+          <div class=" col-12 form-group mx-2 mb-3">
+            <label class="label">Correo electrónico</label>
+            <input id="email" type="email" class="form-control" placeholder="Correo electrónico" placeholder="Email"
+              required email ngModel name="email" #email="ngModel" [ngClass]="'input'"
+              (change)="onValidateEmail(email.value)" />
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger d-flex flex-column">
+              <small *ngIf="email.errors?.['required']">
+                Ingrese un correo electrónico
+              </small>
+              <small *ngIf="email.errors?.['email']">
+                Correo electrónico incorrecto
+              </small>
+            </div>
+            <div *ngIf="statusEmail" class="text-danger">
+              Correo electrónico ya registrado
+            </div>
+          </div>
+
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label"> Género </label>
+            <select class="form-select d-flex" id="gender" required ngModel name="gender" #gender="ngModel"
+              [ngClass]="'select'">
+              <option value="" selected disabled>
+                Seleccione una opción
+              </option>
+              <option *ngFor="let item of generos" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label"> Preferencias </label>
+            <select class="form-select d-flex" id="prefer" required ngModel name="prefer" #prefer="ngModel"
+              [ngClass]="'select'">
+              <option value="" selected disabled>
+                Seleccione una opción
+              </option>
+              <option *ngFor="let item of preferencias" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-12 form-group mx-2 mb-3">
+            <label class="label">Contraseña</label>
+            <input type="password" class="form-control" placeholder="Contraseña" id="password" required ngModel
+              minlength="8" name="password" #password="ngModel" [ngClass]="'input'" />
+            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="text-danger d-flex flex-column">
+              <small *ngIf="password.errors?.['required']">
+                Ingrese una contraseña
+              </small>
+              <small *ngIf="password.errors?.['minlength']">
+                Debe tener mínimo 8 caracteres
+              </small>
+            </div>
+          </div>
+          <div class=" col-12 form-group mx-2 mb-3">
+            <label class="label">Confirma tu Contraseña</label>
+            <input type="password" class="form-control" placeholder="Confirma tu contraseña" id="password" required
+              ngModel minlength="8" name="repitPassword" #repitPassword="ngModel" [ngClass]="'input'" />
+            <div *ngIf="
+                      repitPassword.invalid &&
+                      (repitPassword.dirty || repitPassword.touched)
+                    " class="text-danger d-flex flex-column">
+              <small class="form-group" *ngIf="repitPassword.errors?.['required']">
+                Ingrese una contraseña
+              </small>
+              <small class="form-group" *ngIf="repitPassword.errors?.['minlength']">
+                Debe tener mínimo 8 caracteres
+              </small>
+            </div>
+            <div *ngIf="repitPassword.value != password.value" class="text-danger d-flex flex-column">
+              <small class="form-group"> Las contraseñas no coinciden </small>
+            </div>
+          </div>
+
+          <div class="col-12 form-group mx-2 mb-3">
+            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+              [class.is-invalid]="
+                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                    "></re-captcha>
+            <div *ngIf="
+                      recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
+                    " class="invalid-feedback">
+              <div *ngIf="recaptcha.errors?.['required']">
+                {{ "register.captcha" | translate }}
               </div>
             </div>
           </div>
 
-          <div class=" row w-100 d-flex justify-content-center mb-3">
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label"> Nombre de usuario</label>
-              <input
-                id="userName"
-                type="text"
-                class="form-control"
-                placeholder="Nombre de usuario"
-                required
-                ngModel
-                name="userName"
-                pattern="[A-Za-z0-9]+"
-                #userName="ngModel"
-                [ngClass]="'input'"
-                (change)="onValidateUserName(userName.value)"
-              />
-              <div
-                *ngIf="userName.invalid && (userName.dirty || userName.touched)"
-                class="text-danger d-flex flex-column"
-              >
-                <small *ngIf="userName.errors?.['required']">
-                  Ingrese el nombre de usuario
-                </small>
-                <small *ngIf="userName.errors?.['pattern']">
-                  Nombre de usuario no válido
-                </small>
-              </div>
-              <div *ngIf="statusUserName" class="text-danger">
-                Nombre de usuario ya registrado
-              </div>
-            </div>
-            <div class=" col-md-6form-group mx-2 col-mobile">
-              <label class="label">Correo electrónico</label>
-              <input
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="Correo electrónico"
-                placeholder="Email"
-                required
-                email
-                ngModel
-                name="email"
-                #email="ngModel"
-                [ngClass]="'input'"
-                (change)="onValidateEmail(email.value)"
-              />
-              <div
-                *ngIf="email.invalid && (email.dirty || email.touched)"
-                class="text-danger d-flex flex-column"
-              >
-                <small *ngIf="email.errors?.['required']">
-                  Ingrese un correo electrónico
-                </small>
-                <small *ngIf="email.errors?.['email']">
-                  Correo electrónico incorrecto
-                </small>
-              </div>
-              <div *ngIf="statusEmail" class="text-danger">
-                Correo electrónico ya registrado
-              </div>
-            </div>
+          <div class="col-12 form-check mx-2 mb-3">
+            <input class="form-check-input" type="checkbox" id="terms" required ngModel name="terms" #terms="ngModel" />
+            <label class="form-check-label" for="terms">
+              {{ "register.acceptMsg" | translate }}
+              <a href="#">{{ "register.Terms" | translate }}</a>
+            </label>
           </div>
 
-          <div class="row w-100 d-flex justify-content-center mb-3">
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label">Contraseña</label>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Contraseña"
-                id="password"
-                required
-                ngModel
-                minlength="8"
-                name="password"
-                #password="ngModel"
-                [ngClass]="'input'"
-              />
-              <div
-                *ngIf="password.invalid && (password.dirty || password.touched)"
-                class="text-danger d-flex flex-column"
-              >
-                <small *ngIf="password.errors?.['required']">
-                  Ingrese una contraseña
-                </small>
-                <small *ngIf="password.errors?.['minlength']">
-                  Debe tener mínimo 8 caracteres
-                </small>
-              </div>
-            </div>
-            <div class=" col-md-6 form-group mx-2 col-mobile">
-              <label class="label">Confirma tu Contraseña</label>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Confirma tu contraseña"
-                id="password"
-                required
-                ngModel
-                minlength="8"
-                name="repitPassword"
-                #repitPassword="ngModel"
-                [ngClass]="'input'"
-              />
-              <div
-                *ngIf="
-                  repitPassword.invalid &&
-                  (repitPassword.dirty || repitPassword.touched)
-                "
-                class="text-danger d-flex flex-column"
-              >
-                <small
-                  class="form-group"
-                  *ngIf="repitPassword.errors?.['required']"
-                >
-                  Ingrese una contraseña
-                </small>
-                <small
-                  class="form-group"
-                  *ngIf="repitPassword.errors?.['minlength']"
-                >
-                  Debe tener mínimo 8 caracteres
-                </small>
-              </div>
-              <div
-                *ngIf="repitPassword.value != password.value"
-                class="text-danger d-flex flex-column"
-              >
-                <small class="form-group"> Las contraseñas no coinciden </small>
-              </div>
-            </div>
+          <div *ngIf="user"
+            class="mt-2 bg-warning bg-opacity-10 border rounded-3 border-warning p-3 d-flex justify-content-center align-items-center">
+            Invitado por: &nbsp; <b> {{ user }}</b>
           </div>
 
-          <div class="row w-100 d-flex justify-content-center mb-3">
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label"> Género </label>
-              <select
-                class="form-select d-flex"
-                id="gender"
-                required
-                ngModel
-                name="gender"
-                #gender="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of generos" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-6 form-group mx-2 col-mobile">
-              <label class="label"> Preferencias </label>
-              <select
-                class="form-select d-flex"
-                id="prefer"
-                required
-                ngModel
-                name="prefer"
-                #prefer="ngModel"
-                [ngClass]="'select'"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
-                <option *ngFor="let item of preferencias" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
+          <div class="col-12 form-group text-center">
+            <input type="submit" class="btn" value="{{ 'register.registerBtn' | translate }}" [disabled]="
+                      !frmREgister.valid ||
+                      errordate !== '' ||
+                      repitPassword.value != password.value
+                    " [ngClass]="'input-btn'" />
           </div>
-
-          <div class="row w-100 d-flex justify-content-center mt-3 mb-3">
-            <div class="col-md-6 form-group">
-              <re-captcha
-                id="recaptcha"
-                name="recaptcha"
-                #recaptcha="ngModel"
-                [(ngModel)]="token"
-                required
-                [class.is-invalid]="
-                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "
-              ></re-captcha>
-              <div
-                *ngIf="
-                  recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                "
-                class="invalid-feedback"
-              >
-                <div *ngIf="recaptcha.errors?.['required']">
-                  {{ "register.captcha" | translate }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class=" row w-100 d-flex justify-content-center mt-2">
-            <div class="col-md-6 form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="terms"
-                required
-                ngModel
-                name="terms"
-                #terms="ngModel"
-              />
-              <label class="form-check-label" for="terms">
-                {{ "register.acceptMsg" | translate }}
-                <a href="#">{{ "register.Terms" | translate }}</a>
-              </label>
-            </div>
-          </div>
-
-          <div class="w-100 d-flex justify-content-center mt-2">
-            <div
-              *ngIf="user"
-              class="mt-2 bg-warning bg-opacity-10 border rounded-3 border-warning p-3 d-flex justify-content-center align-items-center"
-            >
-              Invitado por: &nbsp; <b> {{ user }}</b>
-            </div>
-          </div>
-
-          <div class="col-sm-12">
-            <div class="form-group text-center">
-              <input
-                type="submit"
-                class="btn"
-                value="{{ 'register.registerBtn' | translate }}"
-                [disabled]="
-                  !frmREgister.valid ||
-                  errordate !== '' ||
-                  repitPassword.value != password.value
-                "
-                [ngClass]="'input-btn'"
-              />
-            </div>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      <br><br><br>
     </div>
+
   </div>
+  <div class="col-12 col-md-3"></div>
 </div>
+
 <div class="w-100 position-fixed bottom-0">
   <app-footer></app-footer>
 </div>
-<app-modal-alerts
-  [idModal]="'exitoR'"
-  [icono]="'./assets/img/success.png'"
-  [titulo]="'Registro Correcto'"
-  [descripcion]="message"
-  (successModal)="onRedirigir()"
-  [tipo]="0"
-  #exitoRModal
-></app-modal-alerts>
+<app-modal-alerts [idModal]="'exitoR'" [icono]="'./assets/img/success.png'" [titulo]="'Registro Correcto'"
+  [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #exitoRModal></app-modal-alerts>
 
-<app-modal-alerts
-  [idModal]="'failR'"
-  [icono]="'./assets/img/fail.png'"
-  [titulo]="'Registro Incorrecto'"
-  [descripcion]="message"
-  (successModal)="onFail()"
-  [tipo]="0"
-  #failRModal
-></app-modal-alerts>
+<app-modal-alerts [idModal]="'failR'" [icono]="'./assets/img/fail.png'" [titulo]="'Registro Incorrecto'"
+  [descripcion]="message" (successModal)="onFail()" [tipo]="0" #failRModal></app-modal-alerts>

@@ -17,7 +17,6 @@ export class WalletCompanyComponent implements OnInit {
   successCreateM!: ModalAlertsComponent;
   @ViewChild('failCreateM')
   failCreateM!: ModalAlertsComponent;
-  @ViewChild('modalUpdateM') modalUpdateM!: ModalAlertsComponent;
   @ViewChild('successUpdateM')
   successUpdateM!: ModalAlertsComponent;
   @ViewChild('failUpdateM')
@@ -29,12 +28,18 @@ export class WalletCompanyComponent implements OnInit {
   @ViewChild('failDeleteM')
   failDeleteM!: ModalAlertsComponent;
 
+  options = [
+    { value: 1, label: 'Crypto' },
+    { value: 2, label: 'Bancos' },
+    { value: 2, label: 'Electrónicos' },
+  ];
   wallet!: WalletI
   form = new FormGroup({});
+  formUpdate = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'd-flex flex-row ',
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
       fieldGroup: [
         {
           key: 'alias',
@@ -47,48 +52,32 @@ export class WalletCompanyComponent implements OnInit {
           },
         },
         {
+          key: 'tipo',
+          type: 'select',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Tipo',
+            placeholder: 'Seleccione una opción',
+            required: true,
+            options: this.options
+          },
+        },
+
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row ',
+      fieldGroup: [
+        {
           key: 'sigla',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
-            label: 'Sigla',
-            placeholder: 'Sigla',
-            required: true,
-          },
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'd-flex flex-row justify-content-between',
-      fieldGroup: [
-        {
-          key: 'url',
-          className: 'w-100 mx-2',
-          type: 'input',
-          props: {
-            label: 'Url',
-            placeholder: 'Url',
-            required: true,
-          },
-          validators: {
-            validation: ['url']
-          }
-        },
-        {
-          key: 'tag',
-          className: 'w-100 mx-2',
-          type: 'input',
-          props: {
-            label: 'Tag',
-            placeholder: 'Tag',
+            label: 'Sigla/Moneda',
+            placeholder: 'Sigla/Moneda',
             required: true,
           },
         },
-      ]
-    },
-    {
-      fieldGroupClassName: 'd-flex flex-row justify-content-between',
-      fieldGroup: [
         {
           key: 'detalle',
           type: 'input',
@@ -99,13 +88,28 @@ export class WalletCompanyComponent implements OnInit {
             required: true,
           },
         },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'tag',
+          className: 'w-100 mx-2',
+          type: 'input',
+          props: {
+            label: 'Tag/Titular',
+            placeholder: 'Tag/Titular',
+            required: false,
+          },
+        },
         {
           key: 'dir',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
-            label: 'Dirección',
-            placeholder: 'Dirección',
+            label: 'N° Cuenta',
+            placeholder: 'N° Cuenta',
             required: true,
           },
         },
@@ -114,48 +118,13 @@ export class WalletCompanyComponent implements OnInit {
     {
       fieldGroupClassName: 'd-flex flex-row justify-content-between',
       fieldGroup: [
-        {
-          key: 'tipo',
-          type: 'select',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Tipo',
-            placeholder: 'Tipo',
-            required: true,
-            options: [
-              { value: 1, label: 'Crypto' },
-              { value: 2, label: 'Profit' },
-            ],
-          },
-        },
         {
           key: 'costo',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
-            label: 'Costo',
-            placeholder: 'Costo',
-            required: true,
-          },
-          validators: {
-            validation: ['price'],
-          },
-        },
-      ]
-    }
-  ];
-
-  fieldsP: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'd-flex flex-row justify-content-between',
-      fieldGroup: [
-        {
-          key: 'minimoProfit',
-          type: 'input',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Mínimo Retiro Profit',
-            placeholder: 'Mínimo Retiro Profit',
+            label: 'Costo Retiro',
+            placeholder: 'Costo Retiro',
             required: true,
           },
           validators: {
@@ -163,72 +132,7 @@ export class WalletCompanyComponent implements OnInit {
           },
         },
         {
-          key: 'maximoProfitB',
-          type: 'input',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Máximo retiro Bronce Profit',
-            placeholder: 'Máximo retiro Bronce Profit',
-            required: true,
-          },
-          validators: {
-            validation: ['price'],
-          },
-        },
-        {
-          key: 'maximoProfitP',
-          type: 'input',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Máximo retiro Plata Profit',
-            placeholder: 'Máximo retiro Plata Profit',
-            required: true,
-          },
-          validators: {
-            validation: ['price'],
-          },
-        },
-      ]
-    },
-    {
-      fieldGroupClassName: 'd-flex flex-row justify-content-between',
-      fieldGroup: [
-        {
-          key: 'maximoProfitO',
-          type: 'input',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Máximo retiro Oro Profit',
-            placeholder: 'Máximo retiro Oro Profit',
-            required: true,
-          },
-          validators: {
-            validation: ['price'],
-          },
-        },
-        {
-          key: 'maximoProfitD',
-          type: 'input',
-          className: 'w-100 mx-2',
-          props: {
-            label: 'Máximo retiro Diamante Profit',
-            placeholder: 'Máximo retiro Diamante Profit',
-            required: true,
-          },
-          validators: {
-            validation: ['price'],
-          },
-        },
-      ]
-    }
-  ];
-
-  fieldsC: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'd-flex flex-row justify-content-between',
-      fieldGroup: [
-        {
-          key: 'minimoRetiro',
+          key: 'minimo',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -240,8 +144,14 @@ export class WalletCompanyComponent implements OnInit {
             validation: ['price'],
           },
         },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+
         {
-          key: 'maxretiroB',
+          key: 'maxRetiroB',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -254,11 +164,11 @@ export class WalletCompanyComponent implements OnInit {
           },
         },
         {
-          key: 'maxretiroP',
+          key: 'maxRetiroP',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
-            label: 'Máximo retiro Plata',
+            label: 'Máximo retiro Plata ',
             placeholder: 'Máximo retiro Plata',
             required: true,
           },
@@ -272,7 +182,7 @@ export class WalletCompanyComponent implements OnInit {
       fieldGroupClassName: 'd-flex flex-row justify-content-between',
       fieldGroup: [
         {
-          key: 'maxretiroO',
+          key: 'maxRetiroO',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -285,7 +195,7 @@ export class WalletCompanyComponent implements OnInit {
           },
         },
         {
-          key: 'maxretiroD',
+          key: 'maxRetiroD',
           type: 'input',
           className: 'w-100 mx-2',
           props: {
@@ -298,18 +208,188 @@ export class WalletCompanyComponent implements OnInit {
           },
         },
       ]
-    },
-
-
+    }
   ];
 
-  message = '';
+  fieldsUpdate: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'alias',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Alias',
+            placeholder: 'Alias',
+            required: true,
+          },
+        },
+        {
+          key: 'tipo',
+          type: 'select',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Tipo',
+            placeholder: 'Seleccione una opción',
+            required: true,
+            options: this.options
+          },
+        },
 
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row ',
+      fieldGroup: [
+        {
+          key: 'sigla',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Sigla/Moneda',
+            placeholder: 'Sigla/Moneda',
+            required: true,
+          },
+        },
+        {
+          key: 'detalle',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Detalle',
+            placeholder: 'Detalle',
+            required: true,
+          },
+        },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'tag',
+          className: 'w-100 mx-2',
+          type: 'input',
+          props: {
+            label: 'Tag/Titular',
+            placeholder: 'Tag/Titular',
+            required: false,
+          },
+        },
+        {
+          key: 'dir',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'N° Cuenta',
+            placeholder: 'N° Cuenta',
+            required: true,
+          },
+        },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'costo',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Costo Retiro',
+            placeholder: 'Costo Retiro',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+        {
+          key: 'minimo',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Mínimo Retiro',
+            placeholder: 'Mínimo Retiro',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+
+        {
+          key: 'maxRetiroB',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Máximo retiro Bronce',
+            placeholder: 'Máximo retiro Bronce',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+        {
+          key: 'maxRetiroP',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Máximo retiro Plata ',
+            placeholder: 'Máximo retiro Plata',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+      ]
+    },
+    {
+      fieldGroupClassName: 'd-flex flex-row justify-content-between',
+      fieldGroup: [
+        {
+          key: 'maxRetiroO',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Máximo retiro Oro',
+            placeholder: 'Máximo retiro Oro',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+        {
+          key: 'maxRetiroD',
+          type: 'input',
+          className: 'w-100 mx-2',
+          props: {
+            label: 'Máximo retiro Diamante',
+            placeholder: 'Máximo retiro Diamante',
+            required: true,
+          },
+          validators: {
+            validation: ['price'],
+          },
+        },
+      ]
+    }
+  ];
+
+
+  message = '';
   wallets: WalletI[] = []
 
   constructor(private adminService: AdminServiceService) { }
-
-
 
   async ngOnInit() {
     try {
@@ -329,13 +409,15 @@ export class WalletCompanyComponent implements OnInit {
     location.reload();
   }
 
+  findOption(value: number) {
+    return this.options.find(f => f.value == value)!.label ?? '';
+  }
 
-  async onSubmit(model: any) {
+  async onSubmit(model: WalletI) {
     try {
       const response = await lastValueFrom(
         this.adminService.createWalletE(model)
       );
-
       if (response.data !== null) {
         this.message = response.message;
         this.successCreateM.abrir();
@@ -347,8 +429,7 @@ export class WalletCompanyComponent implements OnInit {
   }
 
   onUpdate(data: WalletI) {
-    this.wallet = data;
-    this.modalUpdateM.abrir();
+    this.wallet = { ...data };
   }
 
   onQuestion(data: WalletI) {
@@ -372,7 +453,7 @@ export class WalletCompanyComponent implements OnInit {
     }
   }
 
-  async onForm(form: WalletI) {
+  async onUpdateWallet(form: WalletI) {
     try {
       const response = await lastValueFrom(
         this.adminService.updateWallet(this.wallet._id!, form)

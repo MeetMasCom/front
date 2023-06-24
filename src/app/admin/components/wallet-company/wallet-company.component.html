@@ -10,8 +10,9 @@
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="member-profile-tab" data-bs-toggle="pill" data-bs-target="#member-profile"
-          type="button" role="tab" aria-controls="member-profile" aria-selected="false">
+        <button class="nav-link" id="member-profile-tab" (click)="model = {}" data-bs-toggle="pill"
+          data-bs-target="#member-profile" type="button" role="tab" aria-controls="member-profile"
+          aria-selected="false">
           Agregar
           <fa-icon [icon]="['fas', 'plus']"></fa-icon>
         </button>
@@ -41,11 +42,11 @@
                   <td>{{ item.alias }}</td>
                   <td>{{ item.sigla }}</td>
                   <td>{{ item.detalle }}</td>
-                  <td>{{ item.tipo === 1 ? 'Crypto':'Profit' }}</td>
-                  <td>{{ item.costo | currency : "USD" }}</td>
+                  <td>{{ findOption(item.tipo) }}</td>
+                  <td>{{ item.costo }}</td>
                   <td class="text-center">
-                    <button title="Actualizar" type="button" class="btn btn-outline-primary" (click)="onUpdate(item)"
-                      [disabled]="!item.estado">
+                    <button title="Actualizar" type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                      data-bs-target="#updateWalletModal" (click)="onUpdate(item)" [disabled]="!item.estado">
                       <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                       <!-- Actualizar -->
                     </button>
@@ -83,13 +84,10 @@
 
         <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-          <formly-form *ngIf="model.tipo == 1" [form]="form" [fields]="fieldsC" [model]="model"></formly-form>
-          <formly-form *ngIf="model.tipo == 2" [form]="form" [fields]="fieldsP" [model]="model"></formly-form>
           <div class="form-group text-center">
             <input type="submit" class="btn" value="Guardar" [disabled]="form.invalid" [ngClass]="'input-btn'" />
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -107,9 +105,6 @@
 <app-modal-alerts [idModal]="'failCreateM'" [icono]="'./assets/img/fail.png'" [titulo]="'Registro Incorrecto'"
   [descripcion]="message" [tipo]="0" #failCreateM></app-modal-alerts>
 
-<app-modal-alerts [idModal]="'modalUpdateM'" [tipo]="5" [title]="'Actualizar Billetera'" (sendModal)="onForm($event)"
-  [data]="wallet" #modalUpdateM></app-modal-alerts>
-
 <app-modal-alerts [idModal]="'successUpdateM'" [icono]="'./assets/img/success.png'" [titulo]="'Actualización Correcta'"
   [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successUpdateM></app-modal-alerts>
 
@@ -124,3 +119,24 @@
 
 <app-modal-alerts [idModal]="'failDeleteM'" [icono]="'./assets/img/fail.png'" [titulo]="'Actualización Incorrecta'"
   [descripcion]="message" [tipo]="0" #failDeleteM></app-modal-alerts>
+
+
+<div class="modal fade" id="updateWalletModal" tabindex="-1" aria-labelledby="updateWalletModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4 fw-bold" id="updateWalletModalLabel">Actualizar Billetera</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formUpdate" (ngSubmit)="onUpdateWallet(wallet)">
+          <formly-form [form]="formUpdate" [fields]="fieldsUpdate" [model]="wallet"></formly-form>
+          <div class="form-group text-center">
+            <input type="submit" class="btn" value="Guardar" [disabled]="formUpdate.invalid" [ngClass]="'input-btn'" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

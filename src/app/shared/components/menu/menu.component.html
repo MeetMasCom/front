@@ -203,11 +203,8 @@
       </div>
     </div>
   </nav>
-  <div *ngIf="token !== ''">
+  <div *ngIf="token !== ''" class="d-none">
     <!-- <app-search></app-search> -->
-    <div *ngIf="token !== ''" class="d-none">
-      <app-search></app-search>
-    </div>
   </div>
 
   <!-- Modal -->

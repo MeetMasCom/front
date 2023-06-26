@@ -57,6 +57,7 @@ export class UserDataComponent implements OnInit {
     this.dataUser = JSON.parse(sessionStorage.getItem('data')!);      
     this.activatedRoute.params.subscribe((params) => {
       this.estado = params['estado'];
+      console.log("estado",this.estado);
     });
    
     await this.getStateCivil();

@@ -106,6 +106,8 @@ export class ProfileServiceService {
   }
 
   addSocialN(id: string, form: any) {
+    console.log("id", id);
+    console.log("id", form);
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/profile/addSocialN/${id}`,
       {

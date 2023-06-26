@@ -34,9 +34,11 @@ export class MenuComponent implements OnInit {
   faBell = faBell;
   faUserCheck=faUserCheck;
   notification: any = [];
-  dataUser: any;
+  dataUser: any=[];
   public mostrarVentanaNotificaciones: boolean = false;
   verify: any;
+  estado: any;
+  datauser: any=[];
 
   constructor(
     library: FaIconLibrary,
@@ -61,14 +63,21 @@ export class MenuComponent implements OnInit {
     }
     if (sessionStorage.getItem('user')!) {
       this.user = sessionStorage.getItem('user')!;
+      
     }
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
+
+
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
+      this.getProfile();
+      this.getNotificacion();
+      this.getUser();
+      
+    this.estado = this.dataUser.state[this.dataUser.state.length - 1];
     }
     this.translate.use(this.langs[0].alias);
-    this.getProfile();
-   this.getNotificacion();
-    this.getUser();
+    
     
   }
 
@@ -109,7 +118,7 @@ export class MenuComponent implements OnInit {
 
     if (resp?.data.length > 0) {
       this.dataUser = resp?.data[0];
-      this.verify=this.dataUser.verify;
+      this.verify=this.dataUser!.verify;
     }
   }
 

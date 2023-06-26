@@ -273,7 +273,7 @@ export class MyProfileComponent {
       const resp = await lastValueFrom(
         this.profileService.addSocialN(this.id, event.value)
       );
-      if (resp.data.length > 0) {
+      if (resp.data) {
         this.profile = resp.data;
         //location.reload();
       } 

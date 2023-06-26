@@ -42,8 +42,6 @@ import { BalanceComponent } from './finance/components/balance/balance.component
 import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-rechargs.component';
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
-import { BilleteraEmpresaComponent } from './billetera/components/billetera-empresa/billetera-empresa.component';
-import { UpdateBilleteraEComponent } from './billetera/components/update-billetera-e/update-billetera-e.component';
 import { SocialUserComponent } from './admin/components/social-user/social-user.component';
 
 const routes: Routes = [
@@ -81,8 +79,6 @@ const routes: Routes = [
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },
-  { path: 'billetera', component: BilleteraEmpresaComponent },
-  { path: 'updateBilletera/:id', component: UpdateBilleteraEComponent },
 
   //perfil
   { path: 'myProfile', component: MyProfileComponent },
@@ -118,4 +114,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

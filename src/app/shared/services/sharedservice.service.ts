@@ -80,6 +80,6 @@ export class SharedserviceService {
   }
 
   getToken() {
-    return sessionStorage.getItem('token');
+    return JSON.parse(sessionStorage.getItem('token')!);
   }
 }

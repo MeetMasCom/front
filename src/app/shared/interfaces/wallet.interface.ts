@@ -9,17 +9,11 @@ export interface WalletI {
     costo: number
     estado: boolean
     tag: string
-    url: string
-    minimoRetiro: number
-    maxretiroB: number
-    maxretiroP: number
-    maxretiroO: number
-    maxretiroD: number
-    minimoProfit: number
-    maximoProfitB: number
-    maximoProfitP: number
-    maximoProfitO: number
-    maximoProfitD: number,
+    minimo: number
+    maxRetiroB: number
+    maxRetiroP: number
+    maxRetiroO: number
+    maxRetiroD: number
     createdAt: string
     updatedAt: string
 }

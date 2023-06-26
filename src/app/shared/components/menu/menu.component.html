@@ -2,20 +2,12 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <ng-container *ngIf="token !== ''">
       <a class="navbar-brand align-items-center icon" href="/home">
-        <img
-          class="rounded img-header img-fluid"
-          src="../../assets/img/1.png"
-          alt="Ken You Me"
-        />
+        <img class="rounded img-header img-fluid" src="../../assets/img/1.png" alt="Ken You Me" />
       </a>
     </ng-container>
     <ng-container *ngIf="token === ''">
       <a class="navbar-brand align-items-center icon" href="/inicio">
-        <img
-          class="rounded img-header img-fluid"
-          src="../../assets/img/1.png"
-          alt="Ken You Me"
-        />
+        <img class="rounded img-header img-fluid" src="../../assets/img/1.png" alt="Ken You Me" />
         <!-- &nbsp;
         <img
           class="rounded img-header img-fluid"
@@ -25,45 +17,24 @@
       </a>
     </ng-container>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div
-      class="collapse navbar-collapse justify-content-end align-items-center"
-      id="navbarNavAltMarkup"
-    >
+    <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavAltMarkup">
       <div class="navbar-nav menu mx-4">
         <ng-container *ngIf="token !== ''">
           <a class="nav-item nav-link" href="home">Inicio</a>
           <div class="dropdown">
-            <a
-              class="btn dropdown-toggle border-0 nav-item nav-link"
-              role="button"
-              id="dropdownMenuLink"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              href="friends"
-            >
+            <a class="btn dropdown-toggle border-0 nav-item nav-link" role="button" id="dropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false" href="friends">
               {{ "menu.friends" | translate }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li *ngFor="let p of profile">
                 <ng-container *ngIf="(p.name !== 'Personal') ">
-                  <a
-                    class="dropdown-item"
-                    travellers
-                    [routerLink]="'/travel/' + p._id"
-                    >{{ p.name }}</a
-                  >
+                  <a class="dropdown-item" travellers [routerLink]="'/travel/' + p._id">{{ p.name }}</a>
                 </ng-container>
               </li>
             </ul>
@@ -71,33 +42,31 @@
 
           <a class="nav-item nav-link d-none" href="fad">{{
             "menu.fashion" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none" href="hotel">{{
             "menu.hotels" | translate
-          }}</a>
+            }}</a>
 
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
-          }}</a>
+            }}</a>
 
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
-          }}</a>
+            }}</a>
 
           <button (click)="VentanaNotificaciones()" class="border-0 nav-item nav-link">
-            <fa-icon [icon]="faBell">             
+            <fa-icon [icon]="faBell">
             </fa-icon>
             <ng-container *ngIf="nuevas !== 0">
-              <span
-                class="position-absolute
-                 translate-middle badge rounded-pill noti"
-              >
+              <span class="position-absolute
+                 translate-middle badge rounded-pill noti">
                 {{ nuevas }}
                 <span class="visually-hidden"></span>
               </span>
@@ -106,9 +75,9 @@
           <div *ngIf="mostrarVentanaNotificaciones===true">
             <div class="position-absolute mt-4">
               <app-notification></app-notification>
-            </div>            
+            </div>
           </div>
-          
+
           <!-- <a class="border-0 nav-item nav-link" href="#">
             <fa-icon [icon]="faBell"></fa-icon>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -138,15 +107,9 @@
           </a>
 
           <div class="dropdown">
-            <a
-              class="btn dropdown-toggle border-0 nav-item nav-link"
-              href="#"
-              role="button"
-              id="dropdownMenuLink"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-             
+            <a class="btn dropdown-toggle border-0 nav-item nav-link" href="#" role="button" id="dropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+
               <ng-container *ngIf="(this.verify === true) && (this.dataUser.type === 0) ">
                 <fa-icon [icon]="faUserCheck" style="color:#CD7F32"></fa-icon>
               </ng-container>
@@ -161,16 +124,16 @@
               </ng-container>
 
               <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===0) ">
-                <fa-icon [icon]="['fas', 'user']" style="color:#CD7F32" ></fa-icon>
+                <fa-icon [icon]="['fas', 'user']" style="color:#CD7F32"></fa-icon>
               </ng-container>
               <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===1) ">
-                <fa-icon [icon]="['fas', 'user']" style="color:#C0C0C0" ></fa-icon>
+                <fa-icon [icon]="['fas', 'user']" style="color:#C0C0C0"></fa-icon>
               </ng-container>
               <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===2) ">
-                <fa-icon [icon]="['fas', 'user']" style="color:#EABE3F" ></fa-icon>
+                <fa-icon [icon]="['fas', 'user']" style="color:#EABE3F"></fa-icon>
               </ng-container>
               <ng-container *ngIf="(this.verify === false) && (this.dataUser.type===3) ">
-                <fa-icon [icon]="['fas', 'user']" style="color:#5DADE2" ></fa-icon>
+                <fa-icon [icon]="['fas', 'user']" style="color:#5DADE2"></fa-icon>
               </ng-container>
               {{ "menu.saludo" | translate }} {{ user }}
             </a>
@@ -188,8 +151,6 @@
                 <a class="dropdown-item" href="referidos">Mis Referidos</a>
               </li>
               <li><a class="dropdown-item" href="finanzas">Mis Finanzas</a></li>
-              <li><a class="dropdown-item">Mis Amigos</a></li>
-              <li><a class="dropdown-item">Mis Finanzas</a></li>
               <li><a class="dropdown-item" href="match">Mis Amigos</a></li>
               <li>
                 <a class="dropdown-item" href="myBilletera">Mi Billetera</a>
@@ -206,78 +167,48 @@
         <ng-container *ngIf="token === ''">
           <a class="nav-item nav-link d-none">{{
             "menu.matches" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none" href="inicio">{{
             "menu.fashion" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none" href="inicio">{{
             "menu.hotels" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.restaurants" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link d-none">{{
             "menu.flowers" | translate
-          }}</a>
+            }}</a>
           <a class="nav-item nav-link" type="button" (click)="onRegister()">
             Registrarse
           </a>
-          <a
-            class="nav-item nav-link"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#modalLogin"
-          >
+          <a class="nav-item nav-link" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
             <fa-icon [icon]="['fas', 'key']"></fa-icon>
             {{ "menu.login" | translate }}
           </a>
         </ng-container>
 
-        <div
-          data-bs-toggle="tooltip"
-          data-bs-placement="right"
-          [title]="selectLang.label"
-          *ngIf="selectLang"
-          class="dropdown m-2 cursor-pointer"
-        >
-          <img
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            class="w-40 h-40 img-fluid"
-            [src]="'/assets/langs/' + selectLang.icon"
-            alt="Meet-mas"
-          />
+        <div data-bs-toggle="tooltip" data-bs-placement="right" [title]="selectLang.label" *ngIf="selectLang"
+          class="dropdown m-2 cursor-pointer">
+          <img id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" class="w-40 h-40 img-fluid"
+            [src]="'/assets/langs/' + selectLang.icon" alt="Meet-mas" />
           <div class="dropdown-menu w-50" aria-labelledby="dropdownMenuButton1">
-            <div
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              [title]="lang.label"
-              *ngFor="let lang of langs"
-              class="p-1"
-            >
-              <img
-                *ngIf="lang.alias !== selectLang.alias"
-                (click)="setTransLanguage(lang)"
-                class="w-40 h-40 img-fluid"
-                [src]="'/assets/langs/' + lang.icon"
-                alt="Meet-mas"
-              />
+            <div data-bs-toggle="tooltip" data-bs-placement="right" [title]="lang.label" *ngFor="let lang of langs"
+              class="p-1">
+              <img *ngIf="lang.alias !== selectLang.alias" (click)="setTransLanguage(lang)" class="w-40 h-40 img-fluid"
+                [src]="'/assets/langs/' + lang.icon" alt="Meet-mas" />
             </div>
           </div>
         </div>
       </div>
     </div>
   </nav>
-  <div *ngIf="token !== ''">
+  <div *ngIf="token !== ''" class="d-none">
     <!-- <app-search></app-search> -->
-  <div *ngIf="token !== ''" class="d-none" >
-    <app-search></app-search>
   </div>
-</div>
 
-<!-- Modal -->
-<app-login></app-login>
+  <!-- Modal -->
+  <app-login></app-login>
 
-<!--Alert-->
-
+  <!--Alert-->

@@ -16,7 +16,6 @@ moment.locale("es");
   styleUrls: ['./user-membership.component.css'],
 })
 export class UserMembershipComponent implements OnInit {
-  @ViewChild('infoBuyMembership') infoBuyMembership!: ModalAlertsComponent;
   @ViewChild('successBuyM') successBuyM!: ModalAlertsComponent;
   @ViewChild('failBuyM') failBuyM!: ModalAlertsComponent;
 
@@ -103,19 +102,14 @@ export class UserMembershipComponent implements OnInit {
     }
   }
 
-  onSelectMembership(item: any) {
-    this.selectItem = item;
-  }
-
-  onSubmit(value: any) {
-    this.selectedWallet = value.walletId;
-    this.infoBuyMembership.abrir();
+  setMembershipBuy(item: any) {
+    this.selectItem = { ...item };
   }
 
   async onBuyMembership() {
     try {
       const response = await lastValueFrom(
-        this.userService.buyMembership(this.user._id, this.selectItem._id, this.selectedWallet)
+        this.userService.buyMembership(this.user._id, this.selectItem._id)
       );
       if (response.data !== null) {
         this.message = response.message;

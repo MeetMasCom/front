@@ -7,6 +7,7 @@ import { WalletI } from "src/app/shared/interfaces/wallet.interface";
 import { BalanceUserI, RechargeI, RecordsI } from "../../interfaces/balanceUser";
 import { lastValueFrom } from "rxjs";
 import { ModalAlertsComponent } from "src/app/shared/components/modal-alerts/modal-alerts.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-balance',
@@ -86,7 +87,7 @@ export class BalanceComponent {
           type: 'select',
           props: {
             label: 'Billetera',
-            placeholder: 'Billetera',
+            placeholder: 'Selecciona una opción',
             required: true,
             options: [],
           },
@@ -96,8 +97,9 @@ export class BalanceComponent {
   ];
   message = '';
   records: RecordsI[] = []
+  file: string = "";
 
-  constructor(private financeServiceService: FinanceServiceService, private aminServiceService: AdminServiceService
+  constructor(private toastrService: ToastrService, private financeServiceService: FinanceServiceService, private aminServiceService: AdminServiceService
   ) { }
 
   ngOnInit(): void {
@@ -147,6 +149,12 @@ export class BalanceComponent {
 
   async onSubmit(item: RechargeI) {
     try {
+      if (this.file == "") {
+        this.toastrService.warning("Debes adjuntar una imágen", "Aviso");
+        return;
+      }
+
+      item.file = this.file;
       const response = await lastValueFrom(
         this.financeServiceService.rechargeBalance(item)
       );
@@ -179,6 +187,22 @@ export class BalanceComponent {
     } catch (error: any) {
       this.records = [];
     }
+  }
+
+  setFile(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type.includes('image/')) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        this.file = base64String;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  findWallet() {
+    return this.wallets.find(f => f._id == this.model.walletId);
   }
 
 }

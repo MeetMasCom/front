@@ -208,11 +208,10 @@ export class UserServiceService {
     return this.httpCLient.get(`${this.constante.API_SERVER}/membsership`);
   }
 
-  buyMembership(idUser: string, idMem: string, walletId: string): Observable<any> {
+  buyMembership(idUser: string, idMem: string): Observable<any> {
     const body = {
       userId: idUser,
       membershipId: idMem,
-      walletId
     };
 
     return this.httpCLient.post(

@@ -1,5 +1,6 @@
 export interface RechargeI {
     dir: string
+    file: string
     hash: string
     amount: number
     detail: string
@@ -17,6 +18,7 @@ export interface RechargeI {
 export interface ReviewRechargeI {
     id: string;
     remark: string;
+    value: number;
     status: number;
 }
 

@@ -60,22 +60,30 @@
 
 <!-- RECARGA -->
 <div class="modal" tabindex="-1" id="recharge">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Aprobar/Rechazar recarga</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="form">
-          <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-          <div class="d-flex justify-content-center align-items-center ">
-            <input type="button" (click)="onSubmit(model,1)" class="btn mx-1" value="Aprobar" [disabled]="form.invalid"
-              [ngClass]="'input-btn'" />
-            <input type="button" (click)="onSubmit(model,2)" class="btn btn-danger mx-1" value="Rechazar"
-              [disabled]="form.invalid" />
+      <div class="modal-body ">
+        <div class="d-flex flex-row">
+          <div class="imagen mb-3 d-flex flex-column me-3">
+            <label class="form-label">Imágen Adjunta</label>
+            <img class="img-fluid" [src]="model.file" alt="MEET-MAS">
           </div>
-        </form>
+          <div class="w-100">
+            <form [formGroup]="form">
+              <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+            </form>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center ">
+          <input type="button" (click)="onSubmit(model,1)" class="btn mx-1" value="Aprobar" [disabled]="form.invalid"
+            [ngClass]="'input-btn'" />
+          <input type="button" (click)="onSubmit(model,2)" class="btn btn-danger mx-1" value="Rechazar"
+            [disabled]="form.invalid" />
+        </div>
       </div>
     </div>
   </div>

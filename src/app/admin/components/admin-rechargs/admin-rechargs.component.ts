@@ -61,7 +61,7 @@ export class AdminRechargsComponent implements OnInit {
             label: 'Valor',
             placeholder: 'Valor',
             required: true,
-            disabled: true,
+            disabled: false,
           },
           validators: {
             validation: ['price']
@@ -170,7 +170,8 @@ export class AdminRechargsComponent implements OnInit {
     const payload: ReviewRechargeI = {
       id: data.id!,
       remark: data.remark!,
-      status
+      status,
+      value: data.amount
     }
     this.adminService.reviewRecharg(payload).subscribe({
       next: () => {
@@ -183,7 +184,7 @@ export class AdminRechargsComponent implements OnInit {
   }
 
   setRecharg(item: RechargeI) {
-    this.model = item;
+    this.model = { ...item };
   }
 
 }

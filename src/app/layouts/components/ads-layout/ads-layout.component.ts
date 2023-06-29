@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { LayoutServiceService } from '../../services/layout-service.service';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+
 
 @Component({
   selector: 'app-ads-layout',
@@ -11,13 +12,17 @@ import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/mo
 export class AdsLayoutComponent implements OnInit {
   @ViewChild('exitoDeleteAdsRev') exitoDeleteAdsRev!: ModalAlertsComponent;
   @ViewChild('failDeleteAdsRev') failDeleteAdsRev!: ModalAlertsComponent;
+  @ViewChild('successNotices') successNotices!: ModalAlertsComponent;
+  @ViewChild('failNotices') failNotices!: ModalAlertsComponent;
 
   user_id = '';
   adsActive: any = [];
   adsReview: any = [];
   adsReturn: any = [];
+  messague: string = "";
 
-  constructor(private layoutService: LayoutServiceService) {}
+
+  constructor(private layoutService: LayoutServiceService) { }
 
   ngOnInit() {
     this.user_id = sessionStorage.getItem('id')!;
@@ -69,5 +74,15 @@ export class AdsLayoutComponent implements OnInit {
   async onUpdate(item: any) {
     sessionStorage.setItem('item', JSON.stringify(item));
     location.reload();
+  }
+
+  openModal(data: any) {
+    this.messague = data.messague;
+    if (data.result) {
+      this.successNotices.abrir();
+    } else {
+      this.failNotices.abrir();
+    }
+
   }
 }

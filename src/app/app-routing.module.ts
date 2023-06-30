@@ -43,6 +43,9 @@ import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
 import { SocialUserComponent } from './admin/components/social-user/social-user.component';
+import {FeedbackComponent} from './admin/components/feedback/feedback.component';
+import {FeedbackUserComponent} from './shared/components/feedback-user/feedback-user.component';
+import { SearchComponent } from './shared/components/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -76,11 +79,13 @@ const routes: Routes = [
   { path: 'recargasE', component: AdminRechargsComponent },
   { path: 'profiles', component: ProfilesComponent },
   { path: 'userSocials', component: SocialUserComponent },
+  { path: 'fedback', component: FeedbackComponent },
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },
 
   //perfil
+  //{ path: 'search', component: SearchComponent },
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'privacy', component: PrivacyComponent },
@@ -107,6 +112,9 @@ const routes: Routes = [
   { path: 'fees', component: FeesComponent },
   { path: 'politicas', component: PoliticsComponent },
   { path: 'acuerdo', component: AgreementsComponent },
+
+{path:'feedbackUser',component:FeedbackUserComponent},
+
   { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
 ];
 

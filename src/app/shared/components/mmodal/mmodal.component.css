@@ -69,3 +69,15 @@
   color: black;
 }
 
+
+.image-container {
+  height: 30vw; /* Ajusta la altura según tus necesidades */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-fluid1{
+  max-width: 60%;
+    height: auto;
+}

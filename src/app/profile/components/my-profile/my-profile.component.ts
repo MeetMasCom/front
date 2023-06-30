@@ -13,6 +13,39 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { AdminServiceService } from '../../../admin/services/admin-service.service';
+import {
+  faLocationDot,
+  faCakeCandles,
+  faPeopleArrows,
+  faCalendar,
+  faUser,
+  faAsterisk,
+  faCircleArrowRight,
+  faFileSignature,
+  faLanguage,
+  faGraduationCap,
+  faBriefcase,
+  faLaptopFile,
+  faWeightScale,
+  faLineChart,
+  faHandsPraying,
+  faPerson,
+  faEye,
+  faChild,
+  faClockFour,
+  faPlateWheat,
+  faMedal,
+  faPersonWalking,
+  faSmoking,
+  faMartiniGlass,
+  faChildren,
+  faShirt
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-my-profile',
@@ -30,9 +63,36 @@ export class MyProfileComponent {
 
 
   @ViewChild('selectElement') selectElement: any;
+  @ViewChild('errorMatch') errorMatch!: MmodalComponent;
+  faCircleCheck = faCircleCheck;
+  faCircleXmark = faCircleXmark;
   faUserPlus = faUserPlus;
   faElipsis = faEllipsis;
-
+  faLocationDot = faLocationDot;
+  faCakeCandles = faCakeCandles;
+  faPeopleArrows = faPeopleArrows;
+  faUser = faUser;
+  faCalendar = faCalendar;
+  faAsterisk = faAsterisk;
+  faCircleArrowRight= faCircleArrowRight;
+  faLanguage=faLanguage;
+  faGraduationCap=faGraduationCap;
+  faBriefcase=faBriefcase;
+  faLaptopFile=faLaptopFile;
+  faWeightScale=faWeightScale;
+  faLineChart=faLineChart;
+  faHandsPraying=faHandsPraying;
+  faPerson=faPerson;
+  faEye=faEye;
+  faChild=faChild;
+  faClockFour=faClockFour;
+  faPlateWheat=faPlateWheat;
+  faMedal=faMedal;
+  faPersonWalking=faPersonWalking;
+  faSmoking=faSmoking;
+  faMartiniGlass=faMartiniGlass;
+  faChildren=faChildren;
+  faShirt=faShirt;
   photoSelected: any;
   classA: string = '';
   message: string = '';
@@ -48,11 +108,11 @@ export class MyProfileComponent {
   myProfile: any;
   perfil: any[] = [];
   valorSeleccionado: string = '';
-  val: string = '';
+  val: string = '646c1e9ec29b09413fcb3887';
   count: number = 0;
   PostD: any;
   user_data: any;
-  estado: number=0;
+  state: number=0;
   followers:number=0;
   followings:number=0;
   notification: any;
@@ -61,6 +121,8 @@ export class MyProfileComponent {
   cMyLike=0;
   cLikeUser=0;
  valPerfil: any = [];
+ ban: number = 0;
+ estado: number=0;
 
   constructor(
     private profileService: ProfileServiceService,
@@ -68,7 +130,8 @@ export class MyProfileComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem,
-    library: FaIconLibrary
+    library: FaIconLibrary,
+   
   ) { library.addIconPacks(fas, far, fab);}
 
   ngOnInit(): void {
@@ -80,7 +143,8 @@ export class MyProfileComponent {
       this.getProfile();
       this.getmyLikes();
       this.getLikesUser();
-
+      this.album();
+     this.valorSeleccionado='Personal';
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
       }
@@ -96,13 +160,13 @@ export class MyProfileComponent {
       this.dataUser = resp?.data[0];
       this.img = this.dataUser.image;
       this.imageBase64 = 'data:image/png;base64,' + '' + this.img;
+      this.state = this.dataUser.state[this.dataUser.state.length - 1];
       this.myProfile = this.dataUser.profile;
       for (let i = 0; i < this.myProfile.length; i++) {
         const elemento = this.myProfile[i].profile_id;
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
         );
-
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
@@ -223,7 +287,7 @@ export class MyProfileComponent {
     }
   }
 
-  selectProfile(event: any) {
+  selectProfile(event: any) {   
     this.Post = '';
     const textoSeleccionado =
       event.target.options[event.target.selectedIndex].text;
@@ -231,6 +295,8 @@ export class MyProfileComponent {
     this.val = event.target.options[event.target.selectedIndex].value;
     this.getPostUser();
     this.getCountPost();
+    this.getmyLikes();
+    this.getLikesUser();
   }
 
   async getCountPost() {
@@ -259,7 +325,6 @@ export class MyProfileComponent {
   }
 
   onValidateUser() {
-
     this.dataUser.state.forEach((element:any) => {
       if(element===1){
         this.estado = 1;
@@ -296,7 +361,7 @@ export class MyProfileComponent {
 
   async getmyLikes() {
     const resp = await lastValueFrom(
-      this.profileService.getMyLikes(this.id)
+      this.profileService.getMyLikesProfile(this.id,this.val)
     );
     if (resp.data) {
       this.myLikes = resp.data;
@@ -306,12 +371,45 @@ export class MyProfileComponent {
 
   async getLikesUser() {
     const resp = await lastValueFrom(
-      this.profileService.getLikesUser(this.id)
+      this.profileService.getLikesUserProfile(this.id,this.val)
     );
     if (resp.data) {
       this.LikesUser = resp.data;
       this.cLikeUser=this.LikesUser.length;
     } 
   }
+
+  calcularEdad(fechaN: string): number {
+    const hoy = new Date();
+    const fechaNacimiento = new Date(fechaN);
+
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+    const mesNacimiento = fechaNacimiento.getMonth();
+    const diaNacimiento = fechaNacimiento.getDate();
+
+    if (
+      mesActual < mesNacimiento ||
+      (mesActual === mesNacimiento && diaActual < diaNacimiento)
+    ) {
+      edad--;
+    }
+
+    return edad;
+  }
+
+  
+  album() {
+    this.ban = 0;
+    if (this.ban === 0) {
+      //this.getUser();
+    }
+  }
+
+  detalle() {
+    this.ban = 1;
+  }
+ 
 
 }

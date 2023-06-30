@@ -87,7 +87,7 @@ export class UserServiceService {
     });
 
     return this.httpCLient.put(
-      `${this.constante.API_SERVER}/user/${id}`,
+      `${this.constante.API_SERVER}/user/match/${id}`,
       {
         weight: parseInt(form.value.weight),
         height: parseInt(form.value.talla),

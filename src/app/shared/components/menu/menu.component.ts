@@ -39,6 +39,7 @@ export class MenuComponent implements OnInit {
   verify: any;
   estado: any;
   datauser: any=[];
+  dataUsers: any=[];
 
   constructor(
     library: FaIconLibrary,
@@ -65,7 +66,7 @@ export class MenuComponent implements OnInit {
       this.user = sessionStorage.getItem('user')!;
       
     }
-    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
+    this.dataUsers = JSON.parse(sessionStorage.getItem('data')!);
 
 
     if (sessionStorage.getItem('id')!) {
@@ -74,7 +75,7 @@ export class MenuComponent implements OnInit {
       this.getNotificacion();
       this.getUser();
       
-    this.estado = this.dataUser.state[this.dataUser.state.length - 1];
+    
     }
     this.translate.use(this.langs[0].alias);
     
@@ -115,10 +116,10 @@ export class MenuComponent implements OnInit {
 
   async getUser() {
     const resp = await lastValueFrom(this.profileService.getUserById(this.id));
-
     if (resp?.data.length > 0) {
       this.dataUser = resp?.data[0];
       this.verify=this.dataUser!.verify;
+      this.estado = this.dataUser.state[this.dataUser.state.length - 1];
     }
   }
 

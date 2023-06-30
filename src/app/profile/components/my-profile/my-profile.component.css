@@ -45,3 +45,68 @@
         cursor: pointer;
     }
 
+  
+    .nav-link:focus, .nav-link:hover,.nav-link.active{
+        background-color: #f9a21e;
+        color: #000;
+    }
+  
+    
+    .nav-link{
+        color: #000;
+    }
+      
+  
+      .contenido{
+          background-color: white;
+      }
+  
+      .manito {
+          cursor: pointer;
+      }
+      
+      .fa-3x {
+          font-size: 1.5em !important;
+          padding: 0;
+        }
+  
+  
+        .like {
+          font-size: 3em !important;
+          padding: 0;
+        }
+  
+        .manito {
+          cursor: pointer;
+      }
+  
+      fa-icon:hover {
+          color: #f9a21e;
+        }
+  
+        fa-icon:active {
+          color: #f9a21e;
+        }
+        
+      .active{
+        color: #f9a21e;
+      }
+  
+      .barra{
+      top: 56px;
+      z-index: auto
+      }
+  
+      
+   
+      a {
+        outline: none;
+        text-decoration: none;
+        padding: 2px 1px 0;
+      }
+      
+
+  
+      .det{
+        color: #000 !important;
+      }

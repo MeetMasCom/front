@@ -272,5 +272,11 @@ getUserSocials(): Observable<any> {
 }
 
 
+getFeedBack(): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/feedback/getFeedBack`);
+}
+
+
 
 }

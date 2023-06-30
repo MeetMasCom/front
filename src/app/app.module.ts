@@ -99,6 +99,9 @@ import { NotificationComponent } from './shared/components/notification/notifica
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
 import { SocialUserComponent } from './admin/components/social-user/social-user.component';
+import { DetailUserComponent } from './profile/components/detail-user/detail-user.component';
+import { FeedbackUserComponent } from './shared/components/feedback-user/feedback-user.component';
+import { FeedbackComponent } from './admin/components/feedback/feedback.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -176,7 +179,10 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     NotificationComponent,
     ProfilesComponent,
     LikesComponent,
-    SocialUserComponent
+    SocialUserComponent,
+    DetailUserComponent,
+    FeedbackUserComponent,
+    FeedbackComponent
   ],
   imports: [
     CKEditorModule,

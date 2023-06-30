@@ -32,6 +32,7 @@ export class HomeComponent {
   objGender: any=[];
   objGenderOnline: any=[];
   objGenderActive: any=[];
+  profile: string='';
 
   constructor(
     private profileService: ProfileServiceService,
@@ -81,8 +82,8 @@ export class HomeComponent {
       const resp3 = await lastValueFrom(
         this.profileService.getUserActive(this.gender)
       );
-      if (resp3?.data.length > 0) {
-        this.userGenderActive = resp3.data;
+      if (resp3?.data !==null) {
+        this.userGenderActive = resp3?.data;
       }
     }
   }
@@ -137,26 +138,39 @@ export class HomeComponent {
     }
   }
 
-  async addLike(idUserLike: string, val: boolean) {
-    try{
-      const resp = await lastValueFrom(
+  // async addLike(idUserLike: string, val: boolean) {
+  //   try{
+  //     const resp = await lastValueFrom(
 
-        this.profileService.addLike(this.id, idUserLike, val)
-      );
-      if (resp !== null) {
-        const message = 'Le dio me gusta a tú publicación';
-        const resp1 = await lastValueFrom(
-          this.adminService.addNotification(this.id, idUserLike, message)
-        );
-        if (resp1 !== null) {
-          location.reload();
-        }
-      }
-    }catch (error: any) {
-      console.log('error', error.error);
-      this.errorMatch.abrir();
-    }
+  //       this.profileService.addLike(this.id, idUserLike, val)
+  //     );
+  //     if (resp !== null) {
+  //       const message = 'Le dio me gusta a tú publicación';
+  //       const resp1 = await lastValueFrom(
+  //         this.adminService.addNotification(this.id, idUserLike, message)
+  //       );
+  //       if (resp1 !== null) {
+  //         location.reload();
+  //       }
+  //     }
+  //   }catch (error: any) {
+  //     console.log('error', error.error);
+  //     this.errorMatch.abrir();
+  //   }
     
+  // }
+
+  verPerfil(idU:string){
+    this.profile='646c1e9ec29b09413fcb3887';
+    const param1 = idU;
+    const param2 = this.profile;
+     if(this.id===idU){
+       this.router.navigate(['/myProfile']);
+     }else{    
+      this.router.navigate(['/userProfile'], {
+        queryParams: { param1, param2 }
+      })
+    }
   }
 
 }

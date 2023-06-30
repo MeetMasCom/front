@@ -4,6 +4,7 @@ import { ProfileServiceService } from '../../../profile/services/profile-service
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-data',
@@ -19,6 +20,7 @@ export class UserDataComponent implements OnInit {
   @ViewChild('recoverFailUD') recoverFailUD!: ModalAlertsComponent;
   @ViewChild('recoverWarningUD') recoverWarningUD!: ModalAlertsComponent;
 
+  faLocationDot=faLocationDot;
   stateCivil: any = [];
   policies: any = [];
   drinks: any = [];
@@ -45,6 +47,7 @@ export class UserDataComponent implements OnInit {
   dataU: any;
   verify: any;
   selectedFile: any;
+  countries: any;
 
   constructor(
     public userService: UserServiceService,
@@ -54,10 +57,10 @@ export class UserDataComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.showPass1 = true;
     this.dataUser = JSON.parse(sessionStorage.getItem('data')!);      
     this.activatedRoute.params.subscribe((params) => {
       this.estado = params['estado'];
-      console.log("estado",this.estado);
     });
    
     await this.getStateCivil();
@@ -77,8 +80,10 @@ export class UserDataComponent implements OnInit {
     }
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
+      this.onGetCountry();
+      this.getUser();
     }
-    this.getUser();
+    
   }
 
 
@@ -87,7 +92,7 @@ export class UserDataComponent implements OnInit {
     const resp = await lastValueFrom(this.profileService.getUserById(this.id));
 
     if (resp?.data.length > 0) {
-      this.dataU = resp?.data[0];      
+      this.dataU = resp?.data[0];  
       this.verify=this.dataU.verify;
       }
     }
@@ -106,6 +111,15 @@ export class UserDataComponent implements OnInit {
       console.log('error', error.error);
       this.errMsj = error.error.message;
       this.failPModal.abrir();
+    }
+  }
+
+  async onGetCountry() {
+    try {
+      const response = await lastValueFrom(this.userService.getCountries());
+      this.countries = response.data;
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 

@@ -1,20 +1,25 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { AdminServiceService } from '../../../admin/services/admin-service.service';
 import { lastValueFrom } from 'rxjs';
-import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ToastrService } from 'ngx-toastr';
+import { LayoutServiceService } from 'src/app/layouts/services/layout-service.service';
+import { AdsI } from 'src/app/shared/interfaces/ad.interface';
 
 @Component({
   selector: 'app-notices',
   templateUrl: './notices.component.html',
   styleUrls: ['./notices.component.css'],
 })
-export class NoticesComponent implements OnInit {
+export class NoticesComponent implements OnInit, OnChanges {
 
-  @Output() SaveAds = new EventEmitter<any>();
+  @Input() action: number = 0 // 0 - nuevo, 1 - revision 2 - edicion
+  @Input() data!: AdsI
+  @Output() saveAds = new EventEmitter<any>();
+  @Output() acceptAds = new EventEmitter<AdsI>();
+  @Output() rejectAds = new EventEmitter<AdsI>();
 
   selectedImage!: any
   form = new FormGroup({});
@@ -241,6 +246,17 @@ export class NoticesComponent implements OnInit {
       },
     }
   ]
+  fieldsReview: FormlyFieldConfig[] = [
+    {
+      key: 'comentary',
+      type: 'textarea',
+      props: {
+        label: 'Observación',
+        placeholder: 'Observación',
+        rows: 5
+      },
+    }
+  ]
   userId!: string;
   ageList: any[] = [];
   jobs: any[] = [];
@@ -256,9 +272,10 @@ export class NoticesComponent implements OnInit {
   images: any[] = [];
   pages: any[] = [];
 
-  constructor(private userService: UserServiceService, private adminService: AdminServiceService, private toastrService: ToastrService) { }
+  constructor(private userService: UserServiceService, private adminService: AdminServiceService, private toastrService: ToastrService, private layoutServiceService: LayoutServiceService) { }
 
-  async ngOnInit() {
+
+  ngOnInit() {
     this.userId = sessionStorage.getItem('id')!;
     this.getPackageAds();
     this.getJobs();
@@ -272,6 +289,28 @@ export class NoticesComponent implements OnInit {
     this.getDependency();
     this.getPhotoUser();
     this.getPageUser();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && this.action == 2) {
+      if (this.data) delete this.data.comentary;
+      this.disableAllForm();
+    }
+  }
+
+  disableAllForm() {
+    this.fieldsTipo.forEach(item => {
+      item.props!.disabled = true;
+    })
+    this.fieldsTipo1.forEach(item => {
+      item.props!.disabled = true;
+    })
+    this.fieldsTipo3.forEach(item => {
+      item.props!.disabled = true;
+    })
+    this.fieldsGeneral.forEach(item => {
+      item.props!.disabled = true;
+    })
   }
 
   async getPhotoUser() {
@@ -519,35 +558,45 @@ export class NoticesComponent implements OnInit {
     try {
 
       if (this.model.type == 1 || this.model.type == 2) {
-        if (this.model.file = "") {
-          this.toastrService.warning("Seleccion una imágen", "Aviso");
+        if (this.model.file == "") {
+          this.toastrService.warning("Selecciona una imágen", "Aviso");
           return;
         }
       }
-      this.SaveAds.emit({
-        messague: this.errMsj,
-        result: true
-      });
 
       form.userId = this.userId;
       const response = await lastValueFrom(
-        this.userService.createAds(form)
+        this.layoutServiceService.createAds(form)
       );
       if (response.data !== null) {
         this.errMsj = response.message;
-        this.SaveAds.emit({
+        this.saveAds.emit({
           messague: this.errMsj,
           result: true
         });
       }
     } catch (error: any) {
       this.errMsj = error.error.message;
-      this.SaveAds.emit({
+      this.saveAds.emit({
         messague: this.errMsj,
         result: false
       });
     }
   }
+
+  onAccepReview(form: AdsI) {
+    this.acceptAds.emit(form);
+  }
+
+  onRejectReview(form: AdsI) {
+    if (this.data.comentary == "" || this.data.comentary == null || this.data.comentary == undefined) {
+      this.toastrService.warning("Agrega una observación para rechazar el anuncio...",
+        "Aviso")
+      return;
+    }
+    this.rejectAds.emit(form);
+  }
+
 
   async getPackageAds() {
     const resp = await lastValueFrom(this.adminService.getPackageActive());

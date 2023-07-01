@@ -1,152 +1,124 @@
-<ng-container *ngIf="type === 0">
-  <div *ngIf="data.length > 0">
-    <div *ngFor="let item of data">
-      <div class="card mb-3">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img
-              src="data:image/png;base64, {{ item.image }}"
-              class="img-fluid rounded-start"
-              alt=""
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <strong>Título</strong>
-              <h5 class="card-title">
-                {{ item.title }}
-              </h5>
-              <strong>Descripción</strong>
-              <p class="card-text">
-                {{ item.description }}
-              </p>
-              <strong>Paquete Comprado</strong>
-              <p class="card-text">{{ item.package[0].visit }} visitas</p>
-              <strong>Valor del paquete</strong>
-              <p class="card-text">$ {{ item.package[0].valor }}</p>
-            </div>
-          </div>
-        </div>
+<!-- EN REVISION -->
+<div class="row mt-2" *ngIf="type === 1">
+  <div *ngFor="let item of data" class="col-12 col-md-6 card card-el m-0 p-0">
+    <div class="row g-0">
+      <div class="col-md-4  img d-flex justify-content-center align-items-center ">
+        <img [src]="item.file" class="img-fluid " alt="meet-mas" />
       </div>
-    </div>
-  </div>
-  <div *ngIf="data.length === 0">
-    <div class="card mb-3">
-      <div class="col-md-12">
+      <div class="col-md-8">
         <div class="card-body">
-          <p class="card-text text-center">No tiene anuncios activos.</p>
+          <h5 [title]="item.title" class="card-title text-title">{{ item.title }}</h5>
+          <p [title]="item.description" class="card-text text-desc">{{ item.description }}</p>
+          <p class="card-text text-end"><a [href]="item.link" target="_blank" class="text-muted">Visitar enlace</a></p>
         </div>
       </div>
     </div>
   </div>
-</ng-container>
+  <div class="col-12 " *ngIf="data.length === 0">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text text-center">No tienes anuncios en revisión.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<ng-container *ngIf="type === 1">
-  <div *ngIf="data.length > 0">
-    <div *ngFor="let item of data">
-      <div class="card mb-3">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img
-              src="data:image/png;base64, {{ item.image }}"
-              class="img-fluid rounded-start"
-              alt=""
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <strong>Título</strong>
-              <h5 class="card-title">{{ item.title }}</h5>
-              <strong>Descripción</strong>
-              <p class="card-text">{{ item.description }}</p>
-              <strong>Enlace</strong>
-              <p class="card-text">{{ item.link_ads }}</p>
-            </div>
-            <div class="card-footer border-0 d-flex justify-content-end">
-              <button
-                type="button"
-                class="btn btn-outline-danger m-2"
-                (click)="onDelete(item._id)"
-              >
-                Eliminar
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary m-2"
-                (click)="onUpdate(item)"
-              >
-                Modificar
-              </button>
-            </div>
-          </div>
+<!-- ACTIVO -->
+<div class="row mt-2" *ngIf="type === 0">
+  <div *ngFor="let item of data" class="col-12 col-md-6 card card-el-action m-0 p-0">
+    <div class="row g-0">
+      <div class="col-md-4  img d-flex justify-content-center align-items-center ">
+        <img [src]="item.file" class="img-fluid " alt="meet-mas" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 [title]="item.title" class="card-title text-title">{{ item.title }}</h5>
+          <p [title]="item.description" class="card-text text-desc">{{ item.description }}</p>
+          <p class="card-text text-end"><a [href]="item.link" target="_blank" class="text-muted">Visitar enlace</a></p>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn mx-1" [ngClass]="'input-btn'" (click)="onUpdate(item)">
+            Editar
+          </button>
+          <button type="button" class="btn bg-info mx-1" [ngClass]="'input-btn'" (click)="onUpdate(item)">
+            Pausar
+          </button>
+          <button type="button" class="btn bg-danger mx-1" [ngClass]="'input-btn'" (click)="onDelete(item._id!)">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="data.length === 0">
+  <div class="col-12 " *ngIf="data.length === 0">
     <div class="card mb-3">
       <div class="col-md-12">
         <div class="card-body">
-          <p class="card-text">No tiene anuncios en revisión.</p>
+          <p class="card-text text-center">No tienes anuncios en activos.</p>
         </div>
       </div>
     </div>
   </div>
-</ng-container>
+</div>
 
-<ng-container *ngIf="type === 2">
-  <div *ngIf="data.length > 0">
-    <div *ngFor="let item of data">
-      <div class="card mb-3">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img
-              src="data:image/png;base64, {{ item.image }}"
-              class="img-fluid rounded-start"
-              alt=""
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <strong>Título</strong>
-              <h5 class="card-title">{{ item.title }}</h5>
-              <strong>Descripción</strong>
-              <p class="card-text">
-                {{ item.description }}
-              </p>
-              <strong>Motivo</strong>
-              <p class="card-text">
-                {{ item.comentary }}
-              </p>
-            </div>
-            <div class="card-footer border-0 d-flex justify-content-end">
-              <button
-                type="button"
-                class="btn btn-outline-danger m-2"
-                (click)="onDelete(item._id)"
-              >
-                Eliminar
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary m-2"
-                (click)="onUpdate(item)"
-              >
-                Reenviar
-              </button>
-            </div>
-          </div>
+<!-- DEVUELTOS -->
+<div class="row mt-2" *ngIf="type === 2">
+  <div *ngFor="let item of data" class="col-12 col-md-6 card card-el-action m-0 p-0">
+    <div class="row g-0">
+      <div class="col-md-4  img d-flex justify-content-center align-items-center ">
+        <img [src]="item.file" class="img-fluid " alt="meet-mas" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 [title]="item.title" class="card-title text-title">{{ item.title }}</h5>
+          <p [title]="item.description" class="card-text text-desc">{{ item.description }}</p>
+          <p class="card-text text-end"><a [href]="item.link" target="_blank" class="text-muted">Visitar enlace</a></p>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn mx-1" [ngClass]="'input-btn'" (click)="onUpdate(item)">
+            Editar
+          </button>
+          <button type="button" class="btn bg-danger mx-1" [ngClass]="'input-btn'" (click)="onDelete(item._id!)">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="data.length === 0">
+  <div class="col-12 " *ngIf="data.length === 0">
     <div class="card mb-3">
       <div class="col-md-12">
         <div class="card-body">
-          <p class="card-text text-center">No tiene anuncios devueltos.</p>
+          <p class="card-text text-center">No tienes anuncios devueltos.</p>
         </div>
       </div>
     </div>
   </div>
-</ng-container>
+</div>
+
+<!-- ELIMINADOS -->
+<div class="row mt-2" *ngIf="type === 3">
+  <div *ngFor="let item of data" class="col-12 col-md-6 card card-el m-0 p-0">
+    <div class="row g-0">
+      <div class="col-md-4  img d-flex justify-content-center align-items-center ">
+        <img [src]="item.file" class="img-fluid " alt="meet-mas" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 [title]="item.title" class="card-title text-title">{{ item.title }}</h5>
+          <p [title]="item.description" class="card-text text-desc">{{ item.description }}</p>
+          <p class="card-text text-end"><a [href]="item.link" target="_blank" class="text-muted">Visitar enlace</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 " *ngIf="data.length === 0">
+    <div class="card mb-3">
+      <div class="col-md-12">
+        <div class="card-body">
+          <p class="card-text text-center">No tienes anuncios desactivados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

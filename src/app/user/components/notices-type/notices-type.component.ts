@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AdsI } from 'src/app/shared/interfaces/ad.interface';
 
 @Component({
   selector: 'app-notices-type',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class NoticesTypeComponent implements OnInit {
   @Input() type = -1;
-  @Input() data: any;
+  @Input() data: AdsI[] = [];
   @Output() sendId: EventEmitter<any> = new EventEmitter();
   @Output() sendItem: EventEmitter<any> = new EventEmitter();
 

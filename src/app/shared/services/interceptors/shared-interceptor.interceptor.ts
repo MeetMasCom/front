@@ -47,12 +47,13 @@ export class SharedInterceptorInterceptor implements HttpInterceptor {
       }),
       catchError((err: HttpErrorResponse) => {
 
-
         // Token caducado
         if (err.status === 401) {
           if (!req.headers.has("service")) {
+            //cerrar sesion
           }
         }
+
         return throwError(() => err);
       })
     );

@@ -1,4 +1,5 @@
-<div class="w-100 px-2">
+<!-- NUEVO -->
+<div *ngIf="action == 0 " class="w-100 px-2">
   <form [formGroup]="form">
     <formly-form [form]="form" [fields]="fieldsTipo" [model]="model"></formly-form>
     <ng-container *ngIf="model.type == 1">
@@ -29,6 +30,42 @@
     <formly-form [form]="form" [fields]="fieldsGeneral" [model]="model"></formly-form>
     <div class="form-group text-center">
       <input type="submit" (click)="onRegister(model)" class="btn" value="Guardar" [disabled]="form.invalid"
+        [ngClass]="'input-btn'" />
+    </div>
+  </form>
+</div>
+
+<!-- REVISION -->
+<div *ngIf="action == 2 && data" class="w-100 px-2">
+
+  <form [formGroup]="form">
+    <formly-form [form]="form" [fields]="fieldsTipo" [model]="data"></formly-form>
+    <ng-container *ngIf="data.type == 1">
+      <formly-form [form]="form" [fields]="fieldsTipo1" [model]="data"></formly-form>
+      <div class="d-flex flex-column mb-3">
+        <label for="formFile" class="form-label">Imágen anuncio</label>
+        <img [src]="data.file" class="img-fluid rounded-start" alt="meet-mas" />
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.type == 2">
+      <div class="d-flex flex-column mb-3">
+        <label for="formFile" class="form-label">Imágen anuncio</label>
+        <img [src]="data.file" class="img-fluid rounded-start" alt="meet-mas" />
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.type == 3">
+      <formly-form [form]="form" [fields]="fieldsTipo3" [model]="data"></formly-form>
+      <div class="d-flex flex-column mb-3">
+        <label for="formFile" class="form-label">Imágen anuncio</label>
+        <img [src]="data.file" class="img-fluid rounded-start" alt="meet-mas" />
+      </div>
+    </ng-container>
+    <formly-form [form]="form" [fields]="fieldsGeneral" [model]="data"></formly-form>
+    <formly-form [form]="form" [fields]="fieldsReview" [model]="data"></formly-form>
+
+    <div class="form-group text-center">
+      <input type="button" (click)="onAccepReview(data)" class="btn mx-1" value="Aprobar" [ngClass]="'input-btn'" />
+      <input type="button" (click)="onRejectReview(data)" class="btn bg-danger mx-1" value="Rechazar"
         [ngClass]="'input-btn'" />
     </div>
   </form>

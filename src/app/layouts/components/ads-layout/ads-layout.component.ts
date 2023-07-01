@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { LayoutServiceService } from '../../services/layout-service.service';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
+import { AdsI } from 'src/app/shared/interfaces/ad.interface';
 
 
 @Component({
@@ -15,36 +16,40 @@ export class AdsLayoutComponent implements OnInit {
   @ViewChild('successNotices') successNotices!: ModalAlertsComponent;
   @ViewChild('failNotices') failNotices!: ModalAlertsComponent;
 
-  user_id = '';
-  adsActive: any = [];
-  adsReview: any = [];
-  adsReturn: any = [];
+  userId: string = '';
+  adsActive: AdsI[] = [];
+  adsReview: AdsI[] = [];
+  adsReturn: AdsI[] = [];
+  adsDisable: AdsI[] = [];
   messague: string = "";
 
 
   constructor(private layoutService: LayoutServiceService) { }
 
   ngOnInit() {
-    this.user_id = sessionStorage.getItem('id')!;
+    this.userId = sessionStorage.getItem('id')!;
     this.getAds();
   }
 
   async getAds() {
     try {
       const response = await lastValueFrom(
-        this.layoutService.onGetAds(this.user_id)
+        this.layoutService.onGetAds(this.userId)
       );
 
       if (response.data !== null) {
         response.data.map((element: any) => {
-          if (element.state === 1) {
+          if (element.state === 0) {
             this.adsActive.push(element);
           }
-          if (element.state === 0) {
+          if (element.state === 1) {
             this.adsReview.push(element);
           }
           if (element.state === 2) {
             this.adsReturn.push(element);
+          }
+          if (element.state === 3) {
+            this.adsDisable.push(element);
           }
         });
       }
@@ -56,7 +61,7 @@ export class AdsLayoutComponent implements OnInit {
   }
 
   onRedirigir() {
-    location.reload();
+    this.getAds();
   }
 
   async onDelete(id: any) {

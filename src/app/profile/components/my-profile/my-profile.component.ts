@@ -47,6 +47,7 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthServiceService } from 'src/app/auth/services/auth-service.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -129,6 +130,9 @@ export class MyProfileComponent {
  public editorContent = '';
  private selectedImage: File | null = null;
  selecImage: string='';
+ redes:number=0;
+ statusUserName:boolean=false;
+
 
   constructor(
     private profileService: ProfileServiceService,
@@ -136,6 +140,7 @@ export class MyProfileComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem,
+    private userService: AuthServiceService,
     library: FaIconLibrary,
    
   ) { library.addIconPacks(fas, far, fab);}
@@ -429,6 +434,20 @@ export class MyProfileComponent {
     return edad;
   }
 
+  async onValidateUserName(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusUserName = true;
+      } else {
+        this.statusUserName = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
   
   album() {
     this.ban = 0;
@@ -461,6 +480,10 @@ export class MyProfileComponent {
       const imageUrl = URL.createObjectURL(this.selectedImage);
       this.editorContent += `<img src="${imageUrl}" alt="Image">`;
     }
+  }
+
+  mostrar(){
+    this.redes=1;
   }
 
 }

@@ -50,7 +50,7 @@ export class MmodalComponent {
   @Input() detalleA: any = [];
   @Input() star:number=0;
   @Input() id:any;
-
+  @Input() statusUserName: boolean=false;
 
   
   faShield = faShield;
@@ -89,6 +89,7 @@ export class MmodalComponent {
   @Output() onUpdateProfile: EventEmitter<any> = new EventEmitter();
   @Output() onSetRating: EventEmitter<any> = new EventEmitter();
   @Output() onStarQualification: EventEmitter<any> = new EventEmitter();
+  @Output() onValidateUserName: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
@@ -232,10 +233,9 @@ export class MmodalComponent {
       this.onUpdateProfile.emit(event);
   }
 
-  // setRating(event:any){
-  //   this.onStarQualification.emit(event);
-  // }
-
+  validateUserName(event:any){
+    this.onValidateUserName.emit(event);
+  }
   async setRating(val: number) {
     try {
       this.rating = val;

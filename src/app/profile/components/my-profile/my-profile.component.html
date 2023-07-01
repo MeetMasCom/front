@@ -80,6 +80,7 @@
             <div
               class="col-md-12 mb-3 d-flex justify-content-center align-items-center"
             >
+            <ng-container *ngIf="dataUser.type>0">
               <div *ngFor="let social of dataUser?.rsocials">
                 <ng-container *ngIf="social.red === '1'">
                   <a
@@ -146,8 +147,73 @@
                   ></a>
                 </ng-container>
               </div>
+            </ng-container>
+
+            <ng-container *ngIf="dataUser.type===0">             
+                  <a
+                    (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon
+                      class="fa-3x"
+                      [icon]="['fab', 'facebook']"
+                    ></fa-icon>
+                  </a>
+                  <a
+                  (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon
+                      class="fa-3x"
+                      [icon]="['fab', 'instagram']"
+                    ></fa-icon
+                  ></a>
+                  <a
+                  (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon class="fa-3x" [icon]="['fab', 'tiktok']"></fa-icon
+                  ></a>
+                  <a
+                  (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon class="fa-3x" [icon]="['fab', 'twitter']"></fa-icon
+                  ></a>
+                  <a
+                  (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon class="fa-3x" [icon]="['fab', 'youtube']"></fa-icon
+                  ></a>
+                  <a
+                  (click)="mostrar()"
+                    class="text-decoration-none text-dark mx-3"
+                    target="_blank"
+                  >
+                    <fa-icon
+                      class="fa-3x"
+                      [icon]="['fab', 'pinterest']"
+                    ></fa-icon
+                  ></a>
+                
+            </ng-container>
+              
             </div>
           </div>
+          <ng-container *ngIf="redes=== 1">
+            <div class="row">
+              <div
+              class="col-md-12 mb-3 d-flex justify-content-center align-items-center"
+            ><span>Actualice su membresía para agregar sus redes sociales</span>
+          </div>
+            </div>
+          </ng-container>
         </div>
         <div class="row mt-2 d-flex align-items-center">
           <div class="col-md-2 float-left">
@@ -907,6 +973,8 @@
   [user]="dataUser"
   [profile]="profile"
   [title]="'Agregar Perfil'"
+  (onValidateUserName)="onValidateUserName($event)"
+  [statusUserName]="statusUserName"
   (AddProfile)="AddProfile($event)"
   #addProfile
 >

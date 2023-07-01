@@ -117,6 +117,7 @@
                   <div
                     class="col-md-12 d-flex justify-content-center align-items-center"
                   >
+                  <ng-container *ngIf="dataUser?.type>0">
                     <div *ngFor="let social of dataUser?.rsocials">
                       <ng-container *ngIf="social.red === '1'">
                         <a
@@ -192,6 +193,7 @@
                         ></a>
                       </ng-container>
                     </div>
+                  </ng-container>
                   </div>
                 </div>
               </div>

@@ -11,7 +11,5 @@ export class DetailUserComponent {
 
 
   async ngOnInit() {
-    console.log("estado",this.estado);
-    console.log("usuario",this.user);
   }
 }

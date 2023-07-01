@@ -152,12 +152,12 @@
         <div class="row mt-2 d-flex align-items-center">
           <div class="col-md-2 float-left">
             <label class="nuevo btnSeguir rounded p-2">
-              Me gusta {{ this.cMyLike }}</label
+              Te gusta {{ this.cMyLike }}</label
             >
           </div>
           <div class="col-md-3 float-left">
             <label class="nuevo btnSeguir rounded p-2"
-              >Les gusta {{ this.cLikeUser }}</label
+              >Quieren verse contigo {{ this.cLikeUser }}</label
             >
           </div>
           <div class="col-md-3 float-left">
@@ -182,14 +182,14 @@
           <ng-container *ngIf="this.count < 25 || this.count === 0">
             <ng-container *ngIf="valorSeleccionado === 'Personal'">
               <div class="col-md-4 d-md-flex justify-content-md-end">
-                <button type="button" class="btn nuevo" (click)="Publicar()">
+                <button type="button" class="btn nuevo" (click)="Nuevo()">
                   Agregar
                 </button>
               </div>
             </ng-container>
             <ng-container *ngIf="valorSeleccionado !== 'Personal'">
               <div class="col-md-4 d-md-flex justify-content-md-end">
-                <button type="button" class="btn nuevo" (click)="Publicar()">
+                <button type="button" class="btn nuevo" (click)="Nuevo()">
                   Nueva Publicación
                 </button>
               </div>
@@ -198,7 +198,6 @@
         </div>
       </div>
 
-      
       <div class="rounded">
         <div class="row">
           <div class="col">
@@ -221,7 +220,7 @@
             </div>
           </div>
         </div>
-        <ng-container *ngIf="ban == 1">
+        <ng-container *ngIf="ban === 1">
           <div class="row contenido mt-2 rounded">
             <div class="col-md-12">
               <ul class="nav nav-tabs mb-3 mt-3" id="pills-tab" role="tablist">
@@ -668,7 +667,7 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="ban == 0">
+        <ng-container *ngIf="ban === 0">
           <div class="row">
             <div class="col-md-12">
               <ng-container *ngIf="Post?.length > 0">
@@ -765,6 +764,106 @@
                   <Span>No hay publicaciones disponibles</Span>
                 </div>
               </ng-container>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="ban === 2">
+          <div class="container">
+            <div class="row card">
+              <form
+                #frmRegisterPost="ngForm"
+                class="form form-horizontal"
+                (ngSubmit)="RegisterPost(frmRegisterPost)"
+              >
+                <div class="form-body">
+                  <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                      <ng-container *ngIf="valorSeleccionado !== 'Personal'">
+                        <div class="form-group mt-4">
+                          <div class="position-relative has-icon-left">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Título"
+                              id="ptitle"
+                              name="ptitle"
+                              required
+                              ngModel
+                              #ptitle="ngModel"
+                              [ngClass]="'input'"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                          <label class="form-group">Descripción:</label>
+                          <div class="position-relative has-icon-left">
+                            <ckeditor
+                              class="custom-editor"
+                              [editor]="Editor"
+                              name="editor"
+                              [(ngModel)]="editorContent"
+                            ></ckeditor>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                          <div class="position-relative has-icon-left">
+                            <input
+                              type="file"
+                              class="form-control"
+                              id="pimage"
+                              name="pimage"
+                              (change)="cargarImagen($event)"
+                              accept="image/png"
+                              #photoInput1
+                            />
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="valorSeleccionado==='Personal'">
+                        <div class="form-group mt-4 contenedor-imagen">
+                          <div class="">
+                            <img class="img-fluid" [src]="selecImage" *ngIf="file">
+                          </div>
+                          
+                        </div>
+                        <div class="form-group mt-4">
+                          <div class="position-relative has-icon-left">
+                            <input
+                              type="file"
+                              class="form-control"
+                              id="pimage"
+                              name="pimage"
+                              (change)="cargarImagen($event)"
+                              accept="image/png"
+                              #photoInput1
+                            />
+                          </div>
+                        </div>
+
+                      </ng-container>
+
+                     
+                      <br />
+                      <div class="col-12 d-flex justify-content-end mb-3">
+                        <input
+                          id="guardar"
+                          name="guardar"
+                          class="btn nuevo"
+                          type="submit"
+                          value="Publicar"
+                          [disabled]="!frmRegisterPost['valid']"
+                          [ngClass]="'input-btn'"
+                        />
+                      </div>
+                      <div class="col-md-2"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </ng-container>

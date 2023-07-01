@@ -18,6 +18,7 @@ export class ProfileServiceService {
   registerPost(
     id: string,
     post: Post,
+    des:string,
     file: string,
     val: string
   ): Observable<any> {
@@ -26,7 +27,7 @@ export class ProfileServiceService {
       {
         user_id: id,
         title:post.ptitle,
-        description: post.pdescription,
+        description: des,
         photo: file,
         profile_id: val,
       }

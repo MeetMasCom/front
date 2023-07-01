@@ -14,6 +14,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { AdminServiceService } from '../../../admin/services/admin-service.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {
   faLocationDot,
   faCakeCandles,
@@ -99,6 +100,7 @@ export class MyProfileComponent {
   api: string = '';
   id: string = '';
   img: string = '';
+  image: string = '';
   dataUser: any;
   Post: any = [];
   imageBase64: string = '';
@@ -123,6 +125,10 @@ export class MyProfileComponent {
  valPerfil: any = [];
  ban: number = 0;
  estado: number=0;
+ public Editor = ClassicEditor;
+ public editorContent = '';
+ private selectedImage: File | null = null;
+ selecImage: string='';
 
   constructor(
     private profileService: ProfileServiceService,
@@ -170,6 +176,7 @@ export class MyProfileComponent {
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
+        console.log(this.perfil);
         this.val = this.perfil[0]._id;
         this.getPostUser();
         this.getCountPost();
@@ -196,7 +203,9 @@ export class MyProfileComponent {
     this.postModal.abrir();
   }
 
+  
   cargarImagen(event: any) {
+    this.selectedImage = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
       this.file = <File>event.target.files[0];
 
@@ -209,12 +218,30 @@ export class MyProfileComponent {
       reader1.onload = () => {
         const base64String = reader1.result!.toString().split(',')[1];
         const pureBase64 = base64String.replace(/[^a-zA-Z0-9+/]/g, '');
-        this.img = pureBase64;
+        this.image = pureBase64;
       };
+
+      if (this.selectedImage) {
+        // Lógica de carga de imagen aquí
+        const imageUrl = URL.createObjectURL(this.selectedImage);
+        this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+      }
+      if(this.valorSeleccionado ==='Personal'){
+        this.readImageFile(this.file);
+      }
     } else {
       console.log('seleccione una foto');
     }
   }
+
+  readImageFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.selecImage = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
 
   onRefresh() {
     location.reload();
@@ -222,11 +249,13 @@ export class MyProfileComponent {
 
   async RegisterPost(event: any) {
     try {
+      const text = this.editorContent.replace(/<[^>]*>/g, '');
       const resp = await lastValueFrom(
         this.profileService.registerPost(
           this.id,
           event.value,
-          this.img,
+          text,
+          this.image,
           this.val
         )
       );
@@ -288,6 +317,7 @@ export class MyProfileComponent {
   }
 
   selectProfile(event: any) {   
+    this.editorContent='';
     this.Post = '';
     const textoSeleccionado =
       event.target.options[event.target.selectedIndex].text;
@@ -410,6 +440,27 @@ export class MyProfileComponent {
   detalle() {
     this.ban = 1;
   }
+
+  Nuevo() {
+    this.ban=2
+  }
  
+  onFileSelected(event: any): void {
+    this.image = event.target.files[0];
+    if (this.selectedImage) {
+      // Lógica de carga de imagen aquí
+      const imageUrl = URL.createObjectURL(this.selectedImage);
+      console.log(imageUrl);
+      this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+    }
+  }
+
+  uploadImage(): void {
+    if (this.selectedImage) {
+      // Lógica de carga de imagen aquí
+      const imageUrl = URL.createObjectURL(this.selectedImage);
+      this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+    }
+  }
 
 }

@@ -1766,7 +1766,7 @@
 
         <!--Detalle de la publicacion-->
         <ng-container *ngIf="tipo === 14">
-          <ng-container *ngIf="post != null">
+          <ng-container *ngIf="post !== null">
             <div
               class="contenido rounded p-3 d-flex justify-content-center align-items-center"
             >
@@ -1775,12 +1775,20 @@
                   <div class=" col-md-6">                 
                   <div class="card">
                     <img
-                      [src]="'data:image/png;base64,' + post.photo"
+                      [src]="'data:image/png;base64,' + post?.photo"
                       class="card-img-top"
                       alt="..."
                     />
                     <div class="card-body">
-                     <ng-container *ngIf="post.user_id !== this.id">                     
+                      <div class="text-center">
+                        <div>
+                          <span>{{post?.title}}</span>
+                        </div>
+                        <div>
+                          <span>{{post?.description}}</span>
+                        </div>
+                      </div>
+                     <ng-container *ngIf="post?.user_id !== this.id">                     
                         <div class="card-body d-flex justify-content-center">
                           <app-rating-star
                             (eventSetRating)="setRating($event)"

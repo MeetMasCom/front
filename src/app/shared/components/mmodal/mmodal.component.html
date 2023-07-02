@@ -1690,21 +1690,24 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                  <div class="form-group mt-4">
-                    <div class="position-relative has-icon-left">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Título"
-                        id="ptitle"
-                        name="ptitle"
-                        required
-                        ngModel
-                        #ptitle="ngModel"
-                        [ngClass]="'input'"
-                      />
+                  <ng-container *ngIf="val!=='Personal'">
+                    <div class="form-group mt-4">
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Título"
+                          id="ptitle"
+                          name="ptitle"
+                          required
+                          ngModel
+                          #ptitle="ngModel"
+                          [ngClass]="'input'"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </ng-container>
+                  
 
                   <div class="form-group p-2 mt-4">
                     <div class="position-relative has-icon-left">
@@ -1725,6 +1728,7 @@
                       />
                     </div>
                   </div>
+                  <ng-container *ngIf="val!=='Personal'">
                   <div class="form-group mt-4">
                     <div class="position-relative has-icon-left">
                       <textarea
@@ -1742,6 +1746,7 @@
                       ></textarea>
                     </div>
                   </div>
+                </ng-container>
                   <br />
                   <div class="col-12 d-flex justify-content-end">
                     <input
@@ -1761,22 +1766,39 @@
 
         <!--Detalle de la publicacion-->
         <ng-container *ngIf="tipo === 14">
-          <ng-container *ngIf="post != null">
+          <ng-container *ngIf="post !== null">
             <div
               class="contenido rounded p-3 d-flex justify-content-center align-items-center"
             >
               <div class="container">
-                <div class="row">
-                  <div class="h-100 d-inline-block card d-flex col-12 p-4">
+                <div class="row justify-content-center align-items-center">
+                  <div class=" col-md-6">                 
+                  <div class="card">
                     <img
-                      [src]="'data:image/png;base64,' + post.photo"
+                      [src]="'data:image/png;base64,' + post?.photo"
                       class="card-img-top"
                       alt="..."
                     />
                     <div class="card-body">
-                      <p class="card-text">{{ post.description }}</p>
+                      <div class="text-center">
+                        <div>
+                          <span>{{post?.title}}</span>
+                        </div>
+                        <div>
+                          <span>{{post?.description}}</span>
+                        </div>
+                      </div>
+                     <ng-container *ngIf="post?.user_id !== this.id">                     
+                        <div class="card-body d-flex justify-content-center">
+                          <app-rating-star
+                            (eventSetRating)="setRating($event)"
+                            [val]="this.star"
+                          ></app-rating-star>
+                        </div>
+                      </ng-container>
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -1797,7 +1819,7 @@
                   <div class="form-group mb-3">
                     <div class="position-relative has-icon-left"></div>
                   </div>
-                  <ng-container>
+                  <ng-container *ngIf="user">
                     <div class="form-group mt-4">
                       <div class="position-relative has-icon-left">
                         <input
@@ -1838,7 +1860,7 @@
                     </div>
                   </ng-container>
                   <br />
-                  <ng-container *ngIf="estado === 1">
+                  <ng-container *ngIf="user?.type > 1">
                     <div class="accordion" id="accordionExample1">
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
@@ -2093,24 +2115,26 @@
                       required
                       ngModel
                       name="userNameP"
+                      (change)="validateUserName(userNameP.value)"
                       #userNameP="ngModel"
                       [ngClass]="'input'"
                     />
 
                     <div
-                      *ngIf="
-                        userNameP.invalid &&
-                        (userNameP.dirty || userNameP.touched)
-                      "
-                      class="text-danger form-group position-absolute"
-                    >
-                      <small
-                        class="form-group"
-                        *ngIf="userNameP.errors?.['required']"
-                      >
-                        Campo requerido.
-                      </small>
-                    </div>
+                    *ngIf="userNameP.invalid && (userNameP.dirty || userNameP.touched)"
+                    class="text-danger"
+                  >
+                    <small *ngIf="userNameP.errors?.['required']">
+                      {{ "Ingrese el nombre de usuario" }}
+                    </small>
+                    <small *ngIf="userNameP.errors?.['pattern']">
+                      {{ "register.username" }}
+                      {{ "register.invaliMsg" }}
+                    </small>
+                  </div>
+                  <div *ngIf="statusUserName" class="text-danger">
+                    Nombre de usuario ya registrado
+                  </div>
                   </div>
 
                   <div class="col-12 d-flex justify-content-end mt-4">

@@ -25,20 +25,20 @@
         font-weight: bold;
     }
     
-   .nav-link:focus, .nav-link:hover,.nav-link.active{
-        background-color: #f9a21e;
-        color: #000;
+   
+    fa-icon:hover {
+      color: #f9a21e;
     }
 
-    
-    .nav-link{
-        color: #000;
-    }
+    .nav-link:focus, .nav-link:hover,.nav-link.active{
+      background-color: #f9a21e;
+      color: #000;
+  }
 
-    .gallery{
-        columns: 5 120px;
-        column-gap: 1.5em;
-    }
+  
+  .nav-link{
+      color: #000;
+  }
     
 
     .contenido{
@@ -53,3 +53,42 @@
         font-size: 1.5em !important;
         padding: 0;
       }
+
+
+      .like {
+        font-size: 3em !important;
+        padding: 0;
+      }
+
+      .manito {
+        cursor: pointer;
+    }
+
+  
+      fa-icon:active {
+        color: #f9a21e;
+      }
+      
+    .active{
+      color: #f9a21e;
+    }
+
+    .barra{
+    top: 56px;
+    z-index: auto
+    }
+
+    
+ 
+    a {
+      outline: none;
+      text-decoration: none;
+      padding: 2px 1px 0;
+    }
+    
+
+
+
+    .det{
+      color: #000 !important;
+    }

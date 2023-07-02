@@ -1,8 +1,3 @@
-.imagen {
-  width: 200px;
-  height: 200px;
-}
-
 .nav-link:focus,
 .nav-link.active {
   background: #fbb240;
@@ -37,7 +32,6 @@ tbody {
   justify-content: space-between;
   align-items: center;
   font-family: Inter;
-  width: 100%;
 }
 
 .input-btn {
@@ -48,11 +42,11 @@ tbody {
   background: #f9a21e;
 }
 
-#member-home {
+#admin-home {
   border-radius: 10px;
 }
 
-#member-profile {
+#admin-profile {
   padding-top: 2vw;
   padding-left: 2vw;
   padding-right: 4vw;
@@ -73,7 +67,7 @@ tbody {
     display: contents;
   }
 
-  #member-profile {
+  #admin-profile {
     padding: 2vw !important;
   }
 }

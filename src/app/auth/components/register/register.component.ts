@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit {
   profile_id: any;
   generos: any = [];
   preferencias: any = [];
-  user = '';
-  valPerfil: any=[];
+  user = 'meetmas';
+  valPerfil: any = [];
 
   constructor(
     private router: Router,
@@ -50,7 +50,10 @@ export class RegisterComponent implements OnInit {
     this.onGetCountry();
     await this.getGenero();
     this.activatedRoute.params.subscribe((params) => {
-      this.user = params['u'];
+      if (params['u'] != '') {
+        this.user = params['u'];
+      }
+
     });
   }
 

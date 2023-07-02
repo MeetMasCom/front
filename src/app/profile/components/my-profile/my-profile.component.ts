@@ -13,6 +13,41 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { AdminServiceService } from '../../../admin/services/admin-service.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {
+  faLocationDot,
+  faCakeCandles,
+  faPeopleArrows,
+  faCalendar,
+  faUser,
+  faAsterisk,
+  faCircleArrowRight,
+  faFileSignature,
+  faLanguage,
+  faGraduationCap,
+  faBriefcase,
+  faLaptopFile,
+  faWeightScale,
+  faLineChart,
+  faHandsPraying,
+  faPerson,
+  faEye,
+  faChild,
+  faClockFour,
+  faPlateWheat,
+  faMedal,
+  faPersonWalking,
+  faSmoking,
+  faMartiniGlass,
+  faChildren,
+  faShirt
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import { AuthServiceService } from 'src/app/auth/services/auth-service.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -30,15 +65,43 @@ export class MyProfileComponent {
 
 
   @ViewChild('selectElement') selectElement: any;
+  @ViewChild('errorMatch') errorMatch!: MmodalComponent;
+  faCircleCheck = faCircleCheck;
+  faCircleXmark = faCircleXmark;
   faUserPlus = faUserPlus;
   faElipsis = faEllipsis;
-
+  faLocationDot = faLocationDot;
+  faCakeCandles = faCakeCandles;
+  faPeopleArrows = faPeopleArrows;
+  faUser = faUser;
+  faCalendar = faCalendar;
+  faAsterisk = faAsterisk;
+  faCircleArrowRight= faCircleArrowRight;
+  faLanguage=faLanguage;
+  faGraduationCap=faGraduationCap;
+  faBriefcase=faBriefcase;
+  faLaptopFile=faLaptopFile;
+  faWeightScale=faWeightScale;
+  faLineChart=faLineChart;
+  faHandsPraying=faHandsPraying;
+  faPerson=faPerson;
+  faEye=faEye;
+  faChild=faChild;
+  faClockFour=faClockFour;
+  faPlateWheat=faPlateWheat;
+  faMedal=faMedal;
+  faPersonWalking=faPersonWalking;
+  faSmoking=faSmoking;
+  faMartiniGlass=faMartiniGlass;
+  faChildren=faChildren;
+  faShirt=faShirt;
   photoSelected: any;
   classA: string = '';
   message: string = '';
   api: string = '';
   id: string = '';
   img: string = '';
+  image: string = '';
   dataUser: any;
   Post: any = [];
   imageBase64: string = '';
@@ -48,11 +111,11 @@ export class MyProfileComponent {
   myProfile: any;
   perfil: any[] = [];
   valorSeleccionado: string = '';
-  val: string = '';
+  val: string = '646c1e9ec29b09413fcb3887';
   count: number = 0;
   PostD: any;
   user_data: any;
-  estado: number=0;
+  state: number=0;
   followers:number=0;
   followings:number=0;
   notification: any;
@@ -61,6 +124,15 @@ export class MyProfileComponent {
   cMyLike=0;
   cLikeUser=0;
  valPerfil: any = [];
+ ban: number = 0;
+ estado: number=0;
+ public Editor = ClassicEditor;
+ public editorContent = '';
+ private selectedImage: File | null = null;
+ selecImage: string='';
+ redes:number=0;
+ statusUserName:boolean=false;
+
 
   constructor(
     private profileService: ProfileServiceService,
@@ -68,7 +140,9 @@ export class MyProfileComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public constante: ConstantsSystem,
-    library: FaIconLibrary
+    private userService: AuthServiceService,
+    library: FaIconLibrary,
+   
   ) { library.addIconPacks(fas, far, fab);}
 
   ngOnInit(): void {
@@ -80,7 +154,8 @@ export class MyProfileComponent {
       this.getProfile();
       this.getmyLikes();
       this.getLikesUser();
-
+      this.album();
+     this.valorSeleccionado='Personal';
       if (sessionStorage.getItem('token')!) {
         this.token = JSON.parse(sessionStorage.getItem('token')!);
       }
@@ -96,16 +171,17 @@ export class MyProfileComponent {
       this.dataUser = resp?.data[0];
       this.img = this.dataUser.image;
       this.imageBase64 = 'data:image/png;base64,' + '' + this.img;
+      this.state = this.dataUser.state[this.dataUser.state.length - 1];
       this.myProfile = this.dataUser.profile;
       for (let i = 0; i < this.myProfile.length; i++) {
         const elemento = this.myProfile[i].profile_id;
         const resp = await lastValueFrom(
           this.profileService.getProfileById(elemento)
         );
-
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
+        console.log(this.perfil);
         this.val = this.perfil[0]._id;
         this.getPostUser();
         this.getCountPost();
@@ -132,7 +208,9 @@ export class MyProfileComponent {
     this.postModal.abrir();
   }
 
+  
   cargarImagen(event: any) {
+    this.selectedImage = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
       this.file = <File>event.target.files[0];
 
@@ -145,12 +223,30 @@ export class MyProfileComponent {
       reader1.onload = () => {
         const base64String = reader1.result!.toString().split(',')[1];
         const pureBase64 = base64String.replace(/[^a-zA-Z0-9+/]/g, '');
-        this.img = pureBase64;
+        this.image = pureBase64;
       };
+
+      if (this.selectedImage) {
+        // Lógica de carga de imagen aquí
+        const imageUrl = URL.createObjectURL(this.selectedImage);
+        this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+      }
+      if(this.valorSeleccionado ==='Personal'){
+        this.readImageFile(this.file);
+      }
     } else {
       console.log('seleccione una foto');
     }
   }
+
+  readImageFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.selecImage = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
 
   onRefresh() {
     location.reload();
@@ -158,11 +254,13 @@ export class MyProfileComponent {
 
   async RegisterPost(event: any) {
     try {
+      const text = this.editorContent.replace(/<[^>]*>/g, '');
       const resp = await lastValueFrom(
         this.profileService.registerPost(
           this.id,
           event.value,
-          this.img,
+          text,
+          this.image,
           this.val
         )
       );
@@ -223,7 +321,8 @@ export class MyProfileComponent {
     }
   }
 
-  selectProfile(event: any) {
+  selectProfile(event: any) {   
+    this.editorContent='';
     this.Post = '';
     const textoSeleccionado =
       event.target.options[event.target.selectedIndex].text;
@@ -231,6 +330,8 @@ export class MyProfileComponent {
     this.val = event.target.options[event.target.selectedIndex].value;
     this.getPostUser();
     this.getCountPost();
+    this.getmyLikes();
+    this.getLikesUser();
   }
 
   async getCountPost() {
@@ -259,7 +360,6 @@ export class MyProfileComponent {
   }
 
   onValidateUser() {
-
     this.dataUser.state.forEach((element:any) => {
       if(element===1){
         this.estado = 1;
@@ -273,7 +373,7 @@ export class MyProfileComponent {
       const resp = await lastValueFrom(
         this.profileService.addSocialN(this.id, event.value)
       );
-      if (resp.data.length > 0) {
+      if (resp.data) {
         this.profile = resp.data;
         //location.reload();
       } 
@@ -296,7 +396,7 @@ export class MyProfileComponent {
 
   async getmyLikes() {
     const resp = await lastValueFrom(
-      this.profileService.getMyLikes(this.id)
+      this.profileService.getMyLikesProfile(this.id,this.val)
     );
     if (resp.data) {
       this.myLikes = resp.data;
@@ -306,12 +406,84 @@ export class MyProfileComponent {
 
   async getLikesUser() {
     const resp = await lastValueFrom(
-      this.profileService.getLikesUser(this.id)
+      this.profileService.getLikesUserProfile(this.id,this.val)
     );
     if (resp.data) {
       this.LikesUser = resp.data;
       this.cLikeUser=this.LikesUser.length;
     } 
+  }
+
+  calcularEdad(fechaN: string): number {
+    const hoy = new Date();
+    const fechaNacimiento = new Date(fechaN);
+
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+    const mesNacimiento = fechaNacimiento.getMonth();
+    const diaNacimiento = fechaNacimiento.getDate();
+
+    if (
+      mesActual < mesNacimiento ||
+      (mesActual === mesNacimiento && diaActual < diaNacimiento)
+    ) {
+      edad--;
+    }
+
+    return edad;
+  }
+
+  async onValidateUserName(param: string) {
+    try {
+      const response = await lastValueFrom(
+        this.userService.validateUserEmail(param)
+      );
+      if (response.data !== null) {
+        this.statusUserName = true;
+      } else {
+        this.statusUserName = false;
+      }
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+  
+  album() {
+    this.ban = 0;
+    if (this.ban === 0) {
+      //this.getUser();
+    }
+  }
+
+  detalle() {
+    this.ban = 1;
+  }
+
+  Nuevo() {
+    this.ban=2
+  }
+ 
+  onFileSelected(event: any): void {
+    this.image = event.target.files[0];
+    if (this.selectedImage) {
+      // Lógica de carga de imagen aquí
+      const imageUrl = URL.createObjectURL(this.selectedImage);
+      console.log(imageUrl);
+      this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+    }
+  }
+
+  uploadImage(): void {
+    if (this.selectedImage) {
+      // Lógica de carga de imagen aquí
+      const imageUrl = URL.createObjectURL(this.selectedImage);
+      this.editorContent += `<img src="${imageUrl}" alt="Image">`;
+    }
+  }
+
+  mostrar(){
+    this.redes=1;
   }
 
 }

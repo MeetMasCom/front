@@ -48,6 +48,10 @@ export class MmodalComponent {
   @Input() userV: any = [];
   @Input() detalle: any = [];
   @Input() detalleA: any = [];
+  @Input() star:number=0;
+  @Input() id:any;
+  @Input() statusUserName: boolean=false;
+
   
   faShield = faShield;
   faFile = faFile;
@@ -83,17 +87,22 @@ export class MmodalComponent {
   @Output() onDeclineAds: EventEmitter<any> = new EventEmitter();
   @Output() onValidateAds: EventEmitter<any> = new EventEmitter();
   @Output() onUpdateProfile: EventEmitter<any> = new EventEmitter();
-  
+  @Output() onSetRating: EventEmitter<any> = new EventEmitter();
+  @Output() onStarQualification: EventEmitter<any> = new EventEmitter();
+  @Output() onValidateUserName: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modalPublicar') modalPublicar!: ElementRef;
   @ViewChild('modalService') modalService!: ModalAlertsComponent;
 
   message: string = '';
   api = '';
+  rating: number=0;
+  dataStar: any=[]
   constructor(public constante: ConstantsSystem,
     library: FaIconLibrary) {
       library.addIconPacks(fas, far, fab);
     }
+    
   async ngOnInit() {
     this.api = this.constante.API_IMAGES;
   }
@@ -222,5 +231,27 @@ export class MmodalComponent {
 
   updateProfile(event:any){
       this.onUpdateProfile.emit(event);
+  }
+
+  validateUserName(event:any){
+    this.onValidateUserName.emit(event);
+  }
+  async setRating(val: number) {
+    try {
+      this.rating = val;
+      this.dataStar = {
+        post_id: this.post._id,
+        qualification: this.rating,
+      };
+
+      this.onStarQualification.emit(this.dataStar);
+      // if (this.star === 0) {
+      //   await this.onRegisterStar(this.dataStar);
+      // } else {
+      //   await this.onUpdateStar(this.id, this.dataStar);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

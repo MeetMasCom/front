@@ -57,6 +57,7 @@
                     <td>{{profile.name }}</td>
                     <td>{{profile.description }}</td>
                     <td class="text-center">
+                      <ng-container *ngIf="profile.name!== 'Personal'">
                         <ng-container *ngIf="profile.state===0">
                           <button type="button" class="btn btn-outline-danger mx-2" (click)="disable(profile._id)">
                             <fa-icon [icon]="['fas', 'ban']"></fa-icon>
@@ -73,6 +74,8 @@
                           <fa-icon [icon]="['far', 'pen-to-square']"></fa-icon>
                           Actualizar
                         </button>
+                      </ng-container>
+                        
                       </td>
                 </tr>
               </ng-container>

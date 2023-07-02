@@ -34,9 +34,12 @@ export class MenuComponent implements OnInit {
   faBell = faBell;
   faUserCheck = faUserCheck;
   notification: any = [];
-  dataUser: any;
+  dataUser: any=[];
   public mostrarVentanaNotificaciones: boolean = false;
   verify: any;
+  estado: any;
+  datauser: any=[];
+  dataUsers: any=[];
 
   constructor(
     library: FaIconLibrary,
@@ -61,15 +64,22 @@ export class MenuComponent implements OnInit {
     }
     if (sessionStorage.getItem('user')!) {
       this.user = sessionStorage.getItem('user')!;
+      
     }
+    this.dataUsers = JSON.parse(sessionStorage.getItem('data')!);
+
+
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
+      this.getProfile();
+      this.getNotificacion();
+      this.getUser();
+      
+    
     }
     this.translate.use(this.langs[0].alias);
-    this.getProfile();
-    this.getNotificacion();
-    this.getUser();
-
+    
+    
   }
 
   async onLogout() {
@@ -105,12 +115,11 @@ export class MenuComponent implements OnInit {
   }
 
   async getUser() {
-    if (this.id) {
-      const resp = await lastValueFrom(this.profileService.getUserById(this.id));
-      if (resp?.data.length > 0) {
-        this.dataUser = resp?.data[0];
-        this.verify = this.dataUser.verify;
-      }
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+    if (resp?.data.length > 0) {
+      this.dataUser = resp?.data[0];
+      this.verify=this.dataUser!.verify;
+      this.estado = this.dataUser.state[this.dataUser.state.length - 1];
     }
   }
 

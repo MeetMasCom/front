@@ -18,6 +18,7 @@ export class ProfileServiceService {
   registerPost(
     id: string,
     post: Post,
+    des:string,
     file: string,
     val: string
   ): Observable<any> {
@@ -26,7 +27,7 @@ export class ProfileServiceService {
       {
         user_id: id,
         title:post.ptitle,
-        description: post.pdescription,
+        description: des,
         photo: file,
         profile_id: val,
       }
@@ -153,14 +154,15 @@ export class ProfileServiceService {
   }
 
 
-  addLike(user_id:string,userlike:string,val:boolean) {
-    console.log("servicio");
+  addLike(user_id:string,userlike:string,val:boolean,profile:string) {
+
     return this.httpCLient.post<any>(
       `${this.constante.API_SERVER}/like/addLike`,
       {
        user_id:user_id,
        userlike:userlike,
-       like:val
+       like:val,
+       profile:profile
       }
     );
   }
@@ -222,19 +224,30 @@ export class ProfileServiceService {
   }
 
 
-  //usuarios a los que di like
+  //usuarios a los que di like por perfiles
+  getMyLikesProfile(id: string,profile:string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getMyLikeProfile/${id}?profile=`+profile);
+  }
+
+  //usuarios que me dieron like por perfiles
+  getLikesUserProfile(id: string,profile:string): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/like/getByIdLikeProfile/${id}?profile=`+profile);
+  }
+
+  
+  //usuarios a los que di like todos
   getMyLikes(id: string): Observable<any> {
     return this.httpCLient.get<any>(
       `${this.constante.API_SERVER}/like/getMyLike/${id}`);
   }
 
-
-  //usuarios que me dieron like
+  //usuarios que me dieron like todos
   getLikesUser(id: string): Observable<any> {
     return this.httpCLient.get<any>(
       `${this.constante.API_SERVER}/like/getByIdLike/${id}`);
   }
-
 
   updateSocialAgreements(id: string): Observable<any> {
     return this.httpCLient.post(
@@ -244,4 +257,66 @@ export class ProfileServiceService {
       }
     );
   }
+
+  registerRatingStar(idpost:string,qua:number,id:string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/star/starRegister`,{
+          user_id:id,
+          post_id:idpost,
+          qualification:qua
+      }
+      
+    );
+  }
+
+  //star por publicacion y por usuario que dio like
+  getStarIdUser(id: string,post:string): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/star/getStarIdUser/${id}?post=`+post);
+}
+
+
+  UpdateStar(id: string,datos:any): Observable<any> {
+    return this.httpCLient.post<any>(`${this.constante.API_SERVER}/star/updateStar/${id}`,datos);
+}
+
+//usuarios que me dieron like todos
+getUserLike(id: string,profile:string,idlike:string): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/like/getUserLikeProfile/${id}?profile=`+profile+ `&idlike=`+idlike);
+}
+
+
+
+updateLike(id:string,user_id:string,userlike:string,val:boolean,profile:string) {
+
+  return this.httpCLient.post<any>(
+    `${this.constante.API_SERVER}/like/updateLike/${id}`,
+    {
+     user_id:user_id,
+     userlike:userlike,
+     like:val,
+     profile:profile
+    }
+  );
+}
+
+deleteLike(id: string): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/like/deleteLike/${id}`);
+}
+
+
+
+registerFeddback(id: string,form:any): Observable<any> {
+  return this.httpCLient.post(
+    `${this.constante.API_SERVER}/feedback/createFeedBack`,
+    {
+      user_id: id,
+      title:form.value.titulo,
+      message: form.value.mensaje,
+    }
+  );
+}
+
 }

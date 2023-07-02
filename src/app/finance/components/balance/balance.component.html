@@ -25,18 +25,16 @@
           <table aria-describedby="" class="table text-center">
             <thead>
               <tr>
-                <th scope="col">Billetera</th>
-                <th scope="col">Moneda</th>
                 <th scope="col">Saldo</th>
+                <th scope="col">Ultima Act.</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="balances.length > 0">
                 <tr *ngFor="let item of balances">
-                  <td>{{ item.alias }}</td>
-                  <td>{{ item.sigla }}</td>
-                  <td>{{ item.balance }}</td>
+                  <td>{{ item.balance | currency :"USD"}}</td>
+                  <td>{{ item.updatedAt | date :'medium' }}</td>
                   <td class="text-center">
                     <button (click)="getDetail(item)" title="Ver movimientos" type="button" data-bs-toggle="modal"
                       data-bs-target="#transactions" class="btn btn-outline-info mx-1">
@@ -47,7 +45,7 @@
               </ng-container>
               <ng-container *ngIf="balances.length === 0">
                 <tr class="text-center">
-                  <td class="text-center" colspan="4">No existe información</td>
+                  <td class="text-center" colspan="3">No existe información</td>
                 </tr>
               </ng-container>
             </tbody>
@@ -83,7 +81,7 @@
                   <td>{{ item.amount | currency : "USD" }}</td>
                   <td>{{ item.statusDetail }}</td>
                   <td>{{ item.remark }}</td>
-                  <td>{{ item.updatedAt | date }}</td>
+                  <td>{{ item.updatedAt | date: 'medium' }}</td>
                 </tr>
               </ng-container>
               <ng-container *ngIf="rechargs.length === 0">
@@ -101,8 +99,6 @@
     <app-footer></app-footer>
   </div>
 
-
-
   <!-- RECARGA -->
   <div class="modal" tabindex="-1" id="recharge">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -112,12 +108,44 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
-            <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-            <div class="form-group text-center">
-              <input type="submit" class="btn" value="Guardar" [disabled]="form.invalid" [ngClass]="'input-btn'" />
+          <div class="d-flex flex-column">
+            <div *ngIf="findWallet()" class="alert alert-warning" role="alert">
+              <div class="d-flex flex-column mb-3">
+                <span class="form-text fw-bold text-center text-dark">Información Billetera </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Detalle</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.detalle}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Dirección</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.dir}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Tag</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.tag ? findWallet()!.tag : 'No registrado'}}
+                </span>
+              </div>
             </div>
-          </form>
+
+            <form [formGroup]="form">
+              <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+              <div class="mx-2 mb-3">
+                <label for="formFile" class="form-label">Adjuntar imágen</label>
+                <input accept="image/jpeg, image/png" (change)="setFile($event)" class="form-control" type="file"
+                  id="formFile">
+              </div>
+            </form>
+          </div>
+          <div class="form-group text-center">
+            <input type="button" (click)="onSubmit(model)" class="btn" value="Guardar"
+              [disabled]="form.invalid || file == ''" [ngClass]="'input-btn'" />
+          </div>
         </div>
       </div>
     </div>
@@ -125,7 +153,7 @@
 
   <!-- MOVIMIENTOS -->
   <div class="modal" tabindex="-1" id="transactions">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Movimientos</h5>
@@ -139,7 +167,7 @@
                   <th scope="col">Tipo</th>
                   <th scope="col">Detalle</th>
                   <th scope="col">Valor</th>
-                  <th scope="col">Fecha Crea.</th>
+                  <th scope="col">Fecha </th>
                 </tr>
               </thead>
               <tbody>
@@ -148,7 +176,7 @@
                     <td>{{ item.typeTransaction }}</td>
                     <td>{{ item.detail }}</td>
                     <td>{{ item.value| currency : "USD" }}</td>
-                    <td>{{ item.createdAt | date }}</td>
+                    <td>{{ item.createdAt | date: 'medium' }}</td>
                   </tr>
                 </ng-container>
                 <ng-container *ngIf="records.length === 0">
@@ -163,7 +191,6 @@
       </div>
     </div>
   </div>
-
 
   <app-modal-alerts [idModal]="'successCreateM'" [icono]="'./assets/img/success.png'" [titulo]="'Registro Correcto'"
     [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successCreateM></app-modal-alerts>

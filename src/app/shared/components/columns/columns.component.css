@@ -36,3 +36,32 @@ img {
     width: 180px;
   }
 }
+
+.ads {
+  margin-top: 5px;
+}
+.ads img {
+  padding: 5px;
+  border: 1px solid #cccccc;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.ads p {
+  font-size: 12px;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  float: left;
+  width: 342px;
+  font-weight: bold;
+  color: #000000;
+}
+.ads p a {
+  color: #006699;
+  text-decoration: underline;
+}
+.ads img:hover {
+  padding: 5px;
+  border: 1px solid #999999;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}

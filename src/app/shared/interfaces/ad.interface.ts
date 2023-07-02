@@ -21,4 +21,6 @@ export interface AdsI {
     createdAt?: string;
     updatedAt?: string;
     user?: string
+    stop?: boolean;
+    visit?: number
 }

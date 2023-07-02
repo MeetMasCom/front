@@ -52,8 +52,8 @@ export class UserMembershipComponent implements OnInit {
   async ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('data')!);
     this.getBalance();
-    await this.getMembership();
-    await this.getCurrentMembership();
+    this.getMembership();
+    this.getCurrentMembership();
   }
 
   async getCurrentMembership() {

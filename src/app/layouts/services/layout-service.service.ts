@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConstantsSystem } from '../../utils/constants-system';
+import { AdsI } from 'src/app/shared/interfaces/ad.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,44 +18,40 @@ export class LayoutServiceService {
     return this.httpCLient.get(`${this.constante.API_SERVER}/advertisements/getUserAds/${id}`);
   }
 
+  onGetAdsForUser(id: string): Observable<any> {
+    return this.httpCLient.get(`${this.constante.API_SERVER}/advertisements/getUserForAds/${id}`);
+  }
+
   deleteAds(id: string): Observable<any> {
-    return this.httpCLient.post(
-      `${this.constante.API_SERVER}/advertisements/deleteAdsById`,
-      { id: id }
+    return this.httpCLient.delete(
+      `${this.constante.API_SERVER}/advertisements/deleteAdsById/${id}`,
     );
   }
 
   createAds(
-    form: any,
+    form: AdsI,
   ): Observable<any> {
     return this.httpCLient.post(`${this.constante.API_SERVER}/advertisements`, form);
   }
 
-  updateAds(form: any, img: string, list: any, id: string): Observable<any> {
-    const body = {
-      id: id,
-      age: list.age,
-      job: list.job,
-      country: list.country,
-      title: form.value.title,
-      description: form.value.description,
-      link_ads: form.value.alink,
-      link_conversion: form.value.alinkc,
-      image: img,
-      language: list.language,
-      hobbies: list.hobbies,
-      gender: list.gender,
-      religion: list.religion,
-      journal: list.journal,
-      type_dependency: list.typeDep,
-      state: 0,
-      package: form.value.visit,
-      comentary: '',
-    };
+  updateAds(form: AdsI, id: string): Observable<any> {
     return this.httpCLient.post(
-      `${this.constante.API_SERVER}/ads/updateAdsById`,
-      body
+      `${this.constante.API_SERVER}/advertisements/updateAdsById/${id}`,
+      form
     );
+  }
+
+  onOffAds(form: AdsI, id: string): Observable<any> {
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/advertisements/onOffAdsById/${id}`,
+      form
+    );
+  }
+
+  visitAds(userId: string, adsId: string): Observable<any> {
+    return this.httpCLient.post(`${this.constante.API_SERVER}/advertisements/visitAds`, {
+      userId, adsId
+    });
   }
 
 }

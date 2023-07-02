@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { LayoutServiceService } from '../../services/layout-service.service';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
@@ -15,6 +15,7 @@ export class AdsLayoutComponent implements OnInit {
   @ViewChild('failDeleteAdsRev') failDeleteAdsRev!: ModalAlertsComponent;
   @ViewChild('successNotices') successNotices!: ModalAlertsComponent;
   @ViewChild('failNotices') failNotices!: ModalAlertsComponent;
+  @ViewChild('btnEdit') btnEdit!: ElementRef;
 
   userId: string = '';
   adsActive: AdsI[] = [];
@@ -22,7 +23,7 @@ export class AdsLayoutComponent implements OnInit {
   adsReturn: AdsI[] = [];
   adsDisable: AdsI[] = [];
   messague: string = "";
-
+  selectedAds!: AdsI;
 
   constructor(private layoutService: LayoutServiceService) { }
 
@@ -33,6 +34,9 @@ export class AdsLayoutComponent implements OnInit {
 
   async getAds() {
     try {
+      this.adsActive = [];
+      this.adsReview = [];
+      this.adsReturn = [];
       const response = await lastValueFrom(
         this.layoutService.onGetAds(this.userId)
       );
@@ -64,10 +68,9 @@ export class AdsLayoutComponent implements OnInit {
     this.getAds();
   }
 
-  async onDelete(id: any) {
+  async onDelete(id: string) {
     try {
       const response = await lastValueFrom(this.layoutService.deleteAds(id));
-
       if (response.data !== null) {
         this.exitoDeleteAdsRev.abrir();
       }
@@ -76,9 +79,23 @@ export class AdsLayoutComponent implements OnInit {
     }
   }
 
-  async onUpdate(item: any) {
-    sessionStorage.setItem('item', JSON.stringify(item));
-    location.reload();
+  async onOffAds(data: AdsI) {
+    try {
+      data.stop = !data.stop ?? true;
+      const response = await lastValueFrom(this.layoutService.onOffAds(data, data._id!));
+      if (response.data !== null) {
+        this.messague = response.message;
+        this.successNotices.abrir();
+      }
+    } catch (error: any) {
+      this.messague = error.error.message;
+      this.successNotices.abrir();
+    }
+  }
+
+  onUpdate(item: AdsI) {
+    this.btnEdit.nativeElement.click();
+    this.selectedAds = { ...item };
   }
 
   openModal(data: any) {
@@ -88,6 +105,5 @@ export class AdsLayoutComponent implements OnInit {
     } else {
       this.failNotices.abrir();
     }
-
   }
 }

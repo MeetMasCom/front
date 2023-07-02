@@ -11,20 +11,25 @@ export class NoticesTypeComponent implements OnInit {
   @Input() data: AdsI[] = [];
   @Output() sendId: EventEmitter<any> = new EventEmitter();
   @Output() sendItem: EventEmitter<any> = new EventEmitter();
+  @Output() onOffItem: EventEmitter<AdsI> = new EventEmitter();
 
   constructor() {
     /*Constructor*/
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     /*funciones al inciar*/
   }
 
-  async onDelete(id: string) {
+  onDelete(id: string) {
     this.sendId.emit(id);
   }
 
-  async onUpdate(item: any) {
+  onUpdate(item: AdsI) {
     this.sendItem.emit(item);
+  }
+
+  onOffAds(item: AdsI) {
+    this.onOffItem.emit(item);
   }
 }

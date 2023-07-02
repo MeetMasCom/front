@@ -27,11 +27,11 @@
           Nuevo
         </button>
       </div>
-      <app-notices-type [type]="0" [data]="adsActive"></app-notices-type>
+      <app-notices-type [type]="0" (onOffItem)="onOffAds($event)" (sendId)="onDelete($event)"
+        (sendItem)="onUpdate($event)" [data]="adsActive"></app-notices-type>
     </div>
     <div class="tab-pane fade my-3" id="ads-rev" role="tabpanel" aria-labelledby="ads-rev-tab">
-      <app-notices-type [type]="1" [data]="adsReview" (sendId)="onDelete($event)"
-        (sendItem)="onUpdate($event)"></app-notices-type>
+      <app-notices-type [type]="1" [data]="adsReview"></app-notices-type>
     </div>
     <div class="tab-pane fade" id="ads-dev" role="tabpanel" aria-labelledby="ads-dev-tab">
       <app-notices-type [type]="2" [data]="adsReturn" (sendId)="onDelete($event)"
@@ -39,7 +39,8 @@
     </div>
   </div>
 </div>
-<div class="w-100 position-fixed bottom-0 ">
+<br><br><br>
+<div class="w-100 position-fixed bottom-0">
   <app-footer></app-footer>
 </div>
 
@@ -69,6 +70,26 @@
       </div>
       <div class="modal-body">
         <app-notices (saveAds)="openModal($event)"></app-notices>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" #btnEdit class="hidden" data-bs-toggle="modal" data-bs-target="#editAdsModal">
+</button>
+
+<!-- editar anuncio Modal -->
+<div class="modal fade" id="editAdsModal" tabindex="-1" aria-labelledby="editAdsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAdsModalLabel">Editar anuncio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-notices [data]="selectedAds" [action]="1" (saveAds)="openModal($event)"></app-notices>
       </div>
     </div>
   </div>

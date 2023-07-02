@@ -2,7 +2,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  height: 80px;
+  height: 78px;
   overflow: hidden; /*si no se declara añade los ... pero muestra todo el texto*/
 }
 
@@ -19,26 +19,20 @@
 }
 
 .card-el-action {
-  min-height: 260px;
-  max-height: 260px;
+  min-height: 240px;
+  /* max-height: 240px; */
 }
 
 .img {
-  width: 180px;
-  height: 200px;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 .img img {
-  width: 100%;
+  width: 100% !important;
 }
 
-.input-btn {
-  min-height: 2vw;
-  border: 1px solid #737373;
-  margin-top: 1vw;
-  margin-bottom: 1vw;
-  background: #f9a21e;
+span {
+  cursor: pointer;
 }

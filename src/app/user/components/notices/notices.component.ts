@@ -15,7 +15,7 @@ import { AdsI } from 'src/app/shared/interfaces/ad.interface';
 })
 export class NoticesComponent implements OnInit, OnChanges {
 
-  @Input() action: number = 0 // 0 - nuevo, 1 - revision 2 - edicion
+  @Input() action: number = 0 // 0 - nuevo, 2 - revision ,1 - edicion
   @Input() data!: AdsI
   @Output() saveAds = new EventEmitter<any>();
   @Output() acceptAds = new EventEmitter<AdsI>();
@@ -296,6 +296,17 @@ export class NoticesComponent implements OnInit, OnChanges {
       if (this.data) delete this.data.comentary;
       this.disableAllForm();
     }
+    if (changes['data'] && this.action == 1) {
+      if (this.data) delete this.data.comentary;
+      this.model = this.data;
+      this.disableEditForm();
+    }
+  }
+
+  disableEditForm() {
+    this.fieldsTipo.forEach(item => {
+      item.props!.disabled = true;
+    })
   }
 
   disableAllForm() {
@@ -554,7 +565,7 @@ export class NoticesComponent implements OnInit, OnChanges {
     }
   }
 
-  async onRegister(form: any) {
+  async onRegister(form: AdsI) {
     try {
 
       if (this.model.type == 1 || this.model.type == 2) {
@@ -583,6 +594,37 @@ export class NoticesComponent implements OnInit, OnChanges {
       });
     }
   }
+
+  async onUpdate(form: AdsI) {
+    try {
+
+      if (this.model.type == 1 || this.model.type == 2) {
+        if (this.model.file == "") {
+          this.toastrService.warning("Selecciona una imágen", "Aviso");
+          return;
+        }
+      }
+
+      form.userId = this.userId;
+      const response = await lastValueFrom(
+        this.layoutServiceService.updateAds(form, form._id!)
+      );
+      if (response.data !== null) {
+        this.errMsj = response.message;
+        this.saveAds.emit({
+          messague: this.errMsj,
+          result: true
+        });
+      }
+    } catch (error: any) {
+      this.errMsj = error.error.message;
+      this.saveAds.emit({
+        messague: this.errMsj,
+        result: false
+      });
+    }
+  }
+
 
   onAccepReview(form: AdsI) {
     this.acceptAds.emit(form);

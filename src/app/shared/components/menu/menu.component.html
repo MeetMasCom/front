@@ -25,7 +25,9 @@
     <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavAltMarkup">
       <div class="navbar-nav menu mx-4">
         <ng-container *ngIf="token !== ''">
-          <a class="nav-item nav-link" href="home">Inicio</a>
+          <a class="nav-item nav-link " href="feedbackUser">FeedBack</a>
+          <a class="nav-item nav-link " href="">Conocer Gente</a>
+          <a class="nav-item nav-link " href="home">Inicio</a>
           <div class="dropdown">
             <a class="btn dropdown-toggle border-0 nav-item nav-link" role="button" id="dropdownMenuLink"
               data-bs-toggle="dropdown" aria-expanded="false" href="friends">
@@ -140,7 +142,8 @@
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li><a class="dropdown-item" href="/myProfile">Mi Perfil</a></li>
-              <li><a class="dropdown-item" href="dataUser">Mis Datos</a></li>
+             
+              <li><a class="dropdown-item"  [routerLink]="'/dataUser/' + estado" >Mis Datos</a></li>
               <li><a class="dropdown-item" href="privacy">Privacidad</a></li>
               <li><a class="dropdown-item" href="anuncios">Anuncios</a></li>
               <li>
@@ -203,9 +206,9 @@
       </div>
     </div>
   </nav>
-  <div *ngIf="token !== ''" class="d-none">
+   <div *ngIf="token !== ''" class="d-none">
     <!-- <app-search></app-search> -->
-  </div>
+  </div> 
 
   <!-- Modal -->
   <app-login></app-login>

@@ -2,8 +2,7 @@ h3{
     text-align: center;
   }
   .rating{
-    display: flex;
-    
+    display: flex;    
     gap: 5px;
     margin-top: 10px;
   }
@@ -14,12 +13,14 @@ h3{
     
   }
   
-  fa-icon:hover{
+  /* fa-icon:hover{
       color: orange;
-      width: 40px;
-      height: 40px;
-  }
+  } */
   
   .active{
     color: orange;
   }
+
+  .fa-3x {
+    font-size: 2em !important;
+}

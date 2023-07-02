@@ -268,5 +268,11 @@ export class AdminServiceService {
   }
 
 
+getFeedBack(): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/feedback/getFeedBack`);
+}
+
+
 
 }

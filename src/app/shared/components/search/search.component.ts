@@ -24,6 +24,9 @@ export class SearchComponent implements OnInit {
   smokes: any = [];
   childrens: any = [];
   estado = -1;
+  datos: any;
+  profile: string='';
+  id: string='';
 
   constructor(
     private sharedService: SharedserviceService,
@@ -37,6 +40,9 @@ export class SearchComponent implements OnInit {
     } else {
       this.userFree = true;
     }
+    if (sessionStorage.getItem('id')!) {
+      this.id = sessionStorage.getItem('id')!;
+    }
     await this.onGetCountry();
     await this.getStateCivil();
     await this.getBodyForm();
@@ -47,7 +53,6 @@ export class SearchComponent implements OnInit {
   }
 
   async search(form: any) {
-    console.log(form.value);
     this.user.state.forEach(async (element: any, index: any) => {
       if (this.user.state[index] === 0 && this.user.state.length === 1) {
         this.estado = 0;
@@ -59,7 +64,9 @@ export class SearchComponent implements OnInit {
             this.sharedService.searchUsers(form.value)
           );
 
-          console.log('response', response);
+          if(response?.data){
+            this.datos=response.data;
+          }
         } catch (error) {
           console.log('error', error);
         }
@@ -69,6 +76,39 @@ export class SearchComponent implements OnInit {
 
   moreOptions() {
     this.show = !this.show;
+  }
+
+  calcularEdad(fechaN: string): number {
+    const hoy = new Date();
+    const fechaNacimiento = new Date(fechaN);
+
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+    const mesNacimiento = fechaNacimiento.getMonth();
+    const diaNacimiento = fechaNacimiento.getDate();
+
+    if (
+      mesActual < mesNacimiento ||
+      (mesActual === mesNacimiento && diaActual < diaNacimiento)
+    ) {
+      edad--;
+    }
+
+    return edad;
+  }
+
+  verPerfil(idU:string){
+    this.profile='646c1e9ec29b09413fcb3887';
+    const param1 = idU;
+    const param2 = this.profile;
+     if(this.id===idU){
+       this.router.navigate(['/myProfile']);
+     }else{    
+      this.router.navigate(['/userProfile'], {
+        queryParams: { param1, param2 }
+      })
+    }
   }
 
   async onGetCountry() {

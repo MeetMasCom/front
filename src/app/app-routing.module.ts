@@ -85,7 +85,7 @@ const routes: Routes = [
   { path: 'myBilletera', component: BilleteraComponent },
 
   //perfil
-  //{ path: 'search', component: SearchComponent },
+  { path: 'search', component: SearchComponent },
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'privacy', component: PrivacyComponent },

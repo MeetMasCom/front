@@ -276,6 +276,11 @@ export class ProfileServiceService {
 }
 
 
+getStarPost(post: string): Observable<any> {
+  return this.httpCLient.get<any>(
+    `${this.constante.API_SERVER}/star/getStarPost/${post}`);
+}
+
   UpdateStar(id: string,datos:any): Observable<any> {
     return this.httpCLient.post<any>(`${this.constante.API_SERVER}/star/updateStar/${id}`,datos);
 }

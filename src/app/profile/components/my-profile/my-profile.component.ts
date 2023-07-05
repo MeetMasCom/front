@@ -201,12 +201,13 @@ export class MyProfileComponent {
   }
 
   Update() {
-    if(this.estado>0){
-      this.updateProfile.abrir();
-    }else{
-      this.stateUser = this.dataUser.state[this.dataUser.state.length - 1];
+    this.stateUser = this.dataUser.state[this.dataUser.state.length - 1];
+    if(this.stateUser===0){      
       this.router.navigate(['/dataUser/'+this.stateUser]);
      // [routerLink]="'/dataUser/' + estado"
+    
+    }else{
+      this.updateProfile.abrir();
     }
     
   }
@@ -283,7 +284,7 @@ export class MyProfileComponent {
   async UpdateProfile(event: any) {
     try {
       const resp = await lastValueFrom(
-        this.profileService.updateProfile(this.id, event.value, this.img)
+        this.profileService.updateProfile(this.id, event.value, this.image)
       );
       this.classA = 'alert-success';
       this.message = resp.message;

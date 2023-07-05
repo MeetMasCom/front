@@ -40,4 +40,9 @@ export class FinanceServiceService {
   getRetreatUser(id: string): Observable<any> {
     return this.httpCLient.get<any>(`${this.constante.API_SERVER}/balanceUser/retreat/${id}`);
   }
+
+  getAllRetreats(): Observable<any> {
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/balanceUser/retreatAll`);
+  }
+
 }

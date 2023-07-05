@@ -50,6 +50,7 @@ export interface RecordsI {
 export interface RetreatI {
     _id?: string
     userId: string
+    userName?: string
     walletId: string;
     statusDetail?: string;
     amount: number;
@@ -58,4 +59,12 @@ export interface RetreatI {
     status?: number; // 0 enviado, 1 aprobado, 2 rechazado
     createdAt?: string;
     updatedAt?: string;
+}
+
+export interface ReviewRetreatI {
+    id: string;
+    remark: string;
+    value: number;
+    status: number;
+    file: string;
 }

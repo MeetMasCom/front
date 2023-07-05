@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConstantsSystem } from '../../utils/constants-system';
 import { WalletI } from 'src/app/shared/interfaces/wallet.interface';
-import { ReviewRechargeI } from 'src/app/finance/interfaces/balanceUser';
+import { ReviewRechargeI, ReviewRetreatI } from 'src/app/finance/interfaces/balanceUser';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +85,14 @@ export class AdminServiceService {
       item
     );
   }
+
+  reviewRetrat(item: ReviewRetreatI): Observable<any> {
+    return this.http.post(
+      `${this.constante.API_SERVER}/balanceUser/review-retreat`,
+      item
+    );
+  }
+
 
   createAdmin(form: any, rol: any): Observable<any> {
     console.log(" formulario servicio", form.value);
@@ -268,10 +276,10 @@ export class AdminServiceService {
   }
 
 
-getFeedBack(): Observable<any> {
-  return this.httpCLient.get<any>(
-    `${this.constante.API_SERVER}/feedback/getFeedBack`);
-}
+  getFeedBack(): Observable<any> {
+    return this.httpCLient.get<any>(
+      `${this.constante.API_SERVER}/feedback/getFeedBack`);
+  }
 
 
 

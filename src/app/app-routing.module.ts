@@ -43,9 +43,10 @@ import { AdminRechargsComponent } from './admin/components/admin-rechargs/admin-
 import { ProfilesComponent } from './admin/components/profiles/profiles.component';
 import { LikesComponent } from './profile/components/likes/likes.component';
 import { SocialUserComponent } from './admin/components/social-user/social-user.component';
-import {FeedbackComponent} from './admin/components/feedback/feedback.component';
-import {FeedbackUserComponent} from './shared/components/feedback-user/feedback-user.component';
+import { FeedbackComponent } from './admin/components/feedback/feedback.component';
+import { FeedbackUserComponent } from './shared/components/feedback-user/feedback-user.component';
 import { SearchComponent } from './shared/components/search/search.component';
+import { AdminRetreatComponent } from './admin/components/admin-retreat/admin-retreat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'membresias', component: AdminMembershipComponent },
   { path: 'billeteraE', component: WalletCompanyComponent },
   { path: 'recargasE', component: AdminRechargsComponent },
+  { path: 'retirosE', component: AdminRetreatComponent },
   { path: 'profiles', component: ProfilesComponent },
   { path: 'userSocials', component: SocialUserComponent },
   { path: 'fedback', component: FeedbackComponent },
@@ -113,7 +115,7 @@ const routes: Routes = [
   { path: 'politicas', component: PoliticsComponent },
   { path: 'acuerdo', component: AgreementsComponent },
 
-{path:'feedbackUser',component:FeedbackUserComponent},
+  { path: 'feedbackUser', component: FeedbackUserComponent },
 
   { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
 ];

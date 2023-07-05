@@ -10,7 +10,6 @@ import { ListHotelComponent } from './hotel/components/list-hotel/list-hotel.com
 import { HotelDetailComponent } from './hotel/components/hotel-detail/hotel-detail.component';
 import { MyHotelComponent } from './hotel/components/my-hotel/my-hotel.component';
 import { AdsLayoutComponent } from './layouts/components/ads-layout/ads-layout.component';
-
 import { AdminLayoutComponent } from './layouts/components/admin-layout/admin-layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { AdminsComponent } from './admin/components/admins/admins.component';
@@ -47,6 +46,7 @@ import { FeedbackComponent } from './admin/components/feedback/feedback.componen
 import { FeedbackUserComponent } from './shared/components/feedback-user/feedback-user.component';
 import { SearchComponent } from './shared/components/search/search.component';
 import { AdminRetreatComponent } from './admin/components/admin-retreat/admin-retreat.component';
+import { ProfessionsComponent } from './admin/components/professions/professions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -82,12 +82,13 @@ const routes: Routes = [
   { path: 'profiles', component: ProfilesComponent },
   { path: 'userSocials', component: SocialUserComponent },
   { path: 'fedback', component: FeedbackComponent },
+  { path: 'options/:code', component: ProfessionsComponent },
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },
 
   //perfil
-  //{ path: 'search', component: SearchComponent },
+  { path: 'search', component: SearchComponent },
   { path: 'myProfile', component: MyProfileComponent },
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'privacy', component: PrivacyComponent },

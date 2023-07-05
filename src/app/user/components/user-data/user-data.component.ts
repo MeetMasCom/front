@@ -5,6 +5,7 @@ import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAlertsComponent } from '../../../shared/components/modal-alerts/modal-alerts.component';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-user-data',
@@ -21,6 +22,7 @@ export class UserDataComponent implements OnInit {
   @ViewChild('recoverWarningUD') recoverWarningUD!: ModalAlertsComponent;
 
   faLocationDot=faLocationDot;
+  //dropdownSettings: IDropdownSettings = {};
   stateCivil: any = [];
   policies: any = [];
   drinks: any = [];
@@ -48,6 +50,28 @@ export class UserDataComponent implements OnInit {
   verify: any;
   selectedFile: any;
   countries: any;
+  jornadas: any = [];
+  dependencia: any = [];
+  etnia: any = [];
+  religion: any= [];
+  deportesName: any=[];
+  auxSport: any = [];
+  item: any;
+  idioma: any=[];
+  //seleccionados
+  selectedSport: any;
+  selectedIdioma: any;
+  auxIdioma: any=[];
+
+
+  //Listas
+  idiomasList: any = [];
+  deportesList: any = [];
+
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+  selectedOption:string='';
 
   constructor(
     public userService: UserServiceService,
@@ -74,7 +98,15 @@ export class UserDataComponent implements OnInit {
     await this.getJobs();
     await this.getGenero();
     await this.getSport();
+    await this.getDependencia();
+    await this.getJornada();
+    await this.getEtnia();
+    await this.getFrecuenciaSport();
+    await this.getReligion();
+    await this.getIdioma();
 
+    this.idiomasList = this.idioma;
+    this.deportesList=this.deportesName;
     if (sessionStorage.getItem('token')!) {
       this.token = JSON.parse(sessionStorage.getItem('token')!);
     }
@@ -83,10 +115,53 @@ export class UserDataComponent implements OnInit {
       this.onGetCountry();
       this.getUser();
     }
+ 
+
+      this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Seleccionar Todos',
+      unSelectAllText: 'Quitar Todos',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
     
   }
 
+//para los idiomas
+  onSelectIdioma(item: any) {
+    this.selectedIdioma.push(item);
+    this.selectedIdioma.pop();
+  }
+  
+  onSelectAllIdioma(items: any) {
+    this.selectedIdioma = [];
+    this.selectedIdioma.push(items);
+  }
 
+  onDeSelectIdioma(item: any) {
+    this.selectedIdioma.filter((element: any) => element !== item.item_id);
+  }
+
+
+//para los deportes
+  onSelectSport(item: any) {
+    this.selectedSport.push(item);
+    this.selectedSport.pop();
+  }
+
+  
+  onSelectAllSport(items: any) {
+    this.selectedSport = [];
+    this.selectedSport.push(items);
+  }
+
+  onDeSelectSport(item: any) {
+    this.selectedSport.filter((element: any) => element !== item.item_id);
+  }
+
+ 
 
   async getUser() {
     const resp = await lastValueFrom(this.profileService.getUserById(this.id));
@@ -101,7 +176,7 @@ export class UserDataComponent implements OnInit {
   async onUpdate(form: any) {
     try {
       const response = await lastValueFrom(
-        this.userService.updateUser(form, this.id, this.token)
+        this.userService.updateUser(form,this.selectedIdioma,this.selectedSport, this.id, this.token)
       );
       if (response.data !== null) {
         sessionStorage.setItem('data', JSON.stringify(response.data));
@@ -339,7 +414,58 @@ export class UserDataComponent implements OnInit {
     }
   }
 
-  async getSport() {
+  async getJornada() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('JORNADA_LABORAL')
+      );
+
+      response.data.map((x: any) => {
+        this.jornadas.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getDependencia() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('DEPENDENCIA_LABORAL')
+      );
+
+      response.data.map((x: any) => {
+        this.dependencia.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getEtnia() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('ETNIAS')
+      );
+
+      response.data.map((x: any) => {
+        this.etnia.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getFrecuenciaSport() {
     try {
       const response = await lastValueFrom(
         this.userService.getCatalog('PRACTICA_DEPORTE')
@@ -355,6 +481,59 @@ export class UserDataComponent implements OnInit {
       console.log('error', error.error);
     }
   }
+
+  async getSport() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('DEPORTES')
+      );
+
+      
+      response.data.forEach((element: any) => {
+        this.deportesName.push({
+          item_id: element._id,
+          item_text: element.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
+  async getReligion() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('RELIGION')
+      );
+      response.data.map((x: any) => {
+        this.religion.push({
+          id: x._id,
+          name: x.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+      this.religion=[];
+    }
+  }
+
+  async getIdioma() {
+    try {
+      const response = await lastValueFrom(
+        this.userService.getCatalog('IDIOMAS')
+      );
+
+      response.data.forEach((element: any) => {
+        this.idioma.push({
+          item_id: element._id,
+          item_text: element.name,
+        });
+      });
+    } catch (error: any) {
+      console.log('error', error.error);
+    }
+  }
+
 
   onShowPass1() {
     this.estado = -1;

@@ -102,6 +102,7 @@ import { SocialUserComponent } from './admin/components/social-user/social-user.
 import { DetailUserComponent } from './profile/components/detail-user/detail-user.component';
 import { FeedbackUserComponent } from './shared/components/feedback-user/feedback-user.component';
 import { FeedbackComponent } from './admin/components/feedback/feedback.component';
+import { ProfessionsComponent } from './admin/components/professions/professions.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -182,7 +183,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     SocialUserComponent,
     DetailUserComponent,
     FeedbackUserComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ProfessionsComponent
   ],
   imports: [
     CKEditorModule,

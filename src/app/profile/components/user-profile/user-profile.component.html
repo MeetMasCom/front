@@ -576,11 +576,13 @@
                         [icon]="faMedal"
                       ></fa-icon>  Deportes</div>
                       <ng-container *ngIf="this.dataUser.type === 0">
-                        <div> {{dataUser?.sports[0]}}</div>
+                        <div> {{dataUser?.sports[0].item_text}}</div>
                       </ng-container>
                       <ng-container *ngIf="this.dataUser.type > 0">
                       <div *ngFor="let sport of dataUser.sports">
-                        {{sport}}
+                       <div >
+                        {{sport.item_text}}
+                       </div>
                       </div></ng-container>
                     </div>
                     <div class="col-md-4">

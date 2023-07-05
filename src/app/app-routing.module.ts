@@ -46,6 +46,7 @@ import { SocialUserComponent } from './admin/components/social-user/social-user.
 import {FeedbackComponent} from './admin/components/feedback/feedback.component';
 import {FeedbackUserComponent} from './shared/components/feedback-user/feedback-user.component';
 import { SearchComponent } from './shared/components/search/search.component';
+import { ProfessionsComponent } from './admin/components/professions/professions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'profiles', component: ProfilesComponent },
   { path: 'userSocials', component: SocialUserComponent },
   { path: 'fedback', component: FeedbackComponent },
+  { path: 'options/:code', component: ProfessionsComponent },
 
   //billetera
   { path: 'myBilletera', component: BilleteraComponent },

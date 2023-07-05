@@ -18,6 +18,40 @@ export class UserServiceService {
     );
   }
 
+  getData(param: string): Observable<any> {
+    return this.httpCLient.get(
+      `${this.constante.API_SERVER}/catalogue/data?code=${param}`
+    );
+  }
+
+ putCatalogue(
+    id: string,
+    token: string,
+    name: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+ console.log("parent catalogue", id);
+ console.log("name", name);
+ 
+ console.log("token", token);
+ 
+
+    return this.httpCLient.post(
+      `${this.constante.API_SERVER}/catalogue`,
+      {
+        code: name,
+        name: name,
+        parentCatalogueId:id
+      },
+      {
+        headers: headers,
+      }
+    );
+  }
+
+
   getCountries(): Observable<any> {
     return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
   }
@@ -81,11 +115,11 @@ export class UserServiceService {
     );
   }
 
-  updateUser(form: any, id: string, token: string): Observable<any> {
+  updateUser(form: any, idioma:any,sport:any,id: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-
+console.log("religion", form.value.religion);
     return this.httpCLient.put(
       `${this.constante.API_SERVER}/user/match/${id}`,
       {
@@ -96,16 +130,10 @@ export class UserServiceService {
         currentResidence: form.value.residencia,
         religion: form.value.religion,
         policy: form.value.policy,
-        languages: [
-          form.value.idioma1,
-          form.value.idioma2,
-          form.value.idioma3,
-          form.value.idioma4,
-          form.value.idioma5,
-        ],
+        languages: idioma,
         foods: form.value.food.split(','),
         hobbies: form.value.hobies.split(','),
-        sports: form.value.sports.split(','),
+        sports: sport,
         tasteOfClothes: form.value.clothes.split(','),
         civil_status: form.value.statecivil,
         drink: form.value.drink,

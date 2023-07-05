@@ -132,6 +132,7 @@ export class MyProfileComponent {
  selecImage: string='';
  redes:number=0;
  statusUserName:boolean=false;
+  stateUser: any;
 
 
   constructor(
@@ -181,7 +182,6 @@ export class MyProfileComponent {
         this.followers=this.dataUser.followers.length;
         this.followings=this.dataUser.following.length;
         this.perfil.push(resp.data[0]);
-        console.log(this.perfil);
         this.val = this.perfil[0]._id;
         this.getPostUser();
         this.getCountPost();
@@ -201,7 +201,15 @@ export class MyProfileComponent {
   }
 
   Update() {
-    this.updateProfile.abrir();
+    this.stateUser = this.dataUser.state[this.dataUser.state.length - 1];
+    if(this.stateUser===0){      
+      this.router.navigate(['/dataUser/'+this.stateUser]);
+     // [routerLink]="'/dataUser/' + estado"
+    
+    }else{
+      this.updateProfile.abrir();
+    }
+    
   }
 
   Publicar() {
@@ -276,7 +284,7 @@ export class MyProfileComponent {
   async UpdateProfile(event: any) {
     try {
       const resp = await lastValueFrom(
-        this.profileService.updateProfile(this.id, event.value, this.img)
+        this.profileService.updateProfile(this.id, event.value, this.image)
       );
       this.classA = 'alert-success';
       this.message = resp.message;
@@ -469,7 +477,6 @@ export class MyProfileComponent {
     if (this.selectedImage) {
       // Lógica de carga de imagen aquí
       const imageUrl = URL.createObjectURL(this.selectedImage);
-      console.log(imageUrl);
       this.editorContent += `<img src="${imageUrl}" alt="Image">`;
     }
   }

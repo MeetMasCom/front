@@ -80,7 +80,7 @@
             <div
               class="col-md-12 mb-3 d-flex justify-content-center align-items-center"
             >
-            <ng-container *ngIf="dataUser.type>0">
+            <ng-container *ngIf="dataUser?.type>0">
               <div *ngFor="let social of dataUser?.rsocials">
                 <ng-container *ngIf="social.red === '1'">
                   <a
@@ -149,7 +149,7 @@
               </div>
             </ng-container>
 
-            <ng-container *ngIf="dataUser.type===0">             
+            <ng-container *ngIf="dataUser?.type===0">             
                   <a
                     (click)="mostrar()"
                     class="text-decoration-none text-dark mx-3"
@@ -658,7 +658,7 @@
                             Deportes
                           </div>
                           <div *ngFor="let sport of dataUser.sports">
-                            {{ sport }}
+                            {{ sport.item_text }}
                           </div>
                         </div>
                         <div class="col-md-4">

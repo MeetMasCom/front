@@ -102,6 +102,8 @@ import { SocialUserComponent } from './admin/components/social-user/social-user.
 import { DetailUserComponent } from './profile/components/detail-user/detail-user.component';
 import { FeedbackUserComponent } from './shared/components/feedback-user/feedback-user.component';
 import { FeedbackComponent } from './admin/components/feedback/feedback.component';
+import { AdminRetreatComponent } from './admin/components/admin-retreat/admin-retreat.component';
+import { ProfessionsComponent } from './admin/components/professions/professions.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -117,6 +119,7 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
 
 @NgModule({
   declarations: [
+    AdminRetreatComponent,
     AppComponent,
     FooterComponent,
     MenuComponent,
@@ -182,7 +185,8 @@ export function urlValidator(control: AbstractControl): ValidationErrors | null 
     SocialUserComponent,
     DetailUserComponent,
     FeedbackUserComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ProfessionsComponent
   ],
   imports: [
     CKEditorModule,

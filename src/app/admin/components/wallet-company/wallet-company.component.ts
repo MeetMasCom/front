@@ -31,7 +31,7 @@ export class WalletCompanyComponent implements OnInit {
   options = [
     { value: 1, label: 'Crypto' },
     { value: 2, label: 'Bancos' },
-    { value: 2, label: 'Electrónicos' },
+    { value: 3, label: 'Electrónicos' },
   ];
   wallet!: WalletI
   form = new FormGroup({});

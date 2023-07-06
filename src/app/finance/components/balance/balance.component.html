@@ -6,14 +6,21 @@
         <button class="nav-link active" id="member-home-tab" data-bs-toggle="pill" data-bs-target="#member-home"
           type="button" role="tab" aria-controls="member-home" aria-selected="true">
           Finanzas
-          <fa-icon [icon]="['fas', 'wallet']"></fa-icon>
+          <!-- <fa-icon [icon]="['fas', 'wallet']"></fa-icon> -->
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="member-profile-tab" data-bs-toggle="pill" data-bs-target="#member-profile"
           type="button" role="tab" aria-controls="member-profile" aria-selected="false">
           Recargas
-          <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+          <!-- <fa-icon [icon]="['fas', 'money-bill']"></fa-icon> -->
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="money-tab" data-bs-toggle="pill" data-bs-target="#money" type="button" role="tab"
+          aria-controls="member-profile" aria-selected="false">
+          Retiros
+          <!-- <fa-icon [icon]="['fas', 'money-bill-transfer']"></fa-icon> -->
         </button>
       </li>
     </ul>
@@ -21,22 +28,23 @@
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active bg-white p-3" id="member-home" role="tabpanel"
         aria-labelledby="member-home-tab">
+        <div class="mt-3 mb-3">
+          <h2>Mis Finanzas</h2>
+        </div>
         <div class="table-responsive">
           <table aria-describedby="" class="table text-center">
             <thead>
               <tr>
-                <th scope="col">Billetera</th>
-                <th scope="col">Moneda</th>
                 <th scope="col">Saldo</th>
+                <th scope="col">Ultima Act.</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="balances.length > 0">
                 <tr *ngFor="let item of balances">
-                  <td>{{ item.alias }}</td>
-                  <td>{{ item.sigla }}</td>
-                  <td>{{ item.balance }}</td>
+                  <td>{{ item.balance | currency :"USD"}}</td>
+                  <td>{{ item.updatedAt | date :'medium' }}</td>
                   <td class="text-center">
                     <button (click)="getDetail(item)" title="Ver movimientos" type="button" data-bs-toggle="modal"
                       data-bs-target="#transactions" class="btn btn-outline-info mx-1">
@@ -47,7 +55,7 @@
               </ng-container>
               <ng-container *ngIf="balances.length === 0">
                 <tr class="text-center">
-                  <td class="text-center" colspan="4">No existe información</td>
+                  <td class="text-center" colspan="3">No existe información</td>
                 </tr>
               </ng-container>
             </tbody>
@@ -82,11 +90,51 @@
                   <td>{{ item.hash }}</td>
                   <td>{{ item.amount | currency : "USD" }}</td>
                   <td>{{ item.statusDetail }}</td>
-                  <td>{{ item.remark }}</td>
-                  <td>{{ item.updatedAt | date }}</td>
+                  <td>{{ item.remark ?? '------' }}</td>
+                  <td>{{ item.updatedAt | date: 'medium' }}</td>
                 </tr>
               </ng-container>
               <ng-container *ngIf="rechargs.length === 0">
+                <tr class="text-center">
+                  <td class="text-center" colspan="5">No existe información</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade show bg-white p-3" id="money" role="tabpanel" aria-labelledby="money-tab">
+        <div class="mt-3 mb-3">
+          <h2>Historial retiros</h2>
+        </div>
+        <div>
+          <div class="d-flex justify-content-end">
+            <input type="submit" class="btn" value="Retirar" data-bs-toggle="modal" data-bs-target="#retreat"
+              [ngClass]="'input-btn'" />
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table aria-describedby="" class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">Hash</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Comentario</th>
+                <th scope="col">Fecha Act.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="retreats.length > 0">
+                <tr *ngFor="let item of retreats">
+                  <td>{{ item._id }}</td>
+                  <td>{{ item.amount | currency : "USD" }}</td>
+                  <td>{{ item.statusDetail }}</td>
+                  <td>{{ item.remark ?? '------' }}</td>
+                  <td>{{ item.updatedAt | date: 'medium' }}</td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="retreats.length === 0">
                 <tr class="text-center">
                   <td class="text-center" colspan="5">No existe información</td>
                 </tr>
@@ -101,8 +149,6 @@
     <app-footer></app-footer>
   </div>
 
-
-
   <!-- RECARGA -->
   <div class="modal" tabindex="-1" id="recharge">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -112,12 +158,110 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
-            <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-            <div class="form-group text-center">
-              <input type="submit" class="btn" value="Guardar" [disabled]="form.invalid" [ngClass]="'input-btn'" />
+          <div class="d-flex flex-column">
+            <div *ngIf="findWallet()" class="alert alert-warning" role="alert">
+              <div class="d-flex flex-column mb-3">
+                <span class="form-text fw-bold text-center text-dark">Información Billetera </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Detalle</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.detalle}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Dirección</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.dir}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Tag</span>
+                <span class="form-text ms-2">
+                  {{findWallet()!.tag ? findWallet()!.tag : 'No registrado'}}
+                </span>
+              </div>
             </div>
-          </form>
+
+            <form [formGroup]="form">
+              <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+              <div class="mx-2 mb-3">
+                <label for="formFile" class="form-label">Adjuntar imágen</label>
+                <input accept="image/jpeg, image/png" (change)="setFile($event)" class="form-control" type="file"
+                  id="formFile">
+              </div>
+            </form>
+          </div>
+          <div class="form-group text-center">
+            <input type="button" (click)="onSubmit(model)" class="btn" value="Guardar"
+              [disabled]="form.invalid || file == ''" [ngClass]="'input-btn'" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETIROS -->
+  <div class="modal" tabindex="-1" id="retreat">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Retirar Saldo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column">
+            <div *ngIf="findWalletRetreat()" class="alert alert-warning" role="alert">
+              <div class="d-flex flex-column mb-3">
+                <span class="form-text fw-bold text-center text-dark">Información Billetera </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Detalle</span>
+                <span class="form-text ms-2">
+                  {{findWalletRetreat()!.alias}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Costo Transacción</span>
+                <span class="form-text ms-2">
+                  {{findWalletRetreat()!.costo | currency:"USD"}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Mínimo Retiro</span>
+                <span class="form-text ms-2">
+                  {{findWalletRetreat()!.minimo | currency:"USD"}}
+                </span>
+              </div>
+              <div class="d-flex flex-column mb-1">
+                <span class="form-text fw-bold text-dark">Maximo Retiro {{currentMembership}}</span>
+                <span class="form-text ms-2">
+                  <ng-container [ngSwitch]="currentMembership">
+                    <ng-container *ngSwitchCase="'BRONCE'">
+                      {{findWalletRetreat()!.maxRetiroB | currency:"USD"}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'PLATA'">
+                      {{findWalletRetreat()!.maxRetiroP | currency:"USD"}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'ORO'">
+                      {{findWalletRetreat()!.maxRetiroO | currency:"USD"}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'DIAMANTE'">
+                      {{findWalletRetreat()!.maxRetiroD | currency:"USD"}}
+                    </ng-container>
+
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+            <form [formGroup]="formRetreat">
+              <formly-form [form]="formRetreat" [fields]="fieldsRetreat" [model]="modelRetreat"></formly-form>
+            </form>
+          </div>
+          <div class="form-group text-center">
+            <input type="button" (click)="onSubmitRetreat(modelRetreat)" class="btn" value="Guardar"
+              [disabled]="formRetreat.invalid" [ngClass]="'input-btn'" />
+          </div>
         </div>
       </div>
     </div>
@@ -125,7 +269,7 @@
 
   <!-- MOVIMIENTOS -->
   <div class="modal" tabindex="-1" id="transactions">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Movimientos</h5>
@@ -139,7 +283,7 @@
                   <th scope="col">Tipo</th>
                   <th scope="col">Detalle</th>
                   <th scope="col">Valor</th>
-                  <th scope="col">Fecha Crea.</th>
+                  <th scope="col">Fecha </th>
                 </tr>
               </thead>
               <tbody>
@@ -148,7 +292,7 @@
                     <td>{{ item.typeTransaction }}</td>
                     <td>{{ item.detail }}</td>
                     <td>{{ item.value| currency : "USD" }}</td>
-                    <td>{{ item.createdAt | date }}</td>
+                    <td>{{ item.createdAt | date: 'medium' }}</td>
                   </tr>
                 </ng-container>
                 <ng-container *ngIf="records.length === 0">
@@ -163,7 +307,6 @@
       </div>
     </div>
   </div>
-
 
   <app-modal-alerts [idModal]="'successCreateM'" [icono]="'./assets/img/success.png'" [titulo]="'Registro Correcto'"
     [descripcion]="message" (successModal)="onRedirigir()" [tipo]="0" #successCreateM></app-modal-alerts>

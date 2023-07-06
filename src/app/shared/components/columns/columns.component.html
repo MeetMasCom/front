@@ -30,31 +30,26 @@
     <span>Precio por noche</span>
     <div class="row p-2">
       <label for="customRange2" class="form-label"></label>
-      <input
-        type="range"
-        class="form-range"
-        min="0"
-        max="5"
-        id="customRange2"
-      />
+      <input type="range" class="form-range" min="0" max="5" id="customRange2" />
     </div>
   </div>
   <hr />
 </ng-container>
 
 <ng-container *ngIf="tipo === 0">
-  <div
-    class="d-flex flex-column justify-content-center align-items-center pt-3 m-2"
-  >
-    <span>Publicidad</span>
-    <input class="form-control p-2" type="text" placeholder="Nombre" />
+  <div class="d-flex flex-column justify-content-center align-items-center pt-3 m-2 ads w-100">
+    <div class="w-100 text-center fw-semibold mb-3">Anuncios Publicitarios</div>
+    <div *ngFor="let item of ads" class="ads d-flex flex-column">
+      <a [title]="item.title" (click)="openAds(item)"><img alt="meet-mas" [src]="item.file" /></a>
+    </div>
+    <div *ngIf="ads.length == 0" class="card p-2 mt-2">
+      Sin anuncios publicitarios
+    </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="tipo === 2">
-  <div
-    class="d-flex flex-column justify-content-center align-items-center pt-3 pb-3"
-  >
+  <div class="d-flex flex-column justify-content-center align-items-center pt-3 pb-3">
     <span class="border-bottom">Publicaciones</span>
     <div class="d-flex flex-column mt-4">
       <img alt="" src="../../../../assets/img/logo1.png" />

@@ -154,7 +154,7 @@ export class UserProfileComponent {
       this.img = this.dataUser.image;
       this.imageBase64 = 'data:image/png;base64,' + '' + this.img;
       this.estado = this.dataUser.state[this.dataUser.state.length - 1];
-      console.log("estado",this.estado);
+     
     }
   }
 

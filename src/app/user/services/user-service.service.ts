@@ -32,11 +32,6 @@ export class UserServiceService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
- console.log("parent catalogue", id);
- console.log("name", name);
- 
- console.log("token", token);
- 
 
     return this.httpCLient.post(
       `${this.constante.API_SERVER}/catalogue`,
@@ -119,7 +114,6 @@ export class UserServiceService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-console.log("religion", form.value.religion);
     return this.httpCLient.put(
       `${this.constante.API_SERVER}/user/match/${id}`,
       {

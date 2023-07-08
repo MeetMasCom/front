@@ -1690,7 +1690,7 @@
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                  <ng-container *ngIf="val!=='Personal'">
+                  <ng-container *ngIf="val !== 'Personal'">
                     <div class="form-group mt-4">
                       <div class="position-relative has-icon-left">
                         <input
@@ -1707,7 +1707,6 @@
                       </div>
                     </div>
                   </ng-container>
-                  
 
                   <div class="form-group p-2 mt-4">
                     <div class="position-relative has-icon-left">
@@ -1728,25 +1727,25 @@
                       />
                     </div>
                   </div>
-                  <ng-container *ngIf="val!=='Personal'">
-                  <div class="form-group mt-4">
-                    <div class="position-relative has-icon-left">
-                      <textarea
-                        type="text"
-                        class="form-control"
-                        placeholder="Descripción - Ingrese mínimo 200 carácteres"
-                        id="pdescription"
-                        name="pdescription"
-                        required
-                        ngModel
-                        #pdescription="ngModel"
-                        minlength="200"
-                        maxlength="1000"
-                        [ngClass]="'input'"
-                      ></textarea>
+                  <ng-container *ngIf="val !== 'Personal'">
+                    <div class="form-group mt-4">
+                      <div class="position-relative has-icon-left">
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          placeholder="Descripción - Ingrese mínimo 200 carácteres"
+                          id="pdescription"
+                          name="pdescription"
+                          required
+                          ngModel
+                          #pdescription="ngModel"
+                          minlength="200"
+                          maxlength="1000"
+                          [ngClass]="'input'"
+                        ></textarea>
+                      </div>
                     </div>
-                  </div>
-                </ng-container>
+                  </ng-container>
                   <br />
                   <div class="col-12 d-flex justify-content-end">
                     <input
@@ -1772,33 +1771,55 @@
             >
               <div class="container">
                 <div class="row justify-content-center align-items-center">
-                  <div class=" col-md-6">                 
-                  <div class="card">
-                    <img
-                      [src]="'data:image/png;base64,' + post?.photo"
-                      class="card-img-top"
-                      alt="..."
-                    />
-                    <div class="card-body">
-                      <div class="text-center">
-                        <div>
-                          <span>{{post?.title}}</span>
-                        </div>
-                        <div>
-                          <span>{{post?.description}}</span>
+                  <div class="col-md-6">
+                    <div class="card">
+                      <img
+                        [src]="'data:image/png;base64,' + post?.photo"
+                        class="card-img-top"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <div class="text-center">
+                          <div>
+                            <span>{{ post?.title }}</span>
+                          </div>
+                          <div>
+                            <span>{{ post?.description }}</span>
+                          </div>
+
+                          <ng-container *ngIf="post?.user_id !== this.id">
+                            <div
+                              class="card-body d-flex justify-content-center"
+                            >
+                              <app-rating-star
+                                (eventSetRating)="setRating($event)"
+                                [val]="this.star"
+                              ></app-rating-star>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="post?.user_id === this.id">                            
+                                <div class="col">
+                                  <div>
+                                    <p class="fs-6" style="font-size: 12px !important;">{{ usuarios }} persona han calificado esta
+                                      publicación</p>
+                                  </div>
+                                  <div>
+                                    <p style="font-size: 14px !important;"> Promedio de estrellas obtenido:
+                                      {{ promedio }}</p>
+                                  </div>
+                                  
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center">
+                                  <app-rating-star
+                                    (eventSetRating)="setRating($event)"
+                                    [val]="promedio"
+                                  ></app-rating-star>
+                                </div>
+                          </ng-container>
                         </div>
                       </div>
-                     <ng-container *ngIf="post?.user_id !== this.id">                     
-                        <div class="card-body d-flex justify-content-center">
-                          <app-rating-star
-                            (eventSetRating)="setRating($event)"
-                            [val]="this.star"
-                          ></app-rating-star>
-                        </div>
-                      </ng-container>
                     </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -2121,20 +2142,23 @@
                     />
 
                     <div
-                    *ngIf="userNameP.invalid && (userNameP.dirty || userNameP.touched)"
-                    class="text-danger"
-                  >
-                    <small *ngIf="userNameP.errors?.['required']">
-                      {{ "Ingrese el nombre de usuario" }}
-                    </small>
-                    <small *ngIf="userNameP.errors?.['pattern']">
-                      {{ "register.username" }}
-                      {{ "register.invaliMsg" }}
-                    </small>
-                  </div>
-                  <div *ngIf="statusUserName" class="text-danger">
-                    Nombre de usuario ya registrado
-                  </div>
+                      *ngIf="
+                        userNameP.invalid &&
+                        (userNameP.dirty || userNameP.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <small *ngIf="userNameP.errors?.['required']">
+                        {{ "Ingrese el nombre de usuario" }}
+                      </small>
+                      <small *ngIf="userNameP.errors?.['pattern']">
+                        {{ "register.username" }}
+                        {{ "register.invaliMsg" }}
+                      </small>
+                    </div>
+                    <div *ngIf="statusUserName" class="text-danger">
+                      Nombre de usuario ya registrado
+                    </div>
                   </div>
 
                   <div class="col-12 d-flex justify-content-end mt-4">
@@ -2150,7 +2174,6 @@
                 <br />
 
                 <div class="col-md-2"></div>
-                
               </div>
             </div>
           </form>

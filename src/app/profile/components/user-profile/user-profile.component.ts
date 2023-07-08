@@ -107,6 +107,7 @@ export class UserProfileComponent {
   type: number = 0;
   idLike: string = '';
   qualification: any;
+  user_id: any;
   constructor(
     private profileService: ProfileServiceService,
     private friendsService: FriendsServiceService,
@@ -154,7 +155,7 @@ export class UserProfileComponent {
       this.img = this.dataUser.image;
       this.imageBase64 = 'data:image/png;base64,' + '' + this.img;
       this.estado = this.dataUser.state[this.dataUser.state.length - 1];
-      console.log("estado",this.estado);
+     
     }
   }
 
@@ -202,13 +203,14 @@ export class UserProfileComponent {
 
   async selectedPost(id: string) {
     const resp = await lastValueFrom(this.friendsService.getPostById(id));
-
     if (resp?.data.length > 0) {
       this.PostD = resp?.data[0];
+      this.user_id=this.PostD.user_id;
       const resp1 = await lastValueFrom(this.profileService.getStarIdUser(this.id,id));
       if (resp1?.data.length > 0) {
         this.qualification=resp1.data[0];
         this.star=this.qualification.qualification;
+        
       }
       else
       {
@@ -242,7 +244,16 @@ export class UserProfileComponent {
     try {
      //console.log("datos",$event);
       if (this.star === 0) {
-        await this.onRegisterStar($event.post_id,$event.qualification);
+        const resp=await this.onRegisterStar($event.post_id,$event.qualification);
+        if (resp !== null) {
+          const message = 'Le dio me gusta a tú publicación';
+          const resp1 = await lastValueFrom(
+            this.adminService.addNotification(this.id, this.user_id, message)
+          );
+          if (resp1 !== null) {
+            location.reload();
+          }
+        }
        } 
       //else {
       //   await this.onUpdateStar(this.id, this.dataStar);

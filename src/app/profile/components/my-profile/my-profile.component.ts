@@ -133,6 +133,9 @@ export class MyProfileComponent {
  redes:number=0;
  statusUserName:boolean=false;
   stateUser: any;
+  totalUser: number=0;
+  starPromedio: number=0;
+  starPost: any;
 
 
   constructor(
@@ -353,9 +356,10 @@ export class MyProfileComponent {
 
   async selectedPost(id: string) {
     const resp = await lastValueFrom(this.friendsService.getPostById(id));
-
+ 
     if (resp?.data.length > 0) {
       this.PostD = resp?.data[0];
+      this.getStarPost(id);
     }
     this.postdetail.abrir();
   }
@@ -492,5 +496,20 @@ export class MyProfileComponent {
   mostrar(){
     this.redes=1;
   }
+
+
+  async getStarPost(id:string){
+  const resp = await lastValueFrom(
+    this.profileService.getStarPost(id)
+  );
+  if (resp.data) {
+    let suma=0;
+    this.totalUser = resp.data.length;
+    resp.data.forEach((element: any) => {
+      suma=suma+element.qualification;
+    });
+    this.starPromedio=suma/this.totalUser;
+  } 
+}
 
 }

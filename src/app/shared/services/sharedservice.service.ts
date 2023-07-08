@@ -55,7 +55,7 @@ export class SharedserviceService {
     return this.httpCLient.get(`${this.constante.API_SERVER}/country`);
   }
 
-  searchUsers(form: any): Observable<any> {
+  searchUsers(form: any,genero:string): Observable<any> {
     const aux = form.edad.split('-');
     const edadAux: any[] = [];
     aux.map((element: any) => {
@@ -72,6 +72,7 @@ export class SharedserviceService {
       drink: form.bebida,
       smoke: form.fuma,
       childrens: form.hijos,
+      prefere:genero
     };
     return this.httpCLient.post(
       `${this.constante.API_SERVER}/user/searchUsers`,

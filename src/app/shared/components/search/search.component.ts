@@ -3,6 +3,7 @@ import { lastValueFrom } from 'rxjs';
 import { SharedserviceService } from '../../services/sharedservice.service';
 import { Router } from '@angular/router';
 import { ModalAlertsComponent } from '../modal-alerts/modal-alerts.component';
+import { ProfileServiceService } from '../../../profile/services/profile-service.service';
 
 @Component({
   selector: 'app-search',
@@ -27,10 +28,12 @@ export class SearchComponent implements OnInit {
   datos: any;
   profile: string='';
   id: string='';
-
+  genero:string='';
+  dataUser: any;
   constructor(
     private sharedService: SharedserviceService,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileServiceService,
   ) {}
 
   async ngOnInit() {
@@ -43,6 +46,7 @@ export class SearchComponent implements OnInit {
     if (sessionStorage.getItem('id')!) {
       this.id = sessionStorage.getItem('id')!;
     }
+    await this.getUser();
     await this.onGetCountry();
     await this.getStateCivil();
     await this.getBodyForm();
@@ -61,17 +65,25 @@ export class SearchComponent implements OnInit {
       if (this.user.state[index] === 1 || this.user.state[index] !== 0) {
         try {
           const response = await lastValueFrom(
-            this.sharedService.searchUsers(form.value)
+            this.sharedService.searchUsers(form.value,this.genero)
           );
-
           if(response?.data){
             this.datos=response.data;
+            console.log("datos",this.datos);
           }
         } catch (error) {
           console.log('error', error);
         }
       }
     });
+  }
+
+  async getUser() {
+    const resp = await lastValueFrom(this.profileService.getUserById(this.id));
+    if (resp?.data.length > 0) {
+      this.dataUser = resp?.data[0];
+      this.genero=this.dataUser.preferences;
+    }
   }
 
   moreOptions() {

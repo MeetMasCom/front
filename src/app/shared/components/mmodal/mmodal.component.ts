@@ -51,6 +51,9 @@ export class MmodalComponent {
   @Input() star:number=0;
   @Input() id:any;
   @Input() statusUserName: boolean=false;
+  @Input() usuarios: number=0;
+  @Input() promedio: number=0;
+
 
   
   faShield = faShield;

@@ -100,10 +100,7 @@ const routes: Routes = [
   //amigos
   { path: 'friends', component: StartFriendsComponent },
   { path: 'travel/:id', component: TravellersComponent },
-  { path: 'profesionals', component: ProfesionalsComponent },
-  { path: 'businessmen', component: BusinessmenComponent },
-  { path: 'students', component: StudentsComponent },
-  { path: 'languages', component: LanguagesComponent },
+
   { path: 'billetera', component: BilleteraComponent },
   { path: 'supSistemas', component: SupSystemsComponent },
   { path: 'supVentas', component: SupSalesComponent },
@@ -125,4 +122,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -21,7 +21,7 @@ export class UserDataComponent implements OnInit {
   @ViewChild('recoverFailUD') recoverFailUD!: ModalAlertsComponent;
   @ViewChild('recoverWarningUD') recoverWarningUD!: ModalAlertsComponent;
 
-  faLocationDot=faLocationDot;
+  faLocationDot = faLocationDot;
   //dropdownSettings: IDropdownSettings = {};
   stateCivil: any = [];
   policies: any = [];
@@ -44,8 +44,8 @@ export class UserDataComponent implements OnInit {
   showPass1 = false;
   showPass2 = false;
   msj = '';
-  userVerify=false;
-  id_user: string='';
+  userVerify = false;
+  id_user: string = '';
   dataU: any;
   verify: any;
   selectedFile: any;
@@ -53,15 +53,15 @@ export class UserDataComponent implements OnInit {
   jornadas: any = [];
   dependencia: any = [];
   etnia: any = [];
-  religion: any= [];
-  deportesName: any=[];
+  religion: any = [];
+  deportesName: any = [];
   auxSport: any = [];
   item: any;
-  idioma: any=[];
+  idioma: any = [];
   //seleccionados
   selectedSport: any;
   selectedIdioma: any;
-  auxIdioma: any=[];
+  auxIdioma: any = [];
 
 
   //Listas
@@ -71,42 +71,42 @@ export class UserDataComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-  selectedOption:string='';
+  selectedOption: string = '';
 
   constructor(
     public userService: UserServiceService,
     public profileService: ProfileServiceService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.showPass1 = true;
-    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);      
+    this.dataUser = JSON.parse(sessionStorage.getItem('data')!);
     this.activatedRoute.params.subscribe((params) => {
       this.estado = params['estado'];
     });
-   
-    await this.getStateCivil();
-    await this.getPolicies();
-    await this.getDrinks();
-    await this.getSmokes();
-    await this.getChildrens();
-    await this.getStudies();
-    await this.getBodyForm();
-    await this.getZodiacal();
-    await this.getJobs();
-    await this.getGenero();
-    await this.getSport();
-    await this.getDependencia();
-    await this.getJornada();
-    await this.getEtnia();
-    await this.getFrecuenciaSport();
-    await this.getReligion();
-    await this.getIdioma();
+
+    this.getStateCivil();
+    this.getPolicies();
+    this.getDrinks();
+    this.getSmokes();
+    this.getChildrens();
+    this.getStudies();
+    this.getBodyForm();
+    this.getZodiacal();
+    this.getJobs();
+    this.getGenero();
+    this.getSport();
+    this.getDependencia();
+    this.getJornada();
+    this.getEtnia();
+    this.getFrecuenciaSport();
+    this.getReligion();
+    this.getIdioma();
 
     this.idiomasList = this.idioma;
-    this.deportesList=this.deportesName;
+    this.deportesList = this.deportesName;
     if (sessionStorage.getItem('token')!) {
       this.token = JSON.parse(sessionStorage.getItem('token')!);
     }
@@ -115,9 +115,9 @@ export class UserDataComponent implements OnInit {
       this.onGetCountry();
       this.getUser();
     }
- 
 
-      this.dropdownSettings = {
+
+    this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
@@ -126,15 +126,15 @@ export class UserDataComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true,
     };
-    
+
   }
 
-//para los idiomas
+  //para los idiomas
   onSelectIdioma(item: any) {
     this.selectedIdioma.push(item);
     this.selectedIdioma.pop();
   }
-  
+
   onSelectAllIdioma(items: any) {
     this.selectedIdioma = [];
     this.selectedIdioma.push(items);
@@ -145,13 +145,13 @@ export class UserDataComponent implements OnInit {
   }
 
 
-//para los deportes
+  //para los deportes
   onSelectSport(item: any) {
     this.selectedSport.push(item);
     this.selectedSport.pop();
   }
 
-  
+
   onSelectAllSport(items: any) {
     this.selectedSport = [];
     this.selectedSport.push(items);
@@ -161,22 +161,22 @@ export class UserDataComponent implements OnInit {
     this.selectedSport.filter((element: any) => element !== item.item_id);
   }
 
- 
+
 
   async getUser() {
     const resp = await lastValueFrom(this.profileService.getUserById(this.id));
 
     if (resp?.data.length > 0) {
-      this.dataU = resp?.data[0];  
-      this.verify=this.dataU.verify;
-      }
+      this.dataU = resp?.data[0];
+      this.verify = this.dataU.verify;
     }
-  
+  }
+
 
   async onUpdate(form: any) {
     try {
       const response = await lastValueFrom(
-        this.userService.updateUser(form,this.selectedIdioma,this.selectedSport, this.id, this.token)
+        this.userService.updateUser(form, this.selectedIdioma, this.selectedSport, this.id, this.token)
       );
       if (response.data !== null) {
         sessionStorage.setItem('data', JSON.stringify(response.data));
@@ -488,7 +488,7 @@ export class UserDataComponent implements OnInit {
         this.userService.getCatalog('DEPORTES')
       );
 
-      
+
       response.data.forEach((element: any) => {
         this.deportesName.push({
           item_id: element._id,
@@ -513,7 +513,7 @@ export class UserDataComponent implements OnInit {
       });
     } catch (error: any) {
       console.log('error', error.error);
-      this.religion=[];
+      this.religion = [];
     }
   }
 
@@ -589,17 +589,17 @@ export class UserDataComponent implements OnInit {
     }
   }
 
-  verificarUser(){
+  verificarUser() {
     this.showPass1 = false;
     this.showPass2 = false;
     this.verify;
   }
 
-  async onRegisterDni(form:any){
+  async onRegisterDni(form: any) {
     try {
       form.value.huser_id = this.id;
       const resp = await lastValueFrom(
-        this.userService.updateDNI(this.id,this.selectedFile,this.token)
+        this.userService.updateDNI(this.id, this.selectedFile, this.token)
       );
       this.successPModal.abrir();
     } catch (error: any) {
@@ -610,7 +610,7 @@ export class UserDataComponent implements OnInit {
   }
 
 
-  onFileSelected(event:any){
+  onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 }

@@ -17,7 +17,7 @@
                     </div>
                     <div
                         class="d-none col-0 col-md-10 chat-list p-2 d-md-flex flex-column align-items-start justify-content-start">
-                        <span class="fw-bold">{{item.firstname}} {{item.lastname}}</span>
+                        <span class="fw-bold">{{item.userName}}</span>
                         <span class="fs-12 truncate w-full">{{item.description}}
                         </span>
                     </div>
@@ -36,24 +36,25 @@
                 <div class="col-4 col-md-1 position-relative">
                     <img width="60" class="img-fluid rounded-circle" [src]="'data:image/png;base64,'+user.image"
                         alt="meet-mas">
-                    <span class="position-absolute state-user translate-middle p-2  border border-light rounded-circle"
-                        [ngClass]="{'bg-success':user.online, 'bg-danger':!user.online}">
-                    </span>
                 </div>
                 <div class="col-8 col-md-11 p-2 d-flex flex-column align-items-start justify-content-start">
-                    <span class="fw-bold">{{user.firstname}} {{user.lastname}}</span>
+                    <span class="fw-bold">{{user.userName}}
+                        <span class="fs-10"
+                            [ngClass]="{'text-success':user.online, 'text-danger':!user.online}">({{user.online ? 'En
+                            línea'
+                            : 'Desconectado'}})</span>
+                    </span>
                     <span class="fs-12">{{user.description}}</span>
                 </div>
             </div>
 
             <div class="message-user p-2 w-100">
-                <ng-container *ngFor="let data of messagues">
+                <ng-container *ngFor="let data of messagues; let i=index">
                     <div class="fs-12 fw-lighter w-100 text-center mb-3">{{data.date}}</div>
-
-                    <ng-container *ngFor="let chat of data.message">
+                    <ng-container *ngFor="let chat of data.message; let index=index">
 
                         <ng-container *ngIf="!chat.current">
-                            <div class="row m-0 mb-3">
+                            <div [id]="'chat'+ i + index" class="row m-0 mb-3">
                                 <div class="col-10 col-md-6 row">
                                     <div class="d-none d-md-block col-2">
                                         <img class="img-fluid rounded-circle"
@@ -68,7 +69,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="chat.current">
-                            <div class="row m-0 mb-3">
+                            <div [id]="'chat'+ i + index" class="row m-0 mb-3">
                                 <div class="col-2 col-md-6">
                                 </div>
                                 <div class="col-10 col-md-6 message-user-detail-me py-2 px-3">

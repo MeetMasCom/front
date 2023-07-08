@@ -24,7 +24,7 @@ export class FriendsServiceService {
   }
 
   getAllUserLike(userId: string): Observable<any> {
-    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/messages/users?userId=${userId}`);
+    return this.httpCLient.get<any>(`${this.constante.API_SERVER}/chat/messages/users?userId=${userId}`);
   }
 
   getPost(id: string): Observable<User> {

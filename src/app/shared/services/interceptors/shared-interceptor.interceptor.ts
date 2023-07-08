@@ -9,11 +9,13 @@ import {
 import { SharedserviceService } from '../sharedservice.service';
 import { Observable, throwError } from "rxjs";
 import { catchError, finalize, map } from "rxjs/operators";
+import { ConstantsSystem } from 'src/app/utils/constants-system';
 
 @Injectable()
 export class SharedInterceptorInterceptor implements HttpInterceptor {
   private countRequest = 0;
-  constructor(private sharedLibService: SharedserviceService) { }
+  constructor(private sharedLibService: SharedserviceService, public constante: ConstantsSystem
+  ) { }
 
   intercept(
     req: HttpRequest<unknown>,
@@ -21,7 +23,8 @@ export class SharedInterceptorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
 
     if (!this.countRequest) {
-      this.sharedLibService.setIsloading(true);
+      if (req.url != this.constante.API_SERVER + '/chat/messages')
+        this.sharedLibService.setIsloading(true);
     }
     this.countRequest++;
 

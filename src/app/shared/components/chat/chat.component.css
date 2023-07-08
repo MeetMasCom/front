@@ -4,6 +4,10 @@
   /* background-color: aqua; */
 }
 
+.fs-10 {
+  font-size: 10px !important;
+}
+
 .-mt-2 {
   width: 100% !important;
   margin-top: -30px !important;
@@ -60,7 +64,6 @@
 
 .chat-user {
   overflow-y: auto !important;
-  max-height: 600px;
   min-height: 600px !important;
   overflow-x: hidden !important;
 }

@@ -78,6 +78,14 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.friendsServiceService.getMessages(userFrom, userId).subscribe(res => {
       this.messagues = res.data;
       this.isLoading = false;
+      const id = '#chat' + (this.messagues.length - 1) + (this.messagues[this.messagues.length - 1].message.length - 1);
+      const element = document.querySelector(id);
+      if (element)
+        element.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+          inline: "nearest"
+        });
     })
   }
 
